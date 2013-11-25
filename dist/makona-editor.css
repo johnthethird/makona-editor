@@ -256,6 +256,8 @@
     zoom: 1; }
   .makona-editor .clear {
     clear: both; }
+  .makona-editor .hide {
+    display: none; }
   .makona-editor ol {
     list-style: none; }
 
@@ -277,3 +279,12 @@
     .makona-editor .mk-edit .mk-block textarea {
       width: 97%;
       height: 150px; }
+
+.makona-editor .mk-block .mk-editor, .makona-editor .mk-block .mk-previewer {
+  display: none; }
+.makona-editor .mk-block .mk-editor.mk-mode-edit {
+  display: inherit; }
+.makona-editor .mk-block .mk-previewer.mk-mode-preview {
+  display: inherit; }
+.makona-editor .mk-previewer:hover {
+  border: 2px solid blue; }

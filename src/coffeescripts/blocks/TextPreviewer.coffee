@@ -1,6 +1,6 @@
 `/** @jsx React.DOM */`
 
-TextDisplay = React.createClass
+TextPreviewer = React.createClass
   render: -> `<pre>{this.props.block.data.text}</pre>`
 
-module.exports = TextDisplay
+module.exports = TextPreviewer

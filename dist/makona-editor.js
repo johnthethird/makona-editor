@@ -49,7 +49,7 @@
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM */;
-	var BLOCK_REGISTRY, CodeDisplay, CodeEditor, DocumentDisplay, DocumentEditor, ImageDisplay, ImageEditor, Makona, MakonaDisplayRow, MakonaEditor, MakonaEditorRow, MakonaPlusRow, MakonaPreviewList, MakonaRaw, MakonaSortableList, MarkdownDisplay, MarkdownEditor, QuoteDisplay, QuoteEditor, TextDisplay, TextEditor;
+	var BLOCK_REGISTRY, CodeEditor, CodePreviewer, DocumentEditor, DocumentPreviewer, ImageEditor, ImagePreviewer, Makona, MakonaEditor, MakonaEditorRow, MakonaPlusRow, MakonaPreviewList, MakonaPreviewerRow, MakonaRaw, MakonaSortableList, MarkdownEditor, MarkdownPreviewer, QuoteEditor, QuotePreviewer, TextEditor, TextPreviewer, Utils;
 
 	Makona = (function() {
 	  function Makona(opts) {
@@ -66,27 +66,29 @@
 
 	TextEditor = require(1);
 
-	TextDisplay = require(2);
+	TextPreviewer = require(2);
 
 	MarkdownEditor = require(3);
 
-	MarkdownDisplay = require(4);
+	MarkdownPreviewer = require(4);
 
 	CodeEditor = require(5);
 
-	CodeDisplay = require(6);
+	CodePreviewer = require(6);
 
 	QuoteEditor = require(7);
 
-	QuoteDisplay = require(8);
+	QuotePreviewer = require(8);
 
 	ImageEditor = require(9);
 
-	ImageDisplay = require(10);
+	ImagePreviewer = require(10);
 
 	DocumentEditor = require(11);
 
-	DocumentDisplay = require(12);
+	DocumentPreviewer = require(12);
+
+	Utils = require(13);
 
 	MakonaEditor = React.createClass({
 	  loadBlocksFromServer: function() {
@@ -182,7 +184,7 @@
 	          handleDelete:this.handleDelete}
 	        ),
 	        React.DOM.hr(null ),
-	        MakonaPreviewList( {blocks:this.state.blocks, opts:this.props.opts} ),
+	        /*<MakonaPreviewList blocks={this.state.blocks} opts={this.props.opts} /> */
 	        React.DOM.hr(null ),
 	        MakonaRaw( {blocks:this.state.blocks, opts:this.props.opts})
 	      )
@@ -199,7 +201,7 @@
 	  },
 	  renderRows: function() {
 	    return this.props.blocks.map(function(block) {
-	      return React.renderComponent(MakonaDisplayRow( {block:block, opts:this.props.opts} ), this.refs['preview' + block.id].getDOMNode());
+	      return React.renderComponent(MakonaPreviewerRow( {block:block, opts:this.props.opts} ), this.refs['preview' + block.id].getDOMNode());
 	    }, this);
 	  },
 	  render: function() {
@@ -240,10 +242,44 @@
 	      }
 	    });
 	  },
-	  handleDelete: function(e) {
-	    var id;
-	    id = $(e.target).data("id");
+	  handleDelete: function(id, e) {
 	    return this.props.handleDelete(id);
+	  },
+	  handleEdit: function(id, e) {
+	    var block;
+	    block = Utils.blockFromId(this.props.blocks, id);
+	    block = $.extend(block, {
+	      mode: 'edit'
+	    });
+	    return this.props.handleChange(block);
+	  },
+	  handlePreview: function(id, e) {
+	    var block;
+	    block = Utils.blockFromId(this.props.blocks, id);
+	    block = $.extend(block, {
+	      mode: 'preview'
+	    });
+	    return this.props.handleChange(block);
+	  },
+	  editClasses: function(id) {
+	    var block, cx, editClasses;
+	    block = Utils.blockFromId(this.props.blocks, id);
+	    cx = React.addons.classSet;
+	    return editClasses = cx({
+	      "mk-editor": true,
+	      "mk-mode-edit": block.mode === 'edit'
+	    });
+	  },
+	  previewClasses: function(id) {
+	    var block, cx, editClasses;
+	    block = _.findWhere(this.props.blocks, {
+	      id: parseInt(id, 10)
+	    });
+	    cx = React.addons.classSet;
+	    return editClasses = cx({
+	      "mk-previewer": true,
+	      "mk-mode-preview": (block.mode == null) || (block.mode === 'preview')
+	    });
 	  },
 	  render: function() {
 	    return (
@@ -251,14 +287,21 @@
 	        this.props.blocks.map(
 	          function(block){
 	            return (
-	              React.DOM.li( {className:"Bfc", id:block.id, key:"ks"+block.id, 'data-position':block.position}, 
-	                React.DOM.div( {className:"mk-block mk-block-"+block.type, ref:"editor"+block.id}, 
-	                  MakonaEditorRow( {block:block, opts:this.props.opts, handleChange:this.props.handleChange} )
+	              React.DOM.li( {className:"Bfc", id:block.id, key:"ks"+block.id, 'data-position':block.position} , 
+	                React.DOM.div( {className:"mk-block mk-block-"+block.type}, 
+	                  React.DOM.div( {className:this.editClasses(block.id), ref:"editor"+block.id, onBlur:this.handlePreview.bind(this, block.id)} , 
+	                    MakonaEditorRow( {block:block, opts:this.props.opts, handleChange:this.props.handleChange} )
+	                  ),
+	                  React.DOM.div( {className:this.previewClasses(block.id), ref:"preview"+block.id, onDoubleClick:this.handleEdit.bind(this, block.id)}, 
+	                    MakonaPreviewerRow( {block:block, opts:this.props.opts} )
+	                  )
 	                ),
 	                React.DOM.div( {className:"mk-block-controls"}, 
 	                  React.DOM.i( {className:"fa fa-bars m-r-20"} ),
+	                  React.DOM.a( {href:"#", onClick:this.handleEdit.bind(this, block.id)}, "Edit"),
+	                  React.DOM.a( {href:"#", onClick:this.handlePreview.bind(this, block.id)}, "Done"),
 	                  (this.props.blocks.length > 1) ?
-	                    React.DOM.a( {href:"#", 'data-id':block.id, onClick:this.handleDelete}, "Delete") : ""
+	                    React.DOM.a( {href:"#", onClick:this.handleDelete.bind(this, block.id)}, "Delete") : ""
 	                  
 	                ),
 	                React.DOM.div( {className:"clear"}),
@@ -278,7 +321,7 @@
 	  }
 	});
 
-	MakonaDisplayRow = React.createClass({
+	MakonaPreviewerRow = React.createClass({
 	  render: function() {
 	    return BLOCK_REGISTRY[this.props.block.type].previewClass({block: this.props.block, opts: this.props.opts});
 	  }
@@ -319,44 +362,50 @@
 	BLOCK_REGISTRY = {
 	  text: {
 	    editorClass: TextEditor,
-	    previewClass: TextDisplay,
+	    previewClass: TextPreviewer,
 	    newBlockData: {
+	      mode: 'preview',
 	      text: "New text block..."
 	    }
 	  },
 	  markdown: {
 	    editorClass: MarkdownEditor,
-	    previewClass: MarkdownDisplay,
+	    previewClass: MarkdownPreviewer,
 	    newBlockData: {
+	      mode: 'preview',
 	      text: "#New MD block..."
 	    }
 	  },
 	  quote: {
 	    editorClass: QuoteEditor,
-	    previewClass: QuoteDisplay,
+	    previewClass: QuotePreviewer,
 	    newBlockData: {
+	      mode: 'preview',
 	      text: "new quote",
 	      cite: "a person"
 	    }
 	  },
 	  code: {
 	    editorClass: CodeEditor,
-	    previewClass: CodeDisplay,
+	    previewClass: CodePreviewer,
 	    newBlockData: {
+	      mode: 'preview',
 	      text: "new code"
 	    }
 	  },
 	  image: {
 	    editorClass: ImageEditor,
-	    previewClass: ImageDisplay,
+	    previewClass: ImagePreviewer,
 	    newBlockData: {
+	      mode: 'preview',
 	      src: ""
 	    }
 	  },
 	  document: {
 	    editorClass: DocumentEditor,
-	    previewClass: DocumentDisplay,
+	    previewClass: DocumentPreviewer,
 	    newBlockData: {
+	      mode: 'preview',
 	      title: ""
 	    }
 	  }
@@ -398,15 +447,15 @@
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM */;
-	var TextDisplay;
+	var TextPreviewer;
 
-	TextDisplay = React.createClass({
+	TextPreviewer = React.createClass({
 	  render: function() {
 	    return React.DOM.pre(null, this.props.block.data.text);
 	  }
 	});
 
-	module.exports = TextDisplay;
+	module.exports = TextPreviewer;
 
 
 /***/ },
@@ -442,11 +491,11 @@
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM */;
-	var MarkdownDisplay, SHOWDOWN_CONVERTER;
+	var MarkdownPreviewer, SHOWDOWN_CONVERTER;
 
 	SHOWDOWN_CONVERTER = new Showdown.converter();
 
-	MarkdownDisplay = React.createClass({
+	MarkdownPreviewer = React.createClass({
 	  render: function() {
 	    var html;
 	    html = SHOWDOWN_CONVERTER.makeHtml(this.props.block.data.text);
@@ -454,7 +503,7 @@
 	  }
 	});
 
-	module.exports = MarkdownDisplay;
+	module.exports = MarkdownPreviewer;
 
 
 /***/ },
@@ -498,9 +547,9 @@
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM */;
-	var CodeDisplay;
+	var CodePreviewer;
 
-	CodeDisplay = React.createClass({
+	CodePreviewer = React.createClass({
 	  render: function() {
 	    var html;
 	    html = prettyPrintOne(this.props.block.data.text, this.props.block.data.lang);
@@ -513,7 +562,7 @@
 	  }
 	});
 
-	module.exports = CodeDisplay;
+	module.exports = CodePreviewer;
 
 
 /***/ },
@@ -557,9 +606,9 @@
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM */;
-	var QuoteDisplay;
+	var QuotePreviewer;
 
-	QuoteDisplay = React.createClass({
+	QuotePreviewer = React.createClass({
 	  render: function() {
 	    return (
 	      React.DOM.div(null, 
@@ -570,7 +619,7 @@
 	  }
 	});
 
-	module.exports = QuoteDisplay;
+	module.exports = QuotePreviewer;
 
 
 /***/ },
@@ -579,9 +628,9 @@
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM */;
-	var ImageDisplay, ImageEditor;
+	var ImageEditor, ImagePreviewer;
 
-	ImageDisplay = require(10);
+	ImagePreviewer = require(10);
 
 	ImageEditor = React.createClass({
 	  componentDidMount: function() {
@@ -648,7 +697,7 @@
 	  render: function() {
 	    return (
 	      React.DOM.div(null, 
-	         (this.props.block.data.src.length > 0) ? ImageDisplay( {block:this.props.block} ) : React.DOM.div( {ref:"fineuploader"})
+	         (this.props.block.data.src.length > 0) ? ImagePreviewer( {block:this.props.block} ) : React.DOM.div( {ref:"fineuploader"})
 	      )
 	    );
 	  }
@@ -663,9 +712,9 @@
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM */;
-	var ImageDisplay;
+	var ImagePreviewer;
 
-	ImageDisplay = React.createClass({
+	ImagePreviewer = React.createClass({
 	  render: function() {
 	    return (
 	      React.DOM.div(null, 
@@ -675,7 +724,7 @@
 	  }
 	});
 
-	module.exports = ImageDisplay;
+	module.exports = ImagePreviewer;
 
 
 /***/ },
@@ -684,9 +733,9 @@
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM */;
-	var DocumentDisplay, DocumentEditor;
+	var DocumentEditor, DocumentPreviewer;
 
-	DocumentDisplay = require(12);
+	DocumentPreviewer = require(12);
 
 	DocumentEditor = React.createClass({
 	  componentDidMount: function() {
@@ -755,7 +804,7 @@
 	  render: function() {
 	    return (
 	      React.DOM.div(null, 
-	         (this.props.block.data.title.length > 0) ? DocumentDisplay( {block:this.props.block} ) : React.DOM.div( {ref:"fineuploader"})
+	         (this.props.block.data.title.length > 0) ? DocumentPreviewer( {block:this.props.block} ) : React.DOM.div( {ref:"fineuploader"})
 	      )
 	    );
 	  }
@@ -770,9 +819,9 @@
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM */;
-	var DocumentDisplay;
+	var DocumentPreviewer;
 
-	DocumentDisplay = React.createClass({
+	DocumentPreviewer = React.createClass({
 	  render: function() {
 	    return (
 	      React.DOM.a( {href:this.props.block.data.url} , 
@@ -782,7 +831,25 @@
 	  }
 	});
 
-	module.exports = DocumentDisplay;
+	module.exports = DocumentPreviewer;
+
+
+/***/ },
+
+/***/ 13:
+/***/ function(module, exports, require) {
+
+	var Utils;
+
+	Utils = {
+	  blockFromId: function(blocks, id) {
+	    return _.findWhere(blocks, {
+	      id: parseInt(id, 10)
+	    });
+	  }
+	};
+
+	module.exports = Utils;
 
 
 /***/ }

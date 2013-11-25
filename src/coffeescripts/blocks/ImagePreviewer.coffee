@@ -1,6 +1,6 @@
 `/** @jsx React.DOM */`
 
-ImageDisplay = React.createClass
+ImagePreviewer = React.createClass
   render: ->
     `(
       <div>
@@ -9,4 +9,4 @@ ImageDisplay = React.createClass
     )`
 
 
-module.exports = ImageDisplay
+module.exports = ImagePreviewer

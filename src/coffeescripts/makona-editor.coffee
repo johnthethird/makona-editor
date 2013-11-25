@@ -10,19 +10,19 @@ class Makona
     React.renderComponent (MakonaEditor {opts: opts}), document.getElementById(opts.node_id)
 
 
-TextEditor = require("./blocks/TextEditor")
-TextDisplay = require("./blocks/TextDisplay")
-MarkdownEditor = require("./blocks/MarkdownEditor")
-MarkdownDisplay = require("./blocks/MarkdownDisplay")
-CodeEditor = require("./blocks/CodeEditor")
-CodeDisplay = require("./blocks/CodeDisplay")
-QuoteEditor = require("./blocks/QuoteEditor")
-QuoteDisplay = require("./blocks/QuoteDisplay")
-ImageEditor = require("./blocks/ImageEditor")
-ImageDisplay = require("./blocks/ImageDisplay")
-DocumentEditor = require("./blocks/DocumentEditor")
-DocumentDisplay = require("./blocks/DocumentDisplay")
-
+TextEditor        = require("./blocks/TextEditor")
+TextPreviewer     = require("./blocks/TextPreviewer")
+MarkdownEditor    = require("./blocks/MarkdownEditor")
+MarkdownPreviewer = require("./blocks/MarkdownPreviewer")
+CodeEditor        = require("./blocks/CodeEditor")
+CodePreviewer     = require("./blocks/CodePreviewer")
+QuoteEditor       = require("./blocks/QuoteEditor")
+QuotePreviewer    = require("./blocks/QuotePreviewer")
+ImageEditor       = require("./blocks/ImageEditor")
+ImagePreviewer    = require("./blocks/ImagePreviewer")
+DocumentEditor    = require("./blocks/DocumentEditor")
+DocumentPreviewer = require("./blocks/DocumentPreviewer")
+Utils             = require("./utils")
 
 MakonaEditor = React.createClass
   loadBlocksFromServer: () ->
@@ -81,7 +81,7 @@ MakonaEditor = React.createClass
           handleDelete={this.handleDelete}
         />
         <hr />
-        <MakonaPreviewList blocks={this.state.blocks} opts={this.props.opts} />
+        {/*<MakonaPreviewList blocks={this.state.blocks} opts={this.props.opts} /> */}
         <hr />
         <MakonaRaw blocks={this.state.blocks} opts={this.props.opts}/>
       </div>
@@ -96,7 +96,7 @@ MakonaPreviewList = React.createClass
 
   renderRows: ->
     this.props.blocks.map (block) ->
-     `React.renderComponent(<MakonaDisplayRow block={block} opts={this.props.opts} />, this.refs['preview' + block.id].getDOMNode())`
+     `React.renderComponent(<MakonaPreviewerRow block={block} opts={this.props.opts} />, this.refs['preview' + block.id].getDOMNode())`
     , this
 
   render: ->
@@ -128,9 +128,32 @@ MakonaSortableList = React.createClass
           sortedBlocks.push(theBlock)
         this.props.handleReorder(sortedBlocks)
 
-  handleDelete: (e) ->
-    id = $(e.target).data("id")
+  handleDelete: (id, e) ->
     this.props.handleDelete(id)
+
+  handleEdit: (id, e) ->
+    block = Utils.blockFromId(this.props.blocks, id)
+    block = $.extend(block, {mode: 'edit'})
+    this.props.handleChange(block)
+
+  handlePreview: (id, e) ->
+    block = Utils.blockFromId(this.props.blocks, id)
+    block = $.extend(block, {mode: 'preview'})
+    this.props.handleChange(block)
+
+  editClasses: (id) ->
+    block = Utils.blockFromId(this.props.blocks, id)
+    cx = React.addons.classSet
+    editClasses = cx
+      "mk-editor": true
+      "mk-mode-edit": (block.mode == 'edit')
+
+  previewClasses: (id) ->
+    block = _.findWhere(this.props.blocks, {id: parseInt(id,10)})
+    cx = React.addons.classSet
+    editClasses = cx
+      "mk-previewer": true
+      "mk-mode-preview": !block.mode? || (block.mode == 'preview')
 
   render: ->
     `(
@@ -138,14 +161,21 @@ MakonaSortableList = React.createClass
         {this.props.blocks.map(
           function(block){
             return (
-              <li className="Bfc" id={block.id} key={"ks"+block.id} data-position={block.position}>
-                <div className={"mk-block mk-block-"+block.type} ref={"editor"+block.id}>
-                  <MakonaEditorRow block={block} opts={this.props.opts} handleChange={this.props.handleChange} />
+              <li className="Bfc" id={block.id} key={"ks"+block.id} data-position={block.position} >
+                <div className={"mk-block mk-block-"+block.type}>
+                  <div className={this.editClasses(block.id)} ref={"editor"+block.id} onBlur={this.handlePreview.bind(this, block.id)} >
+                    <MakonaEditorRow block={block} opts={this.props.opts} handleChange={this.props.handleChange} />
+                  </div>
+                  <div className={this.previewClasses(block.id)} ref={"preview"+block.id} onDoubleClick={this.handleEdit.bind(this, block.id)}>
+                    <MakonaPreviewerRow block={block} opts={this.props.opts} />
+                  </div>
                 </div>
                 <div className="mk-block-controls">
                   <i className="fa fa-bars m-r-20" />
+                  <a href="#" onClick={this.handleEdit.bind(this, block.id)}>Edit</a>
+                  <a href="#" onClick={this.handlePreview.bind(this, block.id)}>Done</a>
                   {(this.props.blocks.length > 1) ?
-                    <a href="#" data-id={block.id} onClick={this.handleDelete}>Delete</a> : ""
+                    <a href="#" onClick={this.handleDelete.bind(this, block.id)}>Delete</a> : ""
                   }
                 </div>
                 <div className='clear'></div>
@@ -161,7 +191,7 @@ MakonaEditorRow = React.createClass
   render: ->
     `BLOCK_REGISTRY[this.props.block.type].editorClass({block: this.props.block, opts: this.props.opts, handleChange: this.props.handleChange})`
 
-MakonaDisplayRow = React.createClass
+MakonaPreviewerRow = React.createClass
   render: ->
     `BLOCK_REGISTRY[this.props.block.type].previewClass({block: this.props.block, opts: this.props.opts})`
 
@@ -193,34 +223,40 @@ MakonaRaw = React.createClass
 BLOCK_REGISTRY = {
   text:
     editorClass: TextEditor
-    previewClass: TextDisplay
+    previewClass: TextPreviewer
     newBlockData:
+      mode: 'preview'
       text: "New text block..."
   markdown:
     editorClass: MarkdownEditor
-    previewClass: MarkdownDisplay
+    previewClass: MarkdownPreviewer
     newBlockData:
+      mode: 'preview'
       text: "#New MD block..."
   quote:
     editorClass: QuoteEditor
-    previewClass: QuoteDisplay
+    previewClass: QuotePreviewer
     newBlockData:
+      mode: 'preview'
       text: "new quote"
       cite: "a person"
   code:
     editorClass: CodeEditor
-    previewClass: CodeDisplay
+    previewClass: CodePreviewer
     newBlockData:
+      mode: 'preview'
       text: "new code"
   image:
     editorClass: ImageEditor
-    previewClass: ImageDisplay
+    previewClass: ImagePreviewer
     newBlockData:
+      mode: 'preview'
       src: ""
   document:
     editorClass: DocumentEditor
-    previewClass: DocumentDisplay
+    previewClass: DocumentPreviewer
     newBlockData:
+      mode: 'preview'
       title: ""
 }
 

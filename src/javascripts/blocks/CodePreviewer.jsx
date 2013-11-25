@@ -1,7 +1,7 @@
 /** @jsx React.DOM */;
-var CodeDisplay;
+var CodePreviewer;
 
-CodeDisplay = React.createClass({
+CodePreviewer = React.createClass({
   render: function() {
     var html;
     html = prettyPrintOne(this.props.block.data.text, this.props.block.data.lang);
@@ -14,4 +14,4 @@ CodeDisplay = React.createClass({
   }
 });
 
-module.exports = CodeDisplay;
+module.exports = CodePreviewer;

@@ -1,7 +1,7 @@
 /** @jsx React.DOM */;
-var DocumentDisplay;
+var DocumentPreviewer;
 
-DocumentDisplay = React.createClass({
+DocumentPreviewer = React.createClass({
   render: function() {
     return (
       React.DOM.a( {href:this.props.block.data.url} , 
@@ -11,4 +11,4 @@ DocumentDisplay = React.createClass({
   }
 });
 
-module.exports = DocumentDisplay;
+module.exports = DocumentPreviewer;

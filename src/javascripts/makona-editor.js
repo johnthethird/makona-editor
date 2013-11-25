@@ -1,5 +1,5 @@
 /** @jsx React.DOM */;
-var BLOCK_REGISTRY, CodeDisplay, CodeEditor, DocumentDisplay, DocumentEditor, ImageDisplay, ImageEditor, Makona, MakonaDisplayRow, MakonaEditor, MakonaEditorRow, MakonaPlusRow, MakonaPreviewList, MakonaRaw, MakonaSortableList, MarkdownDisplay, MarkdownEditor, QuoteDisplay, QuoteEditor, TextDisplay, TextEditor;
+var BLOCK_REGISTRY, CodeEditor, CodePreviewer, DocumentEditor, DocumentPreviewer, ImageEditor, ImagePreviewer, Makona, MakonaEditor, MakonaEditorRow, MakonaPlusRow, MakonaPreviewList, MakonaPreviewerRow, MakonaRaw, MakonaSortableList, MarkdownEditor, MarkdownPreviewer, QuoteEditor, QuotePreviewer, TextEditor, TextPreviewer, Utils;
 
 Makona = (function() {
   function Makona(opts) {
@@ -16,27 +16,29 @@ Makona = (function() {
 
 TextEditor = require("./blocks/TextEditor");
 
-TextDisplay = require("./blocks/TextDisplay");
+TextPreviewer = require("./blocks/TextPreviewer");
 
 MarkdownEditor = require("./blocks/MarkdownEditor");
 
-MarkdownDisplay = require("./blocks/MarkdownDisplay");
+MarkdownPreviewer = require("./blocks/MarkdownPreviewer");
 
 CodeEditor = require("./blocks/CodeEditor");
 
-CodeDisplay = require("./blocks/CodeDisplay");
+CodePreviewer = require("./blocks/CodePreviewer");
 
 QuoteEditor = require("./blocks/QuoteEditor");
 
-QuoteDisplay = require("./blocks/QuoteDisplay");
+QuotePreviewer = require("./blocks/QuotePreviewer");
 
 ImageEditor = require("./blocks/ImageEditor");
 
-ImageDisplay = require("./blocks/ImageDisplay");
+ImagePreviewer = require("./blocks/ImagePreviewer");
 
 DocumentEditor = require("./blocks/DocumentEditor");
 
-DocumentDisplay = require("./blocks/DocumentDisplay");
+DocumentPreviewer = require("./blocks/DocumentPreviewer");
+
+Utils = require("./utils");
 
 MakonaEditor = React.createClass({
   loadBlocksFromServer: function() {
@@ -132,7 +134,7 @@ MakonaEditor = React.createClass({
           handleDelete:this.handleDelete}
         ),
         React.DOM.hr(null ),
-        MakonaPreviewList( {blocks:this.state.blocks, opts:this.props.opts} ),
+        /*<MakonaPreviewList blocks={this.state.blocks} opts={this.props.opts} /> */
         React.DOM.hr(null ),
         MakonaRaw( {blocks:this.state.blocks, opts:this.props.opts})
       )
@@ -149,7 +151,7 @@ MakonaPreviewList = React.createClass({
   },
   renderRows: function() {
     return this.props.blocks.map(function(block) {
-      return React.renderComponent(MakonaDisplayRow( {block:block, opts:this.props.opts} ), this.refs['preview' + block.id].getDOMNode());
+      return React.renderComponent(MakonaPreviewerRow( {block:block, opts:this.props.opts} ), this.refs['preview' + block.id].getDOMNode());
     }, this);
   },
   render: function() {
@@ -190,10 +192,44 @@ MakonaSortableList = React.createClass({
       }
     });
   },
-  handleDelete: function(e) {
-    var id;
-    id = $(e.target).data("id");
+  handleDelete: function(id, e) {
     return this.props.handleDelete(id);
+  },
+  handleEdit: function(id, e) {
+    var block;
+    block = Utils.blockFromId(this.props.blocks, id);
+    block = $.extend(block, {
+      mode: 'edit'
+    });
+    return this.props.handleChange(block);
+  },
+  handlePreview: function(id, e) {
+    var block;
+    block = Utils.blockFromId(this.props.blocks, id);
+    block = $.extend(block, {
+      mode: 'preview'
+    });
+    return this.props.handleChange(block);
+  },
+  editClasses: function(id) {
+    var block, cx, editClasses;
+    block = Utils.blockFromId(this.props.blocks, id);
+    cx = React.addons.classSet;
+    return editClasses = cx({
+      "mk-editor": true,
+      "mk-mode-edit": block.mode === 'edit'
+    });
+  },
+  previewClasses: function(id) {
+    var block, cx, editClasses;
+    block = _.findWhere(this.props.blocks, {
+      id: parseInt(id, 10)
+    });
+    cx = React.addons.classSet;
+    return editClasses = cx({
+      "mk-previewer": true,
+      "mk-mode-preview": (block.mode == null) || (block.mode === 'preview')
+    });
   },
   render: function() {
     return (
@@ -201,14 +237,21 @@ MakonaSortableList = React.createClass({
         this.props.blocks.map(
           function(block){
             return (
-              React.DOM.li( {className:"Bfc", id:block.id, key:"ks"+block.id, 'data-position':block.position}, 
-                React.DOM.div( {className:"mk-block mk-block-"+block.type, ref:"editor"+block.id}, 
-                  MakonaEditorRow( {block:block, opts:this.props.opts, handleChange:this.props.handleChange} )
+              React.DOM.li( {className:"Bfc", id:block.id, key:"ks"+block.id, 'data-position':block.position} , 
+                React.DOM.div( {className:"mk-block mk-block-"+block.type}, 
+                  React.DOM.div( {className:this.editClasses(block.id), ref:"editor"+block.id, onBlur:this.handlePreview.bind(this, block.id)} , 
+                    MakonaEditorRow( {block:block, opts:this.props.opts, handleChange:this.props.handleChange} )
+                  ),
+                  React.DOM.div( {className:this.previewClasses(block.id), ref:"preview"+block.id, onDoubleClick:this.handleEdit.bind(this, block.id)}, 
+                    MakonaPreviewerRow( {block:block, opts:this.props.opts} )
+                  )
                 ),
                 React.DOM.div( {className:"mk-block-controls"}, 
                   React.DOM.i( {className:"fa fa-bars m-r-20"} ),
+                  React.DOM.a( {href:"#", onClick:this.handleEdit.bind(this, block.id)}, "Edit"),
+                  React.DOM.a( {href:"#", onClick:this.handlePreview.bind(this, block.id)}, "Done"),
                   (this.props.blocks.length > 1) ?
-                    React.DOM.a( {href:"#", 'data-id':block.id, onClick:this.handleDelete}, "Delete") : ""
+                    React.DOM.a( {href:"#", onClick:this.handleDelete.bind(this, block.id)}, "Delete") : ""
                   
                 ),
                 React.DOM.div( {className:"clear"}),
@@ -228,7 +271,7 @@ MakonaEditorRow = React.createClass({
   }
 });
 
-MakonaDisplayRow = React.createClass({
+MakonaPreviewerRow = React.createClass({
   render: function() {
     return BLOCK_REGISTRY[this.props.block.type].previewClass({block: this.props.block, opts: this.props.opts});
   }
@@ -269,44 +312,50 @@ MakonaRaw = React.createClass({
 BLOCK_REGISTRY = {
   text: {
     editorClass: TextEditor,
-    previewClass: TextDisplay,
+    previewClass: TextPreviewer,
     newBlockData: {
+      mode: 'preview',
       text: "New text block..."
     }
   },
   markdown: {
     editorClass: MarkdownEditor,
-    previewClass: MarkdownDisplay,
+    previewClass: MarkdownPreviewer,
     newBlockData: {
+      mode: 'preview',
       text: "#New MD block..."
     }
   },
   quote: {
     editorClass: QuoteEditor,
-    previewClass: QuoteDisplay,
+    previewClass: QuotePreviewer,
     newBlockData: {
+      mode: 'preview',
       text: "new quote",
       cite: "a person"
     }
   },
   code: {
     editorClass: CodeEditor,
-    previewClass: CodeDisplay,
+    previewClass: CodePreviewer,
     newBlockData: {
+      mode: 'preview',
       text: "new code"
     }
   },
   image: {
     editorClass: ImageEditor,
-    previewClass: ImageDisplay,
+    previewClass: ImagePreviewer,
     newBlockData: {
+      mode: 'preview',
       src: ""
     }
   },
   document: {
     editorClass: DocumentEditor,
-    previewClass: DocumentDisplay,
+    previewClass: DocumentPreviewer,
     newBlockData: {
+      mode: 'preview',
       title: ""
     }
   }

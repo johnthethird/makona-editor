@@ -56,7 +56,9 @@ module.exports = (grunt) ->
             './dist/lodash.js': 'bower_components/lodash/dist/lodash.js',
             './dist/showdown.js': 'bower_components/showdown/src/showdown.js',
             './dist/prettify.js': 'bower_components/google-code-prettify/src/prettify.js',
-            './dist/react.js': 'bower_components/react/react.js'
+            './dist/react.js': 'bower_components/react/react.js',
+            './dist/react-with-addons.js': 'bower_components/react/react-with-addons.js'
+
           }
         ]
 
@@ -120,8 +122,7 @@ module.exports = (grunt) ->
           keepalive: true
 
     # Clean up artifacts
-    clean:
-      output: "./dist"
+    clean: ["./dist", "./src/javascripts"]
 
     # Execute server script
     exec:

@@ -1,6 +1,6 @@
 `/** @jsx React.DOM */`
 
-QuoteDisplay = React.createClass
+QuotePreviewer = React.createClass
   render: ->
     `(
       <div>
@@ -9,5 +9,5 @@ QuoteDisplay = React.createClass
       </div>
     )`
 
-module.exports = QuoteDisplay
+module.exports = QuotePreviewer
 

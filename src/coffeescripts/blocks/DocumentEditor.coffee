@@ -1,6 +1,6 @@
 `/** @jsx React.DOM */`
 
-DocumentDisplay = require("./DocumentDisplay")
+DocumentPreviewer = require("./DocumentPreviewer")
 
 DocumentEditor = React.createClass
   componentDidMount: () ->
@@ -47,7 +47,7 @@ DocumentEditor = React.createClass
   render: ->
     `(
       <div>
-        { (this.props.block.data.title.length > 0) ? <DocumentDisplay block={this.props.block} /> : <div ref='fineuploader'></div>}
+        { (this.props.block.data.title.length > 0) ? <DocumentPreviewer block={this.props.block} /> : <div ref='fineuploader'></div>}
       </div>
     )`
 

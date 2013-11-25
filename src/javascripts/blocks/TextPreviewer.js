@@ -1,10 +1,10 @@
 /** @jsx React.DOM */;
-var TextDisplay;
+var TextPreviewer;
 
-TextDisplay = React.createClass({
+TextPreviewer = React.createClass({
   render: function() {
     return React.DOM.pre(null, this.props.block.data.text);
   }
 });
 
-module.exports = TextDisplay;
+module.exports = TextPreviewer;

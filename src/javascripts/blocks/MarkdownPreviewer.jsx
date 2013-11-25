@@ -1,9 +1,9 @@
 /** @jsx React.DOM */;
-var MarkdownDisplay, SHOWDOWN_CONVERTER;
+var MarkdownPreviewer, SHOWDOWN_CONVERTER;
 
 SHOWDOWN_CONVERTER = new Showdown.converter();
 
-MarkdownDisplay = React.createClass({
+MarkdownPreviewer = React.createClass({
   render: function() {
     var html;
     html = SHOWDOWN_CONVERTER.makeHtml(this.props.block.data.text);
@@ -11,4 +11,4 @@ MarkdownDisplay = React.createClass({
   }
 });
 
-module.exports = MarkdownDisplay;
+module.exports = MarkdownPreviewer;

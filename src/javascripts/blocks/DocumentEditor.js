@@ -1,7 +1,7 @@
 /** @jsx React.DOM */;
-var DocumentDisplay, DocumentEditor;
+var DocumentEditor, DocumentPreviewer;
 
-DocumentDisplay = require("./DocumentDisplay");
+DocumentPreviewer = require("./DocumentPreviewer");
 
 DocumentEditor = React.createClass({
   componentDidMount: function() {
@@ -70,7 +70,7 @@ DocumentEditor = React.createClass({
   render: function() {
     return (
       React.DOM.div(null, 
-         (this.props.block.data.title.length > 0) ? DocumentDisplay( {block:this.props.block} ) : React.DOM.div( {ref:"fineuploader"})
+         (this.props.block.data.title.length > 0) ? DocumentPreviewer( {block:this.props.block} ) : React.DOM.div( {ref:"fineuploader"})
       )
     );
   }

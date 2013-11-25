@@ -14,6 +14,10 @@
     clear: both;
   }
 
+  .hide {
+    display: none;
+  }
+
   ol {
     list-style: none;
   }
@@ -59,7 +63,7 @@
   }
 }
 
-//
+// Block Styles
 .makona-editor {
   .mk-block {
 
@@ -72,6 +76,26 @@
     .mk-block-code {
     }
   }
-
-
 }
+
+// Interactivity
+.makona-editor {
+  .mk-block .mk-editor, .mk-block .mk-previewer {
+    display: none;
+  }
+  .mk-block .mk-editor.mk-mode-edit {display: inherit;}
+  .mk-block .mk-previewer.mk-mode-preview {display: inherit;}
+
+  .mk-previewer {
+    &:hover {
+      border: 2px solid blue;
+    }
+  }
+}
+
+
+
+
+
+
+

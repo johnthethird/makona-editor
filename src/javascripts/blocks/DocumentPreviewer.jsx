@@ -1,11 +1,14 @@
-`/** @jsx React.DOM */`
+/** @jsx React.DOM */;
+var DocumentPreviewer;
 
-DocumentDisplay = React.createClass
-  render: ->
-    `(
+DocumentPreviewer = React.createClass({
+  render: function() {
+    return (
       <a href={this.props.block.data.url} >
         <img src={"http://t1.development.kaleosoftware.com" + this.props.block.data.icon_url} /><span>{this.props.block.data.title}</span>
       </a>
-    )`
+    );
+  }
+});
 
-module.exports = DocumentDisplay
+module.exports = DocumentPreviewer;

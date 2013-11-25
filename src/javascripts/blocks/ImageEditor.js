@@ -1,7 +1,7 @@
 /** @jsx React.DOM */;
-var ImageDisplay, ImageEditor;
+var ImageEditor, ImagePreviewer;
 
-ImageDisplay = require("./ImageDisplay");
+ImagePreviewer = require("./ImagePreviewer");
 
 ImageEditor = React.createClass({
   componentDidMount: function() {
@@ -68,7 +68,7 @@ ImageEditor = React.createClass({
   render: function() {
     return (
       React.DOM.div(null, 
-         (this.props.block.data.src.length > 0) ? ImageDisplay( {block:this.props.block} ) : React.DOM.div( {ref:"fineuploader"})
+         (this.props.block.data.src.length > 0) ? ImagePreviewer( {block:this.props.block} ) : React.DOM.div( {ref:"fineuploader"})
       )
     );
   }

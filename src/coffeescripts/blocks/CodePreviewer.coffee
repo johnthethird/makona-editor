@@ -1,6 +1,6 @@
 `/** @jsx React.DOM */`
 
-CodeDisplay = React.createClass
+CodePreviewer = React.createClass
   render: ->
     html = prettyPrintOne(this.props.block.data.text, this.props.block.data.lang)
     `(
@@ -10,4 +10,4 @@ CodeDisplay = React.createClass
       </div>
     )`
 
-module.exports = CodeDisplay
+module.exports = CodePreviewer

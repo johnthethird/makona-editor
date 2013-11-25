@@ -1,7 +1,7 @@
 /** @jsx React.DOM */;
-var QuoteDisplay;
+var QuotePreviewer;
 
-QuoteDisplay = React.createClass({
+QuotePreviewer = React.createClass({
   render: function() {
     return (
       React.DOM.div(null, 
@@ -12,4 +12,4 @@ QuoteDisplay = React.createClass({
   }
 });
 
-module.exports = QuoteDisplay;
+module.exports = QuotePreviewer;

@@ -1,7 +1,7 @@
 /** @jsx React.DOM */;
-var ImageDisplay;
+var ImagePreviewer;
 
-ImageDisplay = React.createClass({
+ImagePreviewer = React.createClass({
   render: function() {
     return (
       <div>
@@ -11,4 +11,4 @@ ImageDisplay = React.createClass({
   }
 });
 
-module.exports = ImageDisplay;
+module.exports = ImagePreviewer;
