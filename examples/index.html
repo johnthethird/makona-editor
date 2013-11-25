@@ -1,0 +1,91 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Makona Editor Example</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="makona-editor.css" type="text/css" media="screen" charset="utf-8">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Fauna+One' rel='stylesheet' type='text/css'>
+    <!--[if lte IE 8]>
+        <script src="es5-shim.js"></script>
+        <script src="es5-sham.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <script type="text/template" id="qq-template">
+        <div class="qq-uploader-selector qq-uploader">
+            <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
+                <span>Drop files here to upload</span>
+            </div>
+            <div class="qq-upload-button-selector qq-upload-button">
+                <div>Upload a file</div>
+            </div>
+            <span class="qq-drop-processing-selector qq-drop-processing">
+                <span>Processing dropped files...</span>
+                <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+            </span>
+            <ul class="qq-upload-list-selector qq-upload-list">
+                <li>
+                    <div class="qq-progress-bar-container-selector">
+                        <div class="qq-progress-bar-selector qq-progress-bar"></div>
+                    </div>
+                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                    <img class="qq-thumbnail-selector" qq-max-size="100" qq-server-scale>
+                    <span class="qq-edit-filename-icon-selector qq-edit-filename-icon"></span>
+                    <span class="qq-upload-file-selector qq-upload-file"></span>
+                    <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+                    <span class="qq-upload-size-selector qq-upload-size"></span>
+                    <a class="qq-upload-cancel-selector qq-upload-cancel" href="#">Cancel</a>
+                    <a class="qq-upload-retry-selector qq-upload-retry" href="#">Retry</a>
+                    <a class="qq-upload-delete-selector qq-upload-delete" href="#">Delete</a>
+                    <span class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                </li>
+            </ul>
+        </div>
+    </script>
+
+    <form action="/submit" method="POST">
+        <textarea id="makona-editor" class="makona-editor" name="body_json">If you can see this, somethings wrong.</textarea>
+        <input name="additional_field" />
+        <button type="submit">Save</button>
+    </form>
+
+    <script src="jquery.js"></script>
+    <script src="jquery-ui.js"></script>
+    <script src="jquery.fineuploader-4.0.3.js"></script>
+    <script src="lodash.js"></script>
+    <script src="showdown.js"></script>
+    <script src="prettify.js"></script>
+    <script src="react.js"></script>
+    <script src="makona-editor.js"></script>
+    <script>
+      $(function() {
+        new Makona({
+                    url: "blocks.json",
+                    node_id: 'makona-editor',
+                    ImageEditor: {
+                        debug: true,
+                        request: {
+                          inputName: 'asset',
+                          endpoint: 'http://localhost/v2/users/upload_image'
+                        }
+                    },
+                    DocumentEditor: {
+                        debug: true,
+                        request: {
+                          inputName: 'asset',
+                          endpoint: 'http://localhost/v2/users/upload_document'
+                        }
+                    }
+                  });
+      })
+    </script>
+  </body>
+
+</html>

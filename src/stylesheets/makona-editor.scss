@@ -1,0 +1,77 @@
+/* Makona Styles */
+@import "uploader.scss";
+@import "prettify.scss";
+
+// Generic Styles
+.makona-editor {
+  /* Block format context */
+  .Bfc {
+    overflow: hidden;
+    zoom: 1;
+  }
+
+  .clear {
+    clear: both;
+  }
+
+  ol {
+    list-style: none;
+  }
+}
+
+// Typography
+.makona-editor {
+  font-family: 'Fauna One', serif;
+
+  .mk-block {
+    font-size: 16px;
+    pre, textarea {
+      font-size: 16px;
+    }
+  }
+  .mk-block-code {
+    pre, textarea {
+      font-family: "Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;"
+    }
+  }
+
+}
+
+
+// Layout
+.makona-editor {
+  width: 800px;
+
+  .mk-block {
+    width: 90%;
+  }
+  .mk-edit {
+    .mk-block {
+      float:left;
+      textarea {
+        width: 97%;
+        height: 150px;
+      }
+    }
+  }
+  .mk-block-controls {
+
+  }
+}
+
+//
+.makona-editor {
+  .mk-block {
+
+    // Styles for markdown-formatted text
+    .mk-block-markdown {
+      h1 {}
+      h2 {}
+    }
+
+    .mk-block-code {
+    }
+  }
+
+
+}

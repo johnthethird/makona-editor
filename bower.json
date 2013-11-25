@@ -1,0 +1,33 @@
+{
+  "name": "makona-editor",
+  "version": "0.1.0",
+  "homepage": "https://github.com/johnthethird/Makona",
+  "authors": [
+    "John Lynch <john@rigelgroupllc.com>"
+  ],
+  "description": "Reactjs-based block-style editor",
+  "main": "./dist/makona-editor.js",
+  "keywords": [
+    "makona",
+    "blocks",
+    "editor",
+    "reactjs"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "es5-shim": "~2.1.0",
+    "google-code-prettify": "~1.0.0",
+    "jquery-ui": "~1.10.3",
+    "jquery": "1.9.1",
+    "lodash": "~2.3.0",
+    "react": "~0.5.1",
+    "showdown": "~0.3.1"
+  }
+}
