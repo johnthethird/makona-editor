@@ -37,5 +37,9 @@ grunt build
 At this point, you should now have a `dist/` directory populated with all the necessary files, and an index.html to kick things off.
 
 
+## Dependencies
+This requires a lot of JS libs to work, the plan is to slim things down once its all working. Or at least package everything better.
+
+
 ## Inspiration
 [Sir Trevor](http://github.com/madebymany/sir-trevor-js) is another take on a block-style editor.

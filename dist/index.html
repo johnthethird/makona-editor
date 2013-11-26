@@ -51,18 +51,14 @@
     </script>
 
     <form action="/submit" method="POST">
-        <textarea id="makona-editor" class="makona-editor" name="body_json">If you can see this, somethings wrong.</textarea>
+        <!-- This textarea will get replaced with the whole Makona editor, which will include a textarea with this name so that the form submit will work fine. -->
+        <textarea id="makona-editor" class="makona-editor" name="body_json">
+            If you can see this, something is wrong. React should have mounted the Makona editor to this node.
+        </textarea>
         <input name="additional_field" />
         <button type="submit">Save</button>
     </form>
 
-    <script src="jquery.js"></script>
-    <script src="jquery-ui.js"></script>
-    <script src="jquery.fineuploader-4.0.3.js"></script>
-    <script src="lodash.js"></script>
-    <script src="showdown.js"></script>
-    <script src="prettify.js"></script>
-    <script src="react-with-addons.js"></script>
     <script src="makona-editor.js"></script>
     <script>
       $(function() {

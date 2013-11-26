@@ -16,11 +16,12 @@ module.exports = (grunt) ->
         ]
 
     react:
-      options:
-        extension: 'jsx'
       build:
-        files:
-          './src/javascripts': './src/javascripts'
+        expand: true
+        cwd: './src/javascripts'
+        src: ['**/*.jsx']
+        dest: './src/javascripts'
+        ext: '.js'
 
     sass:
       build:
@@ -38,27 +39,13 @@ module.exports = (grunt) ->
           },
           {
             expand: true
-            cwd: './vendor'
-            src: ["*"]
-            dest: './dist'
-          },
-          {
-            expand: true
             cwd: './examples'
             src: ["*"]
             dest: './dist'
           },
           {
             './dist/es5-shim.js': './bower_components/es5-shim/es5-shim.js',
-            './dist/es5-sham.js': './bower_components/es5-shim/es5-sham.js',
-            './dist/jquery.js': 'bower_components/jquery/jquery.js',
-            './dist/jquery-ui.js': 'bower_components/jquery-ui/ui/jquery-ui.js',
-            './dist/lodash.js': 'bower_components/lodash/dist/lodash.js',
-            './dist/showdown.js': 'bower_components/showdown/src/showdown.js',
-            './dist/prettify.js': 'bower_components/google-code-prettify/src/prettify.js',
-            './dist/react.js': 'bower_components/react/react.js',
-            './dist/react-with-addons.js': 'bower_components/react/react-with-addons.js'
-
+            './dist/es5-sham.js': './bower_components/es5-shim/es5-sham.js'
           }
         ]
 
@@ -69,22 +56,37 @@ module.exports = (grunt) ->
     #     src: ["src/**/*.js"]
     #     dest: "dist/<%= pkg.name %>.js"
 
-    uglify:
-      options:
-        banner: "/*! <%= pkg.name %> <%= grunt.template.today(\"dd-mm-yyyy\") %> */\n"
-      dist:
-        files:
-          "dist/<%= pkg.name %>.min.js": ["<%= concat.dist.dest %>"]
+    # uglify:
+    #   options:
+    #     banner: "/*! <%= pkg.name %> <%= grunt.template.today(\"dd-mm-yyyy\") %> */\n"
+    #   dist:
+    #     files:
+    #       "dist/<%= pkg.name %>.min.js": ["<%= concat.dist.dest %>"]
 
+    closurecompiler:
+      minify:
+        files:
+          "dist/<%= pkg.name %>.min.js": ["dist/<%= pkg.name %>.js"]
+        options:
+          compilation_level: "SIMPLE_OPTIMIZATIONS"
+          #compilation_level: "ADVANCED_OPTIMIZATIONS"
+          max_processes: 5
+          banner: "/* Copyright (2013) John Lynch,  MIT License */"
 
     webpack:
       build:
+        debug:true
         entry: "./src/javascripts/<%= pkg.name %>.js"
         output:
           path: "dist/"
           filename: "<%= pkg.name %>.js"
+#        optimize:
+#          minimize: true
+#        provide:
+#          $: "jquery"
+#          jQuery: "jquery"
         stats:
-          colors: false
+          colors: true
           modules: true
           reasons: true
 
@@ -144,6 +146,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-regarde"
   grunt.loadNpmTasks "grunt-contrib-connect"
   grunt.loadNpmTasks "grunt-contrib-clean"
+  grunt.loadNpmTasks "grunt-closurecompiler"
   grunt.loadNpmTasks "grunt-webpack"
   grunt.loadNpmTasks "grunt-exec"
   grunt.loadNpmTasks 'grunt-react'
@@ -165,8 +168,9 @@ module.exports = (grunt) ->
       done()
 
   grunt.registerTask "server", ["exec:server"]
+  grunt.registerTask "minify", ["closurecompiler:minify"]
   #grunt.registerTask "test", ["jshint"]
   #grunt.registerTask "build", ["copy", "coffee", "spawn_react", "spawn_sass", "concat", "uglify"]
   #grunt.registerTask "build", ["copy", "coffee", "spawn_react", "spawn_sass"]
   grunt.registerTask "build", ["copy", "coffee", "spawn_react", "spawn_sass", "webpack"]
-
+ # grunt.registerTask "react", ["react"]

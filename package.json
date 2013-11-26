@@ -9,6 +9,7 @@
     "url-loader": "latest",
     "css-loader": "latest",
     "style-loader": "latest",
+    "script-loader": "latest",
     "grunt": "latest",
     "grunt-webpack": "latest",
     "grunt-cli": "latest",
