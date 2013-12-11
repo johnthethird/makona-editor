@@ -81,6 +81,12 @@ Utils = {
     mode: 'preview',
     data: {}
   },
+  newBlock: function(type) {
+    return _.extend({}, this.defaultBlock, {
+      type: type,
+      data: this.blockTypeFromRegistry(type).newBlockData
+    });
+  },
   blockFromId: function(blocks, id) {
     return _.findWhere(blocks, {
       id: parseInt(id, 10)

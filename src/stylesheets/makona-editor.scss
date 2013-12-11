@@ -49,35 +49,61 @@
   width: 800px;
 
   .mk-block {
-    width: 96%;
+    border: 1px solid #808080;
+    display: inline-block;
+    min-height: 110px;
+    width: 768px;
+    textarea {
+      width: 83%;
+      height: 150px;
+    }
   }
-  .mk-edit {
-    .mk-block {
-      float:left;
-      textarea {
-        width: 83%;
-        height: 150px;
+  .mk-edit-controls {
+    a {
+      text-decoration: none;
+      color: #555555;
+      &:visited {
+        color: #555555;
       }
     }
   }
   .mk-block-controls {
-
+    display: inline-block;
+    vertical-align: top;
+    background-color: #F4F5F7;
+  //  border: 1px solid grey;
+    a {
+      text-decoration: none;
+    }
+    .icon {
+      border: 1px solid grey;
+      font-size: 16px;
+      padding: 5px;
+    }
   }
   .mk-plus {
     margin: 20px auto 20px auto;
+  }
+  .mk-raw {
+    width: 700px;
+    height: 200px;
   }
 }
 
 .mk-editor {
   .mk-plus {
     text-align: center;
-    .mk-plus-links a {
+    a {
+      text-decoration: none;
       display: inline-block;
       cursor: pointer;
       margin-right: 25px;
-      text-decoration: none;
       color: black;
       &:hover { color: blue;}
+    }
+    a.mk-plus-add {
+      color: #cfcbcb;
+      &:hover { color: #808080;}
     }
     .icon {
       font-size: 32px;
@@ -106,8 +132,8 @@
   .mk-block .mk-editor, .mk-block .mk-previewer {
     display: none;
   }
-  .mk-block .mk-editor.mk-mode-edit {display: inherit;}
-  .mk-block .mk-previewer.mk-mode-preview {display: inherit;}
+  .mk-block .mk-editor.mk-mode-edit {display: block;}
+  .mk-block .mk-previewer.mk-mode-preview {display: block;}
 
   .mk-previewer {
     &:hover {
@@ -117,9 +143,13 @@
 }
 
 // Theme
-.makona-editor {
+.mk-editor {
   ol.mk-edit {
-    background: #f8f8f8 url('/images/noise.png') top left
+//    background: #f8f8f8 url('/images/noise.png') top left;
+    margin: 0;
+    padding: 0;
+  }
+  .mk-block {
   }
 }
 

@@ -19,6 +19,8 @@ require("script!../../bower_components/jquery-ui/ui/minified/jquery.ui.sortable.
 
 require("script!../../vendor/jquery-ui-touch-punch.min.js");
 
+require("script!../../vendor/jquery-caret.min.js");
+
 require("script!../../bower_components/lodash/dist/lodash.min.js");
 
 require("script!../../bower_components/showdown/compressed/showdown.js");
@@ -199,12 +201,16 @@ MakonaSortableList = React.createClass({
     }
   },
   handleEdit: function(id, e) {
-    var block;
+    var block,
+      _this = this;
     block = Utils.blockFromId(this.props.blocks, id);
     block = $.extend(block, {
       mode: 'edit'
     });
-    return this.props.handleChange(block);
+    this.props.handleChange(block);
+    return setTimeout(function() {
+      return $(_this.refs["editor" + id].getDOMNode()).find("textarea").focus().caretToEnd();
+    }, 100);
   },
   handlePreview: function(id, e) {
     var block;
@@ -236,12 +242,19 @@ MakonaSortableList = React.createClass({
   },
   editControls: function(block) {
     var editClasses, previewClasses;
-    editClasses = block.mode === 'preview' && Utils.blockTypeFromRegistry(block.type).editable ? "" : "hide";
-    previewClasses = block.mode === 'edit' && Utils.blockTypeFromRegistry(block.type).editable ? "" : "hide";
+    editClasses = React.addons.classSet({
+      "hide": block.mode === 'edit'
+    });
+    previewClasses = React.addons.classSet({
+      "hide": block.mode === 'preview'
+    });
     return (
-      <div>
-        <a href="#" className={editClasses} onClick={this.handleEdit.bind(this, block.id)}><span data-icon="&#x6c;"></span></a>
-        <a href="#" className={previewClasses} onClick={this.handlePreview.bind(this, block.id)}>Preview</a>
+      <div className="mk-edit-controls">
+        <a href="javascript:void(0);" className={editClasses} onClick={this.handleEdit.bind(this, block.id)}><div className="icon" data-icon="&#x6b;"></div></a>
+        <a href="javascript:void(0);" className={previewClasses} onClick={this.handlePreview.bind(this, block.id)}><div className="icon" data-icon="&#x6c;"></div></a>
+        {(this.props.blocks.length > 1) ?
+          <a href="javascript:void(0);" onClick={this.handleDelete.bind(this, block.id)}><div className="icon" data-icon="&#xe019;"></div></a> : ""
+        }
       </div>
     );
   },
@@ -253,7 +266,7 @@ MakonaSortableList = React.createClass({
             return (
               <li className="Bfc" id={block.id} key={"ks"+block.id} data-position={block.position} >
                 <div className={"mk-block mk-block-"+block.type}>
-                  <div className={this.editClasses(block.id)} ref={"editor"+block.id} onBlur={this.handlePreview.bind(this, block.id)} >
+                  <div className={this.editClasses(block.id)} ref={"editor"+block.id} >
                     <MakonaEditorRow block={block} opts={this.props.opts} handleChange={this.props.handleChange} />
                   </div>
                   <div className={this.previewClasses(block.id)} ref={"preview"+block.id} onDoubleClick={this.handleEdit.bind(this, block.id)}>
@@ -261,13 +274,9 @@ MakonaSortableList = React.createClass({
                   </div>
                 </div>
                 <div className="mk-block-controls">
-                  <span className="handle" data-icon="&#x61;"></span>
+                  <div className="handle icon" data-icon="&#x61;"></div>
                   {this.editControls(block)}
-                  {(this.props.blocks.length > 1) ?
-                    <a href="#" onClick={this.handleDelete.bind(this, block.id)}><span data-icon="&#x4d;"></span></a> : ""
-                  }
                 </div>
-                <div className='clear'></div>
                 <MakonaPlusRow block={block} opts={this.props.opts} />
               </li>
             )
@@ -299,10 +308,7 @@ MakonaPlusRow = React.createClass({
   addRow: function(e, reactid) {
     var newBlock, type;
     type = $("[data-reactid='" + reactid + "'").data("type");
-    newBlock = {
-      type: type,
-      data: Utils.blockTypeFromRegistry(type).newBlockData
-    };
+    newBlock = Utils.newBlock(type);
     $(this.getDOMNode()).trigger("addRow", [this.props.block.position, newBlock]);
     return this.setState({
       'hideLinks': true
@@ -324,7 +330,7 @@ MakonaPlusRow = React.createClass({
     });
     return (
       <div className="mk-plus">
-        <a href="javascript:void(0);" onClick={this.toggleLinks}>Add Block</a>
+        <a className="mk-plus-add" href="javascript:void(0);" onClick={this.toggleLinks}>Add Block</a>
         <div className={classes}>
           {this.blockTypeLink('text', 'Text', '\x62')}
           {this.blockTypeLink('markdown', 'Markdown', '\x68')}
@@ -340,7 +346,7 @@ MakonaPlusRow = React.createClass({
 
 MakonaRaw = React.createClass({
   render: function() {
-    return <textarea name={this.props.opts.node_name} value={JSON.stringify(this.props.blocks)}></textarea>;
+    return <textarea className="mk-raw" name={this.props.opts.node_name} value={JSON.stringify(this.props.blocks, null, 2)}></textarea>;
   }
 });
 

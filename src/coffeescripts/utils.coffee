@@ -57,6 +57,9 @@ Utils =
     mode: 'preview'
     data: {}
 
+  newBlock: (type) ->
+    _.extend {}, @defaultBlock, {type: type, data: @blockTypeFromRegistry(type).newBlockData}
+
   blockFromId: (blocks, id) ->
     _.findWhere(blocks, {id: parseInt(id,10)})
 
