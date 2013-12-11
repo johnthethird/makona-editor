@@ -14,13 +14,11 @@ require("script!../../bower_components/jquery-ui/ui/minified/jquery.ui.sortable.
 # Makes sortable work on touch devices
 require("script!../../vendor/jquery-ui-touch-punch.min.js")
 
+# Used to put caret at the end of the textarea
 require("script!../../vendor/jquery-caret.min.js")
 
-require("script!../../bower_components/lodash/dist/lodash.min.js")
-require("script!../../bower_components/showdown/compressed/showdown.js")
+require("script!../../bower_components/lodash/dist/lodash.compat.min.js")
 require("script!../../bower_components/react/react-with-addons.min.js")
-require("script!../../vendor/prettify.js")
-require("script!../../vendor/jquery.fineuploader-4.0.3.js")
 
 
 # Makona will be exposed on window, and be the main entry point to the editor from the outside
@@ -32,27 +30,14 @@ class Makona
     $("##{opts.node_id}").replaceWith("<div id='#{opts.node_id}' class='makona-editor'></div>")
     React.renderComponent (MakonaEditor {opts: opts}), document.getElementById(opts.node_id)
 
-
-TextEditor        = require("./blocks/TextEditor")
-TextPreviewer     = require("./blocks/TextPreviewer")
-MarkdownEditor    = require("./blocks/MarkdownEditor")
-MarkdownPreviewer = require("./blocks/MarkdownPreviewer")
-CodeEditor        = require("./blocks/CodeEditor")
-CodePreviewer     = require("./blocks/CodePreviewer")
-QuoteEditor       = require("./blocks/QuoteEditor")
-QuotePreviewer    = require("./blocks/QuotePreviewer")
-ImageEditor       = require("./blocks/ImageEditor")
-ImagePreviewer    = require("./blocks/ImagePreviewer")
-DocumentEditor    = require("./blocks/DocumentEditor")
-DocumentPreviewer = require("./blocks/DocumentPreviewer")
-Utils             = require("./utils")
+Blocks = require("./blocks")
 
 MakonaEditor = React.createClass
   loadBlocksFromServer: () ->
     $.ajax
       url: this.props.opts.url
       success: (blocks) =>
-        blocks = blocks.map (block) -> $.extend({}, Utils.defaultBlock, block)
+        blocks = blocks.map (block) -> $.extend({}, {mode: 'preview'}, block)
         this.setState({blocks: blocks})
 
   getInitialState: () -> blocks: []
@@ -130,7 +115,7 @@ MakonaSortableList = React.createClass
       this.props.handleDelete(id)
 
   handleEdit: (id, e) ->
-    block = Utils.blockFromId(this.props.blocks, id)
+    block = Blocks.blockFromId(this.props.blocks, id)
     block = $.extend(block, {mode: 'edit'})
     this.props.handleChange(block)
     # This isnt very React-y
@@ -139,19 +124,19 @@ MakonaSortableList = React.createClass
     , 100
 
   handlePreview: (id, e) ->
-    block = Utils.blockFromId(this.props.blocks, id)
+    block = Blocks.blockFromId(this.props.blocks, id)
     block = $.extend(block, {mode: 'preview'})
     this.props.handleChange(block)
 
   editClasses: (id) ->
-    block = Utils.blockFromId(this.props.blocks, id)
+    block = Blocks.blockFromId(this.props.blocks, id)
     cx = React.addons.classSet
     editClasses = cx
       "mk-editor": true
       "mk-mode-edit": (block.mode == 'edit')
 
   previewClasses: (id) ->
-    block = _.findWhere(this.props.blocks, {id: parseInt(id,10)})
+    block = Blocks.blockFromId(this.props.blocks, id)
     cx = React.addons.classSet
     editClasses = cx
       "mk-previewer": true
@@ -159,9 +144,9 @@ MakonaSortableList = React.createClass
 
   editControls: (block) ->
     editClasses = React.addons.classSet
-      "hide": (block.mode is 'edit')
+      "hide": (block.mode is 'edit' || !Blocks.blockTypeFromRegistry(block.type).editable)
     previewClasses = React.addons.classSet
-      "hide": (block.mode is 'preview')
+      "hide": (block.mode is 'preview' || !Blocks.blockTypeFromRegistry(block.type).editable)
     `(
       <div className="mk-edit-controls">
         <a href="javascript:void(0);" className={editClasses} onClick={this.handleEdit.bind(this, block.id)}><div className="icon" data-icon="&#x6b;"></div></a>
@@ -173,7 +158,6 @@ MakonaSortableList = React.createClass
     )`
 
   render: ->
-
     `(
       <ol className="mk-edit" ref='sortable'>
         {this.props.blocks.map(
@@ -182,7 +166,7 @@ MakonaSortableList = React.createClass
               <li className="Bfc" id={block.id} key={"ks"+block.id} data-position={block.position} >
                 <div className={"mk-block mk-block-"+block.type}>
                   <div className={this.editClasses(block.id)} ref={"editor"+block.id} >
-                    <MakonaEditorRow block={block} opts={this.props.opts} handleChange={this.props.handleChange} />
+                    {Blocks.blockTypeFromRegistry(block.type).editable ? <MakonaEditorRow block={block} opts={this.props.opts} handleChange={this.props.handleChange} /> : ""}
                   </div>
                   <div className={this.previewClasses(block.id)} ref={"preview"+block.id} onDoubleClick={this.handleEdit.bind(this, block.id)}>
                     <MakonaPreviewerRow block={block} opts={this.props.opts} />
@@ -202,11 +186,11 @@ MakonaSortableList = React.createClass
 
 MakonaEditorRow = React.createClass
   render: ->
-    `Utils.blockTypeFromRegistry(this.props.block.type).editorClass({block: this.props.block, opts: this.props.opts, handleChange: this.props.handleChange})`
+    `Blocks.blockTypeFromRegistry(this.props.block.type).editorClass({block: this.props.block, opts: this.props.opts, handleChange: this.props.handleChange})`
 
 MakonaPreviewerRow = React.createClass
   render: ->
-    `Utils.blockTypeFromRegistry(this.props.block.type).previewClass({block: this.props.block, opts: this.props.opts})`
+    `Blocks.blockTypeFromRegistry(this.props.block.type).previewClass({block: this.props.block, opts: this.props.opts})`
 
 MakonaPlusRow = React.createClass
   getInitialState: () ->
@@ -214,15 +198,19 @@ MakonaPlusRow = React.createClass
 
   addRow: (e, reactid) ->
     type = $("[data-reactid='#{reactid}'").data("type")
-    newBlock = Utils.newBlock(type)
+    newBlock = Blocks.newBlock(type)
     $(this.getDOMNode()).trigger("addRow", [this.props.block.position, newBlock])
     this.setState {'hideLinks': true}
 
   toggleLinks: () ->
     this.setState {'hideLinks': !this.state.hideLinks}
 
-  blockTypeLink: (type, name, icon) ->
-    `<a href="javascript: void(0);" onClick={this.addRow} data-type={type}><div className="icon" data-icon={icon}></div><div>{name}</div></a>`
+  blockTypeLink: (block) ->
+    `<a href="javascript: void(0);" onClick={this.addRow} data-type={block.type}><div className="icon" data-icon={block.icon}></div><div>{block.displayName}</div></a>`
+
+  blockTypes: () ->
+    _.map Blocks.createableBlockTypes(), (block) =>
+      @blockTypeLink block
 
   render: ->
     classes = React.addons.classSet
@@ -233,12 +221,7 @@ MakonaPlusRow = React.createClass
       <div className="mk-plus">
         <a className="mk-plus-add" href="javascript:void(0);" onClick={this.toggleLinks}>Add Block</a>
         <div className={classes}>
-          {this.blockTypeLink('text', 'Text', '\x62')}
-          {this.blockTypeLink('markdown', 'Markdown', '\x68')}
-          {this.blockTypeLink('quote', 'Quote', '\x7b')}
-          {this.blockTypeLink('code', 'Code', '\ue038')}
-          {this.blockTypeLink('document', 'Doc', '\x69')}
-          {this.blockTypeLink('Image', 'Pic', '\ue005')}
+          {this.blockTypes()}
         </div>
       </div>
     )`

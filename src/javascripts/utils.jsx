@@ -1,49 +1,25 @@
-var BLOCK_REGISTRY, CodeEditor, CodePreviewer, DocumentEditor, DocumentPreviewer, ImageEditor, ImagePreviewer, MarkdownEditor, MarkdownPreviewer, QuoteEditor, QuotePreviewer, TextEditor, TextPreviewer, Utils;
-
-TextEditor = require("./blocks/TextEditor");
-
-TextPreviewer = require("./blocks/TextPreviewer");
-
-MarkdownEditor = require("./blocks/MarkdownEditor");
-
-MarkdownPreviewer = require("./blocks/MarkdownPreviewer");
-
-CodeEditor = require("./blocks/CodeEditor");
-
-CodePreviewer = require("./blocks/CodePreviewer");
-
-QuoteEditor = require("./blocks/QuoteEditor");
-
-QuotePreviewer = require("./blocks/QuotePreviewer");
-
-ImageEditor = require("./blocks/ImageEditor");
-
-ImagePreviewer = require("./blocks/ImagePreviewer");
-
-DocumentEditor = require("./blocks/DocumentEditor");
-
-DocumentPreviewer = require("./blocks/DocumentPreviewer");
+var BLOCK_REGISTRY, Utils;
 
 BLOCK_REGISTRY = {
   "text": {
-    editorClass: TextEditor,
-    previewClass: TextPreviewer,
+    editorClass: require("./blocks/TextEditor"),
+    previewClass: require("./blocks/TextPreviewer"),
     editable: true,
     newBlockData: {
       text: "New text block..."
     }
   },
   "markdown": {
-    editorClass: MarkdownEditor,
-    previewClass: MarkdownPreviewer,
+    editorClass: require("./blocks/MarkdownEditor"),
+    previewClass: require("./blocks/MarkdownPreviewer"),
     editable: true,
     newBlockData: {
       text: "#New MD block..."
     }
   },
   "quote": {
-    editorClass: QuoteEditor,
-    previewClass: QuotePreviewer,
+    editorClass: require("./blocks/QuoteEditor"),
+    previewClass: require("./blocks/QuotePreviewer"),
     editable: true,
     newBlockData: {
       text: "new quote",
@@ -51,24 +27,24 @@ BLOCK_REGISTRY = {
     }
   },
   "code": {
-    editorClass: CodeEditor,
-    previewClass: CodePreviewer,
+    editorClass: require("./blocks/QuoteEditor"),
+    previewClass: require("./blocks/CodePreviewer"),
     editable: true,
     newBlockData: {
       text: "new code"
     }
   },
   "image": {
-    editorClass: ImageEditor,
-    previewClass: ImagePreviewer,
+    editorClass: require("./blocks/ImageEditor"),
+    previewClass: require("./blocks/ImagePreviewer"),
     editable: false,
     newBlockData: {
       src: ""
     }
   },
   "document": {
-    editorClass: DocumentEditor,
-    previewClass: DocumentPreviewer,
+    editorClass: require("./blocks/DocumentEditor"),
+    previewClass: require("./blocks/DocumentPreviewer"),
     editable: false,
     newBlockData: {
       title: ""
@@ -83,6 +59,8 @@ Utils = {
   },
   newBlock: function(type) {
     return _.extend({}, this.defaultBlock, {
+      mode: 'edit'
+    }, {
       type: type,
       data: this.blockTypeFromRegistry(type).newBlockData
     });

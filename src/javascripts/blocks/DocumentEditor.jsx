@@ -1,6 +1,8 @@
 /** @jsx React.DOM */;
 var DocumentEditor, DocumentPreviewer;
 
+require("script!../../../vendor/jquery.fineuploader-4.0.3.js");
+
 DocumentPreviewer = require("./DocumentPreviewer");
 
 DocumentEditor = React.createClass({

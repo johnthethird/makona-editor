@@ -1,5 +1,7 @@
 `/** @jsx React.DOM */`
 
+require("script!../../../vendor/prettify.js")
+
 CodePreviewer = React.createClass
   render: ->
     html = prettyPrintOne(this.props.block.data.text, this.props.block.data.lang)

@@ -1,5 +1,6 @@
 `/** @jsx React.DOM */`
 
+
 CodeEditor = React.createClass
   handleChange: ->
     text = this.refs.text.getDOMNode().value

@@ -1,5 +1,7 @@
 `/** @jsx React.DOM */`
 
+require("script!../../../bower_components/showdown/compressed/showdown.js")
+
 SHOWDOWN_CONVERTER = new Showdown.converter()
 MarkdownPreviewer = React.createClass
   render: ->

@@ -1,6 +1,8 @@
 /** @jsx React.DOM */;
 var CodePreviewer;
 
+require("script!../../../vendor/prettify.js");
+
 CodePreviewer = React.createClass({
   render: function() {
     var html;

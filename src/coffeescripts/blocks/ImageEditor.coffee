@@ -1,5 +1,7 @@
 `/** @jsx React.DOM */`
 
+require("script!../../../vendor/jquery.fineuploader-4.0.3.js")
+
 ImagePreviewer = require("./ImagePreviewer")
 
 ImageEditor = React.createClass
