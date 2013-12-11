@@ -95,7 +95,6 @@ MakonaEditor = React.createClass
   render: ->
     `(
       <div className='mk-editor'>
-        <h1>Makona Editor</h1>
         <MakonaSortableList
           blocks={this.state.blocks}
           opts={this.props.opts}
@@ -157,7 +156,7 @@ MakonaSortableList = React.createClass
     previewClasses = if block.mode == 'edit' and Utils.blockTypeFromRegistry(block.type).editable then "" else "hide"
     `(
       <div>
-        <a href="#" className={editClasses} onClick={this.handleEdit.bind(this, block.id)}><i className="fa fa-edit" /></a>
+        <a href="#" className={editClasses} onClick={this.handleEdit.bind(this, block.id)}><span data-icon="&#x6c;"></span></a>
         <a href="#" className={previewClasses} onClick={this.handlePreview.bind(this, block.id)}>Preview</a>
       </div>
     )`
@@ -179,10 +178,10 @@ MakonaSortableList = React.createClass
                   </div>
                 </div>
                 <div className="mk-block-controls">
-                  <i className="fa fa-bars handle" />
+                  <span className="handle" data-icon="&#x61;"></span>
                   {this.editControls(block)}
                   {(this.props.blocks.length > 1) ?
-                    <a href="#" onClick={this.handleDelete.bind(this, block.id)}><i className="fa fa-times" /></a> : ""
+                    <a href="#" onClick={this.handleDelete.bind(this, block.id)}><span data-icon="&#x4d;"></span></a> : ""
                   }
                 </div>
                 <div className='clear'></div>
@@ -203,22 +202,37 @@ MakonaPreviewerRow = React.createClass
     `Utils.blockTypeFromRegistry(this.props.block.type).previewClass({block: this.props.block, opts: this.props.opts})`
 
 MakonaPlusRow = React.createClass
+  getInitialState: () ->
+    hideLinks: true
+
   addRow: (e, reactid) ->
     type = $("[data-reactid='#{reactid}'").data("type")
     newBlock = {type: type, data: Utils.blockTypeFromRegistry(type).newBlockData}
     $(this.getDOMNode()).trigger("addRow", [this.props.block.position, newBlock])
+    this.setState {'hideLinks': true}
+
+  toggleLinks: () ->
+    this.setState {'hideLinks': !this.state.hideLinks}
+
+  blockTypeLink: (type, name, icon) ->
+    `<a href="javascript: void(0);" onClick={this.addRow} data-type={type}><div className="icon" data-icon={icon}></div><div>{name}</div></a>`
 
   render: ->
+    classes = React.addons.classSet
+      'mk-plus-links': true
+      'hide': this.state.hideLinks
+
     `(
       <div className="mk-plus">
-        <i className="fa fa-plus size-huge" />
-        <a href="#" onClick={this.addRow} data-type="text">Text</a>
-        <a href="#" onClick={this.addRow} data-type="markdown">Markdown</a>
-        <a href="#" onClick={this.addRow} data-type="quote">Quote</a>
-        <a href="#" onClick={this.addRow} data-type="code">Code</a>
-        <a href="#" onClick={this.addRow} data-type="document">Doc</a>
-        <a href="#" onClick={this.addRow} data-type="image">Image</a>
-
+        <a href="javascript:void(0);" onClick={this.toggleLinks}>Add Block</a>
+        <div className={classes}>
+          {this.blockTypeLink('text', 'Text', '\x62')}
+          {this.blockTypeLink('markdown', 'Markdown', '\x68')}
+          {this.blockTypeLink('quote', 'Quote', '\x7b')}
+          {this.blockTypeLink('code', 'Code', '\ue038')}
+          {this.blockTypeLink('document', 'Doc', '\x69')}
+          {this.blockTypeLink('Image', 'Pic', '\ue005')}
+        </div>
       </div>
     )`
 

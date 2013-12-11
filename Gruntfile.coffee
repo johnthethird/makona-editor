@@ -39,6 +39,12 @@ module.exports = (grunt) ->
           },
           {
             expand: true
+            cwd: './src/fonts'
+            src: ["*"]
+            dest: './dist/fonts'
+          },
+          {
+            expand: true
             cwd: './examples'
             src: ["*"]
             dest: './dist'

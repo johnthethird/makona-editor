@@ -156,7 +156,6 @@ MakonaEditor = React.createClass({
   render: function() {
     return (
       React.DOM.div( {className:"mk-editor"}, 
-        React.DOM.h1(null, "Makona Editor"),
         MakonaSortableList(
           {blocks:this.state.blocks,
           opts:this.props.opts,
@@ -241,7 +240,7 @@ MakonaSortableList = React.createClass({
     previewClasses = block.mode === 'edit' && Utils.blockTypeFromRegistry(block.type).editable ? "" : "hide";
     return (
       React.DOM.div(null, 
-        React.DOM.a( {href:"#", className:editClasses, onClick:this.handleEdit.bind(this, block.id)}, React.DOM.i( {className:"fa fa-edit"} )),
+        React.DOM.a( {href:"#", className:editClasses, onClick:this.handleEdit.bind(this, block.id)}, React.DOM.span( {'data-icon':"l"})),
         React.DOM.a( {href:"#", className:previewClasses, onClick:this.handlePreview.bind(this, block.id)}, "Preview")
       )
     );
@@ -262,10 +261,10 @@ MakonaSortableList = React.createClass({
                   )
                 ),
                 React.DOM.div( {className:"mk-block-controls"}, 
-                  React.DOM.i( {className:"fa fa-bars handle"} ),
+                  React.DOM.span( {className:"handle", 'data-icon':"a"}),
                   this.editControls(block),
                   (this.props.blocks.length > 1) ?
-                    React.DOM.a( {href:"#", onClick:this.handleDelete.bind(this, block.id)}, React.DOM.i( {className:"fa fa-times"} )) : ""
+                    React.DOM.a( {href:"#", onClick:this.handleDelete.bind(this, block.id)}, React.DOM.span( {'data-icon':"M"})) : ""
                   
                 ),
                 React.DOM.div( {className:"clear"}),
@@ -292,6 +291,11 @@ MakonaPreviewerRow = React.createClass({
 });
 
 MakonaPlusRow = React.createClass({
+  getInitialState: function() {
+    return {
+      hideLinks: true
+    };
+  },
   addRow: function(e, reactid) {
     var newBlock, type;
     type = $("[data-reactid='" + reactid + "'").data("type");
@@ -299,19 +303,36 @@ MakonaPlusRow = React.createClass({
       type: type,
       data: Utils.blockTypeFromRegistry(type).newBlockData
     };
-    return $(this.getDOMNode()).trigger("addRow", [this.props.block.position, newBlock]);
+    $(this.getDOMNode()).trigger("addRow", [this.props.block.position, newBlock]);
+    return this.setState({
+      'hideLinks': true
+    });
+  },
+  toggleLinks: function() {
+    return this.setState({
+      'hideLinks': !this.state.hideLinks
+    });
+  },
+  blockTypeLink: function(type, name, icon) {
+    return React.DOM.a( {href:"javascript: void(0);", onClick:this.addRow, 'data-type':type}, React.DOM.div( {className:"icon", 'data-icon':icon}),React.DOM.div(null, name));
   },
   render: function() {
+    var classes;
+    classes = React.addons.classSet({
+      'mk-plus-links': true,
+      'hide': this.state.hideLinks
+    });
     return (
       React.DOM.div( {className:"mk-plus"}, 
-        React.DOM.i( {className:"fa fa-plus size-huge"} ),
-        React.DOM.a( {href:"#", onClick:this.addRow, 'data-type':"text"}, "Text"),
-        React.DOM.a( {href:"#", onClick:this.addRow, 'data-type':"markdown"}, "Markdown"),
-        React.DOM.a( {href:"#", onClick:this.addRow, 'data-type':"quote"}, "Quote"),
-        React.DOM.a( {href:"#", onClick:this.addRow, 'data-type':"code"}, "Code"),
-        React.DOM.a( {href:"#", onClick:this.addRow, 'data-type':"document"}, "Doc"),
-        React.DOM.a( {href:"#", onClick:this.addRow, 'data-type':"image"}, "Image")
-
+        React.DOM.a( {href:"javascript:void(0);", onClick:this.toggleLinks}, "Add Block"),
+        React.DOM.div( {className:classes}, 
+          this.blockTypeLink('text', 'Text', '\x62'),
+          this.blockTypeLink('markdown', 'Markdown', '\x68'),
+          this.blockTypeLink('quote', 'Quote', '\x7b'),
+          this.blockTypeLink('code', 'Code', '\ue038'),
+          this.blockTypeLink('document', 'Doc', '\x69'),
+          this.blockTypeLink('Image', 'Pic', '\ue005')
+        )
       )
     );
   }

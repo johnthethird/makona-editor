@@ -10,7 +10,6 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="makona-editor.css" type="text/css" media="screen" charset="utf-8">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Fauna+One' rel='stylesheet' type='text/css'>
     <!--[if lte IE 8]>
         <script src="es5-shim.js"></script>
@@ -50,15 +49,24 @@
         </div>
     </script>
 
-    <form action="/submit" method="POST">
-        <!-- This textarea will get replaced with the whole Makona editor, which will include a textarea with this name so that the form submit will work fine. -->
-        <textarea id="makona-editor" class="makona-editor" name="body_json">
-            If you can see this, something is wrong. React should have mounted the Makona editor to this node.
-        </textarea>
-        <input name="additional_field" />
-        <button type="submit">Save</button>
-    </form>
+    <style>
+    .container {
+        margin: auto;
+        width: 800px;
+    }
 
+    </style>
+
+    <div class="container">
+        <form action="/submit" method="POST">
+            <!-- This textarea will get replaced with the whole Makona editor, which will include a textarea with this name so that the form submit will work fine. -->
+            <textarea id="makona-editor" name="body_json">
+                If you can see this, something is wrong. React should have mounted the Makona editor to this node.
+            </textarea>
+            <input name="additional_field" />
+            <button type="submit">Save</button>
+        </form>
+    </div>
     <script src="makona-editor.js"></script>
     <script>
       $(function() {
