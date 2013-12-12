@@ -3,6 +3,34 @@
 @import "prettify.scss";
 @import "eleganticons.scss";
 
+// Mini-reset for just our stuff
+.mk-editor {
+  ul, ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  a {
+    background: transparent;
+  }
+  a:focus {
+    outline: thin dotted;
+  }
+  a:active, a:hover {
+    outline: 0;
+  }
+  textarea, pre, code {
+    overflow: auto;
+    vertical-align: top;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0;
+  }
+
+
+}
+
 // Generic Styles
 .mk-editor {
   /* Block format context */
@@ -19,23 +47,26 @@
     display: none;
   }
 
-  ol {
-    list-style: none;
-  }
 }
 
 // Typography
 .mk-editor {
-  font-family: 'Fauna One', serif;
 
   .mk-block {
-    font-size: 16px;
-    pre, textarea {
+    pre, code, textarea, div, p {
+      font-family: 'Fauna One', serif;
+      font-size: 1em;
+      line-height: 1.2em;
     }
-  }
-  .mk-block-code {
-    pre, textarea {
-      font-family: "Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;"
+    pre, code, textarea {
+      min-height: 110px;
+      word-wrap: break-word;
+      white-space: pre-wrap;
+    }
+    &.mk-block-code {
+      pre, code, textarea {
+        font-family: "Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;"
+      }
     }
   }
 }
@@ -46,32 +77,19 @@
   width: 800px;
 
   .mk-block {
-    border: 1px solid #808080;
+    width: 760px;
+    border: 1px solid #c0c0c0;
     display: inline-block;
     min-height: 110px;
-    width: 760px;
     padding-left: 10px;
     textarea {
-      width: 745px;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      font-size: 1em;
-      line-height: 1.5em;
-      margin: .5em 0;
+      width: 100%;
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box;
-
-      //height: 250px;
     }
-  }
-  .mk-edit-controls {
-    a {
-      text-decoration: none;
-      color: #555555;
-      &:visited {
-        color: #555555;
-      }
+    .mk-editor, .mk-previewer {
+      width: 100%;
     }
   }
   .mk-block-controls {
@@ -82,24 +100,30 @@
     a {
       text-decoration: none;
     }
+    .handle {
+      cursor: move;
+    }
     .icon {
       border: 1px solid grey;
       font-size: 16px;
       padding: 5px;
     }
-  }
-  .mk-plus {
-    text-align: center;
-    margin: 20px auto 20px auto;
-  }
-  .mk-raw {
-    width: 700px;
-    height: 200px;
+    .mk-edit-controls {
+      a {
+        text-decoration: none;
+        color: #555555;
+        &:visited {
+          color: #555555;
+        }
+      }
+    }
   }
 }
 
 .mk-editor {
   .mk-plus {
+    text-align: center;
+    margin: 20px auto 20px auto;
     a {
       text-decoration: none;
       display: inline-block;
@@ -152,11 +176,14 @@
 .mk-editor {
   ol.mk-edit {
 //    background: #f8f8f8 url('/images/noise.png') top left;
-    margin: 0;
-    padding: 0;
   }
   .mk-block {
   }
+}
+
+.mk-raw {
+  width: 700px;
+  height: 200px;
 }
 
 

@@ -1406,6 +1406,24 @@ text-shadow: none;
 
 
 */
+.mk-editor ul, .mk-editor ol {
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+.mk-editor a {
+  background: transparent; }
+.mk-editor a:focus {
+  outline: thin dotted; }
+.mk-editor a:active, .mk-editor a:hover {
+  outline: 0; }
+.mk-editor textarea, .mk-editor pre, .mk-editor code {
+  overflow: auto;
+  vertical-align: top;
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  border: 0; }
+
 .mk-editor {
   /* Block format context */ }
   .mk-editor .Bfc {
@@ -1415,70 +1433,68 @@ text-shadow: none;
     clear: both; }
   .mk-editor .hide {
     display: none; }
-  .mk-editor ol {
-    list-style: none; }
 
-.mk-editor {
-  font-family: 'Fauna One', serif; }
-  .mk-editor .mk-block {
-    font-size: 16px; }
-  .mk-editor .mk-block-code pre, .mk-editor .mk-block-code textarea {
-    font-family: "Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;"; }
+.mk-editor .mk-block pre, .mk-editor .mk-block code, .mk-editor .mk-block textarea, .mk-editor .mk-block div, .mk-editor .mk-block p {
+  font-family: 'Fauna One', serif;
+  font-size: 1em;
+  line-height: 1.2em; }
+.mk-editor .mk-block pre, .mk-editor .mk-block code, .mk-editor .mk-block textarea {
+  min-height: 110px;
+  word-wrap: break-word;
+  white-space: pre-wrap; }
+.mk-editor .mk-block.mk-block-code pre, .mk-editor .mk-block.mk-block-code code, .mk-editor .mk-block.mk-block-code textarea {
+  font-family: "Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;"; }
 
 .mk-editor {
   width: 800px; }
   .mk-editor .mk-block {
-    border: 1px solid #808080;
+    width: 760px;
+    border: 1px solid #c0c0c0;
     display: inline-block;
     min-height: 110px;
-    width: 760px;
     padding-left: 10px; }
     .mk-editor .mk-block textarea {
-      width: 745px;
-      white-space: pre-wrap;
-      word-wrap: break-word;
-      font-size: 1em;
-      line-height: 1.5em;
-      margin: .5em 0;
+      width: 100%;
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box; }
-  .mk-editor .mk-edit-controls a {
-    text-decoration: none;
-    color: #555555; }
-    .mk-editor .mk-edit-controls a:visited {
-      color: #555555; }
+    .mk-editor .mk-block .mk-editor, .mk-editor .mk-block .mk-previewer {
+      width: 100%; }
   .mk-editor .mk-block-controls {
     display: inline-block;
     vertical-align: top;
     background-color: #F4F5F7; }
     .mk-editor .mk-block-controls a {
       text-decoration: none; }
+    .mk-editor .mk-block-controls .handle {
+      cursor: move; }
     .mk-editor .mk-block-controls .icon {
       border: 1px solid grey;
       font-size: 16px;
       padding: 5px; }
-  .mk-editor .mk-plus {
-    text-align: center;
-    margin: 20px auto 20px auto; }
-  .mk-editor .mk-raw {
-    width: 700px;
-    height: 200px; }
+    .mk-editor .mk-block-controls .mk-edit-controls a {
+      text-decoration: none;
+      color: #555555; }
+      .mk-editor .mk-block-controls .mk-edit-controls a:visited {
+        color: #555555; }
 
-.mk-editor .mk-plus a {
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-  margin-right: 25px;
-  color: black; }
-  .mk-editor .mk-plus a:hover {
-    color: blue; }
-.mk-editor .mk-plus a.mk-plus-add {
-  color: #cfcbcb; }
-  .mk-editor .mk-plus a.mk-plus-add:hover {
-    color: #808080; }
-.mk-editor .mk-plus .icon {
-  font-size: 32px; }
+.mk-editor .mk-plus {
+  text-align: center;
+  margin: 20px auto 20px auto; }
+  .mk-editor .mk-plus a {
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    margin-right: 25px;
+    color: black; }
+    .mk-editor .mk-plus a:hover {
+      color: blue; }
+  .mk-editor .mk-plus a.mk-plus-add {
+    color: #cfcbcb; }
+    .mk-editor .mk-plus a.mk-plus-add:hover {
+      color: #808080; }
+  .mk-editor .mk-plus .icon {
+    font-size: 32px; }
 
 .mk-editor .mk-block .mk-editor, .mk-editor .mk-block .mk-previewer {
   display: none; }
@@ -1489,6 +1505,6 @@ text-shadow: none;
 .mk-editor .mk-previewer:hover {
   border: 2px solid blue; }
 
-.mk-editor ol.mk-edit {
-  margin: 0;
-  padding: 0; }
+.mk-raw {
+  width: 700px;
+  height: 200px; }

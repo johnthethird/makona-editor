@@ -85,7 +85,7 @@ MakonaEditor = React.createClass({
     var newBlocks;
     newBlocks = this.state.blocks.map(function(block) {
       if (block.id === changedBlock.id) {
-        block.data = changedBlock.data;
+        _.merge(block.data, changedBlock.data);
       }
       return block;
     });

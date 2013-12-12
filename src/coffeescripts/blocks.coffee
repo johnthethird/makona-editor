@@ -44,7 +44,7 @@ BLOCK_REGISTRY = [
   sort: 4
   displayName: "Code"
   icon: '\ue038'
-  editorClass: require("./blocks/QuoteEditor")
+  editorClass: require("./blocks/CodeEditor")
   previewClass: require("./blocks/CodePreviewer")
   editable: true
   createable: true

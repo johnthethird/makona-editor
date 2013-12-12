@@ -24,6 +24,7 @@ ExpandingTextarea = React.createClass
   textareaStyle:
     position: "absolute"
     height: "100%"
+    width: "100%"
     resize: "none"
     background: "transparent" #for testing
 
@@ -47,11 +48,12 @@ ExpandingTextarea = React.createClass
     this.props.handleChange({id: this.props.block.id, data: {text: text}})
 
   # The <pre> is hidden behind the textarea and mirrors the content. In this way the pre controls the size.
+  # The +" " is a hack so the scrollbar doesnt show up
   render: ->
     `(
       <div style={this.containerStyle}>
         <textarea style={this.textareaStyle} value={this.props.block.data.text} ref="text" onChange={this.handleChange}></textarea>
-        <pre ref="pre" style={this.preStyle}><div>{this.props.block.data.text}</div></pre>
+        <pre ref="pre" style={this.preStyle}><div>{this.props.block.data.text+" "}</div></pre>
       </div>
     )`
 

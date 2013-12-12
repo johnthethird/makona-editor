@@ -9,6 +9,7 @@ ExpandingTextarea = React.createClass({
   textareaStyle: {
     position: "absolute",
     height: "100%",
+    width: "100%",
     resize: "none",
     background: "transparent"
   },
@@ -44,7 +45,7 @@ ExpandingTextarea = React.createClass({
     return (
       <div style={this.containerStyle}>
         <textarea style={this.textareaStyle} value={this.props.block.data.text} ref="text" onChange={this.handleChange}></textarea>
-        <pre ref="pre" style={this.preStyle}><div>{this.props.block.data.text}</div></pre>
+        <pre ref="pre" style={this.preStyle}><div>{this.props.block.data.text+" "}</div></pre>
       </div>
     );
   }

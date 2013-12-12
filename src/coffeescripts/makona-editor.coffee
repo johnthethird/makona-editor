@@ -58,7 +58,8 @@ MakonaEditor = React.createClass
 
   handleChange: (changedBlock, replaceFlag) ->
     newBlocks = this.state.blocks.map (block) ->
-      block.data = changedBlock.data if block.id is changedBlock.id
+      # Merge in the changed block to what we already have, so blocks dont have to send all properties
+      _.merge(block.data, changedBlock.data) if block.id is changedBlock.id
       block
     if replaceFlag is true
       this.replaceState({blocks: []})

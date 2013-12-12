@@ -1,15 +1,15 @@
 /** @jsx React.DOM */;
-var CodeEditor;
+var CodeEditor, ExpandingTextarea;
+
+ExpandingTextarea = require("../tags/ExpandingTextarea");
 
 CodeEditor = React.createClass({
   handleChange: function() {
-    var lang, text;
-    text = this.refs.text.getDOMNode().value;
+    var lang;
     lang = this.refs.lang.getDOMNode().value;
     return this.props.handleChange({
       id: this.props.block.id,
       data: {
-        text: text,
         lang: lang
       }
     });
@@ -17,7 +17,7 @@ CodeEditor = React.createClass({
   render: function() {
     return (
       <div>
-        <textarea value={this.props.block.data.text} ref="text" onChange={this.handleChange}></textarea>
+        {this.transferPropsTo(<ExpandingTextarea></ExpandingTextarea>)}
         <br />
         <label>Language: </label><input value={this.props.block.data.lang} ref="lang" onChange={this.handleChange} />
       </div>
