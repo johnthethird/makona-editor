@@ -1422,8 +1422,6 @@ text-shadow: none;
   font-family: 'Fauna One', serif; }
   .mk-editor .mk-block {
     font-size: 16px; }
-    .mk-editor .mk-block pre, .mk-editor .mk-block textarea {
-      font-size: 16px; }
   .mk-editor .mk-block-code pre, .mk-editor .mk-block-code textarea {
     font-family: "Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;"; }
 
@@ -1433,10 +1431,18 @@ text-shadow: none;
     border: 1px solid #808080;
     display: inline-block;
     min-height: 110px;
-    width: 768px; }
+    width: 760px;
+    padding-left: 10px; }
     .mk-editor .mk-block textarea {
-      width: 83%;
-      height: 150px; }
+      width: 745px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      font-size: 1em;
+      line-height: 1.5em;
+      margin: .5em 0;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box; }
   .mk-editor .mk-edit-controls a {
     text-decoration: none;
     color: #555555; }
@@ -1453,27 +1459,26 @@ text-shadow: none;
       font-size: 16px;
       padding: 5px; }
   .mk-editor .mk-plus {
+    text-align: center;
     margin: 20px auto 20px auto; }
   .mk-editor .mk-raw {
     width: 700px;
     height: 200px; }
 
-.mk-editor .mk-plus {
-  text-align: center; }
-  .mk-editor .mk-plus a {
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    margin-right: 25px;
-    color: black; }
-    .mk-editor .mk-plus a:hover {
-      color: blue; }
-  .mk-editor .mk-plus a.mk-plus-add {
-    color: #cfcbcb; }
-    .mk-editor .mk-plus a.mk-plus-add:hover {
-      color: #808080; }
-  .mk-editor .mk-plus .icon {
-    font-size: 32px; }
+.mk-editor .mk-plus a {
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 25px;
+  color: black; }
+  .mk-editor .mk-plus a:hover {
+    color: blue; }
+.mk-editor .mk-plus a.mk-plus-add {
+  color: #cfcbcb; }
+  .mk-editor .mk-plus a.mk-plus-add:hover {
+    color: #808080; }
+.mk-editor .mk-plus .icon {
+  font-size: 32px; }
 
 .mk-editor .mk-block .mk-editor, .mk-editor .mk-block .mk-previewer {
   display: none; }

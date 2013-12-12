@@ -16,8 +16,16 @@
     }
   },
   {
-    "id": 13,
+    "id": 182,
     "position": 3,
+    "type": "text",
+    "data": {
+      "text": "Text Block \n More text... "
+    }
+  },
+  {
+    "id": 13,
+    "position": 4,
     "type": "quote",
     "data": {
       "text": "3 Kaaaaahhhhnnnnnnnnnn!!!!!",
@@ -26,7 +34,7 @@
   },
   {
     "id": 14,
-    "position": 4,
+    "position": 5,
     "type": "code",
     "data": {
       "lang": "javascript",
@@ -35,7 +43,7 @@
   },
   {
     "id": 15,
-    "position": 5,
+    "position": 6,
     "type": "document",
     "data": {
       "icon_url": "/assets/file_type_icons/pdf.png",
