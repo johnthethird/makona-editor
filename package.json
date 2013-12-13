@@ -5,24 +5,25 @@
     "React": "petehunt/react-core"
   },
   "devDependencies": {
-    "jsx-loader": "petehunt/jsx-loader",
-    "url-loader": "latest",
     "css-loader": "latest",
-    "style-loader": "latest",
-    "script-loader": "latest",
     "grunt": "latest",
-    "grunt-webpack": "latest",
     "grunt-cli": "latest",
-    "grunt-contrib-jasmine": "latest",
-    "grunt-contrib-sass": "latest",
+    "grunt-closurecompiler": "latest",
+    "grunt-contrib-clean": "latest",
     "grunt-contrib-coffee": "latest",
     "grunt-contrib-copy": "latest",
     "grunt-contrib-connect": "latest",
     "grunt-contrib-concat": "latest",
-    "grunt-contrib-clean": "latest",
-    "grunt-regarde": "latest",
-    "grunt-notify": "latest",
+    "grunt-contrib-jasmine": "latest",
+    "grunt-contrib-sass": "latest",
     "grunt-exec": "latest",
-    "grunt-react": "latest"
+    "grunt-notify": "latest",
+    "grunt-react": "latest",
+    "grunt-regarde": "latest",
+    "grunt-webpack": "latest",
+    "jsx-loader": "petehunt/jsx-loader",
+    "url-loader": "latest",
+    "script-loader": "latest",
+    "style-loader": "latest"
   }
 }
