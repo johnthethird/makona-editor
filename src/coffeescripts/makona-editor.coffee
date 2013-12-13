@@ -166,7 +166,7 @@ MakonaSortableList = React.createClass
           function(block){
             return (
               <li className="Bfc" id={block.id} key={"ks"+block.id} data-position={block.position} >
-                <div className={"mk-block mk-block-"+block.type}>
+                <div className={"mk-block mk-block-"+block.type} >
                   <div className={this.editClasses(block.id)} ref={"editor"+block.id} >
                     {Blocks.blockTypeFromRegistry(block.type).editable ? <MakonaEditorRow block={block} opts={this.props.opts} handleChange={this.props.handleChange} /> : ""}
                   </div>
@@ -188,11 +188,11 @@ MakonaSortableList = React.createClass
 
 MakonaEditorRow = React.createClass
   render: ->
-    `Blocks.blockTypeFromRegistry(this.props.block.type).editorClass({block: this.props.block, opts: this.props.opts, handleChange: this.props.handleChange})`
+    `this.transferPropsTo(Blocks.blockTypeFromRegistry(this.props.block.type).editorClass(null))`
 
 MakonaPreviewerRow = React.createClass
   render: ->
-    `Blocks.blockTypeFromRegistry(this.props.block.type).previewClass({block: this.props.block, opts: this.props.opts})`
+    `this.transferPropsTo(Blocks.blockTypeFromRegistry(this.props.block.type).previewClass(null))`
 
 MakonaPlusRow = React.createClass
   getInitialState: () ->

@@ -286,7 +286,7 @@
 	          function(block){
 	            return (
 	              React.DOM.li( {className:"Bfc", id:block.id, key:"ks"+block.id, 'data-position':block.position} , 
-	                React.DOM.div( {className:"mk-block mk-block-"+block.type}, 
+	                React.DOM.div( {className:"mk-block mk-block-"+block.type} , 
 	                  React.DOM.div( {className:this.editClasses(block.id), ref:"editor"+block.id} , 
 	                    Blocks.blockTypeFromRegistry(block.type).editable ? MakonaEditorRow( {block:block, opts:this.props.opts, handleChange:this.props.handleChange} ) : ""
 	                  ),
@@ -310,13 +310,13 @@
 
 	MakonaEditorRow = React.createClass({
 	  render: function() {
-	    return Blocks.blockTypeFromRegistry(this.props.block.type).editorClass({block: this.props.block, opts: this.props.opts, handleChange: this.props.handleChange});
+	    return this.transferPropsTo(Blocks.blockTypeFromRegistry(this.props.block.type).editorClass(null));
 	  }
 	});
 
 	MakonaPreviewerRow = React.createClass({
 	  render: function() {
-	    return Blocks.blockTypeFromRegistry(this.props.block.type).previewClass({block: this.props.block, opts: this.props.opts});
+	    return this.transferPropsTo(Blocks.blockTypeFromRegistry(this.props.block.type).previewClass(null));
 	  }
 	});
 
