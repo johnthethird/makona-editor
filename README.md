@@ -15,6 +15,23 @@ At any rate, this is currently a very rough spike. The basic mechanics are there
 of work. Are you a creative type looking to contribute to a cool new open-source project? ;)
 
 
+## Inspiration
+[Sir Trevor](http://github.com/madebymany/sir-trevor-js) is another take on a block-style editor.
+
+
+## Goals
+Makona's goals are a bit different from Sir Trevor and others:
+
+* Based on [React JS](http://facebook.github.io/react/index.html) for a solid foundation.
+* Work on wider range of platforms, including legacy browsers (IE8+) up to modern tablets
+* All editing is done in a `<textarea>` (as opposed to a contenteditable div), so we sacrifice WYSIWYG while actually editing, but we gain universal compatibility.
+
+
+## Dependencies
+This requires a lot of JS libs to work, the plan is to slim things down once its all working. The main reason jQuery is used currently is for the drag-and-drop sorting. Once we implement this behavior in native React we can (probably?) ditch the jQuery dependency. Certain block types will each have their own dependencies, so if you dont need the image upload block, then you dont need the fineuploader libs, etc.
+
+
+
 ### Building Your Copy of Makona
 
 The process to build Makona is haphazard at best. This is a spike, after all.
@@ -42,9 +59,3 @@ At this point, you should now have a `dist/` directory populated with all the ne
 
 Once your local server is running, [try it out!](http://localhost:9292/dist/index.html)
 
-## Dependencies
-This requires a lot of JS libs to work, the plan is to slim things down once its all working. Or at least package everything better.
-
-
-## Inspiration
-[Sir Trevor](http://github.com/madebymany/sir-trevor-js) is another take on a block-style editor.
