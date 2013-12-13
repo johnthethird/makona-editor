@@ -243,6 +243,11 @@
 	    });
 	    return this.props.handleChange(block);
 	  },
+	  handleKeyUp: function(id, e) {
+	    if (e.keyCode === 27) {
+	      return this.handlePreview(id);
+	    }
+	  },
 	  editClasses: function(id) {
 	    var block, cx, editClasses;
 	    block = Blocks.blockFromId(this.props.blocks, id);
@@ -287,7 +292,7 @@
 	            return (
 	              React.DOM.li( {className:"Bfc", id:block.id, key:"ks"+block.id, 'data-position':block.position} , 
 	                React.DOM.div( {className:"mk-block mk-block-"+block.type} , 
-	                  React.DOM.div( {className:this.editClasses(block.id), ref:"editor"+block.id} , 
+	                  React.DOM.div( {className:this.editClasses(block.id), ref:"editor"+block.id, onKeyUp:this.handleKeyUp.bind(this, block.id)} , 
 	                    Blocks.blockTypeFromRegistry(block.type).editable ? MakonaEditorRow( {block:block, opts:this.props.opts, handleChange:this.props.handleChange} ) : ""
 	                  ),
 	                  React.DOM.div( {className:this.previewClasses(block.id), ref:"preview"+block.id, onClick:this.handleEdit.bind(this, block.id)}, 

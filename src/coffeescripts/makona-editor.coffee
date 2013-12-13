@@ -130,6 +130,10 @@ MakonaSortableList = React.createClass
     block = $.extend(block, {mode: 'preview'})
     this.props.handleChange(block)
 
+  # escape key while editing will flip back to preview mode
+  handleKeyUp: (id, e) ->
+    @handlePreview(id) if e.keyCode is 27
+
   editClasses: (id) ->
     block = Blocks.blockFromId(this.props.blocks, id)
     cx = React.addons.classSet
@@ -167,7 +171,7 @@ MakonaSortableList = React.createClass
             return (
               <li className="Bfc" id={block.id} key={"ks"+block.id} data-position={block.position} >
                 <div className={"mk-block mk-block-"+block.type} >
-                  <div className={this.editClasses(block.id)} ref={"editor"+block.id} >
+                  <div className={this.editClasses(block.id)} ref={"editor"+block.id} onKeyUp={this.handleKeyUp.bind(this, block.id)} >
                     {Blocks.blockTypeFromRegistry(block.type).editable ? <MakonaEditorRow block={block} opts={this.props.opts} handleChange={this.props.handleChange} /> : ""}
                   </div>
                   <div className={this.previewClasses(block.id)} ref={"preview"+block.id} onClick={this.handleEdit.bind(this, block.id)}>
