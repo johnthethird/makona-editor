@@ -14,6 +14,7 @@ ExpandingTextarea = React.createClass({
     background: "transparent"
   },
   preStyle: {
+    visibility: "hidden",
     border: "0 solid",
     whiteSpace: "pre-wrap"
   },

@@ -29,7 +29,7 @@ ExpandingTextarea = React.createClass
     background: "transparent" #for testing
 
   preStyle:
-    #visibility: "hidden"
+    visibility: "hidden"
     border: "0 solid"
     whiteSpace: "pre-wrap"
 

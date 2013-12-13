@@ -1,5 +1,5 @@
 /** @jsx React.DOM */;
-var Blocks, Makona, MakonaEditor, MakonaEditorRow, MakonaPlusRow, MakonaPreviewList, MakonaPreviewerRow, MakonaRaw, MakonaSortableList;
+var Blocks, Makona, MakonaEditor, MakonaEditorRow, MakonaPlusRow, MakonaPreviewList, MakonaPreviewerRow, MakonaRaw, MakonaRawPre, MakonaSortableList;
 
 require("script!../../bower_components/jquery/jquery.min.js");
 
@@ -140,6 +140,7 @@ MakonaEditor = React.createClass({
         <hr />
         {/*<MakonaPreviewList blocks={this.state.blocks} opts={this.props.opts} /> */}
         <hr />
+        <MakonaRawPre blocks={this.state.blocks} opts={this.props.opts}/>
         <MakonaRaw blocks={this.state.blocks} opts={this.props.opts}/>
       </div>
     );
@@ -239,7 +240,7 @@ MakonaSortableList = React.createClass({
                   <div className={this.editClasses(block.id)} ref={"editor"+block.id} >
                     {Blocks.blockTypeFromRegistry(block.type).editable ? <MakonaEditorRow block={block} opts={this.props.opts} handleChange={this.props.handleChange} /> : ""}
                   </div>
-                  <div className={this.previewClasses(block.id)} ref={"preview"+block.id} onDoubleClick={this.handleEdit.bind(this, block.id)}>
+                  <div className={this.previewClasses(block.id)} ref={"preview"+block.id} onClick={this.handleEdit.bind(this, block.id)}>
                     <MakonaPreviewerRow block={block} opts={this.props.opts} />
                   </div>
                 </div>
@@ -318,6 +319,12 @@ MakonaPlusRow = React.createClass({
 MakonaRaw = React.createClass({
   render: function() {
     return <textarea className="mk-raw" name={this.props.opts.node_name} value={JSON.stringify(this.props.blocks, null, 2)}></textarea>;
+  }
+});
+
+MakonaRawPre = React.createClass({
+  render: function() {
+    return <pre  name={this.props.opts.node_name}>{JSON.stringify(this.props.blocks, null, 2)}</pre>;
   }
 });
 

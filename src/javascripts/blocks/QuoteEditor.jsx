@@ -1,15 +1,15 @@
 /** @jsx React.DOM */;
-var QuoteEditor;
+var ExpandingTextarea, QuoteEditor;
+
+ExpandingTextarea = require("../tags/ExpandingTextarea");
 
 QuoteEditor = React.createClass({
   handleChange: function() {
-    var cite, text;
-    text = this.refs.text.getDOMNode().value;
+    var cite;
     cite = this.refs.cite.getDOMNode().value;
     return this.props.handleChange({
       id: this.props.block.id,
       data: {
-        text: text,
         cite: cite
       }
     });
@@ -17,7 +17,7 @@ QuoteEditor = React.createClass({
   render: function() {
     return (
       <div>
-        <textarea value={this.props.block.data.text} ref="text" onChange={this.handleChange}></textarea>
+        {this.transferPropsTo(<ExpandingTextarea></ExpandingTextarea>)}
         <br />
         <input value={this.props.block.data.cite} ref="cite" onChange={this.handleChange} />
       </div>

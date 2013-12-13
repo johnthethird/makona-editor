@@ -49,7 +49,7 @@
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM */;
-	var Blocks, Makona, MakonaEditor, MakonaEditorRow, MakonaPlusRow, MakonaPreviewList, MakonaPreviewerRow, MakonaRaw, MakonaSortableList;
+	var Blocks, Makona, MakonaEditor, MakonaEditorRow, MakonaPlusRow, MakonaPreviewList, MakonaPreviewerRow, MakonaRaw, MakonaRawPre, MakonaSortableList;
 
 	require(2);
 
@@ -190,6 +190,7 @@
 	        React.DOM.hr(null ),
 	        /*<MakonaPreviewList blocks={this.state.blocks} opts={this.props.opts} /> */
 	        React.DOM.hr(null ),
+	        MakonaRawPre( {blocks:this.state.blocks, opts:this.props.opts}),
 	        MakonaRaw( {blocks:this.state.blocks, opts:this.props.opts})
 	      )
 	    );
@@ -289,7 +290,7 @@
 	                  React.DOM.div( {className:this.editClasses(block.id), ref:"editor"+block.id} , 
 	                    Blocks.blockTypeFromRegistry(block.type).editable ? MakonaEditorRow( {block:block, opts:this.props.opts, handleChange:this.props.handleChange} ) : ""
 	                  ),
-	                  React.DOM.div( {className:this.previewClasses(block.id), ref:"preview"+block.id, onDoubleClick:this.handleEdit.bind(this, block.id)}, 
+	                  React.DOM.div( {className:this.previewClasses(block.id), ref:"preview"+block.id, onClick:this.handleEdit.bind(this, block.id)}, 
 	                    MakonaPreviewerRow( {block:block, opts:this.props.opts} )
 	                  )
 	                ),
@@ -368,6 +369,12 @@
 	MakonaRaw = React.createClass({
 	  render: function() {
 	    return React.DOM.textarea( {className:"mk-raw", name:this.props.opts.node_name, value:JSON.stringify(this.props.blocks, null, 2)});
+	  }
+	});
+
+	MakonaRawPre = React.createClass({
+	  render: function() {
+	    return React.DOM.pre(  {name:this.props.opts.node_name}, JSON.stringify(this.props.blocks, null, 2));
 	  }
 	});
 
@@ -673,21 +680,13 @@
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM */;
-	var MarkdownEditor;
+	var ExpandingTextarea, MarkdownEditor;
+
+	ExpandingTextarea = require(40);
 
 	MarkdownEditor = React.createClass({
-	  handleChange: function() {
-	    var text;
-	    text = this.refs.text.getDOMNode().value;
-	    return this.props.handleChange({
-	      id: this.props.block.id,
-	      data: {
-	        text: text
-	      }
-	    });
-	  },
 	  render: function() {
-	    return React.DOM.textarea( {value:this.props.block.data.text, ref:"text", onChange:this.handleChange});
+	    return this.transferPropsTo(ExpandingTextarea(null));
 	  }
 	});
 
@@ -723,17 +722,17 @@
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM */;
-	var QuoteEditor;
+	var ExpandingTextarea, QuoteEditor;
+
+	ExpandingTextarea = require(40);
 
 	QuoteEditor = React.createClass({
 	  handleChange: function() {
-	    var cite, text;
-	    text = this.refs.text.getDOMNode().value;
+	    var cite;
 	    cite = this.refs.cite.getDOMNode().value;
 	    return this.props.handleChange({
 	      id: this.props.block.id,
 	      data: {
-	        text: text,
 	        cite: cite
 	      }
 	    });
@@ -741,7 +740,7 @@
 	  render: function() {
 	    return (
 	      React.DOM.div(null, 
-	        React.DOM.textarea( {value:this.props.block.data.text, ref:"text", onChange:this.handleChange}),
+	        this.transferPropsTo(ExpandingTextarea(null)),
 	        React.DOM.br(null ),
 	        React.DOM.input( {value:this.props.block.data.cite, ref:"cite", onChange:this.handleChange} )
 	      )
@@ -1172,6 +1171,7 @@
 	    background: "transparent"
 	  },
 	  preStyle: {
+	    visibility: "hidden",
 	    border: "0 solid",
 	    whiteSpace: "pre-wrap"
 	  },
