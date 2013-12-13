@@ -32,7 +32,9 @@ Once you have the repository cloned, building it is really easy...
 ```sh
 # grunt-cli is needed by grunt; you might have this installed already
 npm install -g grunt-cli
+npm install -g bower
 npm install
+bower install
 grunt server
 ```
 
