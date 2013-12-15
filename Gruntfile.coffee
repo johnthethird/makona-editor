@@ -99,19 +99,26 @@ module.exports = (grunt) ->
       coffee:
         files: './src/coffeescripts/**/*.coffee'
         tasks: ['coffee', 'react', 'webpack']
+        options:
+          livereload: true
       sass:
         files: './src/stylesheets/*.scss'
         tasks: ['sass']
+        options:
+          livereload: true
       images:
         files: './src/images/*.*'
         tasks: ['copy']
+        options:
+          livereload: true
       examples:
         files: './examples/*.*'
         tasks: ['copy']
+        options:
+          livereload: true
 
     webpack:
       build:
-        debug:true
         entry: './src/javascripts/<%= pkg.name %>.js'
         output:
           path: 'dist/'

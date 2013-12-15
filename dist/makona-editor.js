@@ -547,84 +547,84 @@
 /***/ 2:
 /***/ function(module, exports, require) {
 
-	require(27)(require(28)+"\n\n// SCRIPT-LOADER FOOTER\n//@ sourceURL=script:///Users/john/Code/makona-editor/bower_components/jquery/jquery.min.js")
+	require(27)(require(28))
 
 /***/ },
 
 /***/ 3:
 /***/ function(module, exports, require) {
 
-	require(27)(require(29)+"\n\n// SCRIPT-LOADER FOOTER\n//@ sourceURL=script:///Users/john/Code/makona-editor/bower_components/jquery-ui/ui/minified/jquery.ui.core.min.js")
+	require(27)(require(29))
 
 /***/ },
 
 /***/ 4:
 /***/ function(module, exports, require) {
 
-	require(27)(require(30)+"\n\n// SCRIPT-LOADER FOOTER\n//@ sourceURL=script:///Users/john/Code/makona-editor/bower_components/jquery-ui/ui/minified/jquery.ui.widget.min.js")
+	require(27)(require(30))
 
 /***/ },
 
 /***/ 5:
 /***/ function(module, exports, require) {
 
-	require(27)(require(31)+"\n\n// SCRIPT-LOADER FOOTER\n//@ sourceURL=script:///Users/john/Code/makona-editor/bower_components/jquery-ui/ui/minified/jquery.ui.mouse.min.js")
+	require(27)(require(31))
 
 /***/ },
 
 /***/ 6:
 /***/ function(module, exports, require) {
 
-	require(27)(require(32)+"\n\n// SCRIPT-LOADER FOOTER\n//@ sourceURL=script:///Users/john/Code/makona-editor/bower_components/jquery-ui/ui/minified/jquery.ui.position.min.js")
+	require(27)(require(32))
 
 /***/ },
 
 /***/ 7:
 /***/ function(module, exports, require) {
 
-	require(27)(require(33)+"\n\n// SCRIPT-LOADER FOOTER\n//@ sourceURL=script:///Users/john/Code/makona-editor/bower_components/jquery-ui/ui/minified/jquery.ui.draggable.min.js")
+	require(27)(require(33))
 
 /***/ },
 
 /***/ 8:
 /***/ function(module, exports, require) {
 
-	require(27)(require(34)+"\n\n// SCRIPT-LOADER FOOTER\n//@ sourceURL=script:///Users/john/Code/makona-editor/bower_components/jquery-ui/ui/minified/jquery.ui.droppable.min.js")
+	require(27)(require(34))
 
 /***/ },
 
 /***/ 9:
 /***/ function(module, exports, require) {
 
-	require(27)(require(35)+"\n\n// SCRIPT-LOADER FOOTER\n//@ sourceURL=script:///Users/john/Code/makona-editor/bower_components/jquery-ui/ui/minified/jquery.ui.sortable.min.js")
+	require(27)(require(35))
 
 /***/ },
 
 /***/ 10:
 /***/ function(module, exports, require) {
 
-	require(27)(require(36)+"\n\n// SCRIPT-LOADER FOOTER\n//@ sourceURL=script:///Users/john/Code/makona-editor/vendor/jquery-ui-touch-punch.min.js")
+	require(27)(require(36))
 
 /***/ },
 
 /***/ 11:
 /***/ function(module, exports, require) {
 
-	require(27)(require(37)+"\n\n// SCRIPT-LOADER FOOTER\n//@ sourceURL=script:///Users/john/Code/makona-editor/vendor/jquery-caret.min.js")
+	require(27)(require(37))
 
 /***/ },
 
 /***/ 12:
 /***/ function(module, exports, require) {
 
-	require(27)(require(38)+"\n\n// SCRIPT-LOADER FOOTER\n//@ sourceURL=script:///Users/john/Code/makona-editor/bower_components/lodash/dist/lodash.compat.min.js")
+	require(27)(require(38))
 
 /***/ },
 
 /***/ 13:
 /***/ function(module, exports, require) {
 
-	require(27)(require(39)+"\n\n// SCRIPT-LOADER FOOTER\n//@ sourceURL=script:///Users/john/Code/makona-editor/bower_components/react/react-with-addons.min.js")
+	require(27)(require(39))
 
 /***/ },
 
@@ -1222,7 +1222,7 @@
 /***/ 41:
 /***/ function(module, exports, require) {
 
-	require(27)(require(42)+"\n\n// SCRIPT-LOADER FOOTER\n//@ sourceURL=script:///Users/john/Code/makona-editor/bower_components/showdown/compressed/showdown.js")
+	require(27)(require(42))
 
 /***/ },
 
@@ -1236,7 +1236,7 @@
 /***/ 43:
 /***/ function(module, exports, require) {
 
-	require(27)(require(44)+"\n\n// SCRIPT-LOADER FOOTER\n//@ sourceURL=script:///Users/john/Code/makona-editor/vendor/prettify.js")
+	require(27)(require(44))
 
 /***/ },
 
@@ -1250,7 +1250,7 @@
 /***/ 45:
 /***/ function(module, exports, require) {
 
-	require(27)(require(46)+"\n\n// SCRIPT-LOADER FOOTER\n//@ sourceURL=script:///Users/john/Code/makona-editor/vendor/jquery.fineuploader-4.0.3.js")
+	require(27)(require(46))
 
 /***/ },
 
