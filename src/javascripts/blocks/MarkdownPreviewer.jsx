@@ -1,14 +1,22 @@
 /** @jsx React.DOM */;
-var MarkdownPreviewer, SHOWDOWN_CONVERTER;
+var MarkdownPreviewer, marked;
 
-require("script!../../../bower_components/showdown/compressed/showdown.js");
+marked = require("marked");
 
-SHOWDOWN_CONVERTER = new Showdown.converter();
+marked.setOptions({
+  gfm: true,
+  tables: true,
+  breaks: true,
+  pedantic: false,
+  sanitize: true,
+  smartLists: true,
+  smartypants: false
+});
 
 MarkdownPreviewer = React.createClass({
   render: function() {
     var html;
-    html = SHOWDOWN_CONVERTER.makeHtml(this.props.block.data.text);
+    html = marked(this.props.block.data.text);
     return <div dangerouslySetInnerHTML={{__html: html}}></div>;
   }
 });

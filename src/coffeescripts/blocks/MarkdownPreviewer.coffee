@@ -1,11 +1,18 @@
 `/** @jsx React.DOM */`
 
-require("script!../../../bower_components/showdown/compressed/showdown.js")
+marked = require("marked")
+marked.setOptions
+  gfm: true
+  tables: true
+  breaks: true
+  pedantic: false
+  sanitize: true
+  smartLists: true
+  smartypants: false
 
-SHOWDOWN_CONVERTER = new Showdown.converter()
 MarkdownPreviewer = React.createClass
   render: ->
-    html = SHOWDOWN_CONVERTER.makeHtml(this.props.block.data.text)
+    html = marked(this.props.block.data.text)
     `<div dangerouslySetInnerHTML={{__html: html}}></div>`
 
 module.exports = MarkdownPreviewer

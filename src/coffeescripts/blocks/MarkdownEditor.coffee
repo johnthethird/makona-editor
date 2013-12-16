@@ -7,7 +7,7 @@ MarkdownEditor = React.createClass
   render: ->
     `(
       <div>
-        <div>
+        <div className="mk-toolbar">
           <button onClick={this.wrapSelectedWith.bind(this, "**")}>Bold</button>
           <button onClick={this.wrapSelectedWith.bind(this, "*")}>Italic</button>
           <button onClick={this.insertAtCaret.bind(this, "\n---\n")}>HR</button>
