@@ -84,10 +84,12 @@ MakonaEditor = React.createClass({
   handleChange: function(changedBlock, replaceFlag) {
     var newBlocks;
     newBlocks = this.state.blocks.map(function(block) {
-      if (block.id === changedBlock.id) {
-        _.merge(block.data, changedBlock.data);
+      var newBlock;
+      newBlock = _.cloneDeep(block);
+      if (newBlock.id === changedBlock.id) {
+        _.merge(newBlock.data, changedBlock.data);
       }
-      return block;
+      return newBlock;
     });
     if (replaceFlag === true) {
       this.replaceState({
@@ -281,9 +283,9 @@ MakonaPlusRow = React.createClass({
       hideLinks: true
     };
   },
-  addRow: function(e, reactid) {
-    var newBlock, type;
-    type = $("[data-reactid='" + reactid + "'").data("type");
+  addRow: function(type, e) {
+    var newBlock;
+    e.preventDefault();
     newBlock = Blocks.newBlock(type);
     $(this.getDOMNode()).trigger("addRow", [this.props.block.position, newBlock]);
     return this.setState({
@@ -296,7 +298,7 @@ MakonaPlusRow = React.createClass({
     });
   },
   blockTypeLink: function(block) {
-    return React.DOM.a( {href:"javascript: void(0);", onClick:this.addRow, 'data-type':block.type}, React.DOM.div( {className:"icon", 'data-icon':block.icon}),React.DOM.div(null, block.displayName));
+    return React.DOM.a( {href:"javascript: void(0);", onClick:this.addRow.bind(this, block.type), 'data-type':block.type}, React.DOM.div( {className:"icon", 'data-icon':block.icon}),React.DOM.div(null, block.displayName));
   },
   blockTypes: function() {
     var _this = this;

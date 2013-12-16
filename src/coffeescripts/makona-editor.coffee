@@ -58,9 +58,10 @@ MakonaEditor = React.createClass
 
   handleChange: (changedBlock, replaceFlag) ->
     newBlocks = this.state.blocks.map (block) ->
+      newBlock = _.cloneDeep(block)
       # Merge in the changed block to what we already have, so blocks dont have to send all properties
-      _.merge(block.data, changedBlock.data) if block.id is changedBlock.id
-      block
+      _.merge(newBlock.data, changedBlock.data) if newBlock.id is changedBlock.id
+      newBlock
     if replaceFlag is true
       this.replaceState({blocks: []})
       this.replaceState({blocks: newBlocks})
@@ -202,8 +203,8 @@ MakonaPlusRow = React.createClass
   getInitialState: () ->
     hideLinks: true
 
-  addRow: (e, reactid) ->
-    type = $("[data-reactid='#{reactid}'").data("type")
+  addRow: (type, e) ->
+    e.preventDefault()
     newBlock = Blocks.newBlock(type)
     $(this.getDOMNode()).trigger("addRow", [this.props.block.position, newBlock])
     this.setState {'hideLinks': true}
@@ -212,7 +213,7 @@ MakonaPlusRow = React.createClass
     this.setState {'hideLinks': !this.state.hideLinks}
 
   blockTypeLink: (block) ->
-    `<a href="javascript: void(0);" onClick={this.addRow} data-type={block.type}><div className="icon" data-icon={block.icon}></div><div>{block.displayName}</div></a>`
+    `<a href="javascript: void(0);" onClick={this.addRow.bind(this, block.type)} data-type={block.type}><div className="icon" data-icon={block.icon}></div><div>{block.displayName}</div></a>`
 
   blockTypes: () ->
     _.map Blocks.createableBlockTypes(), (block) =>
