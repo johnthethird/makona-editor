@@ -20,6 +20,18 @@ BLOCK_REGISTRY = [
       text: "New text block..."
     }
   }, {
+    type: "html",
+    sort: 1,
+    displayName: "HTML",
+    icon: '\ue036',
+    editorClass: require("./blocks/HtmlEditor"),
+    previewClass: require("./blocks/HtmlPreviewer"),
+    editable: true,
+    createable: true,
+    data: {
+      text: "Raw HTML code here..."
+    }
+  }, {
     type: "markdown",
     sort: 2,
     displayName: 'Markdown',

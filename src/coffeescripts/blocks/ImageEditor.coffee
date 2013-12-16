@@ -4,6 +4,7 @@ require("script!../../../vendor/jquery.fineuploader-4.0.3.js")
 
 ImagePreviewer = require("./ImagePreviewer")
 
+# TODO figure out best way to pass in config parameters, like upload endpoints, etc
 ImageEditor = React.createClass
   componentDidMount: () ->
     if this.refs?.fineuploader?
