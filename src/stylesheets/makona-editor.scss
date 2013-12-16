@@ -149,9 +149,13 @@
 .mk-editor {
   .mk-block {
     // Styles for markdown-formatted text
-    .mk-block-markdown {
+    &.mk-block-markdown .mk-previewer {
       h1 {}
       h2 {}
+      ul {
+        list-style: disc;
+        margin-left: 25px;
+      }
     }
 
     .mk-block-code {

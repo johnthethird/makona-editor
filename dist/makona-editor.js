@@ -691,7 +691,46 @@
 
 	MarkdownEditor = React.createClass({
 	  render: function() {
-	    return this.transferPropsTo(ExpandingTextarea(null));
+	    return (
+	      React.DOM.div(null, 
+	        React.DOM.div(null, 
+	          React.DOM.button( {onClick:this.wrapSelectedWith.bind(this, "**")}, "Bold"),
+	          React.DOM.button( {onClick:this.wrapSelectedWith.bind(this, "*")}, "Italic")
+	        ),
+	        this.transferPropsTo(ExpandingTextarea( {ref:"eta"}))
+	      )
+	    );
+	  },
+	  wrapSelectedWith: function(chars, e) {
+	    var after, before, end, selected, start, text, _ref, _ref1;
+	    e.preventDefault();
+	    _ref = this.refs['eta'].getSelection(), start = _ref.start, end = _ref.end;
+	    if (start !== end) {
+	      _ref1 = this.getChunks(this.props.block.data.text, start, end), before = _ref1.before, selected = _ref1.selected, after = _ref1.after;
+	      text = before + chars + selected + chars + after;
+	      return this.props.handleChange({
+	        id: this.props.block.id,
+	        data: {
+	          text: text
+	        }
+	      });
+	    }
+	  },
+	  getChunks: function(text, start, end) {
+	    if (text == null) {
+	      text = "";
+	    }
+	    if (start == null) {
+	      start = 0;
+	    }
+	    if (end == null) {
+	      end = 0;
+	    }
+	    return {
+	      before: start === 0 ? "" : text.slice(0, +(start - 1) + 1 || 9e9),
+	      selected: text.slice(start, +(end - 1) + 1 || 9e9),
+	      after: text.slice(end, +text.length + 1 || 9e9)
+	    };
 	  }
 	});
 
@@ -1211,6 +1250,43 @@
 	        React.DOM.pre( {ref:"pre", style:this.preStyle}, React.DOM.div(null, this.props.block.data.text+" "))
 	      )
 	    );
+	  },
+	  getSelection: function() {
+	    var el, end, endRange, len, normalizedValue, range, start, textInputRange;
+	    el = this.refs['text'].getDOMNode();
+	    el.focus();
+	    start = end = 0;
+	    normalizedValue = range = textInputRange = len = endRange = void 0;
+	    if (typeof el.selectionStart === "number" && typeof el.selectionEnd === "number") {
+	      start = el.selectionStart;
+	      end = el.selectionEnd;
+	    } else {
+	      range = document.selection.createRange();
+	      if (range && range.parentElement() === el) {
+	        len = el.value.length;
+	        normalizedValue = el.value.replace(/\r\n/g, "\n");
+	        textInputRange = el.createTextRange();
+	        textInputRange.moveToBookmark(range.getBookmark());
+	        endRange = el.createTextRange();
+	        endRange.collapse(false);
+	        if (textInputRange.compareEndPoints("StartToEnd", endRange) > -1) {
+	          start = end = len;
+	        } else {
+	          start = -textInputRange.moveStart("character", -len);
+	          start += normalizedValue.slice(0, start).split("\n").length - 1;
+	          if (textInputRange.compareEndPoints("EndToEnd", endRange) > -1) {
+	            end = len;
+	          } else {
+	            end = -textInputRange.moveEnd("character", -len);
+	            end += normalizedValue.slice(0, end).split("\n").length - 1;
+	          }
+	        }
+	      }
+	    }
+	    return {
+	      start: start,
+	      end: end
+	    };
 	  }
 	});
 

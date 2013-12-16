@@ -1498,6 +1498,10 @@ text-shadow: none;
   .mk-editor .mk-plus .icon {
     font-size: 32px; }
 
+.mk-editor .mk-block.mk-block-markdown .mk-previewer ul {
+  list-style: disc;
+  margin-left: 25px; }
+
 .mk-editor .mk-block .mk-editor, .mk-editor .mk-block .mk-previewer {
   display: none; }
 .mk-editor .mk-block .mk-editor.mk-mode-edit {
