@@ -6,3 +6,4 @@ node_modules
 bower_components
 .grunt
 dist/.module-cache
+src/javascripts/*
