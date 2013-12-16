@@ -50,6 +50,16 @@ ExpandingTextarea = React.createClass({
       )
     );
   },
+  getChunks: function() {
+    var end, start, text, _ref;
+    _ref = this.getSelection(), start = _ref.start, end = _ref.end;
+    text = this.props.block.data.text;
+    return {
+      before: start === 0 ? "" : text.slice(0, +(start - 1) + 1 || 9e9),
+      selected: text.slice(start, +(end - 1) + 1 || 9e9),
+      after: text.slice(end, +text.length + 1 || 9e9)
+    };
+  },
   getSelection: function() {
     var el, end, endRange, len, normalizedValue, range, start, textInputRange;
     el = this.refs['text'].getDOMNode();
@@ -86,6 +96,20 @@ ExpandingTextarea = React.createClass({
       start: start,
       end: end
     };
+  },
+  setSelectionRange: function(selectionStart, selectionEnd) {
+    var input, range;
+    input = this.refs['text'].getDOMNode();
+    if (input.setSelectionRange) {
+      input.focus();
+      return input.setSelectionRange(selectionStart, selectionEnd);
+    } else if (input.createTextRange) {
+      range = input.createTextRange();
+      range.collapse(true);
+      range.moveEnd("character", selectionEnd);
+      range.moveStart("character", selectionStart);
+      return range.select();
+    }
   }
 });
 

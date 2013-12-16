@@ -10,41 +10,70 @@ MarkdownEditor = React.createClass({
         <div>
           <button onClick={this.wrapSelectedWith.bind(this, "**")}>Bold</button>
           <button onClick={this.wrapSelectedWith.bind(this, "*")}>Italic</button>
+          <button onClick={this.insertAtCaret.bind(this, "\n---\n")}>HR</button>
+          <button onClick={this.insertAtStartOfLine.bind(this, "# ")}>H1</button>
+          <button onClick={this.insertAtStartOfLine.bind(this, "## ")}>H2</button>
         </div>
         {this.transferPropsTo(<ExpandingTextarea ref="eta"></ExpandingTextarea>)}
       </div>
     );
   },
-  wrapSelectedWith: function(chars, e) {
-    var after, before, end, selected, start, text, _ref, _ref1;
+  insertAtCaret: function(chars, e) {
+    var after, before, selected, text, _ref;
     e.preventDefault();
-    _ref = this.refs['eta'].getSelection(), start = _ref.start, end = _ref.end;
-    if (start !== end) {
-      _ref1 = this.getChunks(this.props.block.data.text, start, end), before = _ref1.before, selected = _ref1.selected, after = _ref1.after;
+    _ref = this.refs['eta'].getChunks(), before = _ref.before, selected = _ref.selected, after = _ref.after;
+    text = before + chars + selected + after;
+    this.props.handleChange({
+      id: this.props.block.id,
+      data: {
+        text: text
+      }
+    });
+    return this.setCursorPos(before.length + chars.length);
+  },
+  insertAtStartOfLine: function(chars, e) {
+    var after, before, combinedLines, cursorPos, lines, selected, text, theLine, _ref;
+    e.preventDefault();
+    _ref = this.refs['eta'].getChunks(), before = _ref.before, selected = _ref.selected, after = _ref.after;
+    lines = before.split("\n");
+    theLine = lines.pop();
+    if (theLine.match(new RegExp("^" + chars, 'gi'))) {
+      combinedLines = lines.length === 0 ? "" : lines.join("\n") + "\n";
+      text = combinedLines + theLine.slice(chars.length, +theLine.length + 1 || 9e9) + selected + after;
+      cursorPos = before.length - chars.length;
+    } else {
+      combinedLines = lines.length === 0 ? "" : lines.join("\n") + "\n";
+      text = combinedLines + chars + theLine + selected + after;
+      cursorPos = before.length + chars.length;
+    }
+    this.props.handleChange({
+      id: this.props.block.id,
+      data: {
+        text: text
+      }
+    });
+    return this.setCursorPos(cursorPos);
+  },
+  wrapSelectedWith: function(chars, e) {
+    var after, before, selected, text, _ref;
+    e.preventDefault();
+    _ref = this.refs['eta'].getChunks(), before = _ref.before, selected = _ref.selected, after = _ref.after;
+    if (selected.length > 0) {
       text = before + chars + selected + chars + after;
-      return this.props.handleChange({
+      this.props.handleChange({
         id: this.props.block.id,
         data: {
           text: text
         }
       });
+      return this.setCursorPos(before.length + chars.length + selected.length + chars.length);
     }
   },
-  getChunks: function(text, start, end) {
-    if (text == null) {
-      text = "";
-    }
-    if (start == null) {
-      start = 0;
-    }
-    if (end == null) {
-      end = 0;
-    }
-    return {
-      before: start === 0 ? "" : text.slice(0, +(start - 1) + 1 || 9e9),
-      selected: text.slice(start, +(end - 1) + 1 || 9e9),
-      after: text.slice(end, +text.length + 1 || 9e9)
-    };
+  setCursorPos: function(pos) {
+    var _this = this;
+    return setTimeout(function() {
+      return _this.refs['eta'].setSelectionRange(pos, pos);
+    }, 100);
   }
 });
 

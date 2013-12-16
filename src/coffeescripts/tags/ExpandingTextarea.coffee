@@ -58,6 +58,15 @@ ExpandingTextarea = React.createClass
     )`
 
 
+  # {before: "Ill", selected: "be", after: "back"}
+  getChunks: () ->
+    {start, end} = @getSelection()
+    text = this.props.block.data.text
+
+    before: if start is 0 then "" else text[0..start-1]
+    selected: text[start..end-1]
+    after: text[end..text.length]
+
   # {start: 2, end: 18} caret position or selection range of textarea
   # Thanks to http://stackoverflow.com/questions/263743/how-to-get-caret-position-in-textarea
   getSelection: () ->
@@ -97,5 +106,16 @@ ExpandingTextarea = React.createClass
     start: start
     end: end
 
+  setSelectionRange: (selectionStart, selectionEnd) ->
+    input = this.refs['text'].getDOMNode()
+    if input.setSelectionRange
+      input.focus()
+      input.setSelectionRange selectionStart, selectionEnd
+    else if input.createTextRange
+      range = input.createTextRange()
+      range.collapse true
+      range.moveEnd "character", selectionEnd
+      range.moveStart "character", selectionStart
+      range.select()
 
 module.exports = ExpandingTextarea
