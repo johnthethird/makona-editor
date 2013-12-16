@@ -4,7 +4,7 @@
     "position": 1,
     "type": "image",
     "data": {
-      "src": "http://www.driventrainingsystems.com/wp-content/uploads/2012/12/cowbell.jpg"
+      "src": "images/cowbell.jpg"
     }
   },
   {
@@ -20,7 +20,7 @@
     "position": 3,
     "type": "quote",
     "data": {
-      "text": "3 Kaaaaahhhhnnnnnnnnnn!!!!!",
+      "text": "Kaaaaahhhhnnnnnnnnnn!!!!!",
       "cite": "James T. Kirk"
     }
   },
@@ -30,7 +30,7 @@
     "type": "code",
     "data": {
       "lang": "javascript",
-      "text": "4 function (arg1) {\n  console.log(\"Im in ur function\");\n  if (x == y) {\n    callMe();\n  }\n}\n"
+      "text": "function (arg1) {\n  console.log(\"Im in ur function\");\n  if (x == y) {\n    callMe();\n  }\n}\n"
     }
   },
   {
@@ -38,9 +38,17 @@
     "position": 5,
     "type": "document",
     "data": {
-      "icon_url": "/assets/file_type_icons/pdf.png",
+      "icon_url": "images/pdf.png",
       "title": "Small_doc.pdf",
-      "url": "https://kaleo-development.s3.amazonaws.com/4e8c4960-625d-4300-9337-505250a13124/documents/56/Small_doc.pdf?AWSAccessKeyId=AKIAILWYVJYOBPICBRRA&Signature=UTI1rTn4vHGgOBWZgFKJIm%2F1xsA%3D&Expires=1385186559"
+      "url": "https://dl.dropboxusercontent.com/u/2180623/Small%20doc.pdf"
+    }
+  },
+  {
+    "id": 16,
+    "position": 6,
+    "type": "html",
+    "data": {
+      "text": "<iframe width=\"560\" height=\"315\" src=\"//www.youtube.com/embed/CzP0Zqxam7E\" frameborder=\"0\" allowfullscreen></iframe>"
     }
   }
 ]
