@@ -2,6 +2,7 @@
 
 require("script!../../bower_components/jquery/jquery.min.js")
 
+# TODO Either make a React-native drag-n-drop solution, or swap out jQuery UI for https://github.com/desandro/draggabilly
 #require("script!../../bower_components/jquery-ui/ui/minified/jquery-ui.min.js")
 require("script!../../bower_components/jquery-ui/ui/minified/jquery.ui.core.min.js")
 require("script!../../bower_components/jquery-ui/ui/minified/jquery.ui.widget.min.js")
@@ -45,11 +46,6 @@ MakonaEditor = React.createClass
   componentWillMount: () ->
     this.loadBlocksFromServer()
 
-  componentDidMount: () ->
-    $(this.getDOMNode()).on "addRow", (e, position, block) =>
-      e.preventDefault()
-      this.handleAddRow(position, block)
-
   handleAddRow: (position, block) ->
     block.id = _.max(this.state.blocks, "id").id + 1
     block.position = position + 0.5
@@ -90,6 +86,7 @@ MakonaEditor = React.createClass
           handleReorder={this.handleReorder}
           handleChange={this.handleChange}
           handleDelete={this.handleDelete}
+          handleAddRow={this.handleAddRow}
         />
         <hr />
         {/*<MakonaPreviewList blocks={this.state.blocks} opts={this.props.opts} /> */}
@@ -183,7 +180,7 @@ MakonaSortableList = React.createClass
                   <div className="handle icon" data-icon="&#x61;"></div>
                   {this.editControls(block)}
                 </div>
-                <MakonaPlusRow block={block} opts={this.props.opts} />
+                <MakonaPlusRow block={block} opts={this.props.opts} handleAddRow={this.props.handleAddRow} />
               </li>
             )
           }.bind(this)
@@ -203,17 +200,16 @@ MakonaPlusRow = React.createClass
   getInitialState: () ->
     hideLinks: true
 
-  addRow: (type, e) ->
-    e.preventDefault()
+  handleAddRow: (type, e) ->
     newBlock = Blocks.newBlock(type)
-    $(this.getDOMNode()).trigger("addRow", [this.props.block.position, newBlock])
+    this.props.handleAddRow this.props.block.position, newBlock
     this.setState {'hideLinks': true}
 
   toggleLinks: () ->
     this.setState {'hideLinks': !this.state.hideLinks}
 
   blockTypeLink: (block) ->
-    `<a href="javascript: void(0);" onClick={this.addRow.bind(this, block.type)} data-type={block.type}><div className="icon" data-icon={block.icon}></div><div>{block.displayName}</div></a>`
+    `<a href="javascript: void(0);" onClick={this.handleAddRow.bind(this, block.type)} data-type={block.type}><div className="icon" data-icon={block.icon}></div><div>{block.displayName}</div></a>`
 
   blockTypes: () ->
     _.map Blocks.createableBlockTypes(), (block) =>

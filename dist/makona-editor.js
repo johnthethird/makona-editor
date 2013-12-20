@@ -115,13 +115,6 @@
 	  componentWillMount: function() {
 	    return this.loadBlocksFromServer();
 	  },
-	  componentDidMount: function() {
-	    var _this = this;
-	    return $(this.getDOMNode()).on("addRow", function(e, position, block) {
-	      e.preventDefault();
-	      return _this.handleAddRow(position, block);
-	    });
-	  },
 	  handleAddRow: function(position, block) {
 	    var newBlocks;
 	    block.id = _.max(this.state.blocks, "id").id + 1;
@@ -187,7 +180,8 @@
 	          opts:this.props.opts,
 	          handleReorder:this.handleReorder,
 	          handleChange:this.handleChange,
-	          handleDelete:this.handleDelete}
+	          handleDelete:this.handleDelete,
+	          handleAddRow:this.handleAddRow}
 	        ),
 	        React.DOM.hr(null ),
 	        /*<MakonaPreviewList blocks={this.state.blocks} opts={this.props.opts} /> */
@@ -305,7 +299,7 @@
 	                  React.DOM.div( {className:"handle icon", 'data-icon':"a"}),
 	                  this.editControls(block)
 	                ),
-	                MakonaPlusRow( {block:block, opts:this.props.opts} )
+	                MakonaPlusRow( {block:block, opts:this.props.opts, handleAddRow:this.props.handleAddRow} )
 	              )
 	            )
 	          }.bind(this)
@@ -333,11 +327,10 @@
 	      hideLinks: true
 	    };
 	  },
-	  addRow: function(type, e) {
+	  handleAddRow: function(type, e) {
 	    var newBlock;
-	    e.preventDefault();
 	    newBlock = Blocks.newBlock(type);
-	    $(this.getDOMNode()).trigger("addRow", [this.props.block.position, newBlock]);
+	    this.props.handleAddRow(this.props.block.position, newBlock);
 	    return this.setState({
 	      'hideLinks': true
 	    });
@@ -348,7 +341,7 @@
 	    });
 	  },
 	  blockTypeLink: function(block) {
-	    return React.DOM.a( {href:"javascript: void(0);", onClick:this.addRow.bind(this, block.type), 'data-type':block.type}, React.DOM.div( {className:"icon", 'data-icon':block.icon}),React.DOM.div(null, block.displayName));
+	    return React.DOM.a( {href:"javascript: void(0);", onClick:this.handleAddRow.bind(this, block.type), 'data-type':block.type}, React.DOM.div( {className:"icon", 'data-icon':block.icon}),React.DOM.div(null, block.displayName));
 	  },
 	  blockTypes: function() {
 	    var _this = this;
