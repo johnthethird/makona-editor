@@ -2,7 +2,6 @@
   "name": "makona-editor",
   "version": "0.1.0",
   "dependencies": {
-    "React": "petehunt/react-core",
     "marked": "~0.2.10"
   },
   "devDependencies": {

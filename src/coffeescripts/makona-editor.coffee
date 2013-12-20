@@ -1,25 +1,27 @@
 `/** @jsx React.DOM */`
 
-require("script!../../bower_components/jquery/jquery.min.js")
+require("script!jquery/jquery.min.js")
 
 # TODO Either make a React-native drag-n-drop solution, or swap out jQuery UI for https://github.com/desandro/draggabilly
-#require("script!../../bower_components/jquery-ui/ui/minified/jquery-ui.min.js")
-require("script!../../bower_components/jquery-ui/ui/minified/jquery.ui.core.min.js")
-require("script!../../bower_components/jquery-ui/ui/minified/jquery.ui.widget.min.js")
-require("script!../../bower_components/jquery-ui/ui/minified/jquery.ui.mouse.min.js")
-require("script!../../bower_components/jquery-ui/ui/minified/jquery.ui.position.min.js")
-require("script!../../bower_components/jquery-ui/ui/minified/jquery.ui.draggable.min.js")
-require("script!../../bower_components/jquery-ui/ui/minified/jquery.ui.droppable.min.js")
-require("script!../../bower_components/jquery-ui/ui/minified/jquery.ui.sortable.min.js")
+require("script!jquery-ui/ui/minified/jquery-ui.min.js")
+require("script!jquery-ui/ui/minified/jquery.ui.core.min.js")
+require("script!jquery-ui/ui/minified/jquery.ui.widget.min.js")
+require("script!jquery-ui/ui/minified/jquery.ui.mouse.min.js")
+require("script!jquery-ui/ui/minified/jquery.ui.position.min.js")
+require("script!jquery-ui/ui/minified/jquery.ui.draggable.min.js")
+require("script!jquery-ui/ui/minified/jquery.ui.droppable.min.js")
+require("script!jquery-ui/ui/minified/jquery.ui.sortable.min.js")
 
 # Makes sortable work on touch devices
-require("script!../../vendor/jquery-ui-touch-punch.min.js")
+require("script!jquery-ui-touch-punch.min.js")
 
 # Used to put caret at the end of the textarea
-require("script!../../vendor/jquery-caret.min.js")
+require("script!jquery-caret.min.js")
 
-require("script!../../bower_components/lodash/dist/lodash.compat.min.js")
-require("script!../../bower_components/react/react-with-addons.min.js")
+require("script!lodash/dist/lodash.compat.min.js")
+
+# Bring in React as a Bower component, not an npm module (so we dont have to build it from scratch)
+require("script!react/react-with-addons.min.js")
 
 
 # Makona will be exposed on window, and be the main entry point to the editor from the outside

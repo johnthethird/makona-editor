@@ -123,6 +123,8 @@ module.exports = (grunt) ->
         output:
           path: 'dist/'
           filename: '<%= pkg.name %>.js'
+        resolve:
+          modulesDirectories: ['node_modules', 'bower_components', 'vendor']
         stats:
           colors: true
           modules: true
