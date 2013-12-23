@@ -43,23 +43,15 @@ class Makona
     # Delete the textarea node, save the name, and replace it with a div. The Raw component will
     # create a textarea with that name.
     opts.node_name = $("##{opts.node_id}").attr("name")
+    opts.blocks ||= JSON.parse($("##{opts.node_id}").val())
     $("##{opts.node_id}").replaceWith("<div id='#{opts.node_id}' class='makona-editor'></div>")
     React.renderComponent (MakonaEditor {opts: opts}), document.getElementById(opts.node_id)
 
 Blocks = require("./blocks")
 
 MakonaEditor = React.createClass
-  loadBlocksFromServer: () ->
-    $.ajax
-      url: this.props.opts.url
-      success: (blocks) =>
-        blocks = blocks.map (block) -> $.extend({}, {mode: 'preview'}, block)
-        this.setState({blocks: blocks})
-
-  getInitialState: () -> blocks: []
-
-  componentWillMount: () ->
-    this.loadBlocksFromServer()
+  getInitialState: () ->
+    blocks: this.props.opts.blocks.map (block) -> $.extend({}, {mode: 'preview'}, block)
 
   handleAddRow: (position, block) ->
     block.id = _.max(this.state.blocks, "id").id + 1

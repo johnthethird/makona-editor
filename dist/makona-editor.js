@@ -80,6 +80,7 @@
 	Makona = (function() {
 	  function Makona(opts) {
 	    opts.node_name = $("#" + opts.node_id).attr("name");
+	    opts.blocks || (opts.blocks = JSON.parse($("#" + opts.node_id).val()));
 	    $("#" + opts.node_id).replaceWith("<div id='" + opts.node_id + "' class='makona-editor'></div>");
 	    React.renderComponent(MakonaEditor({
 	      opts: opts
@@ -93,29 +94,14 @@
 	Blocks = require(1);
 
 	MakonaEditor = React.createClass({
-	  loadBlocksFromServer: function() {
-	    var _this = this;
-	    return $.ajax({
-	      url: this.props.opts.url,
-	      success: function(blocks) {
-	        blocks = blocks.map(function(block) {
-	          return $.extend({}, {
-	            mode: 'preview'
-	          }, block);
-	        });
-	        return _this.setState({
-	          blocks: blocks
-	        });
-	      }
-	    });
-	  },
 	  getInitialState: function() {
 	    return {
-	      blocks: []
+	      blocks: this.props.opts.blocks.map(function(block) {
+	        return $.extend({}, {
+	          mode: 'preview'
+	        }, block);
+	      })
 	    };
-	  },
-	  componentWillMount: function() {
-	    return this.loadBlocksFromServer();
 	  },
 	  handleAddRow: function(position, block) {
 	    var newBlocks;
