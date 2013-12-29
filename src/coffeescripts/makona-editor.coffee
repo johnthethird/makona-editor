@@ -15,7 +15,6 @@ require("script!jquery/jquery.min.js")
 # https://github.com/dbushell/Nestable
 
 # So, for now, stick with jQuery UI
-require("script!jquery-ui/ui/minified/jquery-ui.min.js")
 require("script!jquery-ui/ui/minified/jquery.ui.core.min.js")
 require("script!jquery-ui/ui/minified/jquery.ui.widget.min.js")
 require("script!jquery-ui/ui/minified/jquery.ui.mouse.min.js")
@@ -43,6 +42,7 @@ class Makona
     # Delete the textarea node, save the name, and replace it with a div. The Raw component will
     # create a textarea with that name.
     opts.node_name = $("##{opts.node_id}").attr("name")
+    opts.output_format = $("##{opts.node_id}").data("output-format")
     opts.blocks ||= JSON.parse($("##{opts.node_id}").val())
     $("##{opts.node_id}").replaceWith("<div id='#{opts.node_id}' class='makona-editor'></div>")
     React.renderComponent (MakonaEditor {opts: opts}), document.getElementById(opts.node_id)
@@ -141,23 +141,21 @@ MakonaSortableList = React.createClass
 
   editClasses: (id) ->
     block = Blocks.blockFromId(this.props.blocks, id)
-    cx = React.addons.classSet
-    editClasses = cx
-      "mk-editor": true
+    React.addons.classSet
+      "mk-block-editor": true
       "mk-mode-edit": (block.mode == 'edit')
 
   previewClasses: (id) ->
     block = Blocks.blockFromId(this.props.blocks, id)
-    cx = React.addons.classSet
-    editClasses = cx
-      "mk-previewer": true
+    React.addons.classSet
+      "mk-block-previewer": true
       "mk-mode-preview": !block.mode? || (block.mode == 'preview')
 
   editControls: (block) ->
     editClasses = React.addons.classSet
-      "hide": (block.mode is 'edit' || !Blocks.blockTypeFromRegistry(block.type).editable)
+      "mk-hide": (block.mode is 'edit' || !Blocks.blockTypeFromRegistry(block.type).editable)
     previewClasses = React.addons.classSet
-      "hide": (block.mode is 'preview' || !Blocks.blockTypeFromRegistry(block.type).editable)
+      "mk-hide": (block.mode is 'preview' || !Blocks.blockTypeFromRegistry(block.type).editable)
     `(
       <div className="mk-edit-controls">
         <a href="javascript:void(0);" className={editClasses} onClick={this.handleEdit.bind(this, block.id)}><div className="icon" data-icon="&#x6b;"></div></a>
@@ -170,12 +168,12 @@ MakonaSortableList = React.createClass
 
   render: ->
     `(
-      <ol className="mk-edit" ref='sortable'>
+      <ol ref='sortable'>
         {this.props.blocks.map(
           function(block){
             return (
-              <li className="Bfc" id={block.id} key={"ks"+block.id} data-position={block.position} >
-                <div className={"mk-block mk-block-"+block.type} >
+              <li id={block.id} key={"ks"+block.id} data-position={block.position} >
+                <div className={"mk-block mk-blocktype-"+block.type} >
                   <div className={this.editClasses(block.id)} ref={"editor"+block.id} onKeyUp={this.handleKeyUp.bind(this, block.id)} >
                     {Blocks.blockTypeFromRegistry(block.type).editable ? <MakonaEditorRow block={block} opts={this.props.opts} handleChange={this.props.handleChange} /> : ""}
                   </div>
@@ -225,7 +223,7 @@ MakonaPlusRow = React.createClass
   render: ->
     classes = React.addons.classSet
       'mk-plus-links': true
-      'hide': this.state.hideLinks
+      'mk-hide': this.state.hideLinks
 
     `(
       <div className="mk-plus">
@@ -238,7 +236,11 @@ MakonaPlusRow = React.createClass
 
 MakonaRaw = React.createClass
   render: ->
-    `<textarea className="mk-raw" name={this.props.opts.node_name} value={JSON.stringify(this.props.blocks, null, 2)}></textarea>`
+    if this.props.opts.output_format is "json"
+      `<textarea className="mk-raw" name={this.props.opts.node_name} value={JSON.stringify(this.props.blocks, null, 2)}></textarea>`
+    else
+      #TODO render component to string and put in text area for saving.
+      `<MakonaPreviewList blocks={this.props.blocks} opts={this.props.opts} />`
 
 MakonaRawPre = React.createClass
   render: ->
@@ -247,26 +249,15 @@ MakonaRawPre = React.createClass
 
 # Not sure we need this
 MakonaPreviewList = React.createClass
-  componentDidMount: () ->
-    this.renderRows()
-
-  componentDidUpdate: () ->
-    this.renderRows()
-
-  renderRows: ->
-    this.props.blocks.map (block) ->
-     `React.renderComponent(<MakonaPreviewerRow block={block} opts={this.props.opts} />, this.refs['preview' + block.id].getDOMNode())`
-    , this
-
   render: ->
     `(
-      <ol className="mk-preview" ref='preview'>
+      <ol className="mk-previewer-list">
         {this.props.blocks.map(
           function(block){
             return (
               <li key={"kp"+block.id} data-position={block.position}>
-                <div className={"mk-block mk-block-"+block.type} ref={"preview"+block.id}>
-                  *Row gets rendered in here*
+                <div className={"mk-block mk-blocktype-"+block.type} >
+                  <MakonaPreviewerRow block={block} opts={this.props.opts} />
                 </div>
               </li>
             )

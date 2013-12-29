@@ -3,8 +3,10 @@
 @import "prettify.scss";
 @import "eleganticons.scss";
 
-// Mini-reset for just our stuff
+// Scope everything to .mk-editor
 .mk-editor {
+
+  // Mini-reset for just our stuff
   ul, ol {
     list-style: none;
     margin: 0;
@@ -29,29 +31,17 @@
   }
 
 
-}
+  // Generic Styles
 
-// Generic Styles
-.mk-editor {
-  /* Block format context */
-  .Bfc {
-    overflow: hidden;
-    zoom: 1;
-  }
-
-  .clear {
+  .mk-clear {
     clear: both;
   }
 
-  .hide {
+  .mk-hide {
     display: none;
   }
 
-}
-
-// Typography
-.mk-editor {
-
+  // Typography
   .mk-block {
     pre, code, textarea, div, p {
       font-family: 'Fauna One', serif;
@@ -63,7 +53,7 @@
       word-wrap: break-word;
       white-space: pre-wrap;
     }
-    &.mk-block-code {
+    &.mk-blocktype-code {
       pre, code, textarea {
         font-family: "Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif";
         font-size: 1.1em;
@@ -71,11 +61,8 @@
       }
     }
   }
-}
 
-
-// Layout
-.mk-editor {
+  // Layout
   width: 800px;
 
   .mk-block {
@@ -120,9 +107,7 @@
       }
     }
   }
-}
 
-.mk-editor {
   .mk-plus {
     text-align: center;
     margin: 20px auto 20px auto;
@@ -142,14 +127,11 @@
       font-size: 32px;
     }
   }
-}
 
-
-// Block Styles
-.mk-editor {
+  // Block Styles
   .mk-block {
     // Styles for markdown-formatted text
-    &.mk-block-markdown .mk-previewer {
+    &.mk-blocktype-markdown .mk-previewer {
       h1 {}
       h2 {}
       ul {
@@ -158,75 +140,36 @@
       }
     }
 
-    .mk-block-code {
+    .mk-blocktype-code {
     }
   }
-}
 
-// Interactivity
-.mk-editor {
-  .mk-block .mk-editor, .mk-block .mk-previewer {
+  // Interactivity
+  .mk-block .mk-block-editor, .mk-block .mk-block-previewer {
     display: none;
   }
-  .mk-block .mk-editor.mk-mode-edit {display: block;}
-  .mk-block .mk-previewer.mk-mode-preview {display: block;}
+  .mk-block .mk-block-editor.mk-mode-edit {display: block;}
+  .mk-block .mk-block-previewer.mk-mode-preview {display: block;}
 
   .mk-previewer {
     &:hover {
       //border: 2px solid blue;
     }
   }
-}
 
-// Theme
-.mk-editor {
-  ol.mk-edit {
-//    background: #f8f8f8 url('/images/noise.png') top left;
+  // Theme
+
+  ol.mk-edit-list {
+    //    background: #f8f8f8 url('/images/noise.png') top left;
   }
   .mk-block {
   }
-}
-
-.mk-raw {
-  width: 700px;
-  height: 200px;
-}
 
 
-// .mk-expanding-area {
-//   position: relative;
-//   border: 1px solid #888;
-//   background: #fff;
-//   // reset
-//   textarea, pre {
-//     margin: 0;
-//     padding: 0;
-//     outline: 0;
-//     border: 0;
-//   }
-//   & > textarea, & > pre {
-//     padding: 5px;
-//     background: transparent;
-//     font: 400 13px/16px helvetica, arial, sans-serif;
-//     white-space: pre-wrap;
-//     word-wrap: break-word;
-//   }
-//   textarea {
-//     -webkit-box-sizing: border-box;
-//     -moz-box-sizing: border-box;
-//     -ms-box-sizing: border-box;
-//     box-sizing: border-box;
-//     width: 100%;
-//     height: 100%;
-//     overflow: hidden;
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     resize: none;
-//   }
-//   pre {
-//     display: none;
-//   }
-// }
+  .mk-raw {
+    width: 700px;
+    height: 200px;
+  }
 
+} //.mk-editor
 

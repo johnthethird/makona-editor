@@ -159,7 +159,7 @@
   display: none; }
 
 /* Pretty printing styles. Used with prettify.js. */
-.makona-editor .mk-block-code {
+.makona-editor .mk-blocktype-code {
   /* SPAN elements with the classes below are added by prettyprint. */
   /* plain text */
   /* Use higher contrast and text-weight for printable form. */
@@ -167,10 +167,10 @@
   /* Specify class=linenums on a pre to get line numbering */
   /* IE indents via margin-left */
   /* Alternate shading for lines */ }
-  .makona-editor .mk-block-code .pln {
+  .makona-editor .mk-blocktype-code .pln {
     color: black; }
   @media screen {
-    .makona-editor .mk-block-code {
+    .makona-editor .mk-blocktype-code {
       /* string content */
       /* a keyword */
       /* a comment */
@@ -182,71 +182,71 @@
       /* a markup attribute value */
       /* a declaration; a variable name */
       /* a function name */ }
-      .makona-editor .mk-block-code .str {
+      .makona-editor .mk-blocktype-code .str {
         color: #008800; }
-      .makona-editor .mk-block-code .kwd {
+      .makona-editor .mk-blocktype-code .kwd {
         color: #000088; }
-      .makona-editor .mk-block-code .com {
+      .makona-editor .mk-blocktype-code .com {
         color: #880000; }
-      .makona-editor .mk-block-code .typ {
+      .makona-editor .mk-blocktype-code .typ {
         color: #660066; }
-      .makona-editor .mk-block-code .lit {
+      .makona-editor .mk-blocktype-code .lit {
         color: #006666; }
-      .makona-editor .mk-block-code .pun, .makona-editor .mk-block-code .opn, .makona-editor .mk-block-code .clo {
+      .makona-editor .mk-blocktype-code .pun, .makona-editor .mk-blocktype-code .opn, .makona-editor .mk-blocktype-code .clo {
         color: #666600; }
-      .makona-editor .mk-block-code .tag {
+      .makona-editor .mk-blocktype-code .tag {
         color: #000088; }
-      .makona-editor .mk-block-code .atn {
+      .makona-editor .mk-blocktype-code .atn {
         color: #660066; }
-      .makona-editor .mk-block-code .atv {
+      .makona-editor .mk-blocktype-code .atv {
         color: #008800; }
-      .makona-editor .mk-block-code .dec, .makona-editor .mk-block-code .var {
+      .makona-editor .mk-blocktype-code .dec, .makona-editor .mk-blocktype-code .var {
         color: #660066; }
-      .makona-editor .mk-block-code .fun {
+      .makona-editor .mk-blocktype-code .fun {
         color: red; } }
   @media print, projection {
-    .makona-editor .mk-block-code .str {
+    .makona-editor .mk-blocktype-code .str {
       color: #006600; }
-    .makona-editor .mk-block-code .kwd {
+    .makona-editor .mk-blocktype-code .kwd {
       color: #006;
       font-weight: bold; }
-    .makona-editor .mk-block-code .com {
+    .makona-editor .mk-blocktype-code .com {
       color: #600;
       font-style: italic; }
-    .makona-editor .mk-block-code .typ {
+    .makona-editor .mk-blocktype-code .typ {
       color: #404;
       font-weight: bold; }
-    .makona-editor .mk-block-code .lit {
+    .makona-editor .mk-blocktype-code .lit {
       color: #004444; }
-    .makona-editor .mk-block-code .pun, .makona-editor .mk-block-code .opn, .makona-editor .mk-block-code .clo {
+    .makona-editor .mk-blocktype-code .pun, .makona-editor .mk-blocktype-code .opn, .makona-editor .mk-blocktype-code .clo {
       color: #444400; }
-    .makona-editor .mk-block-code .tag {
+    .makona-editor .mk-blocktype-code .tag {
       color: #006;
       font-weight: bold; }
-    .makona-editor .mk-block-code .atn {
+    .makona-editor .mk-blocktype-code .atn {
       color: #440044; }
-    .makona-editor .mk-block-code .atv {
+    .makona-editor .mk-blocktype-code .atv {
       color: #006600; } }
-  .makona-editor .mk-block-code pre.prettyprint {
+  .makona-editor .mk-blocktype-code pre.prettyprint {
     padding: 2px;
     border: 1px solid #888888; }
-  .makona-editor .mk-block-code ol.linenums {
+  .makona-editor .mk-blocktype-code ol.linenums {
     margin-top: 0;
     margin-bottom: 0; }
-  .makona-editor .mk-block-code li.L0,
-  .makona-editor .mk-block-code li.L1,
-  .makona-editor .mk-block-code li.L2,
-  .makona-editor .mk-block-code li.L3,
-  .makona-editor .mk-block-code li.L5,
-  .makona-editor .mk-block-code li.L6,
-  .makona-editor .mk-block-code li.L7,
-  .makona-editor .mk-block-code li.L8 {
+  .makona-editor .mk-blocktype-code li.L0,
+  .makona-editor .mk-blocktype-code li.L1,
+  .makona-editor .mk-blocktype-code li.L2,
+  .makona-editor .mk-blocktype-code li.L3,
+  .makona-editor .mk-blocktype-code li.L5,
+  .makona-editor .mk-blocktype-code li.L6,
+  .makona-editor .mk-blocktype-code li.L7,
+  .makona-editor .mk-blocktype-code li.L8 {
     list-style-type: none; }
-  .makona-editor .mk-block-code li.L1,
-  .makona-editor .mk-block-code li.L3,
-  .makona-editor .mk-block-code li.L5,
-  .makona-editor .mk-block-code li.L7,
-  .makona-editor .mk-block-code li.L9 {
+  .makona-editor .mk-blocktype-code li.L1,
+  .makona-editor .mk-blocktype-code li.L3,
+  .makona-editor .mk-blocktype-code li.L5,
+  .makona-editor .mk-blocktype-code li.L7,
+  .makona-editor .mk-blocktype-code li.L9 {
     background: #eeeeee; }
 
 @font-face {
@@ -1406,49 +1406,41 @@ text-shadow: none;
 
 
 */
-.mk-editor ul, .mk-editor ol {
-  list-style: none;
-  margin: 0;
-  padding: 0; }
-.mk-editor a {
-  background: transparent; }
-.mk-editor a:focus {
-  outline: thin dotted; }
-.mk-editor a:active, .mk-editor a:hover {
-  outline: 0; }
-.mk-editor textarea, .mk-editor pre, .mk-editor code {
-  overflow: auto;
-  vertical-align: top;
-  margin: 0;
-  padding: 0;
-  outline: 0;
-  border: 0; }
-
-.mk-editor {
-  /* Block format context */ }
-  .mk-editor .Bfc {
-    overflow: hidden;
-    zoom: 1; }
-  .mk-editor .clear {
-    clear: both; }
-  .mk-editor .hide {
-    display: none; }
-
-.mk-editor .mk-block pre, .mk-editor .mk-block code, .mk-editor .mk-block textarea, .mk-editor .mk-block div, .mk-editor .mk-block p {
-  font-family: 'Fauna One', serif;
-  font-size: 1em;
-  line-height: 1.2em; }
-.mk-editor .mk-block pre, .mk-editor .mk-block code, .mk-editor .mk-block textarea {
-  min-height: 110px;
-  word-wrap: break-word;
-  white-space: pre-wrap; }
-.mk-editor .mk-block.mk-block-code pre, .mk-editor .mk-block.mk-block-code code, .mk-editor .mk-block.mk-block-code textarea {
-  font-family: "Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif";
-  font-size: 1.1em;
-  line-height: 1.2em; }
-
 .mk-editor {
   width: 800px; }
+  .mk-editor ul, .mk-editor ol {
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+  .mk-editor a {
+    background: transparent; }
+  .mk-editor a:focus {
+    outline: thin dotted; }
+  .mk-editor a:active, .mk-editor a:hover {
+    outline: 0; }
+  .mk-editor textarea, .mk-editor pre, .mk-editor code {
+    overflow: auto;
+    vertical-align: top;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0; }
+  .mk-editor .mk-clear {
+    clear: both; }
+  .mk-editor .mk-hide {
+    display: none; }
+  .mk-editor .mk-block pre, .mk-editor .mk-block code, .mk-editor .mk-block textarea, .mk-editor .mk-block div, .mk-editor .mk-block p {
+    font-family: 'Fauna One', serif;
+    font-size: 1em;
+    line-height: 1.2em; }
+  .mk-editor .mk-block pre, .mk-editor .mk-block code, .mk-editor .mk-block textarea {
+    min-height: 110px;
+    word-wrap: break-word;
+    white-space: pre-wrap; }
+  .mk-editor .mk-block.mk-blocktype-code pre, .mk-editor .mk-block.mk-blocktype-code code, .mk-editor .mk-block.mk-blocktype-code textarea {
+    font-family: "Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif";
+    font-size: 1.1em;
+    line-height: 1.2em; }
   .mk-editor .mk-block {
     width: 760px;
     border: 1px solid #c0c0c0;
@@ -1479,36 +1471,32 @@ text-shadow: none;
       color: #555555; }
       .mk-editor .mk-block-controls .mk-edit-controls a:visited {
         color: #555555; }
-
-.mk-editor .mk-plus {
-  text-align: center;
-  margin: 20px auto 20px auto; }
-  .mk-editor .mk-plus a {
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    margin-right: 25px;
-    color: black; }
-    .mk-editor .mk-plus a:hover {
-      color: blue; }
-  .mk-editor .mk-plus a.mk-plus-add {
-    color: #cfcbcb; }
-    .mk-editor .mk-plus a.mk-plus-add:hover {
-      color: #808080; }
-  .mk-editor .mk-plus .icon {
-    font-size: 32px; }
-
-.mk-editor .mk-block.mk-block-markdown .mk-previewer ul {
-  list-style: disc;
-  margin-left: 25px; }
-
-.mk-editor .mk-block .mk-editor, .mk-editor .mk-block .mk-previewer {
-  display: none; }
-.mk-editor .mk-block .mk-editor.mk-mode-edit {
-  display: block; }
-.mk-editor .mk-block .mk-previewer.mk-mode-preview {
-  display: block; }
-
-.mk-raw {
-  width: 700px;
-  height: 200px; }
+  .mk-editor .mk-plus {
+    text-align: center;
+    margin: 20px auto 20px auto; }
+    .mk-editor .mk-plus a {
+      text-decoration: none;
+      display: inline-block;
+      cursor: pointer;
+      margin-right: 25px;
+      color: black; }
+      .mk-editor .mk-plus a:hover {
+        color: blue; }
+    .mk-editor .mk-plus a.mk-plus-add {
+      color: #cfcbcb; }
+      .mk-editor .mk-plus a.mk-plus-add:hover {
+        color: #808080; }
+    .mk-editor .mk-plus .icon {
+      font-size: 32px; }
+  .mk-editor .mk-block.mk-blocktype-markdown .mk-previewer ul {
+    list-style: disc;
+    margin-left: 25px; }
+  .mk-editor .mk-block .mk-block-editor, .mk-editor .mk-block .mk-block-previewer {
+    display: none; }
+  .mk-editor .mk-block .mk-block-editor.mk-mode-edit {
+    display: block; }
+  .mk-editor .mk-block .mk-block-previewer.mk-mode-preview {
+    display: block; }
+  .mk-editor .mk-raw {
+    width: 700px;
+    height: 200px; }
