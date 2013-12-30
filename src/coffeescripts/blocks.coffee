@@ -28,6 +28,17 @@ BLOCK_REGISTRY = [
   data:
     text: "Raw HTML code here..."
 ,
+  type: "javascript"
+  sort: 1
+  displayName: "JavaScript"
+  icon: '\ue036'
+  editorClass: require("./blocks/JavascriptEditor")
+  previewClass: require("./blocks/JavascriptPreviewer")
+  editable: true
+  createable: true
+  data:
+    text: "console.log('JS tag');"
+,
   type: "markdown"
   sort: 2
   displayName: 'Markdown'
@@ -100,8 +111,12 @@ Blocks =
   blockTypeFromRegistry: (type) ->
     _.findWhere(@registry, {type: type}) || _.findWhere(@registry, {type: 'unknown'})
 
-  createableBlockTypes: _.memoize () ->
-    _.filter @registry, (val) -> val.createable
+  # Pass in array of types that you want visible in the Add Block toolbar, or nothing for all of them.
+  createableBlockTypes: _.memoize (types) ->
+    blocks = _.filter @registry, (blk) -> blk.createable
+    if types?
+      blocks = _.filter blocks, (blk) -> _.include(types, blk.type)
+    blocks
 
   isEditable: (type) ->
     _.findWhere(@registry, {type: type}).editable

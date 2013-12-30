@@ -1433,6 +1433,8 @@ text-shadow: none;
     font-family: 'Fauna One', serif;
     font-size: 1em;
     line-height: 1.2em; }
+  .mk-editor .mk-block > div {
+    min-height: 110px; }
   .mk-editor .mk-block pre, .mk-editor .mk-block code, .mk-editor .mk-block textarea {
     min-height: 110px;
     word-wrap: break-word;
@@ -1462,10 +1464,6 @@ text-shadow: none;
       text-decoration: none; }
     .mk-editor .mk-block-controls .handle {
       cursor: move; }
-    .mk-editor .mk-block-controls .icon {
-      border: 1px solid grey;
-      font-size: 16px;
-      padding: 5px; }
     .mk-editor .mk-block-controls .mk-edit-controls a {
       text-decoration: none;
       color: #555555; }
@@ -1486,17 +1484,14 @@ text-shadow: none;
       color: #cfcbcb; }
       .mk-editor .mk-plus a.mk-plus-add:hover {
         color: #808080; }
-    .mk-editor .mk-plus .icon {
+    .mk-editor .mk-plus .mk-icon {
       font-size: 32px; }
-  .mk-editor .mk-block.mk-blocktype-markdown .mk-previewer ul {
+  .mk-editor .mk-block.mk-blocktype-markdown ul {
     list-style: disc;
     margin-left: 25px; }
-  .mk-editor .mk-block .mk-block-editor, .mk-editor .mk-block .mk-block-previewer {
-    display: none; }
-  .mk-editor .mk-block .mk-block-editor.mk-mode-edit {
-    display: block; }
-  .mk-editor .mk-block .mk-block-previewer.mk-mode-preview {
-    display: block; }
+  .mk-editor .mk-block.mk-blocktype-markdown ol {
+    list-style: decimal;
+    margin-left: 25px; }
   .mk-editor .mk-raw {
     width: 700px;
     height: 200px; }

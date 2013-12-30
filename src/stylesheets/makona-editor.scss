@@ -48,7 +48,10 @@
       font-size: 1em;
       line-height: 1.2em;
     }
-    pre, code, textarea {
+    > div {
+      min-height: 110px;
+    }
+    pre, code, textarea, {
       min-height: 110px;
       word-wrap: break-word;
       white-space: pre-wrap;
@@ -92,11 +95,6 @@
     .handle {
       cursor: move;
     }
-    .icon {
-      border: 1px solid grey;
-      font-size: 16px;
-      padding: 5px;
-    }
     .mk-edit-controls {
       a {
         text-decoration: none;
@@ -123,7 +121,7 @@
       color: #cfcbcb;
       &:hover { color: #808080;}
     }
-    .icon {
+    .mk-icon {
       font-size: 32px;
     }
   }
@@ -152,19 +150,6 @@
   .mk-toolbar {
   }
 
-
-  // Interactivity
-  .mk-block .mk-block-editor, .mk-block .mk-block-previewer {
-    display: none;
-  }
-  .mk-block .mk-block-editor.mk-mode-edit {display: block;}
-  .mk-block .mk-block-previewer.mk-mode-preview {display: block;}
-
-  .mk-previewer {
-    &:hover {
-      //border: 2px solid blue;
-    }
-  }
 
   // Theme
 
