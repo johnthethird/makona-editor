@@ -131,11 +131,15 @@
   // Block Styles
   .mk-block {
     // Styles for markdown-formatted text
-    &.mk-blocktype-markdown .mk-previewer {
+    &.mk-blocktype-markdown {
       h1 {}
       h2 {}
       ul {
         list-style: disc;
+        margin-left: 25px;
+      }
+      ol {
+        list-style: decimal;
         margin-left: 25px;
       }
     }
@@ -143,6 +147,11 @@
     .mk-blocktype-code {
     }
   }
+
+  // Toolbars
+  .mk-toolbar {
+  }
+
 
   // Interactivity
   .mk-block .mk-block-editor, .mk-block .mk-block-previewer {

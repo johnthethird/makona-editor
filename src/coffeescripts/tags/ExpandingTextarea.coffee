@@ -49,14 +49,14 @@ ExpandingTextarea = React.createClass
 
   # The <pre> is hidden behind the textarea and mirrors the content. In this way the pre controls the size.
   # The +" " is a hack so the scrollbar doesnt show up
+  # if a props.handleSelect exists it is connected up to onSelect
   render: ->
     `(
       <div style={this.containerStyle}>
-        <textarea style={this.textareaStyle} value={this.props.block.data.text} ref="text" onChange={this.handleChange}></textarea>
+        <textarea onSelect={this.props.handleSelect} style={this.textareaStyle} value={this.props.block.data.text} ref="text" onChange={this.handleChange}></textarea>
         <pre ref="pre" style={this.preStyle}><div>{this.props.block.data.text+" "}</div></pre>
       </div>
     )`
-
 
   # {before: "Ill", selected: "be", after: "back"}
   getChunks: () ->
@@ -64,7 +64,7 @@ ExpandingTextarea = React.createClass
     text = this.props.block.data.text
 
     before: if start is 0 then "" else text[0..start-1]
-    selected: text[start..end-1]
+    selected: if end is 0 then "" else text[start..end-1]
     after: text[end..text.length]
 
   # {start: 2, end: 18} caret position or selection range of textarea
