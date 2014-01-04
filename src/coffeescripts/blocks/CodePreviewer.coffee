@@ -3,6 +3,7 @@
 require("script!../../../vendor/prettify.js")
 
 CodePreviewer = React.createClass
+  displayName: "CodePreviewer"
   render: ->
     html = prettyPrintOne(this.props.block.data.text, this.props.block.data.lang)
     `(

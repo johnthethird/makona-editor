@@ -1,6 +1,7 @@
 `/** @jsx React.DOM */`
 
 DocumentPreviewer = React.createClass
+  displayName: "DocumentPreviewer"
   render: ->
     `(
       <a href={this.props.block.data.url} target="_blank" >

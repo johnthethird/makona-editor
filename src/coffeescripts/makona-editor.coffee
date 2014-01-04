@@ -50,6 +50,7 @@ class Makona
 Blocks = require("./blocks")
 
 MakonaEditor = React.createClass
+  displayName: "MakonaEditor"
   getInitialState: () ->
     blocks: this.props.opts.blocks.map (block) -> $.extend({}, {mode: 'preview'}, block)
 
@@ -105,6 +106,7 @@ MakonaEditor = React.createClass
 
 
 MakonaSortableList = React.createClass
+  displayName: "SortableList"
   componentDidMount: () ->
     $(this.refs.sortable.getDOMNode()).sortable
       containment: "parent"
@@ -188,14 +190,17 @@ MakonaSortableList = React.createClass
     )`
 
 MakonaEditorRow = React.createClass
+  displayName: "MakonaEditorRow"
   render: ->
     `this.transferPropsTo(Blocks.blockTypeFromRegistry(this.props.block.type).editorClass(null))`
 
 MakonaPreviewerRow = React.createClass
+  displayName: "MakonaPreviewerRow"
   render: ->
     `this.transferPropsTo(Blocks.blockTypeFromRegistry(this.props.block.type).previewClass(null))`
 
 MakonaPlusRow = React.createClass
+  displayName: "MakonaPlusRow"
   getInitialState: () ->
     hideLinks: true
 
@@ -225,6 +230,7 @@ MakonaPlusRow = React.createClass
     )`
 
 MakonaRaw = React.createClass
+  displayName: "MakonaRaw"
   render: ->
     if this.props.opts.output_format is "json"
       `<textarea className="mk-raw" name={this.props.opts.node_name} value={JSON.stringify(this.props.blocks, null, 2)}></textarea>`
@@ -233,12 +239,14 @@ MakonaRaw = React.createClass
       `<MakonaPreviewList blocks={this.props.blocks} opts={this.props.opts} />`
 
 MakonaRawPre = React.createClass
+  displayName: "MakonaRawPre"
   render: ->
     `<pre  name={this.props.opts.node_name}>{JSON.stringify(this.props.blocks, null, 2)}</pre>`
 
 
 # Not sure we need this
 MakonaPreviewList = React.createClass
+  displayName: "MakonaPreviewList"
   render: ->
     `(
       <ol className="mk-previewer-list">

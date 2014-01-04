@@ -3,6 +3,7 @@
 ExpandingTextarea = require("../tags/ExpandingTextarea")
 
 MarkdownEditor = React.createClass
+  displayName: "MarkdownEditor"
   getInitialState: () ->
     selectionPresent: false
 

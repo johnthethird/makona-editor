@@ -6,6 +6,7 @@ ImagePreviewer = require("./ImagePreviewer")
 
 # TODO figure out best way to pass in config parameters, like upload endpoints, etc
 ImageEditor = React.createClass
+  displayName: "ImageEditor"
   componentDidMount: () ->
     if this.refs?.fineuploader?
       node = this.refs.fineuploader.getDOMNode()

@@ -3,6 +3,7 @@
 ExpandingTextarea = require("../tags/ExpandingTextarea")
 
 QuoteEditor = React.createClass
+  displayName: "QuoteEditor"
   handleChange: ->
     cite = this.refs.cite.getDOMNode().value
     this.props.handleChange({id: this.props.block.id, data: {cite: cite}})

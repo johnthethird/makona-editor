@@ -1,6 +1,7 @@
 `/** @jsx React.DOM */`
 
 ImagePreviewer = React.createClass
+  displayName: "ImagePreviewer"
   render: ->
     `(
       <div>

@@ -3,6 +3,7 @@
 ExpandingTextarea = require("../tags/ExpandingTextarea")
 
 CodeEditor = React.createClass
+  displayName: "CodeEditor"
   handleChange: ->
     lang = this.refs.lang.getDOMNode().value
     this.props.handleChange({id: this.props.block.id, data: {lang: lang}})

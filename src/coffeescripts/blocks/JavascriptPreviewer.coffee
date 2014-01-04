@@ -1,6 +1,7 @@
 `/** @jsx React.DOM */`
 
 JavascriptPreviewer = React.createClass
+  displayName: "JavascriptPreviewer"
   render: ->
     #js = "<script type='text/javascript'>\n\n#{this.props.block.data.text}\n\n</sc" + "ript>"
     js = this.props.block.data.text

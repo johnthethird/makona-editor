@@ -11,6 +11,7 @@ marked.setOptions
   smartypants: false
 
 MarkdownPreviewer = React.createClass
+  displayName: "MarkdownPreviewer"
   render: ->
     html = marked(this.props.block.data.text)
     `<div dangerouslySetInnerHTML={{__html: html}}></div>`

@@ -1,6 +1,7 @@
 `/** @jsx React.DOM */`
 
 QuotePreviewer = React.createClass
+  displayName: "QuotePreviewer"
   render: ->
     `(
       <div>

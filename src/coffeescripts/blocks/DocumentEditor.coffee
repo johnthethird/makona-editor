@@ -6,6 +6,7 @@ DocumentPreviewer = require("./DocumentPreviewer")
 
 # TODO figure out best way to pass in config parameters, like upload endpoints, etc
 DocumentEditor = React.createClass
+  displayName: "DocumentEditor"
   componentDidMount: () ->
     if this.refs?.fineuploader?
       node = this.refs.fineuploader.getDOMNode()
