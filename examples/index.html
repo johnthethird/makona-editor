@@ -17,39 +17,211 @@
     <![endif]-->
   </head>
   <body>
-    <script type="text/template" id="qq-template">
-        <div class="qq-uploader-selector qq-uploader">
-            <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
-                <span>Drop files here to upload</span>
-            </div>
-            <div class="qq-upload-button-selector qq-upload-button">
-                <div>Upload a file</div>
-            </div>
-            <span class="qq-drop-processing-selector qq-drop-processing">
-                <span>Processing dropped files...</span>
-                <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
-            </span>
-            <ul class="qq-upload-list-selector qq-upload-list">
-                <li>
-                    <div class="qq-progress-bar-container-selector">
-                        <div class="qq-progress-bar-selector qq-progress-bar"></div>
-                    </div>
-                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
-                    <img class="qq-thumbnail-selector" qq-max-size="100" qq-server-scale>
-                    <span class="qq-edit-filename-icon-selector qq-edit-filename-icon"></span>
-                    <span class="qq-upload-file-selector qq-upload-file"></span>
-                    <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
-                    <span class="qq-upload-size-selector qq-upload-size"></span>
-                    <a class="qq-upload-cancel-selector qq-upload-cancel" href="#">Cancel</a>
-                    <a class="qq-upload-retry-selector qq-upload-retry" href="#">Retry</a>
-                    <a class="qq-upload-delete-selector qq-upload-delete" href="#">Delete</a>
-                    <span class="qq-upload-status-text-selector qq-upload-status-text"></span>
-                </li>
-            </ul>
-        </div>
-    </script>
-
     <style>
+    body {
+      padding: 0px;
+      margin: 0px;
+    }
+    #header {
+      margin: 0px 0px 0px 0px;
+      width: 100%;
+      min-width: 1195px;
+      height: 51px;
+      display: block;
+      background: #0072b4 !important;
+      background-image: -webkit-gradient(linear, left top, left bottom, from(#0072b4), to(#00517f)) !important;
+      background-image: -webkit-linear-gradient(#0072b4, #00517f) !important;
+      background-image: -moz-linear-gradient(center top, #0072b4 0%, #00517f 100%) !important;
+      background-image: -moz-gradient(center top, #0072b4 0%, #00517f 100%) !important;
+      background-image: -o-linear-gradient(top, #0072b4 0%, #00517f 100%) !important;
+      background-image: -ms-linear-gradient(top, #0072b4 0%, #00517f 100%) !important;
+      -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#FF0072B4', endColorstr='#FF00517F');" !important;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#FF0072B4', endColorstr='#FF00517F') !important;
+      zoom: 1 !important;
+    }
+    #main-wrapper {
+      background-color: #fff;
+    }
+    #main {
+      padding: 0px;
+      width: 1300px;
+      height: auto;
+      display: table;
+      margin: auto;
+    }
+    #content {
+      width: 100%;
+      min-width: 700px;
+      height: 100%;
+      position: relative;
+      background-color: #fbfbfb;
+      border-bottom: 1px solid #dfdfdf;
+      border-right: 1px solid #dfdfdf;
+      display: table-cell;
+      vertical-align: top;
+      -webkit-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.07);
+      -moz-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.07);
+      -o-box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.07);
+      box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.07);
+      -webkit-border-radius: 0px 0px 10px 10px;
+      -khtml-border-radius: 0px 0px 10px 10px;
+      -moz-border-radius: 0px 0px 10px 10px;
+      -ms-border-radius: 0px 0px 10px 10px;
+      -o-border-radius: 0px 0px 10px 10px;
+      border-radius: 0px 0px 10px 10px;
+      text-align: left;
+      border-left: 1px solid #dfdfdf;
+    }
+    #content .title-container {
+      padding: 20px 24px 20px 24px;
+      margin: 0px auto;
+      text-align: left;
+      height: auto;
+      background-color: #fff;
+      box-shadow-right: none;
+      position: relative;
+      border-bottom: 1px solid #dedede;
+      border-left: 1px solid #eaeaea;
+      -webkit-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+      -moz-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+      -o-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+      left: -1px;
+    }
+    #content .title-container .title {
+      width: auto;
+      padding: 0px 0px 0px 0px;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 300;
+      font-size: 25px;
+      display: inline-block;
+      vertical-align: top;
+    }
+    #content .title-container .title.small {
+      font-size: 18px;
+    }
+    #left-sidebar {
+      width: 220px;
+      min-width: 220px;
+      height: 100%;
+      display: table-cell;
+      vertical-align: top;
+    }
+    #left-sidebar .logo {
+      max-width: 220px;
+      height: 150px;
+      margin: 0px auto;
+      text-align: center;
+      background-color: #fff;
+      box-shadow-right: none;
+      position: relative;
+      border-bottom: 1px solid #e2e2e2;
+      border-left: 1px solid #e2e2e2;
+    }
+    #left-sidebar ul {
+      list-style: none;
+    }
+    #left-sidebar .menu-widget {
+      background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
+      border-bottom: 1px solid #e2e2e2;
+      border-left: 1px solid #e2e2e2;
+      -webkit-border-radius: 0px 0px 0px 10px;
+      -khtml-border-radius: 0px 0px 0px 10px;
+      -moz-border-radius: 0px 0px 0px 10px;
+      -ms-border-radius: 0px 0px 0px 10px;
+      -o-border-radius: 0px 0px 0px 10px;
+      border-radius: 0px 0px 0px 10px;
+    }
+    #left-sidebar .menu-widget ul {
+      margin: 0px;
+      padding: 0px;
+    }
+    #left-sidebar .menu-widget ul li {
+      border-bottom: 1px solid #e2e2e2;
+      padding: 10px 5px 10px 20px;
+      margin: 0;
+      display: block;
+      font-size: 15px;
+    }
+    #left-sidebar .menu-widget ul li a {
+    }
+    #left-sidebar .menu-widget .nav-header {
+      background-color: #afafaf;
+      margin: 0 0 0 0;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      text-transform: none;
+      text-shadow: none;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: bold;
+      line-height: 30px;
+    }
+    #right-sidebar {
+      margin: 0px;
+      padding: 16px 33px 16px 16px;
+      width: auto;
+      height: 100%;
+      position: relative;
+      display: table-cell;
+      vertical-align: top;
+      text-align: left;
+    }
+    #right-sidebar ul {
+      list-style: none;
+    }
+
+    #right-sidebar .sidebar-container + .sidebar-container {
+      margin-top: 16px;
+    }
+    #right-sidebar .divider {
+      margin: 10px 0px 10px 0px;
+      border-bottom: 1px solid #f1f1f1;
+    }
+    #right-sidebar .sidebar-container {
+      width: 222px;
+      border: 1px solid #d7d7d7;
+      background-color: #ffffff;
+      display: block;
+      -webkit-border-radius: 6px;
+      -khtml-border-radius: 6px;
+      -moz-border-radius: 6px;
+      -ms-border-radius: 6px;
+      -o-border-radius: 6px;
+      border-radius: 6px;
+      -webkit-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+      -moz-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+      -o-box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    }
+    #right-sidebar .sidebar-container .title-box {
+      padding: 8px;
+      border-bottom: 1px solid #e6e6e6;
+      background: #fefefe !important;
+      background-image: -webkit-gradient(linear, left top, left bottom, from(#fefefe), to(whitesmoke)) !important;
+      background-image: -webkit-linear-gradient(#fefefe, whitesmoke) !important;
+      background-image: -moz-linear-gradient(center top, #fefefe 0%, whitesmoke 100%) !important;
+      background-image: -moz-gradient(center top, #fefefe 0%, whitesmoke 100%) !important;
+      background-image: -o-linear-gradient(top, #fefefe 0%, whitesmoke 100%) !important;
+      background-image: -ms-linear-gradient(top, #fefefe 0%, whitesmoke 100%) !important;
+      -ms-filter: "progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#FFFEFEFE', endColorstr='#FFF5F5F5');" !important;
+      filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#FFFEFEFE', endColorstr='#FFF5F5F5') !important;
+      zoom: 1 !important;
+      -webkit-border-radius: 6px 6px 0px 0px;
+      -khtml-border-radius: 6px 6px 0px 0px;
+      -moz-border-radius: 6px 6px 0px 0px;
+      -ms-border-radius: 6px 6px 0px 0px;
+      -o-border-radius: 6px 6px 0px 0px;
+      border-radius: 6px 6px 0px 0px;
+    }
+    #right-sidebar .sidebar-container .title-box .title {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-weight: 400;
+      font-size: 16px;
+      color: #000000;
+    }
+
     .container {
         margin: auto;
         width: 800px;
@@ -57,7 +229,91 @@
 
     </style>
 
-    <div class="container">
+    <div id="header"></div>
+    <div id="main-wrapper">
+      <div id="main">
+        <div id="left-sidebar">
+          <div class="logo"></div>
+          <div class="menu-widget">
+            <ul class="nav nav-list">
+              <li class="nav-header">Nav</li>
+              <li>&nbsp;</li>
+              <li>&nbsp;</li>
+              <li>&nbsp;</li>
+              <li>&nbsp;</li>
+              <li>&nbsp;</li>
+              <li>&nbsp;</li>
+              <li class="nav-header">More Nav</li>
+              <li>&nbsp;</li>
+              <li>&nbsp;</li>
+              <li>&nbsp;</li>
+              <li>&nbsp;</li>
+              <li>&nbsp;</li>
+              <li>&nbsp;</li>
+            </ul>
+          </div>
+
+        </div>
+        <div id="content">
+
+          <div class="title-container">
+            <div class="title">Questions I've Asked</div>
+            <div class="divider"></div>
+            <div class="sub-title">
+              This page allows you to see all questions that you've created.
+              Use the Filter/Sort Feature below to narrow the list of questions down.
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+        </div>
+        <div id="right-sidebar">
+          <div class="sidebar-container">
+            <div class="title-box">
+              <div class="title">
+                &nbsp;
+              </div>
+            </div>
+            <div class="content-container">
+              <ul>
+                <li>&nbsp;</li>
+                <li>&nbsp;</li>
+                <li>&nbsp;</li>
+                <li>&nbsp;</li>
+                <li>&nbsp;</li>
+                <li>&nbsp;</li>
+              </ul>
+            </div>
+          </div>
+          <div class="sidebar-container">
+            <div class="title-box">
+              <div class="title">
+                &nbsp;
+              </div>
+            </div>
+            <div class="content-container">
+              <ul>
+                <li>&nbsp;</li>
+                <li>&nbsp;</li>
+                <li>&nbsp;</li>
+                <li>&nbsp;</li>
+                <li>&nbsp;</li>
+                <li>&nbsp;</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="display: none;">
         <form action="/submit" method="POST">
             <!-- This textarea will get replaced with the whole Makona editor, which will include a textarea with this name so that the form submit will work fine. -->
             <textarea id="makona-editor" name="body_json" data-output-format="html">
@@ -76,23 +332,6 @@
                     "type": "markdown",
                     "data": {
                       "text": "# Markdown Block \n --- \n This is *italic* and **bold** \n \n* list a \n* list b\n\n and more  \n\n1. number list alpha\n1. number list beta\n"
-                    }
-                  },
-                  {
-                    "id": 182,
-                    "position": 3,
-                    "type": "text",
-                    "data": {
-                      "text": "Text Block \n More text... "
-                    }
-                  },
-                  {
-                    "id": 13,
-                    "position": 4,
-                    "type": "quote",
-                    "data": {
-                      "text": "Kaaaaahhhhnnnnnnnnnn!!!!!",
-                      "cite": "James T. Kirk"
                     }
                   },
                   {
@@ -119,24 +358,25 @@
             <button type="submit">Save</button>
         </form>
     </div>
+
     <script src="makona-editor.js"></script>
     <script>
       $(function() {
         new Makona({
                     nodeId: 'makona-editor',
-                    createableBlockTypes: ['text', 'markdown', 'quote', 'image', 'html', 'document', 'code'],
+                    createableBlockTypes: ['markdown', 'image', 'document', 'screencast', 'code', 'html'],
                     ImageEditor: {
                         debug: true,
                         request: {
                           inputName: 'asset',
-                          endpoint: 'http://localhost/v2/users/upload_image'
+                          endpoint: 'http://t1.development.kaleosoftware.com//v2/users/upload_image'
                         }
                     },
                     DocumentEditor: {
                         debug: true,
                         request: {
                           inputName: 'asset',
-                          endpoint: 'http://localhost/v2/users/upload_document'
+                          endpoint: 'http://t1.development.kaleosoftware.com//v2/users/upload_document'
                         }
                     }
                   });

@@ -1,4 +1,4 @@
-`/** @jsx React.DOM */`
+###* @jsx React.DOM ###
 
 ExpandingTextarea = require("../tags/ExpandingTextarea")
 
@@ -9,7 +9,7 @@ CodeEditor = React.createClass
     this.props.handleChange({id: this.props.block.id, data: {lang: lang}})
   render: ->
     `(
-      <div>
+      <div className="mk-block-content" >
         {this.transferPropsTo(<ExpandingTextarea></ExpandingTextarea>)}
         <br />
         <label>Language: </label><input value={this.props.block.data.lang} ref="lang" onChange={this.handleChange} />

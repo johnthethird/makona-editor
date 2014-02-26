@@ -1,4 +1,4 @@
-`/** @jsx React.DOM */`
+###* @jsx React.DOM ###
 
 require("script!jquery/jquery.min.js")
 
@@ -33,7 +33,7 @@ require("script!jquery-caret.min.js")
 require("script!lodash/dist/lodash.compat.min.js")
 
 # Bring in React as a Bower component, not an npm module (so we dont have to build it from scratch)
-require("script!react/react-with-addons.js")
+#require("script!react/react-with-addons.js")
 
 
 # Makona will be exposed on window, and be the main entry point to the editor from the outside
@@ -42,7 +42,7 @@ class Makona
     # Delete the textarea node, save the name, and replace it with a div. The Raw component will
     # create a textarea with that name.
     opts.node_name = $("##{opts.nodeId}").attr("name")
-    opts.output_format = $("##{opts.nodeId}").data("output-format")
+    opts.html_node_name = $("##{opts.nodeId}").data("output-html")
     opts.blocks ||= JSON.parse($("##{opts.nodeId}").val())
     $("##{opts.nodeId}").replaceWith("<div id='#{opts.nodeId}' class='makona-editor'></div>")
     React.renderComponent (MakonaEditor {opts: opts}), document.getElementById(opts.nodeId)
@@ -52,7 +52,10 @@ Blocks = require("./blocks")
 MakonaEditor = React.createClass
   displayName: "MakonaEditor"
   getInitialState: () ->
-    blocks: this.props.opts.blocks.map (block) -> $.extend({}, {mode: 'preview'}, block)
+    blocks: _(this.props.opts.blocks)
+            .map((block) -> $.extend({}, {mode: 'preview'}, block))
+            .sortBy("position")
+            .value()
 
   handleAddRow: (position, block) ->
     block.id = _.max(this.state.blocks, "id").id + 1
@@ -87,7 +90,7 @@ MakonaEditor = React.createClass
 
   render: ->
     `(
-      <div className='mk-editor'>
+      <div>
         <MakonaSortableList
           blocks={this.state.blocks}
           opts={this.props.opts}
@@ -96,10 +99,6 @@ MakonaEditor = React.createClass
           handleDelete={this.handleDelete}
           handleAddRow={this.handleAddRow}
         />
-        <hr />
-        {/*<MakonaPreviewList blocks={this.state.blocks} opts={this.props.opts} /> */}
-        <hr />
-        <MakonaRawPre blocks={this.state.blocks} opts={this.props.opts}/>
         <MakonaRaw blocks={this.state.blocks} opts={this.props.opts}/>
       </div>
     )`
@@ -119,10 +118,6 @@ MakonaSortableList = React.createClass
           sortedBlocks.push(theBlock)
         this.props.handleReorder(sortedBlocks)
 
-  handleDelete: (id, e) ->
-    if confirm("Are you sure you want to delete this block?")
-      this.props.handleDelete(id)
-
   handleEdit: (id, e) ->
     block = Blocks.blockFromId(this.props.blocks, id)
     block = $.extend(block, {mode: 'edit'})
@@ -141,28 +136,6 @@ MakonaSortableList = React.createClass
   handleKeyUp: (id, e) ->
     @handlePreview(id) if e.keyCode is 27
 
-  editControls: (block) ->
-    editStyle = {display: if (block.mode is 'edit' || !Blocks.blockTypeFromRegistry(block.type).editable) then 'none' else 'block'}
-    previewStyle = {display: if (block.mode is 'preview' || !Blocks.blockTypeFromRegistry(block.type).editable) then 'none' else 'block'}
-    iconStyle =
-      border: '1px solid grey'
-      fontSize: 16
-      padding: 5
-    handleStyle = $.extend({}, iconStyle, {cursor: 'move'})
-
-    `(
-      <div className="mk-block-controls">
-        <div data-behavior="handle" style={handleStyle} data-icon="&#x61;"></div>
-        <div className="mk-edit-controls">
-          <a href="javascript:void(0);" style={editStyle} onClick={this.handleEdit.bind(this, block.id)}><div style={iconStyle} data-icon="&#x6b;"></div></a>
-          <a href="javascript:void(0);" style={previewStyle} onClick={this.handlePreview.bind(this, block.id)}><div style={iconStyle} data-icon="&#x6c;"></div></a>
-          {(this.props.blocks.length > 1) ?
-            <a href="javascript:void(0);" onClick={this.handleDelete.bind(this, block.id)}><div style={iconStyle} data-icon="&#xe019;"></div></a> : ""
-          }
-        </div>
-      </div>
-    )`
-
   editStyle: (block) -> {display: if block.mode == 'edit' then 'block' else 'none'}
   previewStyle: (block) -> {display: if !block.mode? || (block.mode == 'preview') then 'block' else 'none'}
   render: ->
@@ -172,15 +145,15 @@ MakonaSortableList = React.createClass
           function(block){
             return (
               <li id={block.id} key={"ks"+block.id} data-position={block.position} >
-                <div className={"mk-block mk-blocktype-"+block.type} >
-                  <div style={this.editStyle(block)} ref={"editor"+block.id} onKeyUp={this.handleKeyUp.bind(this, block.id)} >
+                <div className={"mk-block mk-blocktype-"+block.type+" mk-mode-"+block.mode} >
+                  <div className="mk-block-editor" style={this.editStyle(block)} ref={"editor"+block.id} onKeyUp={_.partial(this.handleKeyUp, block.id)} >
                     {Blocks.blockTypeFromRegistry(block.type).editable ? <MakonaEditorRow block={block} opts={this.props.opts} handleChange={this.props.handleChange} /> : ""}
                   </div>
-                  <div style={this.previewStyle(block)} ref={"preview"+block.id} onClick={this.handleEdit.bind(this, block.id)}>
+                  <div className="mk-block-previewer" style={this.previewStyle(block)} ref={"preview"+block.id} onClick={_.partial(this.handleEdit, block.id)}>
                     <MakonaPreviewerRow block={block} opts={this.props.opts} />
                   </div>
+                  <MakonaEditorControls blocks={this.props.blocks} block={block} handleEdit={this.handleEdit} handlePreview={this.handlePreview} handleDelete={this.props.handleDelete} />
                 </div>
-                {this.editControls(block)}
                 <MakonaPlusRow block={block} opts={this.props.opts} handleAddRow={this.props.handleAddRow} />
               </li>
             )
@@ -189,18 +162,61 @@ MakonaSortableList = React.createClass
       </ol>
     )`
 
-MakonaEditorRow = React.createClass
-  displayName: "MakonaEditorRow"
+MakonaEditorControls = React.createClass
+  displayName: "EditorControls"
+  getInitialState: () ->
+    confirming: false
+
+  handleConfirmDelete: () ->
+    if this.state.confirming
+      this.setState({confirming: false})
+      this.props.handleDelete(this.props.block.id)
+    else
+      this.setState({confirming: true})
+
+  handleAbortDelete: () -> this.setState({confirming: false})
+
   render: ->
-    `this.transferPropsTo(Blocks.blockTypeFromRegistry(this.props.block.type).editorClass(null))`
+    block = this.props.block
+    editStyle = {display: if (block.mode is 'edit' || !Blocks.blockTypeFromRegistry(block.type).editable) then 'none' else 'inline-block'}
+    previewStyle = {display: if (block.mode is 'preview' || !Blocks.blockTypeFromRegistry(block.type).editable) then 'none' else 'inline-block'}
+    if this.state.confirming
+      `(
+        <div className="mk-block-controls">
+          <div className="mk-edit-controls">
+            <div className="mk-delete-confirm">Delete?</div>
+            <a href="javascript:void(0);" onClick={this.handleConfirmDelete}><div data-icon="&#x4e;"></div></a>
+            <a href="javascript:void(0);" onClick={this.handleAbortDelete}><div data-icon="&#x4d;"></div></a>
+          </div>
+        </div>
+      )`
+    else
+      `(
+        <div className="mk-block-controls">
+          <div className="mk-edit-controls">
+            {(this.props.blocks.length > 1) ?
+              <a href="javascript:void(0);" onClick={this.handleConfirmDelete}><div data-icon="&#xe019;"></div></a> : ""
+            }
+            <a href="javascript:void(0);" style={editStyle} onClick={_.partial(this.props.handleEdit, block.id)}><div data-icon="&#x6b;"></div></a>
+            <a href="javascript:void(0);" style={previewStyle} onClick={_.partial(this.props.handlePreview, block.id)}><div data-icon="&#x6c;"></div></a>
+            <div className="mk-handle" data-behavior="handle" data-icon="&#x61;"></div>
+          </div>
+        </div>
+      )`
+
+
+MakonaEditorRow = React.createClass
+  displayName: "EditorRow"
+  render: ->
+    React.DOM.div(null, this.transferPropsTo(Blocks.blockTypeFromRegistry(this.props.block.type).editorClass(null)))
 
 MakonaPreviewerRow = React.createClass
-  displayName: "MakonaPreviewerRow"
+  displayName: "PreviewerRow"
   render: ->
-    `this.transferPropsTo(Blocks.blockTypeFromRegistry(this.props.block.type).previewClass(null))`
+    React.DOM.div(null, this.transferPropsTo(Blocks.blockTypeFromRegistry(this.props.block.type).previewClass(null)))
 
 MakonaPlusRow = React.createClass
-  displayName: "MakonaPlusRow"
+  displayName: "PlusRow"
   getInitialState: () ->
     hideLinks: true
 
@@ -208,6 +224,9 @@ MakonaPlusRow = React.createClass
     newBlock = Blocks.newBlock(type)
     this.props.handleAddRow this.props.block.position, newBlock
     this.setState {'hideLinks': true}
+
+  handleClick: () ->
+    this.setState {'hideLinks': !this.state.hideLinks}
 
   toggleLinks: () ->
     this.setState {'hideLinks': !this.state.hideLinks}
@@ -219,49 +238,48 @@ MakonaPlusRow = React.createClass
     _.map Blocks.createableBlockTypes(this.props.opts.createableBlockTypes), (block) => @blockTypeLink block
 
   render: ->
-    style = {display: if this.state.hideLinks then 'none' else 'block'}
-    `(
-      <div className="mk-plus">
-        <a className="mk-plus-add" href="javascript:void(0);" onClick={this.toggleLinks}>Add Block</a>
-        <div className="mk-plus-links" style={style}>
+    links_style = {display: if this.state.hideLinks then 'none' else 'block'}
+    plus_style = {display: if this.state.hideLinks then 'block' else 'none'}
+    `<div className="mk-plus" onClick={this.handleClick}>
+        <a className="mk-plus-add" style={plus_style} href="javascript:void(0);" onClick={this.toggleLinks}>+</a>
+        <div className="mk-plus-links" style={links_style}>
           {this.blockTypes()}
         </div>
-      </div>
-    )`
+      </div>`
 
 MakonaRaw = React.createClass
   displayName: "MakonaRaw"
   render: ->
-    if this.props.opts.output_format is "json"
-      `<textarea className="mk-raw" name={this.props.opts.node_name} value={JSON.stringify(this.props.blocks, null, 2)}></textarea>`
-    else
-      #TODO render component to string and put in text area for saving.
-      `<MakonaPreviewList blocks={this.props.blocks} opts={this.props.opts} />`
+    ary = [React.DOM.textarea( {className:"mk-raw", readOnly: true, name:this.props.opts.node_name, value:JSON.stringify(this.props.blocks, null, 2)})]
+    if this.props.opts.html_node_name
+      html = React.renderComponentToString(MakonaPreviewList({blocks: this.props.blocks, opts: this.props.opts}))
+      ary.push React.DOM.textarea( {className:"mk-raw", readOnly: true, name:this.props.opts.html_node_name, value:html} )
+    React.DOM.div(null, ary...)
 
 MakonaRawPre = React.createClass
   displayName: "MakonaRawPre"
   render: ->
-    `<pre  name={this.props.opts.node_name}>{JSON.stringify(this.props.blocks, null, 2)}</pre>`
+    `<pre name={this.props.opts.node_name}>{JSON.stringify(this.props.blocks, null, 2)}</pre>`
 
 
 # Not sure we need this
 MakonaPreviewList = React.createClass
   displayName: "MakonaPreviewList"
   render: ->
-    `(
-      <ol className="mk-previewer-list">
+    `<ol className="mk-previewer-list">
         {this.props.blocks.map(
           function(block){
             return (
               <li key={"kp"+block.id} data-position={block.position}>
                 <div className={"mk-block mk-blocktype-"+block.type} >
-                  <MakonaPreviewerRow block={block} opts={this.props.opts} />
+                  <div className="mk-block-previewer">
+                    <MakonaPreviewerRow block={block} opts={this.props.opts} />
+                  </div>
                 </div>
               </li>
             )
           }.bind(this)
         )}
-      </ol>
-    )`
+      </ol>`
 
 module.exports = window.Makona = Makona

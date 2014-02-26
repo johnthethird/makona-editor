@@ -1,4 +1,4 @@
-`/** @jsx React.DOM */`
+###* @jsx React.DOM ###
 
 ExpandingTextarea = require("../tags/ExpandingTextarea")
 
@@ -9,7 +9,7 @@ MarkdownEditor = React.createClass
 
   render: ->
     `(
-      <div>
+      <div className="mk-block-content">
         <div className="mk-toolbar">
           <button onClick={this.wrapSelectedWith.bind(this, "**")} disabled={!this.state.selectionPresent}>Bold</button>
           <button onClick={this.wrapSelectedWith.bind(this, "*")} disabled={!this.state.selectionPresent}>Italic</button>

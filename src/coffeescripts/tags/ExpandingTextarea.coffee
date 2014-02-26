@@ -1,4 +1,4 @@
-`/** @jsx React.DOM */`
+###* @jsx React.DOM ###
 
 # Generic tag that creates an autoexpanding textarea
 # Depends on jQuery
@@ -27,6 +27,7 @@ ExpandingTextarea = React.createClass
     height: "100%"
     width: "100%"
     resize: "none"
+    marginBottom: "5px"
     background: "transparent" #for testing
 
   preStyle:

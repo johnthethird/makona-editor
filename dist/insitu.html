@@ -9,13 +9,17 @@
     <title>Makona Editor Example</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="makona-editor.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="makona-editor.css" type="text/css" charset="utf-8">
+    <!-- bring in latest build of React to work around some bugs -->
+    <script type="text/javascript" src="http://react.zpao.com/builds/master/latest/react-with-addons.js"></script>
+    <script type="text/javascript" src="makona-editor.js"></script>
     <!--link href='http://fonts.googleapis.com/css?family=Fauna+One' rel='stylesheet' type='text/css' -->
     <!--[if lte IE 8]>
         <script src="es5-shim.js"></script>
         <script src="es5-sham.js"></script>
     <![endif]-->
   </head>
+
   <body>
     <style>
     body {
@@ -72,6 +76,10 @@
       text-align: left;
       border-left: 1px solid #dfdfdf;
     }
+    #content .divider {
+      margin: 10px 0px 10px 0px;
+      border-bottom: 1px solid #f1f1f1;
+    }
     #content .title-container {
       padding: 20px 24px 20px 24px;
       margin: 0px auto;
@@ -99,6 +107,28 @@
     }
     #content .title-container .title.small {
       font-size: 18px;
+    }
+    #content .title-container .sub-title {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      color: #5a5a5a;
+      display: inline-block;
+      line-height: 24px;
+      font-weight: 300;
+    }
+    #content .content-container {
+      background-color: #fbfbfb;
+      background-image: url(images/bg-info-container.png);
+      background-position: top left;
+      background-repeat: repeat;
+      border-top: 1px solid #ffffff;
+      padding: 5px;
+      -webkit-border-radius: 0px 0px 10px 10px;
+      -khtml-border-radius: 0px 0px 10px 10px;
+      -moz-border-radius: 0px 0px 10px 10px;
+      -ms-border-radius: 0px 0px 10px 10px;
+      -o-border-radius: 0px 0px 10px 10px;
+      border-radius: 0px 0px 10px 10px;
     }
     #left-sidebar {
       width: 220px;
@@ -222,11 +252,6 @@
       color: #000000;
     }
 
-    .container {
-        margin: auto;
-        width: 800px;
-    }
-
     </style>
 
     <div id="header"></div>
@@ -257,13 +282,62 @@
         <div id="content">
 
           <div class="title-container">
-            <div class="title">Questions I've Asked</div>
+            <div class="title">Page Title</div>
             <div class="divider"></div>
             <div class="sub-title">
-              This page allows you to see all questions that you've created.
-              Use the Filter/Sort Feature below to narrow the list of questions down.
+              Sample page layout so we can see Makona in-situ in a real environment.
             </div>
           </div>
+          <div class="content-container">
+
+
+
+            <div class="container" style="zdisplay: none;">
+                <form action="/submit" method="POST">
+                    <!-- This textarea will get replaced with the whole Makona editor, which will include a textarea with this name so that the form submit will work fine. -->
+                    <textarea id="makona-editor" name="body" data-output-html="body_html">
+                        [
+                          {
+                            "id": 11,
+                            "position": 7,
+                            "type": "image",
+                            "data": {
+                              "src": "cowbell.jpg"
+                            }
+                          },
+                          {
+                            "id": 12,
+                            "position": 2,
+                            "type": "markdown",
+                            "data": {
+                              "text": "# Markdown Block  \n This is *italic* and **bold** \n \n* list a \n* list b\n\n and more  \n\n1. number list alpha\n1. number list beta\n"
+                            }
+                          },
+                          {
+
+                            "id": 14,
+                            "position": 5,
+                            "type": "code",
+                            "data": {
+                              "lang": "javascript",
+                              "text": "function (arg1) {\n  console.log(\"Im in ur function\");\n  if (x == y) {\n    callMe();\n  }\n}\n"
+                            }
+                          },
+                          {
+                            "id": 15,
+                            "position": 6,
+                            "type": "document",
+                            "data": {
+                              "icon_url": "/assets/file_type_icons/pdf.png",
+                              "title": "Small_doc.pdf",
+                              "url": "https://dl.dropboxusercontent.com/u/2180623/Small%20doc.pdf"
+                            }
+                          }
+                        ]
+                    </textarea>
+                    <button type="submit">Save</button>
+                </form>
+            </div>
 
 
 
@@ -272,6 +346,7 @@
 
 
 
+          </div>
         </div>
         <div id="right-sidebar">
           <div class="sidebar-container">
@@ -313,53 +388,7 @@
       </div>
     </div>
 
-    <div class="container" style="display: none;">
-        <form action="/submit" method="POST">
-            <!-- This textarea will get replaced with the whole Makona editor, which will include a textarea with this name so that the form submit will work fine. -->
-            <textarea id="makona-editor" name="body_json" data-output-format="html">
-                [
-                  {
-                    "id": 11,
-                    "position": 1,
-                    "type": "image",
-                    "data": {
-                      "src": "cowbell.jpg"
-                    }
-                  },
-                  {
-                    "id": 12,
-                    "position": 2,
-                    "type": "markdown",
-                    "data": {
-                      "text": "# Markdown Block \n --- \n This is *italic* and **bold** \n \n* list a \n* list b\n\n and more  \n\n1. number list alpha\n1. number list beta\n"
-                    }
-                  },
-                  {
-                    "id": 14,
-                    "position": 5,
-                    "type": "code",
-                    "data": {
-                      "lang": "javascript",
-                      "text": "4 function (arg1) {\n  console.log(\"Im in ur function\");\n  if (x == y) {\n    callMe();\n  }\n}\n"
-                    }
-                  },
-                  {
-                    "id": 15,
-                    "position": 6,
-                    "type": "document",
-                    "data": {
-                      "icon_url": "/assets/file_type_icons/pdf.png",
-                      "title": "Small_doc.pdf",
-                      "url": "https://dl.dropboxusercontent.com/u/2180623/Small%20doc.pdf"
-                    }
-                  }
-                ]
-            </textarea>
-            <button type="submit">Save</button>
-        </form>
-    </div>
 
-    <script src="makona-editor.js"></script>
     <script>
       $(function() {
         new Makona({

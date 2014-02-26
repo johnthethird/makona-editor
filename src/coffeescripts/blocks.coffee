@@ -7,7 +7,6 @@ BLOCK_REGISTRY = [
   data: {}
 ,
   type: "text"
-  sort: 1
   displayName: "Text"
   icon: '\x62'
   editorClass: require("./blocks/TextEditor")
@@ -18,7 +17,6 @@ BLOCK_REGISTRY = [
     text: "New text block..."
 ,
   type: "html"
-  sort: 1
   displayName: "HTML"
   icon: '\ue036'
   editorClass: require("./blocks/HtmlEditor")
@@ -29,7 +27,6 @@ BLOCK_REGISTRY = [
     text: "Raw HTML code here..."
 ,
   type: "javascript"
-  sort: 1
   displayName: "JavaScript"
   icon: '\ue036'
   editorClass: require("./blocks/JavascriptEditor")
@@ -40,18 +37,16 @@ BLOCK_REGISTRY = [
     text: "console.log('JS tag');"
 ,
   type: "markdown"
-  sort: 2
-  displayName: 'Markdown'
+  displayName: 'Text'
   icon: '\x68'
   editorClass: require("./blocks/MarkdownEditor")
   previewClass: require("./blocks/MarkdownPreviewer")
   editable: true
   createable: true
   data:
-    text: "#New MD block..."
+    text: "# New MD block..."
 ,
   type: "quote"
-  sort: 3
   displayName: 'Quote'
   icon: '\x7b'
   editorClass: require("./blocks/QuoteEditor")
@@ -63,7 +58,6 @@ BLOCK_REGISTRY = [
     cite: "a person"
 ,
   type: "code"
-  sort: 4
   displayName: "Code"
   icon: '\ue038'
   editorClass: require("./blocks/CodeEditor")
@@ -71,10 +65,9 @@ BLOCK_REGISTRY = [
   editable: true
   createable: true
   data:
-    text: "new code"
+    text: "function doSomething(x) {\n  doImportant();\n};"
 ,
   type: "image"
-  sort: 5
   displayName: "Image"
   icon: '\ue005'
   editorClass: require("./blocks/ImageEditor")
@@ -85,11 +78,20 @@ BLOCK_REGISTRY = [
     src: ""
 ,
   type: "document"
-  sort: 6
   displayName: "Document"
   icon: '\x69'
   editorClass: require("./blocks/DocumentEditor")
   previewClass: require("./blocks/DocumentPreviewer")
+  editable: true
+  createable: true
+  data:
+    title: ""
+,
+  type: "screencast"
+  displayName: "Screencast"
+  icon: '\ue00e'
+  editorClass: require("./blocks/ScreencastEditor")
+  previewClass: require("./blocks/ScreencastPreviewer")
   editable: true
   createable: true
   data:
@@ -113,9 +115,11 @@ Blocks =
 
   # Pass in array of types that you want visible in the Add Block toolbar, or nothing for all of them.
   createableBlockTypes: _.memoize (types) ->
-    blocks = _.filter @registry, (blk) -> blk.createable
+    blocks = _.filter(@registry, (blk) -> blk.createable)
     if types?
-      blocks = _.filter blocks, (blk) -> _.include(types, blk.type)
+      blocks = _.filter(blocks, (blk) -> _.include(types, blk.type))
+      # Use the sort order of the passed-in types
+      blocks = _.map(types, (t) -> _.findWhere(blocks, {type: t}))
     blocks
 
   isEditable: (type) ->

@@ -1,4 +1,4 @@
-`/** @jsx React.DOM */`
+###* @jsx React.DOM ###
 
 marked = require("marked")
 marked.setOptions
@@ -14,6 +14,6 @@ MarkdownPreviewer = React.createClass
   displayName: "MarkdownPreviewer"
   render: ->
     html = marked(this.props.block.data.text)
-    `<div dangerouslySetInnerHTML={{__html: html}}></div>`
+    `<div className="mk-block-content" dangerouslySetInnerHTML={{__html: html}}></div>`
 
 module.exports = MarkdownPreviewer

@@ -1,9 +1,13 @@
-`/** @jsx React.DOM */`
+###* @jsx React.DOM ###
 
 ExpandingTextarea = require("../tags/ExpandingTextarea")
 
 HtmlEditor = React.createClass
   displayName: "HtmlEditor"
-  render: -> `this.transferPropsTo(<ExpandingTextarea></ExpandingTextarea>)`
+  render: ->
+          `(<div className="mk-block-content">
+             this.transferPropsTo(<ExpandingTextarea></ExpandingTextarea>)
+           </div>
+          )`
 
 module.exports = HtmlEditor

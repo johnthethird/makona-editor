@@ -80,7 +80,7 @@ module.exports = (grunt) ->
         options:
           hostname: '0.0.0.0'
           port: 9292
-          base: '.'
+          base: './dist'
 
     react:
       build:

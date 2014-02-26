@@ -1,10 +1,10 @@
-`/** @jsx React.DOM */`
+###* @jsx React.DOM ###
 
 ImagePreviewer = React.createClass
   displayName: "ImagePreviewer"
   render: ->
     `(
-      <div>
+      <div className="mk-block-content">
         <img src={this.props.block.data.src} />
       </div>
     )`

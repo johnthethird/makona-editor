@@ -1,4 +1,4 @@
-`/** @jsx React.DOM */`
+###* @jsx React.DOM ###
 
 TextPreviewer = React.createClass
   displayName: "TextPreviewer"

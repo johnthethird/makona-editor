@@ -1,4 +1,4 @@
-`/** @jsx React.DOM */`
+###* @jsx React.DOM ###
 
 ExpandingTextarea = require("../tags/ExpandingTextarea")
 
