@@ -12,6 +12,7 @@
 *
 * Licensed under GNU GPL v3, see LICENSE
 */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
 .makona-editor .qq-uploader {
   position: relative;
   width: 100%; }
@@ -159,7 +160,7 @@
   display: none; }
 
 /* Pretty printing styles. Used with prettify.js. */
-.makona-editor .mk-block-code {
+.makona-editor .mk-blocktype-code {
   /* SPAN elements with the classes below are added by prettyprint. */
   /* plain text */
   /* Use higher contrast and text-weight for printable form. */
@@ -167,10 +168,10 @@
   /* Specify class=linenums on a pre to get line numbering */
   /* IE indents via margin-left */
   /* Alternate shading for lines */ }
-  .makona-editor .mk-block-code .pln {
+  .makona-editor .mk-blocktype-code .pln {
     color: black; }
   @media screen {
-    .makona-editor .mk-block-code {
+    .makona-editor .mk-blocktype-code {
       /* string content */
       /* a keyword */
       /* a comment */
@@ -182,71 +183,71 @@
       /* a markup attribute value */
       /* a declaration; a variable name */
       /* a function name */ }
-      .makona-editor .mk-block-code .str {
+      .makona-editor .mk-blocktype-code .str {
         color: #008800; }
-      .makona-editor .mk-block-code .kwd {
+      .makona-editor .mk-blocktype-code .kwd {
         color: #000088; }
-      .makona-editor .mk-block-code .com {
+      .makona-editor .mk-blocktype-code .com {
         color: #880000; }
-      .makona-editor .mk-block-code .typ {
+      .makona-editor .mk-blocktype-code .typ {
         color: #660066; }
-      .makona-editor .mk-block-code .lit {
+      .makona-editor .mk-blocktype-code .lit {
         color: #006666; }
-      .makona-editor .mk-block-code .pun, .makona-editor .mk-block-code .opn, .makona-editor .mk-block-code .clo {
+      .makona-editor .mk-blocktype-code .pun, .makona-editor .mk-blocktype-code .opn, .makona-editor .mk-blocktype-code .clo {
         color: #666600; }
-      .makona-editor .mk-block-code .tag {
+      .makona-editor .mk-blocktype-code .tag {
         color: #000088; }
-      .makona-editor .mk-block-code .atn {
+      .makona-editor .mk-blocktype-code .atn {
         color: #660066; }
-      .makona-editor .mk-block-code .atv {
+      .makona-editor .mk-blocktype-code .atv {
         color: #008800; }
-      .makona-editor .mk-block-code .dec, .makona-editor .mk-block-code .var {
+      .makona-editor .mk-blocktype-code .dec, .makona-editor .mk-blocktype-code .var {
         color: #660066; }
-      .makona-editor .mk-block-code .fun {
+      .makona-editor .mk-blocktype-code .fun {
         color: red; } }
   @media print, projection {
-    .makona-editor .mk-block-code .str {
+    .makona-editor .mk-blocktype-code .str {
       color: #006600; }
-    .makona-editor .mk-block-code .kwd {
+    .makona-editor .mk-blocktype-code .kwd {
       color: #006;
       font-weight: bold; }
-    .makona-editor .mk-block-code .com {
+    .makona-editor .mk-blocktype-code .com {
       color: #600;
       font-style: italic; }
-    .makona-editor .mk-block-code .typ {
+    .makona-editor .mk-blocktype-code .typ {
       color: #404;
       font-weight: bold; }
-    .makona-editor .mk-block-code .lit {
+    .makona-editor .mk-blocktype-code .lit {
       color: #004444; }
-    .makona-editor .mk-block-code .pun, .makona-editor .mk-block-code .opn, .makona-editor .mk-block-code .clo {
+    .makona-editor .mk-blocktype-code .pun, .makona-editor .mk-blocktype-code .opn, .makona-editor .mk-blocktype-code .clo {
       color: #444400; }
-    .makona-editor .mk-block-code .tag {
+    .makona-editor .mk-blocktype-code .tag {
       color: #006;
       font-weight: bold; }
-    .makona-editor .mk-block-code .atn {
+    .makona-editor .mk-blocktype-code .atn {
       color: #440044; }
-    .makona-editor .mk-block-code .atv {
+    .makona-editor .mk-blocktype-code .atv {
       color: #006600; } }
-  .makona-editor .mk-block-code pre.prettyprint {
+  .makona-editor .mk-blocktype-code pre.prettyprint {
     padding: 2px;
     border: 1px solid #888888; }
-  .makona-editor .mk-block-code ol.linenums {
+  .makona-editor .mk-blocktype-code ol.linenums {
     margin-top: 0;
     margin-bottom: 0; }
-  .makona-editor .mk-block-code li.L0,
-  .makona-editor .mk-block-code li.L1,
-  .makona-editor .mk-block-code li.L2,
-  .makona-editor .mk-block-code li.L3,
-  .makona-editor .mk-block-code li.L5,
-  .makona-editor .mk-block-code li.L6,
-  .makona-editor .mk-block-code li.L7,
-  .makona-editor .mk-block-code li.L8 {
+  .makona-editor .mk-blocktype-code li.L0,
+  .makona-editor .mk-blocktype-code li.L1,
+  .makona-editor .mk-blocktype-code li.L2,
+  .makona-editor .mk-blocktype-code li.L3,
+  .makona-editor .mk-blocktype-code li.L5,
+  .makona-editor .mk-blocktype-code li.L6,
+  .makona-editor .mk-blocktype-code li.L7,
+  .makona-editor .mk-blocktype-code li.L8 {
     list-style-type: none; }
-  .makona-editor .mk-block-code li.L1,
-  .makona-editor .mk-block-code li.L3,
-  .makona-editor .mk-block-code li.L5,
-  .makona-editor .mk-block-code li.L7,
-  .makona-editor .mk-block-code li.L9 {
+  .makona-editor .mk-blocktype-code li.L1,
+  .makona-editor .mk-blocktype-code li.L3,
+  .makona-editor .mk-blocktype-code li.L5,
+  .makona-editor .mk-blocktype-code li.L7,
+  .makona-editor .mk-blocktype-code li.L9 {
     background: #eeeeee; }
 
 @font-face {
@@ -1406,109 +1407,180 @@ text-shadow: none;
 
 
 */
-.mk-editor ul, .mk-editor ol {
-  list-style: none;
-  margin: 0;
-  padding: 0; }
-.mk-editor a {
-  background: transparent; }
-.mk-editor a:focus {
-  outline: thin dotted; }
-.mk-editor a:active, .mk-editor a:hover {
-  outline: 0; }
-.mk-editor textarea, .mk-editor pre, .mk-editor code {
-  overflow: auto;
-  vertical-align: top;
-  margin: 0;
-  padding: 0;
-  outline: 0;
-  border: 0; }
-
-.mk-editor {
-  /* Block format context */ }
-  .mk-editor .Bfc {
-    overflow: hidden;
-    zoom: 1; }
-  .mk-editor .clear {
+.makona-editor {
+  max-width: 800px; }
+  .makona-editor ul, .makona-editor ol {
+    list-style: none;
+    margin: 0;
+    padding: 0; }
+  .makona-editor a {
+    background: transparent; }
+  .makona-editor a:focus {
+    outline: thin dotted; }
+  .makona-editor a:active, .makona-editor a:hover {
+    outline: 0; }
+  .makona-editor textarea, .makona-editor pre, .makona-editor code {
+    overflow: auto;
+    vertical-align: top;
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0; }
+  .makona-editor .mk-clear {
     clear: both; }
-  .mk-editor .hide {
+  .makona-editor .mk-hide {
     display: none; }
-
-.mk-editor .mk-block pre, .mk-editor .mk-block code, .mk-editor .mk-block textarea, .mk-editor .mk-block div, .mk-editor .mk-block p {
-  font-family: 'Fauna One', serif;
-  font-size: 1em;
-  line-height: 1.2em; }
-.mk-editor .mk-block pre, .mk-editor .mk-block code, .mk-editor .mk-block textarea {
-  min-height: 110px;
-  word-wrap: break-word;
-  white-space: pre-wrap; }
-.mk-editor .mk-block.mk-block-code pre, .mk-editor .mk-block.mk-block-code code, .mk-editor .mk-block.mk-block-code textarea {
-  font-family: "Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif";
-  font-size: 1.1em;
-  line-height: 1.2em; }
-
-.mk-editor {
-  width: 800px; }
-  .mk-editor .mk-block {
-    width: 760px;
-    border: 1px solid #c0c0c0;
-    display: inline-block;
+  .makona-editor .mk-block {
     min-height: 110px;
-    padding-left: 10px; }
-    .mk-editor .mk-block textarea {
+    border: 2px solid #fff; }
+    .makona-editor .mk-block pre, .makona-editor .mk-block code, .makona-editor .mk-block textarea, .makona-editor .mk-block div, .makona-editor .mk-block p {
+      font-family: Open Sans, sans-serif;
+      font-size: 1em;
+      line-height: 1.2em; }
+    .makona-editor .mk-block.mk-blocktype-code pre, .makona-editor .mk-block.mk-blocktype-code code, .makona-editor .mk-block.mk-blocktype-code textarea, .makona-editor .mk-block.mk-blocktype-code div, .makona-editor .mk-block.mk-blocktype-code p {
+      font-family: Consolas, Courier, monospace; }
+    .makona-editor .mk-block.mk-blocktype-code .mk-block-content {
+      background-color: #f8f8f8;
+      border: 1px solid #ddd;
+      border-radius: 3px;
+      padding: 10px 10px; }
+    .makona-editor .mk-block pre, .makona-editor .mk-block code, .makona-editor .mk-block textarea {
+      min-height: 110px;
+      word-wrap: break-word;
+      white-space: pre-wrap; }
+    .makona-editor .mk-block:hover {
+      border: 2px solid #498799; }
+      .makona-editor .mk-block:hover .mk-block-controls {
+        opacity: 1; }
+    .makona-editor .mk-block.mk-mode-edit {
+      background: white; }
+    .makona-editor .mk-block.mk-mode-preview {
+      background: white; }
+    .makona-editor .mk-block .mk-block-previewer, .makona-editor .mk-block .mk-block-editor {
+      min-height: 110px; }
+    .makona-editor .mk-block textarea {
       width: 100%;
       -webkit-box-sizing: border-box;
       -moz-box-sizing: border-box;
       box-sizing: border-box; }
-    .mk-editor .mk-block .mk-editor, .mk-editor .mk-block .mk-previewer {
-      width: 100%; }
-  .mk-editor .mk-block-controls {
-    display: inline-block;
+    .makona-editor .mk-block .mk-block-content {
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-bottom: 20px; }
+      .makona-editor .mk-block .mk-block-content .mk-block-label {
+        float: right;
+        margin-top: -10px;
+        background-color: #a6cad5;
+        padding: 5px;
+        margin-right: -10px;
+        font-style: italic;
+        color: white; }
+  .makona-editor .mk-block-controls {
+    opacity: 0;
+    float: right;
+    z-index: 2;
     vertical-align: top;
-    background-color: #F4F5F7; }
-    .mk-editor .mk-block-controls a {
+    margin-top: -34px;
+    background-color: #498799;
+    color: white; }
+    .makona-editor .mk-block-controls div, .makona-editor .mk-block-controls a {
+      display: inline-block;
       text-decoration: none; }
-    .mk-editor .mk-block-controls .handle {
-      cursor: move; }
-    .mk-editor .mk-block-controls .icon {
-      border: 1px solid grey;
-      font-size: 16px;
+    .makona-editor .mk-block-controls [data-icon] {
+      font-size: 20px;
       padding: 5px; }
-    .mk-editor .mk-block-controls .mk-edit-controls a {
+    .makona-editor .mk-block-controls .mk-handle {
+      display: inline-block;
+      cursor: move; }
+    .makona-editor .mk-block-controls .mk-edit-controls a {
       text-decoration: none;
-      color: #555555; }
-      .mk-editor .mk-block-controls .mk-edit-controls a:visited {
-        color: #555555; }
-
-.mk-editor .mk-plus {
-  text-align: center;
-  margin: 20px auto 20px auto; }
-  .mk-editor .mk-plus a {
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    margin-right: 25px;
-    color: black; }
-    .mk-editor .mk-plus a:hover {
-      color: blue; }
-  .mk-editor .mk-plus a.mk-plus-add {
-    color: #cfcbcb; }
-    .mk-editor .mk-plus a.mk-plus-add:hover {
-      color: #808080; }
-  .mk-editor .mk-plus .icon {
-    font-size: 32px; }
-
-.mk-editor .mk-block.mk-block-markdown .mk-previewer ul {
-  list-style: disc;
-  margin-left: 25px; }
-
-.mk-editor .mk-block .mk-editor, .mk-editor .mk-block .mk-previewer {
-  display: none; }
-.mk-editor .mk-block .mk-editor.mk-mode-edit {
-  display: block; }
-.mk-editor .mk-block .mk-previewer.mk-mode-preview {
-  display: block; }
-
-.mk-raw {
-  width: 700px;
-  height: 200px; }
+      color: white; }
+      .makona-editor .mk-block-controls .mk-edit-controls a:visited {
+        color: white; }
+      .makona-editor .mk-block-controls .mk-edit-controls a:hover {
+        background-color: #182c31; }
+    .makona-editor .mk-block-controls .mk-edit-controls .mk-delete-confirm {
+      margin-left: 7px; }
+  .makona-editor .mk-plus {
+    text-align: center;
+    margin: 5px auto 5px auto;
+    font-size: 20px; }
+    .makona-editor .mk-plus:hover {
+      background-color: #f0f0f0; }
+    .makona-editor .mk-plus a {
+      text-decoration: none;
+      display: inline-block;
+      cursor: pointer;
+      margin-right: 25px;
+      color: black; }
+      .makona-editor .mk-plus a:hover {
+        color: blue; }
+    .makona-editor .mk-plus a.mk-plus-add {
+      color: #a0a0a0; }
+      .makona-editor .mk-plus a.mk-plus-add:hover {
+        color: #808080; }
+    .makona-editor .mk-plus .mk-plus-links {
+      padding-top: 10px;
+      padding-bottom: 10px; }
+    .makona-editor .mk-plus .mk-icon {
+      font-size: 28px; }
+  .makona-editor .mk-block.mk-blocktype-markdown .mk-block-content h1 {
+    border-bottom: 1px solid grey;
+    font-size: 2em;
+    line-height: 1.5em; }
+  .makona-editor .mk-block.mk-blocktype-markdown .mk-block-content ul {
+    list-style: disc;
+    margin-left: 25px; }
+  .makona-editor .mk-block.mk-blocktype-markdown .mk-block-content ol {
+    list-style: decimal;
+    margin-left: 25px; }
+  .makona-editor .mk-block.mk-blocktype-image .qq-uploader-selector, .makona-editor .mk-block.mk-blocktype-document .qq-uploader-selector {
+    background: #5a636a url(/images/editor-drag-drop-photos.png) no-repeat 225px 27px;
+    height: 110px; }
+  .makona-editor .mk-block.mk-blocktype-image .qq-upload-button, .makona-editor .mk-block.mk-blocktype-document .qq-upload-button {
+    position: absolute !important;
+    right: 115px !important;
+    top: 30px;
+    background-color: #498799 !important; }
+  .makona-editor .mk-block.mk-blocktype-image .qq-upload-list, .makona-editor .mk-block.mk-blocktype-document .qq-upload-list {
+    position: absolute !important;
+    width: 100% !important; }
+    .makona-editor .mk-block.mk-blocktype-image .qq-upload-list li, .makona-editor .mk-block.mk-blocktype-document .qq-upload-list li {
+      height: 92px; }
+  .makona-editor .mk-block.mk-blocktype-image .mk-block-content, .makona-editor .mk-block.mk-blocktype-document .mk-block-content {
+    text-align: center;
+    margin-top: 10px; }
+  .makona-editor .mk-toolbar {
+    margin-bottom: 10px;
+    background-color: white; }
+    .makona-editor .mk-toolbar button {
+      border: 0 none;
+      border-radius: 2px 2px 2px 2px;
+      color: #FFFFFF;
+      cursor: pointer;
+      display: inline-block;
+      font-family: Arial,sans-serif;
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 15px;
+      margin-right: 5px;
+      padding: 7px 10px;
+      text-transform: none;
+      transition: all 0.3s ease 0s;
+      -moz-transition: all 0.3s ease 0s;
+      -webkit-transition: all 0.3s ease 0s;
+      width: 70px;
+      text-align: center;
+      /* DELETE WHEN WIDTH AUTO */
+      background: none repeat scroll 0 0 #498799;
+      color: white; }
+      .makona-editor .mk-toolbar button:hover {
+        background: none repeat scroll 0 0 #498799;
+        color: white; }
+      .makona-editor .mk-toolbar button:disabled {
+        background: #555555;
+        cursor: auto; }
+  .makona-editor .mk-raw {
+    display: none;
+    width: 700px;
+    height: 200px; }

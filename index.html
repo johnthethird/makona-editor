@@ -5,13 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
     <link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" charset="utf-8">
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" href="stylesheets/makona-editor.css" type="text/css" media="screen" charset="utf-8">
-    <link href='http://fonts.googleapis.com/css?family=Fauna+One' rel='stylesheet' type='text/css'>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+
     <script type="text/javascript" src="javascripts/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="http://react.zpao.com/builds/master/latest/react-with-addons.js"></script>
     <script type="text/javascript" src="javascripts/makona-editor.js"></script>
+
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
@@ -118,8 +123,44 @@
           <h3>Demo</h3>
           <form action="/submit" method="POST">
               <!-- This textarea will get replaced with the whole Makona editor, which will include a textarea with this name so that the form submit will work fine. -->
-              <textarea id="makona-editor" class="makona-editor" name="body_json">
-                  If you can see this, something is wrong. React should have mounted the Makona editor to this node.
+              <textarea id="makona-editor" name="body" data-output-html="body_html">
+                [
+                  {
+                    "id": 11,
+                    "position": 1,
+                    "type": "image",
+                    "data": {
+                      "src": "http://www.driventrainingsystems.com/wp-content/uploads/2012/12/cowbell.jpg"
+                    }
+                  },
+                  {
+                    "id": 12,
+                    "position": 2,
+                    "type": "markdown",
+                    "data": {
+                      "text": "# Markdown Block \n This is *italic* and **bold** \n \n* list a \n* list b\n\n and more  \n\n1. number list alpha\n1. number list beta\n"
+                    }
+                  },
+                  {
+                    "id": 14,
+                    "position": 5,
+                    "type": "code",
+                    "data": {
+                      "lang": "javascript",
+                      "text": "function (arg1) {\n  console.log(\"Im in ur function\");\n  if (x == y) {\n    callMe();\n  }\n}\n"
+                    }
+                  },
+                  {
+                    "id": 15,
+                    "position": 6,
+                    "type": "document",
+                    "data": {
+                      "icon_url": "/assets/file_type_icons/pdf.png",
+                      "title": "Small_doc.pdf",
+                      "url": "https://dl.dropboxusercontent.com/u/2180623/Small%20doc.pdf"
+                    }
+                  }
+                ]
               </textarea>
               <button type="submit">Save</button>
           </form>
@@ -131,8 +172,8 @@
     <script>
       $(function() {
         new Makona({
-                    url: "blocks.json",
-                    node_id: 'makona-editor',
+                    nodeId: 'makona-editor',
+                    createableBlockTypes: ['markdown', 'image', 'document', 'screencast', 'code', 'html'],
                     ImageEditor: {
                         debug: true,
                         request: {
@@ -150,43 +191,6 @@
                   });
       })
     </script>
-
-
-
-      <script type="text/template" id="qq-template">
-        <div class="qq-uploader-selector qq-uploader">
-            <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
-                <span>Drop files here to upload</span>
-            </div>
-            <div class="qq-upload-button-selector qq-upload-button">
-                <div>Upload a file</div>
-            </div>
-            <span class="qq-drop-processing-selector qq-drop-processing">
-                <span>Processing dropped files...</span>
-                <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
-            </span>
-            <ul class="qq-upload-list-selector qq-upload-list">
-                <li>
-                    <div class="qq-progress-bar-container-selector">
-                        <div class="qq-progress-bar-selector qq-progress-bar"></div>
-                    </div>
-                    <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
-                    <img class="qq-thumbnail-selector" qq-max-size="100" qq-server-scale>
-                    <span class="qq-edit-filename-icon-selector qq-edit-filename-icon"></span>
-                    <span class="qq-upload-file-selector qq-upload-file"></span>
-                    <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
-                    <span class="qq-upload-size-selector qq-upload-size"></span>
-                    <a class="qq-upload-cancel-selector qq-upload-cancel" href="#">Cancel</a>
-                    <a class="qq-upload-retry-selector qq-upload-retry" href="#">Retry</a>
-                    <a class="qq-upload-delete-selector qq-upload-delete" href="#">Delete</a>
-                    <span class="qq-upload-status-text-selector qq-upload-status-text"></span>
-                </li>
-            </ul>
-        </div>
-    </script>
-
-
-
 
   </body>
 </html>
