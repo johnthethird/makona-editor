@@ -243,7 +243,7 @@
 	              React.DOM.li( {id:block.id, key:"ks"+block.id, 'data-position':block.position} , 
 	                React.DOM.div( {className:"mk-block mk-blocktype-"+block.type+" mk-mode-"+block.mode} , 
 	                  React.DOM.div( {className:"mk-block-editor", style:this.editStyle(block), ref:"editor"+block.id, onKeyUp:_.partial(this.handleKeyUp, block.id)} , 
-	                    Blocks.blockTypeFromRegistry(block.type).editable ? MakonaEditorRow( {block:block, opts:this.props.opts, handleChange:this.props.handleChange} ) : ""
+	                    MakonaEditorRow( {block:block, opts:this.props.opts, handleChange:this.props.handleChange} )
 	                  ),
 	                  React.DOM.div( {className:"mk-block-previewer", style:this.previewStyle(block), ref:"preview"+block.id, onClick:_.partial(this.handleEdit, block.id)}, 
 	                    MakonaPreviewerRow( {block:block, opts:this.props.opts} )
@@ -360,7 +360,10 @@
 	    });
 	  },
 	  blockTypeLink: function(block) {
-	    return React.DOM.a( {href:"javascript: void(0);", key:block.type, onClick:this.handleAddRow.bind(this, block.type)}, React.DOM.div( {className:"mk-icon", 'data-icon':block.icon}),React.DOM.div(null, block.displayName));
+	    return React.DOM.a( {href:"javascript: void(0);", key:block.type, onClick:this.handleAddRow.bind(this, block.type)}, 
+	      React.DOM.div( {className:"mk-icon", 'data-icon':block.icon}),
+	      React.DOM.div(null, block.displayName)
+	     );
 	  },
 	  blockTypes: function() {
 	    var _this = this;
@@ -500,7 +503,7 @@
 	    editable: true,
 	    createable: true,
 	    data: {
-	      text: "# New MD block..."
+	      text: "# Heading\nText block..\n"
 	    }
 	  }, {
 	    type: "quote",
@@ -531,7 +534,7 @@
 	    icon: '\ue005',
 	    editorClass: require(26),
 	    previewClass: require(27),
-	    editable: true,
+	    editable: false,
 	    createable: true,
 	    data: {
 	      src: ""
@@ -542,7 +545,7 @@
 	    icon: '\x69',
 	    editorClass: require(28),
 	    previewClass: require(29),
-	    editable: true,
+	    editable: false,
 	    createable: true,
 	    data: {
 	      title: ""
@@ -553,7 +556,7 @@
 	    icon: '\ue00e',
 	    editorClass: require(30),
 	    previewClass: require(31),
-	    editable: true,
+	    editable: false,
 	    createable: true,
 	    data: {
 	      title: ""

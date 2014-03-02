@@ -147,7 +147,7 @@ MakonaSortableList = React.createClass
               <li id={block.id} key={"ks"+block.id} data-position={block.position} >
                 <div className={"mk-block mk-blocktype-"+block.type+" mk-mode-"+block.mode} >
                   <div className="mk-block-editor" style={this.editStyle(block)} ref={"editor"+block.id} onKeyUp={_.partial(this.handleKeyUp, block.id)} >
-                    {Blocks.blockTypeFromRegistry(block.type).editable ? <MakonaEditorRow block={block} opts={this.props.opts} handleChange={this.props.handleChange} /> : ""}
+                    <MakonaEditorRow block={block} opts={this.props.opts} handleChange={this.props.handleChange} />
                   </div>
                   <div className="mk-block-previewer" style={this.previewStyle(block)} ref={"preview"+block.id} onClick={_.partial(this.handleEdit, block.id)}>
                     <MakonaPreviewerRow block={block} opts={this.props.opts} />
@@ -232,7 +232,10 @@ MakonaPlusRow = React.createClass
     this.setState {'hideLinks': !this.state.hideLinks}
 
   blockTypeLink: (block) ->
-    `<a href="javascript: void(0);" key={block.type} onClick={this.handleAddRow.bind(this, block.type)}><div className="mk-icon" data-icon={block.icon}></div><div>{block.displayName}</div></a>`
+    `<a href="javascript: void(0);" key={block.type} onClick={this.handleAddRow.bind(this, block.type)}>
+      <div className="mk-icon" data-icon={block.icon}></div>
+      <div>{block.displayName}</div>
+     </a>`
 
   blockTypes: () ->
     _.map Blocks.createableBlockTypes(this.props.opts.createableBlockTypes), (block) => @blockTypeLink block

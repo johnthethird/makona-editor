@@ -44,7 +44,7 @@ BLOCK_REGISTRY = [
   editable: true
   createable: true
   data:
-    text: "# New MD block..."
+    text: "# Heading\nText block..\n"
 ,
   type: "quote"
   displayName: 'Quote'
@@ -72,7 +72,7 @@ BLOCK_REGISTRY = [
   icon: '\ue005'
   editorClass: require("./blocks/ImageEditor")
   previewClass: require("./blocks/ImagePreviewer")
-  editable: true
+  editable: false
   createable: true
   data:
     src: ""
@@ -82,7 +82,7 @@ BLOCK_REGISTRY = [
   icon: '\x69'
   editorClass: require("./blocks/DocumentEditor")
   previewClass: require("./blocks/DocumentPreviewer")
-  editable: true
+  editable: false
   createable: true
   data:
     title: ""
@@ -92,7 +92,7 @@ BLOCK_REGISTRY = [
   icon: '\ue00e'
   editorClass: require("./blocks/ScreencastEditor")
   previewClass: require("./blocks/ScreencastPreviewer")
-  editable: true
+  editable: false
   createable: true
   data:
     title: ""
