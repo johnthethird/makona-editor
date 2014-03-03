@@ -1477,8 +1477,7 @@ text-shadow: none;
         color: white; }
   .makona-editor .mk-block-controls {
     opacity: 0;
-    position: absolute;
-    right: 5px;
+    float: right;
     z-index: 2;
     vertical-align: top;
     margin-top: -34px;

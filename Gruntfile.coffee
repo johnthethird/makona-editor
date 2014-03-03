@@ -66,7 +66,7 @@ module.exports = (grunt) ->
           {
             expand: true
             cwd: './examples'
-            src: ['*']
+            src: ['**/*']
             dest: './dist'
           },
           {

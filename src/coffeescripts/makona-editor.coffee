@@ -1,6 +1,7 @@
 ###* @jsx React.DOM ###
 
-require("script!jquery/jquery.min.js")
+throw new Error("Makona requires jQuery") unless jQuery?
+# require("script!jquery/jquery.min.js")
 
 # TODO Sortable
 # Either make a React-native drag-n-drop sortable solution, or swap jQuery UI out for
@@ -15,13 +16,13 @@ require("script!jquery/jquery.min.js")
 # https://github.com/dbushell/Nestable
 
 # So, for now, stick with jQuery UI
-require("script!jquery-ui/ui/minified/jquery.ui.core.min.js")
-require("script!jquery-ui/ui/minified/jquery.ui.widget.min.js")
-require("script!jquery-ui/ui/minified/jquery.ui.mouse.min.js")
-require("script!jquery-ui/ui/minified/jquery.ui.position.min.js")
-require("script!jquery-ui/ui/minified/jquery.ui.draggable.min.js")
-require("script!jquery-ui/ui/minified/jquery.ui.droppable.min.js")
-require("script!jquery-ui/ui/minified/jquery.ui.sortable.min.js")
+# require("script!jquery-ui/ui/minified/jquery.ui.core.min.js")
+# require("script!jquery-ui/ui/minified/jquery.ui.widget.min.js")
+# require("script!jquery-ui/ui/minified/jquery.ui.mouse.min.js")
+# require("script!jquery-ui/ui/minified/jquery.ui.position.min.js")
+# require("script!jquery-ui/ui/minified/jquery.ui.draggable.min.js")
+# require("script!jquery-ui/ui/minified/jquery.ui.droppable.min.js")
+# require("script!jquery-ui/ui/minified/jquery.ui.sortable.min.js")
 
 # Makes sortable work on touch devices
 require("script!jquery-ui-touch-punch.min.js")
