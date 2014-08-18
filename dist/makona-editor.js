@@ -133,12 +133,15 @@
 	    });
 	  },
 	  handleReorder: function(sortedBlocks) {
+	    var _this = this;
 	    this.replaceState({
 	      blocks: []
 	    });
-	    return this.replaceState({
-	      blocks: sortedBlocks
-	    });
+	    return setTimeout(function() {
+	      return _this.replaceState({
+	        blocks: sortedBlocks
+	      });
+	    }, 25);
 	  },
 	  resortBlocks: function(blocks) {
 	    var i;

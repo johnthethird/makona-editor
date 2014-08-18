@@ -82,7 +82,9 @@ MakonaEditor = React.createClass
 
   handleReorder: (sortedBlocks) ->
     this.replaceState({blocks: []})
-    this.replaceState({blocks: sortedBlocks})
+    setTimeout () =>
+      this.replaceState({blocks: sortedBlocks})
+    ,25
 
   # To add a block we add at position x+0.5, then sort by position, and loop through and reset the position counter
   resortBlocks: (blocks) ->

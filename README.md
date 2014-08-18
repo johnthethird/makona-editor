@@ -27,7 +27,7 @@ Makona's goals are a bit different from Sir Trevor and others:
 * All editing is done in a `<textarea>` (as opposed to a contenteditable div), so we sacrifice WYSIWYG while actually editing, but we gain universal compatibility.
 
 ## Styling
-React seems to guide you to use inline styles for you components, and makes it easy to do. Trying to find the right balance between inline styles for structural things, and then allowing for look-and-feel to be adjusted via external stylesheets. Different "themes" should be able to be applied via stylesheets, but the styles that are required for the component to actually *work* will go inline. Blurred lines, baby.
+React seems to guide you to use inline styles for your components, and makes it easy to do. Trying to find the right balance between inline styles for structural things, and then allowing for look-and-feel to be adjusted via external stylesheets. Different "themes" should be able to be applied via stylesheets, but the styles that are required for the component to actually *work* will go inline. Blurred lines, baby.
 
 ## Dependencies
 This requires a lot of JS libs to work, the plan is to slim things down once its all working. The main reason jQuery is used currently is for the drag-and-drop sorting. Once we implement this behavior in native React we can (probably?) ditch the jQuery dependency. Certain block types will each have their own dependencies, so if you dont need the image upload block, then you dont need the fineuploader libs, etc.
@@ -61,3 +61,5 @@ At this point, you should now have a `dist/` directory populated with all the ne
 
 Once your local server is running, [try it out!](http://localhost:9292/dist/index.html)
 
+## TODO
+See http://jsfiddle.net/johnthethird/dLc8pt64/ for better sortable technique.
