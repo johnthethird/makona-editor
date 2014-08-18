@@ -57,11 +57,11 @@
 	  throw new Error("Makona requires jQuery");
 	}
 
-	require(2);
+	require(21);
 
-	require(3);
+	require(22);
 
-	require(4);
+	require(23);
 
 	Makona = (function() {
 	  function Makona(opts) {
@@ -448,7 +448,7 @@
 	BLOCK_REGISTRY = [
 	  {
 	    type: "unknown",
-	    previewClass: require(5),
+	    previewClass: require(2),
 	    editable: false,
 	    createable: false,
 	    data: {}
@@ -456,8 +456,8 @@
 	    type: "text",
 	    displayName: "Text",
 	    icon: '\x62',
-	    editorClass: require(6),
-	    previewClass: require(7),
+	    editorClass: require(3),
+	    previewClass: require(4),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -467,8 +467,8 @@
 	    type: "html",
 	    displayName: "HTML",
 	    icon: '\ue036',
-	    editorClass: require(8),
-	    previewClass: require(9),
+	    editorClass: require(5),
+	    previewClass: require(6),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -478,8 +478,8 @@
 	    type: "javascript",
 	    displayName: "JavaScript",
 	    icon: '\ue036',
-	    editorClass: require(10),
-	    previewClass: require(11),
+	    editorClass: require(7),
+	    previewClass: require(8),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -489,8 +489,8 @@
 	    type: "markdown",
 	    displayName: 'Text',
 	    icon: '\x68',
-	    editorClass: require(12),
-	    previewClass: require(13),
+	    editorClass: require(9),
+	    previewClass: require(10),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -500,8 +500,8 @@
 	    type: "quote",
 	    displayName: 'Quote',
 	    icon: '\x7b',
-	    editorClass: require(14),
-	    previewClass: require(15),
+	    editorClass: require(11),
+	    previewClass: require(12),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -512,8 +512,8 @@
 	    type: "code",
 	    displayName: "Code",
 	    icon: '\ue038',
-	    editorClass: require(16),
-	    previewClass: require(17),
+	    editorClass: require(13),
+	    previewClass: require(14),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -523,8 +523,8 @@
 	    type: "image",
 	    displayName: "Image",
 	    icon: '\ue005',
-	    editorClass: require(18),
-	    previewClass: require(19),
+	    editorClass: require(15),
+	    previewClass: require(16),
 	    editable: false,
 	    createable: true,
 	    data: {
@@ -534,8 +534,8 @@
 	    type: "document",
 	    displayName: "Document",
 	    icon: '\x69',
-	    editorClass: require(20),
-	    previewClass: require(21),
+	    editorClass: require(17),
+	    previewClass: require(18),
 	    editable: false,
 	    createable: true,
 	    data: {
@@ -545,16 +545,12 @@
 	    type: "screencast",
 	    displayName: "Screencast",
 	    icon: '\ue00e',
-	    editorClass: require(22),
-	    previewClass: require(23),
-	    editable: true,
+	    editorClass: require(19),
+	    previewClass: require(20),
+	    editable: false,
 	    createable: true,
 	    data: {
-	      title: "Untitled",
-	      url: "http://kaleo-web.s3.amazonaws.com/kaleo_tour.mp4",
-	      width: "100",
-	      height: "100",
-	      duration: "400"
+	      title: ""
 	    }
 	  }
 	];
@@ -611,27 +607,6 @@
 /***/ 2:
 /***/ function(module, exports, require) {
 
-	require(24)(require(25))
-
-/***/ },
-
-/***/ 3:
-/***/ function(module, exports, require) {
-
-	require(24)(require(26))
-
-/***/ },
-
-/***/ 4:
-/***/ function(module, exports, require) {
-
-	require(24)(require(27))
-
-/***/ },
-
-/***/ 5:
-/***/ function(module, exports, require) {
-
 	/** @jsx React.DOM*/
 
 	var UnknownPreviewer;
@@ -648,7 +623,7 @@
 
 /***/ },
 
-/***/ 6:
+/***/ 3:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -669,7 +644,7 @@
 
 /***/ },
 
-/***/ 7:
+/***/ 4:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -688,7 +663,7 @@
 
 /***/ },
 
-/***/ 8:
+/***/ 5:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -712,7 +687,7 @@
 
 /***/ },
 
-/***/ 9:
+/***/ 6:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -733,7 +708,7 @@
 
 /***/ },
 
-/***/ 10:
+/***/ 7:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -754,7 +729,7 @@
 
 /***/ },
 
-/***/ 11:
+/***/ 8:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -775,7 +750,7 @@
 
 /***/ },
 
-/***/ 12:
+/***/ 9:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -876,14 +851,14 @@
 
 /***/ },
 
-/***/ 13:
+/***/ 10:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
 
 	var MarkdownPreviewer, marked;
 
-	marked = require(37);
+	marked = require(33);
 
 	marked.setOptions({
 	  gfm: true,
@@ -909,7 +884,7 @@
 
 /***/ },
 
-/***/ 14:
+/***/ 11:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -946,7 +921,7 @@
 
 /***/ },
 
-/***/ 15:
+/***/ 12:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -970,7 +945,7 @@
 
 /***/ },
 
-/***/ 16:
+/***/ 13:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -1007,7 +982,7 @@
 
 /***/ },
 
-/***/ 17:
+/***/ 14:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -1035,7 +1010,7 @@
 
 /***/ },
 
-/***/ 18:
+/***/ 15:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -1044,7 +1019,7 @@
 
 	require(31);
 
-	ImagePreviewer = require(19);
+	ImagePreviewer = require(16);
 
 	qqTemplate = "<script type=\"text/template\" id=\"qq-template-image\">\n    <div class=\"qq-uploader-selector qq-uploader\">\n        <div class=\"qq-upload-drop-area-selector qq-upload-drop-area\" qq-hide-dropzone>\n            <span>Drop files here to upload</span>\n        </div>\n        <div class=\"qq-upload-button-selector qq-upload-button\">\n            <div>or choose file</div>\n        </div>\n        <span class=\"qq-drop-processing-selector qq-drop-processing\">\n            <span>Processing dropped files...</span>\n            <span class=\"qq-drop-processing-spinner-selector qq-drop-processing-spinner\"></span>\n        </span>\n        <ul class=\"qq-upload-list-selector qq-upload-list\">\n            <li>\n                <div class=\"qq-progress-bar-container-selector\">\n                    <div class=\"qq-progress-bar-selector qq-progress-bar\"></div>\n                </div>\n                <span class=\"qq-upload-spinner-selector qq-upload-spinner\"></span>\n                <img class=\"qq-thumbnail-selector\" qq-max-size=\"100\" qq-server-scale>\n                <span class=\"qq-edit-filename-icon-selector qq-edit-filename-icon\"></span>\n                <span class=\"qq-upload-file-selector qq-upload-file\"></span>\n                <input class=\"qq-edit-filename-selector qq-edit-filename\" tabindex=\"0\" type=\"text\">\n                <span class=\"qq-upload-size-selector qq-upload-size\"></span>\n                <a class=\"qq-upload-cancel-selector qq-upload-cancel\" href=\"#\">Cancel</a>\n                <a class=\"qq-upload-retry-selector qq-upload-retry\" href=\"#\">Retry</a>\n                <a class=\"qq-upload-delete-selector qq-upload-delete\" href=\"#\">Delete</a>\n                <span class=\"qq-upload-status-text-selector qq-upload-status-text\"></span>\n            </li>\n        </ul>\n    </div>\n</script>";
 
@@ -1129,7 +1104,7 @@
 
 /***/ },
 
-/***/ 19:
+/***/ 16:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -1152,7 +1127,7 @@
 
 /***/ },
 
-/***/ 20:
+/***/ 17:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -1161,7 +1136,7 @@
 
 	require(31);
 
-	DocumentPreviewer = require(21);
+	DocumentPreviewer = require(18);
 
 	qqTemplate = "<script type=\"text/template\" id=\"qq-template-document\">\n    <div class=\"qq-uploader-selector qq-uploader\">\n        <div class=\"qq-upload-drop-area-selector qq-upload-drop-area\" qq-hide-dropzone>\n            <span>Drop files here to upload</span>\n        </div>\n        <div class=\"qq-upload-button-selector qq-upload-button\">\n            <div>or choose file</div>\n        </div>\n        <span class=\"qq-drop-processing-selector qq-drop-processing\">\n            <span>Processing dropped files...</span>\n            <span class=\"qq-drop-processing-spinner-selector qq-drop-processing-spinner\"></span>\n        </span>\n        <ul class=\"qq-upload-list-selector qq-upload-list\">\n            <li>\n                <div class=\"qq-progress-bar-container-selector\">\n                    <div class=\"qq-progress-bar-selector qq-progress-bar\"></div>\n                </div>\n                <span class=\"qq-upload-spinner-selector qq-upload-spinner\"></span>\n                <img class=\"qq-thumbnail-selector\" qq-max-size=\"100\" qq-server-scale>\n                <span class=\"qq-edit-filename-icon-selector qq-edit-filename-icon\"></span>\n                <span class=\"qq-upload-file-selector qq-upload-file\"></span>\n                <input class=\"qq-edit-filename-selector qq-edit-filename\" tabindex=\"0\" type=\"text\">\n                <span class=\"qq-upload-size-selector qq-upload-size\"></span>\n                <a class=\"qq-upload-cancel-selector qq-upload-cancel\" href=\"#\">Cancel</a>\n                <a class=\"qq-upload-retry-selector qq-upload-retry\" href=\"#\">Retry</a>\n                <a class=\"qq-upload-delete-selector qq-upload-delete\" href=\"#\">Delete</a>\n                <span class=\"qq-upload-status-text-selector qq-upload-status-text\"></span>\n            </li>\n        </ul>\n    </div>\n</script>";
 
@@ -1248,7 +1223,7 @@
 
 /***/ },
 
-/***/ 21:
+/***/ 18:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -1273,146 +1248,19 @@
 
 /***/ },
 
-/***/ 22:
+/***/ 19:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
 
 	var ScreencastEditor;
 
-	require(33);
-
-	require(35);
-
 	ScreencastEditor = React.createClass({
 	  displayName: "ScreencastEditor",
-	  componentWillMount: function() {
-	    var _this = this;
-	    this.host = "http://t1.development.kaleosoftware.com";
-	    this.currentUserAuthToken = "SfTLZUhHoazcmPFiDoNn";
-	    return this.somOptions = {
-	      partner: {
-	        id: 'KaleoSoftware',
-	        site: 'kaleosoftware.com',
-	        key: 'MCwCFA1FakeG9MUgOBoRFox17kJFluD6AhQDKSvvQknrBrxq7MHJroCc0eO4yg==',
-	        expires: 1401926400
-	      },
-	      runJar: 'ScreencastOMaticRun-1.0.34.jar',
-	      jarHostPath: "" + this.host + "/som/",
-	      jars: ['ScreencastOMaticEditor-1.0.159.jar', 'SOMBasicSkinNE-1.0.jar', 'SOMSkinNWC-6.44.jar'],
-	      captureId: 'kaleo_screencast',
-	      macName: 'Kaleo ScreenRecorder',
-	      macLauncherZip: 'screenrecorder-mac-app-1.0.zip',
-	      uploadOptions: {
-	        uploadPostMaxWidth: '1024',
-	        showClicks: true,
-	        showHalo: true,
-	        uploadPostUrl: "" + this.host + "/screencasts/upload?auth_token=" + this.currentUserAuthToken + "&screencast[duration]=CAPTURE_DURATION&screencast[dimensions]=CAPTURE_DIMENSION"
-	      },
-	      callback: function(state) {
-	        return _this.setState({
-	          somState: state
-	        });
-	      },
-	      uploadCallBack: function(state, percentComplete) {
-	        return _this.setState({
-	          somState: state,
-	          percentComplete: percentComplete
-	        });
-	      },
-	      onExitCallBack: function() {
-	        _this.setState({
-	          somState: 'completed'
-	        });
-	        return $.getJSON("" + _this.host + "/v2/uploaded_assets/my_unclaimed_screencasts.json?auth_token=" + _this.currentUserAuthToken, function(data) {
-	          var sc;
-	          sc = data[0];
-	          return _this.props.handleChange({
-	            id: _this.props.block.id,
-	            data: {
-	              src: sc.url,
-	              id: sc.id,
-	              title: sc.title
-	            }
-	          }, true);
-	        });
-	      }
-	    };
-	  },
-	  getInitialState: function() {
-	    return {
-	      somState: 'default',
-	      percentComplete: 0
-	    };
-	  },
-	  displayForState: function(state) {
-	    return {
-	      display: (this.state.somState === state ? 'block' : 'none')
-	    };
-	  },
-	  installJava: function() {
-	    return deployJava.installLatestJRE();
-	  },
-	  startRecording: function() {
-	    if (!deployJava.versionCheck("1.7")) {
-	      return this.setState({
-	        somState: 'not-detected'
-	      });
-	    }
-	    return somStartRecorder(this.somOptions);
-	  },
-	  progressBar: function() {
-	    var barStyle, containerStyle;
-	    containerStyle = {
-	      margin: "10px 0 10px 0",
-	      backgroundColor: 'black',
-	      borderRadius: '13px',
-	      padding: '3px'
-	    };
-	    barStyle = {
-	      backgroundColor: 'orange',
-	      width: this.state.percentComplete + "%",
-	      height: '20px',
-	      borderRadius: '10px'
-	    };
-	    return React.DOM.div( {style:containerStyle}, React.DOM.div( {style:barStyle}));
-	  },
 	  render: function() {
-	    var javaVersion;
-	    if (deployJava.versionCheck("1.7")) {
-	      javaVersion = React.DOM.small( {style:{color: '#bbb'}}, "Java Version Detected: ", deployJava.getJREs());
-	    }
 	    return (
-	      React.DOM.div( {className:"mk-block-content"}, 
-	        React.DOM.div( {style:this.displayForState('default')}, 
-	          React.DOM.strong(null, "Instructions: " ),
-	          " Screencast allows you to create your own custom screen capture video using Kaleo - no need to find another app or upload a separate file. "+
-	          "You can choose which parts of your screen you want to include and can include realtime audio commentary as well. "+
-	          "When you need to explain something, and text or even a picture isn't enough, try a screencast. "+
-	          "It's simple, easy, and even fun! ",
-	          React.DOM.br(null ),React.DOM.br(null ),
-	          React.DOM.strong(null, "Notice: " ),
-	          " Please keep video length to minimum and don't use more screen space than you need to keep the encoding/uploading times to a minimum. ",
-	          React.DOM.br(null ),React.DOM.br(null ),
-	          React.DOM.a( {href:"#", className:"btn", onClick:this.startRecording}, "Let's Get Recording"),
-	          React.DOM.br(null ),React.DOM.br(null )
-	        ),
-	        React.DOM.div( {style:this.displayForState('detecting')}, "Detecting Java... Please follow prompts to install the screencasting plugin and allow it to run..."),
-	        React.DOM.div( {style:this.displayForState('encoding')}, "Encoding Video...",this.progressBar()),
-	        React.DOM.div( {style:this.displayForState('uploading')}, "Uploading Video...",this.progressBar()),
-	        React.DOM.div( {style:this.displayForState('not-detected')}, 
-	          " Java is not installed or is disabled on this browser. You must install or enable Java to use the screencasting component. "+
-	          "Click ", React.DOM.a( {href:"#", onClick:this.installJava}, "here"), " to go to the Java web site and install Java. "
-	        ),
-	        React.DOM.div( {style:this.displayForState('loading')}, "Loading..."),
-	        React.DOM.div( {style:this.displayForState('success')}, "Screencaster is ready to record. You should see a dotted-line framing the part of the screen you want to record. Move or resize the frame to the desired spot, then press the red 'record' "+
-	          "button to start recording. If you have a microphone your voice will be captured as well."),
-	        React.DOM.div( {style:this.displayForState('already')}, "Screencaster is already running. If you are having trouble try restarting your browser."),
-	        React.DOM.div( {style:this.displayForState('error')}, "Error"),
-	        React.DOM.div( {style:this.displayForState('certdenied')}, "Security Certificate Denied"),
-	        React.DOM.div( {style:this.displayForState('timeout')}, "Timeout"),
-	        React.DOM.div( {style:this.displayForState('completed')}, "Completed"),
-	        javaVersion
+	      React.DOM.div(null, 
+	        " Screencast "
 	      )
 	    );
 	  }
@@ -1423,77 +1271,47 @@
 
 /***/ },
 
-/***/ 23:
+/***/ 20:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
 
-	var ScreencastPreviewer, VideoPlayer;
-
-	VideoPlayer = (function() {
-	  function VideoPlayer(url, width, height) {
-	    this.url = url;
-	    this.width = width;
-	    this.height = height;
-	    this.showPlayerDialog();
-	    this;
-	  }
-
-	  VideoPlayer.prototype.showPlayerDialog = function() {
-	    var playerId,
-	      _this = this;
-	    playerId = "mk-player-" + (Math.round(Math.random() * 10000));
-	    return $("<div id='" + playerId + "'></div>").dialog({
-	      autoOpen: true,
-	      modal: true,
-	      width: parseInt(this.width, 10) + 50,
-	      height: parseInt(this.height, 10) + 60,
-	      closeOnEscape: true,
-	      close: function() {
-	        jwplayer(playerId).remove();
-	        $(this).dialog('destroy');
-	        return $(this).remove();
-	      },
-	      open: function() {
-	        var p;
-	        p = jwplayer(playerId).setup({
-	          file: _this.url,
-	          width: parseInt(_this.width, 10),
-	          height: parseInt(_this.height, 10)
-	        });
-	        return p.play();
-	      }
-	    });
-	  };
-
-	  return VideoPlayer;
-
-	})();
+	var ScreencastPreviewer;
 
 	ScreencastPreviewer = React.createClass({
 	  displayName: "ScreencastPreviewer",
-	  handleClick: function(e) {
-	    var b;
-	    e.preventDefault();
-	    b = this.props.block.data;
-	    return new VideoPlayer(b.url, b.width, b.height);
-	  },
 	  render: function() {
 	    return (
 	      React.DOM.div(null, 
-	        React.DOM.a( {href:"", onClick:this.handleClick}, React.DOM.img( {src:"/images/video-thumb.png"} )),
-	        React.DOM.span(null, this.props.block.data.title)
+	        " Screencast "
 	      )
 	    );
-	  },
-	  componentWillUnmount: function() {
-	    var _ref;
-	    return (_ref = jwplayer(playerId)) != null ? typeof _ref.remove === "function" ? _ref.remove() : void 0 : void 0;
 	  }
 	});
 
 	module.exports = ScreencastPreviewer;
 
+
+/***/ },
+
+/***/ 21:
+/***/ function(module, exports, require) {
+
+	require(24)(require(25))
+
+/***/ },
+
+/***/ 22:
+/***/ function(module, exports, require) {
+
+	require(24)(require(26))
+
+/***/ },
+
+/***/ 23:
+/***/ function(module, exports, require) {
+
+	require(24)(require(27))
 
 /***/ },
 
@@ -1689,34 +1507,6 @@
 /***/ },
 
 /***/ 33:
-/***/ function(module, exports, require) {
-
-	require(24)(require(34))
-
-/***/ },
-
-/***/ 34:
-/***/ function(module, exports, require) {
-
-	module.exports = "var deployJava=function(){var l={core:[\"id\",\"class\",\"title\",\"style\"],i18n:[\"lang\",\"dir\"],events:[\"onclick\",\"ondblclick\",\"onmousedown\",\"onmouseup\",\"onmouseover\",\"onmousemove\",\"onmouseout\",\"onkeypress\",\"onkeydown\",\"onkeyup\"],applet:[\"codebase\",\"code\",\"name\",\"archive\",\"object\",\"width\",\"height\",\"alt\",\"align\",\"hspace\",\"vspace\"],object:[\"classid\",\"codebase\",\"codetype\",\"data\",\"type\",\"archive\",\"declare\",\"standby\",\"height\",\"width\",\"usemap\",\"name\",\"tabindex\",\"align\",\"border\",\"hspace\",\"vspace\"]};var b=l.object.concat(l.core,l.i18n,l.events);var m=l.applet.concat(l.core);function g(o){if(!d.debug){return}if(console.log){console.log(o)}else{alert(o)}}function k(p,o){if(p==null||p.length==0){return true}var r=p.charAt(p.length-1);if(r!=\"+\"&&r!=\"*\"&&(p.indexOf(\"_\")!=-1&&r!=\"_\")){p=p+\"*\";r=\"*\"}p=p.substring(0,p.length-1);if(p.length>0){var q=p.charAt(p.length-1);if(q==\".\"||q==\"_\"){p=p.substring(0,p.length-1)}}if(r==\"*\"){return(o.indexOf(p)==0)}else{if(r==\"+\"){return p<=o}}return false}function e(){var o=\"//java.com/js/webstart.png\";try{return document.location.protocol.indexOf(\"http\")!=-1?o:\"http:\"+o}catch(p){return\"http:\"+o}}function n(p){var o=\"http://java.com/dt-redirect\";if(p==null||p.length==0){return o}if(p.charAt(0)==\"&\"){p=p.substring(1,p.length)}return o+\"?\"+p}function j(q,p){var o=q.length;for(var r=0;r<o;r++){if(q[r]===p){return true}}return false}function c(o){return j(m,o.toLowerCase())}function i(o){return j(b,o.toLowerCase())}function a(o){if(\"MSIE\"!=deployJava.browserName){return true}if(deployJava.compareVersionToPattern(deployJava.getPlugin().version,[\"10\",\"0\",\"0\"],false,true)){return true}if(o==null){return false}return !k(\"1.6.0_33+\",o)}var d={debug:null,version:\"20120801\",firefoxJavaVersion:null,myInterval:null,preInstallJREList:null,returnPage:null,brand:null,locale:null,installType:null,EAInstallEnabled:false,EarlyAccessURL:null,oldMimeType:\"application/npruntime-scriptable-plugin;DeploymentToolkit\",mimeType:\"application/java-deployment-toolkit\",launchButtonPNG:e(),browserName:null,browserName2:null,getJREs:function(){var t=new Array();if(this.isPluginInstalled()){var r=this.getPlugin();var o=r.jvms;for(var q=0;q<o.getLength();q++){t[q]=o.get(q).version}}else{var p=this.getBrowser();if(p==\"MSIE\"){if(this.testUsingActiveX(\"1.7.0\")){t[0]=\"1.7.0\"}else{if(this.testUsingActiveX(\"1.6.0\")){t[0]=\"1.6.0\"}else{if(this.testUsingActiveX(\"1.5.0\")){t[0]=\"1.5.0\"}else{if(this.testUsingActiveX(\"1.4.2\")){t[0]=\"1.4.2\"}else{if(this.testForMSVM()){t[0]=\"1.1\"}}}}}}else{if(p==\"Netscape Family\"){this.getJPIVersionUsingMimeType();if(this.firefoxJavaVersion!=null){t[0]=this.firefoxJavaVersion}else{if(this.testUsingMimeTypes(\"1.7\")){t[0]=\"1.7.0\"}else{if(this.testUsingMimeTypes(\"1.6\")){t[0]=\"1.6.0\"}else{if(this.testUsingMimeTypes(\"1.5\")){t[0]=\"1.5.0\"}else{if(this.testUsingMimeTypes(\"1.4.2\")){t[0]=\"1.4.2\"}else{if(this.browserName2==\"Safari\"){if(this.testUsingPluginsArray(\"1.7.0\")){t[0]=\"1.7.0\"}else{if(this.testUsingPluginsArray(\"1.6\")){t[0]=\"1.6.0\"}else{if(this.testUsingPluginsArray(\"1.5\")){t[0]=\"1.5.0\"}else{if(this.testUsingPluginsArray(\"1.4.2\")){t[0]=\"1.4.2\"}}}}}}}}}}}}}if(this.debug){for(var q=0;q<t.length;++q){g(\"[getJREs()] We claim to have detected Java SE \"+t[q])}}return t},installJRE:function(r,p){var o=false;if(this.isPluginInstalled()&&this.isAutoInstallEnabled(r)){var q=false;if(this.isCallbackSupported()){q=this.getPlugin().installJRE(r,p)}else{q=this.getPlugin().installJRE(r)}if(q){this.refresh();if(this.returnPage!=null){document.location=this.returnPage}}return q}else{return this.installLatestJRE()}},isAutoInstallEnabled:function(o){if(!this.isPluginInstalled()){return false}if(typeof o==\"undefined\"){o=null}return a(o)},isCallbackSupported:function(){return this.isPluginInstalled()&&this.compareVersionToPattern(this.getPlugin().version,[\"10\",\"2\",\"0\"],false,true)},installLatestJRE:function(q){if(this.isPluginInstalled()&&this.isAutoInstallEnabled()){var r=false;if(this.isCallbackSupported()){r=this.getPlugin().installLatestJRE(q)}else{r=this.getPlugin().installLatestJRE()}if(r){this.refresh();if(this.returnPage!=null){document.location=this.returnPage}}return r}else{var p=this.getBrowser();var o=navigator.platform.toLowerCase();if((this.EAInstallEnabled==\"true\")&&(o.indexOf(\"win\")!=-1)&&(this.EarlyAccessURL!=null)){this.preInstallJREList=this.getJREs();if(this.returnPage!=null){this.myInterval=setInterval(\"deployJava.poll()\",3000)}location.href=this.EarlyAccessURL;return false}else{if(p==\"MSIE\"){return this.IEInstall()}else{if((p==\"Netscape Family\")&&(o.indexOf(\"win32\")!=-1)){return this.FFInstall()}else{location.href=n(((this.returnPage!=null)?(\"&returnPage=\"+this.returnPage):\"\")+((this.locale!=null)?(\"&locale=\"+this.locale):\"\")+((this.brand!=null)?(\"&brand=\"+this.brand):\"\"))}}return false}}},runApplet:function(p,u,r){if(r==\"undefined\"||r==null){r=\"1.1\"}var t=\"^(\\\\d+)(?:\\\\.(\\\\d+)(?:\\\\.(\\\\d+)(?:_(\\\\d+))?)?)?$\";var o=r.match(t);if(this.returnPage==null){this.returnPage=document.location}if(o!=null){var q=this.getBrowser();if(q!=\"?\"){if(this.versionCheck(r+\"+\")){this.writeAppletTag(p,u)}else{if(this.installJRE(r+\"+\")){this.refresh();location.href=document.location;this.writeAppletTag(p,u)}}}else{this.writeAppletTag(p,u)}}else{g(\"[runApplet()] Invalid minimumVersion argument to runApplet():\"+r)}},writeAppletTag:function(r,w){var o=\"<\"+\"applet \";var q=\"\";var t=\"<\"+\"/\"+\"applet\"+\">\";var x=true;if(null==w||typeof w!=\"object\"){w=new Object()}for(var p in r){if(!c(p)){w[p]=r[p]}else{o+=(\" \"+p+'=\"'+r[p]+'\"');if(p==\"code\"){x=false}}}var v=false;for(var u in w){if(u==\"codebase_lookup\"){v=true}if(u==\"object\"||u==\"java_object\"||u==\"java_code\"){x=false}q+='<param name=\"'+u+'\" value=\"'+w[u]+'\"/>'}if(!v){q+='<param name=\"codebase_lookup\" value=\"false\"/>'}if(x){o+=(' code=\"dummy\"')}o+=\">\";document.write(o+\"\\n\"+q+\"\\n\"+t)},versionCheck:function(p){var v=0;var x=\"^(\\\\d+)(?:\\\\.(\\\\d+)(?:\\\\.(\\\\d+)(?:_(\\\\d+))?)?)?(\\\\*|\\\\+)?$\";var y=p.match(x);if(y!=null){var r=false;var u=false;var q=new Array();for(var t=1;t<y.length;++t){if((typeof y[t]==\"string\")&&(y[t]!=\"\")){q[v]=y[t];v++}}if(q[q.length-1]==\"+\"){u=true;r=false;q.length--}else{if(q[q.length-1]==\"*\"){u=false;r=true;q.length--}else{if(q.length<4){u=false;r=true}}}var w=this.getJREs();for(var t=0;t<w.length;++t){if(this.compareVersionToPattern(w[t],q,r,u)){return true}}return false}else{var o=\"Invalid versionPattern passed to versionCheck: \"+p;g(\"[versionCheck()] \"+o);alert(o);return false}},isWebStartInstalled:function(r){var q=this.getBrowser();if(q==\"?\"){return true}if(r==\"undefined\"||r==null){r=\"1.4.2\"}var p=false;var t=\"^(\\\\d+)(?:\\\\.(\\\\d+)(?:\\\\.(\\\\d+)(?:_(\\\\d+))?)?)?$\";var o=r.match(t);if(o!=null){p=this.versionCheck(r+\"+\")}else{g(\"[isWebStartInstaller()] Invalid minimumVersion argument to isWebStartInstalled(): \"+r);p=this.versionCheck(\"1.4.2+\")}return p},getJPIVersionUsingMimeType:function(){for(var p=0;p<navigator.mimeTypes.length;++p){var q=navigator.mimeTypes[p].type;var o=q.match(/^application\\/x-java-applet;jpi-version=(.*)$/);if(o!=null){this.firefoxJavaVersion=o[1];if(\"Opera\"!=this.browserName2){break}}}},launchWebStartApplication:function(r){var o=navigator.userAgent.toLowerCase();this.getJPIVersionUsingMimeType();if(this.isWebStartInstalled(\"1.7.0\")==false){if((this.installJRE(\"1.7.0+\")==false)||((this.isWebStartInstalled(\"1.7.0\")==false))){return false}}var u=null;if(document.documentURI){u=document.documentURI}if(u==null){u=document.URL}var p=this.getBrowser();var q;if(p==\"MSIE\"){q=\"<\"+'object classid=\"clsid:8AD9C840-044E-11D1-B3E9-00805F499D93\" '+'width=\"0\" height=\"0\">'+\"<\"+'PARAM name=\"launchjnlp\" value=\"'+r+'\"'+\">\"+\"<\"+'PARAM name=\"docbase\" value=\"'+u+'\"'+\">\"+\"<\"+\"/\"+\"object\"+\">\"}else{if(p==\"Netscape Family\"){q=\"<\"+'embed type=\"application/x-java-applet;jpi-version='+this.firefoxJavaVersion+'\" '+'width=\"0\" height=\"0\" '+'launchjnlp=\"'+r+'\"'+'docbase=\"'+u+'\"'+\" />\"}}if(document.body==\"undefined\"||document.body==null){document.write(q);document.location=u}else{var t=document.createElement(\"div\");t.id=\"div1\";t.style.position=\"relative\";t.style.left=\"-10000px\";t.style.margin=\"0px auto\";t.className=\"dynamicDiv\";t.innerHTML=q;document.body.appendChild(t)}},createWebStartLaunchButtonEx:function(q,p){if(this.returnPage==null){this.returnPage=q}var o=\"javascript:deployJava.launchWebStartApplication('\"+q+\"');\";document.write(\"<\"+'a href=\"'+o+\"\\\" onMouseOver=\\\"window.status=''; \"+'return true;\"><'+\"img \"+'src=\"'+this.launchButtonPNG+'\" '+'border=\"0\" /><'+\"/\"+\"a\"+\">\")},createWebStartLaunchButton:function(q,p){if(this.returnPage==null){this.returnPage=q}var o=\"javascript:\"+\"if (!deployJava.isWebStartInstalled(&quot;\"+p+\"&quot;)) {\"+\"if (deployJava.installLatestJRE()) {\"+\"if (deployJava.launch(&quot;\"+q+\"&quot;)) {}\"+\"}\"+\"} else {\"+\"if (deployJava.launch(&quot;\"+q+\"&quot;)) {}\"+\"}\";document.write(\"<\"+'a href=\"'+o+\"\\\" onMouseOver=\\\"window.status=''; \"+'return true;\"><'+\"img \"+'src=\"'+this.launchButtonPNG+'\" '+'border=\"0\" /><'+\"/\"+\"a\"+\">\")},launch:function(o){document.location=o;return true},isPluginInstalled:function(){var o=this.getPlugin();if(o&&o.jvms){return true}else{return false}},isAutoUpdateEnabled:function(){if(this.isPluginInstalled()){return this.getPlugin().isAutoUpdateEnabled()}return false},setAutoUpdateEnabled:function(){if(this.isPluginInstalled()){return this.getPlugin().setAutoUpdateEnabled()}return false},setInstallerType:function(o){this.installType=o;if(this.isPluginInstalled()){return this.getPlugin().setInstallerType(o)}return false},setAdditionalPackages:function(o){if(this.isPluginInstalled()){return this.getPlugin().setAdditionalPackages(o)}return false},setEarlyAccess:function(o){this.EAInstallEnabled=o},isPlugin2:function(){if(this.isPluginInstalled()){if(this.versionCheck(\"1.6.0_10+\")){try{return this.getPlugin().isPlugin2()}catch(o){}}}return false},allowPlugin:function(){this.getBrowser();var o=(\"Safari\"!=this.browserName2&&\"Opera\"!=this.browserName2);return o},getPlugin:function(){this.refresh();var o=null;if(this.allowPlugin()){o=document.getElementById(\"deployJavaPlugin\")}return o},compareVersionToPattern:function(v,p,r,t){if(v==undefined||p==undefined){return false}var w=\"^(\\\\d+)(?:\\\\.(\\\\d+)(?:\\\\.(\\\\d+)(?:_(\\\\d+))?)?)?$\";var x=v.match(w);if(x!=null){var u=0;var y=new Array();for(var q=1;q<x.length;++q){if((typeof x[q]==\"string\")&&(x[q]!=\"\")){y[u]=x[q];u++}}var o=Math.min(y.length,p.length);if(t){for(var q=0;q<o;++q){if(y[q]<p[q]){return false}else{if(y[q]>p[q]){return true}}}return true}else{for(var q=0;q<o;++q){if(y[q]!=p[q]){return false}}if(r){return true}else{return(y.length==p.length)}}}else{return false}},getBrowser:function(){if(this.browserName==null){var o=navigator.userAgent.toLowerCase();g(\"[getBrowser()] navigator.userAgent.toLowerCase() -> \"+o);if((o.indexOf(\"msie\")!=-1)&&(o.indexOf(\"opera\")==-1)){this.browserName=\"MSIE\";this.browserName2=\"MSIE\"}else{if(o.indexOf(\"trident\")!=-1||o.indexOf(\"Trident\")!=-1){this.browserName=\"MSIE\";this.browserName2=\"MSIE\"}else{if(o.indexOf(\"iphone\")!=-1){this.browserName=\"Netscape Family\";this.browserName2=\"iPhone\"}else{if((o.indexOf(\"firefox\")!=-1)&&(o.indexOf(\"opera\")==-1)){this.browserName=\"Netscape Family\";this.browserName2=\"Firefox\"}else{if(o.indexOf(\"chrome\")!=-1){this.browserName=\"Netscape Family\";this.browserName2=\"Chrome\"}else{if(o.indexOf(\"safari\")!=-1){this.browserName=\"Netscape Family\";this.browserName2=\"Safari\"}else{if((o.indexOf(\"mozilla\")!=-1)&&(o.indexOf(\"opera\")==-1)){this.browserName=\"Netscape Family\";this.browserName2=\"Other\"}else{if(o.indexOf(\"opera\")!=-1){this.browserName=\"Netscape Family\";this.browserName2=\"Opera\"}else{this.browserName=\"?\";this.browserName2=\"unknown\"}}}}}}}}g(\"[getBrowser()] Detected browser name:\"+this.browserName+\", \"+this.browserName2)}return this.browserName},testUsingActiveX:function(o){var q=\"JavaWebStart.isInstalled.\"+o+\".0\";if(typeof ActiveXObject==\"undefined\"||!ActiveXObject){g(\"[testUsingActiveX()] Browser claims to be IE, but no ActiveXObject object?\");return false}try{return(new ActiveXObject(q)!=null)}catch(p){return false}},testForMSVM:function(){var p=\"{08B0E5C0-4FCB-11CF-AAA5-00401C608500}\";if(typeof oClientCaps!=\"undefined\"){var o=oClientCaps.getComponentVersion(p,\"ComponentID\");if((o==\"\")||(o==\"5,0,5000,0\")){return false}else{return true}}else{return false}},testUsingMimeTypes:function(p){if(!navigator.mimeTypes){g(\"[testUsingMimeTypes()] Browser claims to be Netscape family, but no mimeTypes[] array?\");return false}for(var q=0;q<navigator.mimeTypes.length;++q){s=navigator.mimeTypes[q].type;var o=s.match(/^application\\/x-java-applet\\x3Bversion=(1\\.8|1\\.7|1\\.6|1\\.5|1\\.4\\.2)$/);if(o!=null){if(this.compareVersions(o[1],p)){return true}}}return false},testUsingPluginsArray:function(p){if((!navigator.plugins)||(!navigator.plugins.length)){return false}var o=navigator.platform.toLowerCase();for(var q=0;q<navigator.plugins.length;++q){s=navigator.plugins[q].description;if(s.search(/^Java Switchable Plug-in (Cocoa)/)!=-1){if(this.compareVersions(\"1.5.0\",p)){return true}}else{if(s.search(/^Java/)!=-1){if(o.indexOf(\"win\")!=-1){if(this.compareVersions(\"1.5.0\",p)||this.compareVersions(\"1.6.0\",p)){return true}}}}}if(this.compareVersions(\"1.5.0\",p)){return true}return false},IEInstall:function(){location.href=n(((this.returnPage!=null)?(\"&returnPage=\"+this.returnPage):\"\")+((this.locale!=null)?(\"&locale=\"+this.locale):\"\")+((this.brand!=null)?(\"&brand=\"+this.brand):\"\"));return false},done:function(p,o){},FFInstall:function(){location.href=n(((this.returnPage!=null)?(\"&returnPage=\"+this.returnPage):\"\")+((this.locale!=null)?(\"&locale=\"+this.locale):\"\")+((this.brand!=null)?(\"&brand=\"+this.brand):\"\")+((this.installType!=null)?(\"&type=\"+this.installType):\"\"));return false},compareVersions:function(r,t){var p=r.split(\".\");var o=t.split(\".\");for(var q=0;q<p.length;++q){p[q]=Number(p[q])}for(var q=0;q<o.length;++q){o[q]=Number(o[q])}if(p.length==2){p[2]=0}if(p[0]>o[0]){return true}if(p[0]<o[0]){return false}if(p[1]>o[1]){return true}if(p[1]<o[1]){return false}if(p[2]>o[2]){return true}if(p[2]<o[2]){return false}return true},enableAlerts:function(){this.browserName=null;this.debug=true},poll:function(){this.refresh();var o=this.getJREs();if((this.preInstallJREList.length==0)&&(o.length!=0)){clearInterval(this.myInterval);if(this.returnPage!=null){location.href=this.returnPage}}if((this.preInstallJREList.length!=0)&&(o.length!=0)&&(this.preInstallJREList[0]!=o[0])){clearInterval(this.myInterval);if(this.returnPage!=null){location.href=this.returnPage}}},writePluginTag:function(){var o=this.getBrowser();if(o==\"MSIE\"){document.write(\"<\"+'object classid=\"clsid:CAFEEFAC-DEC7-0000-0001-ABCDEFFEDCBA\" '+'id=\"deployJavaPlugin\" width=\"0\" height=\"0\">'+\"<\"+\"/\"+\"object\"+\">\")}else{if(o==\"Netscape Family\"&&this.allowPlugin()){this.writeEmbedTag()}}},refresh:function(){navigator.plugins.refresh(false);var o=this.getBrowser();if(o==\"Netscape Family\"&&this.allowPlugin()){var p=document.getElementById(\"deployJavaPlugin\");if(p==null){this.writeEmbedTag()}}},writeEmbedTag:function(){var o=false;if(navigator.mimeTypes!=null){for(var p=0;p<navigator.mimeTypes.length;p++){if(navigator.mimeTypes[p].type==this.mimeType){if(navigator.mimeTypes[p].enabledPlugin){document.write(\"<\"+'embed id=\"deployJavaPlugin\" type=\"'+this.mimeType+'\" hidden=\"true\" />');o=true}}}if(!o){for(var p=0;p<navigator.mimeTypes.length;p++){if(navigator.mimeTypes[p].type==this.oldMimeType){if(navigator.mimeTypes[p].enabledPlugin){document.write(\"<\"+'embed id=\"deployJavaPlugin\" type=\"'+this.oldMimeType+'\" hidden=\"true\" />')}}}}}}};d.writePluginTag();if(d.locale==null){var h=null;if(h==null){try{h=navigator.userLanguage}catch(f){}}if(h==null){try{h=navigator.systemLanguage}catch(f){}}if(h==null){try{h=navigator.language}catch(f){}}if(h!=null){h.replace(\"-\",\"_\");d.locale=h}}return d}();"
-
-/***/ },
-
-/***/ 35:
-/***/ function(module, exports, require) {
-
-	require(24)(require(36))
-
-/***/ },
-
-/***/ 36:
-/***/ function(module, exports, require) {
-
-	module.exports = "// Copyright (c) 2011 Big Nerd Software, LLC\r\n// ALL RIGHTS RESERVED\r\n//\r\n// For more details read corresponding txt file\r\n// KALEO NOTE: This is http://screencast-o-matic.com/som-e1.14.js\r\n\r\n\r\nfunction somStartRecorder(options) {\r\n    if (options.jarHostPath.charAt(options.jarHostPath.length-1)!='/') {\r\n        options.jarHostPath += '/';\r\n    }\r\n\r\n    var params = new Array(\r\n        options.partner.id,\r\n        \"tmps=TMPDIR,REALTMPDIR\",\r\n        \"som.*.runapplet.lockname=RUN_LOADED_LOCK_NAME\",\r\n        \"som.*.applet.partnerId=\"+options.partner.id,\r\n        \"som.*.applet.partnerSite=\"+options.partner.site,\r\n        \"som.*.applet.partnerKey=\"+options.partner.key,\r\n        \"som.*.applet.uploadPostEncoderUrl=\"+options.jarHostPath+\"som-mp4-OS-encoder-2.zip\",\r\n        \"som.*.applet.exportFileEncoderUrl=\"+options.jarHostPath+\"som-mp4-OS-encoder-2.zip\",\r\n        \"som.*.applet.mp4FastStartUrl=\"+options.jarHostPath+\"som-mp4-OS-faststart.zip\"\r\n    );\r\n\r\n    if (options.partner.expires)\r\n        params.push(\"som.*.applet.partnerExpires=\"+options.partner.expires);\r\n\r\n    if (options.captureId)\r\n        params.push(\"som.*.recorderbody.captureId=\"+options.captureId);\r\n\r\n    if (options.uploadOptionsUrl)\r\n        params.push(\"som.*.upload.requestParamsUrl=\"+options.uploadOptionsUrl);\r\n\r\n    for (var i in options.uploadOptions) {\r\n        params.push(\"som.*.applet.\"+i+\"=\"+options.uploadOptions[i]);\r\n    }\r\n\r\n    for (var k in options.recorderOptions) {\r\n        params.push(\"som.*.applet.\"+k+\"=\"+options.recorderOptions[k]);\r\n    }\r\n\r\n    for (var j in options.sidePanelProperties) {\r\n        params.push(j+\"=\"+options.sidePanelProperties[j]);\r\n    }\r\n\r\n    if (options.showManager)\r\n        params.push(\"showManager=true\");\r\n\r\n    if (options.defaultLocation)\r\n        params.push(\"som.*.editor.defaultLocation=\"+options.defaultLocation);\r\n\r\n    _somCallBackMap = new Array();\r\n    _somCallBackMap['doCapture'] = options.captureCallBack;\r\n    _somCallBackMap['doUpload'] = options.uploadCallBack;\r\n    _somCallBackMap['onExit'] = options.onExitCallBack;\r\n\r\n    var className = 'ScreenRecorder';\r\n    if (options.sidePanelOnly)\r\n        className = 'RecorderWithSidePanel';\r\n\r\n    _somStart(className, options, params, 'doRun', function(result) {\r\n        if (result=='true') result='success';\r\n        if (result=='false') result='error';\r\n        if (result=='locked') result='already';\r\n        options.callback(result);\r\n    });\r\n}\r\n\r\nfunction somUploadLogs(options) {\r\n    if (options.jarHostPath.charAt(options.jarHostPath.length-1)!='/') {\r\n        options.jarHostPath += '/';\r\n    }\r\n\r\n    var params = new Array(\r\n        options.partner.id,\r\n        \"som.*.applet.partnerId=\"+options.partner.id,\r\n        \"som.*.applet.partnerSite=\"+options.partner.site,\r\n        \"som.*.applet.partnerKey=\"+options.partner.key\r\n    );\r\n\r\n    if (options.partner.expires)\r\n        params.push(\"som.*.applet.partnerExpires=\"+options.partner.expires);\r\n\r\n    if (options.captureId)\r\n        params.push(\"som.*.recorderbody.captureId=\"+options.captureId);\r\n\r\n    if (options.uploadOptionsUrl)\r\n        params.push(\"som.*.upload.requestParamsUrl=\"+options.uploadOptionsUrl);\r\n\r\n    for (var i in options.uploadOptions) {\r\n        params.push(\"som.*.applet.\"+i+\"=\"+options.uploadOptions[i]);\r\n    }\r\n\r\n    _somStart('ScreenRecorder', options, params, 'doUploadLog', function(result) {\r\n        if (result=='done') result='success';\r\n        options.callback(result);\r\n    });\r\n}\r\n\r\n//\r\n// Internal stuff...\r\n//\r\n\r\nvar _somRunJar = 'ScreencastOMaticRun-1.0.34.jar';\r\nvar _somAppletWarningTimeoutMS = 60000;\r\nvar _somAppletWarningTimeoutId;\r\nvar _somUserCallBack;\r\nvar _somInCallBack;\r\nvar _somOnLoadCallBack;\r\nvar _somOnDownloadCallBack;\r\nvar _somCallBackMap;\r\n\r\nfunction _somStart(className, options, params, doName, callback) {\r\n    var extra =\r\n        '<param name=\"runClass\" value=\"'+className+'\"/>\\n'+\r\n        '<param name=\"callBackListener\" value=\"_somCallBackListener\"/>\\n'+\r\n        '<param name=\"'+doName+'\" value=\"_somCallBack\"/>\\n';\r\n\r\n    var i;\r\n\r\n    for (i in options.jars) {\r\n        extra += '<param name=\"runJar'+i+'\" value=\"'+options.jarHostPath+options.jars[i]+'\"/>\\n';\r\n    }\r\n\r\n    for (i in params) {\r\n        extra += '<param name=\"runParam'+i+'\" value=\"'+params[i]+'\"/>\\n';\r\n    }\r\n\r\n    if (options.onLoadCallBack) {\r\n        _somOnLoadCallBack = options.onLoadCallBack;\r\n        extra += '<param name=\"doSetup\" value=\"_somOnSetupCallBack\"/>\\n';\r\n    }\r\n\r\n    if (options.onDownloadCallBack) {\r\n        _somOnDownloadCallBack = options.onDownloadCallBack;\r\n        extra += '<param name=\"downloadingCallback\" value=\"_somDownloadCallBack\"/>\\n';\r\n    }\r\n\r\n    if (options.uploadLogUrl) {\r\n        extra += '<param name=\"uploadLogUrl\" value=\"'+options.uploadLogUrl+'\"/>\\n';\r\n    }\r\n\r\n    if (options.macLauncherZip) {\r\n        extra += '<param name=\"macLauncherUrl\" value=\"'+options.jarHostPath+options.macLauncherZip+'\"/>\\n';\r\n        extra += '<param name=\"macLauncherAppName\" value=\"ScreenRecorder\"/>\\n';\r\n    }\r\n\r\n    _somAppletWarningTimeoutId = setTimeout(\"_somAppletWarningTimeout()\", _somAppletWarningTimeoutMS);\r\n\r\n    _somAddHiddenApplet(\r\n        function(result) {\r\n            // If we get any callback then we can clear the timeout\r\n            if (_somAppletWarningTimeoutId) {\r\n                clearTimeout(_somAppletWarningTimeoutId);\r\n                _somAppletWarningTimeoutId = undefined;\r\n            }\r\n\r\n            callback(result);\r\n        },\r\n        options,\r\n        extra\r\n    );\r\n}\r\n\r\nfunction _somAddHiddenApplet(callBack, options, extraParams) {\r\n    try {\r\n        var div = document.getElementById('somAppletContainer');\r\n        if (!div) {\r\n            div = document.createElement('div');\r\n            div.id = 'somAppletContainer';\r\n            document.body.appendChild(div);\r\n        }\r\n\r\n        _somUserCallBack = callBack;\r\n\r\n\r\n        var appletTag = _somBuildApplet(options, extraParams);\r\n\r\n        if (_somInCallBack) {\r\n            setTimeout(function(){div.innerHTML = appletTag},100);\r\n        }\r\n        else {\r\n            div.innerHTML = appletTag;\r\n        }\r\n    }\r\n    catch (ex) {\r\n        _somUserCallBack=undefined;\r\n        setTimeout(function(){callBack('error')}, 100);\r\n    }\r\n}\r\n\r\nfunction _somClearHiddenApplet() {\r\n    var div = document.getElementById('somAppletContainer');\r\n    if (_somInCallBack) {\r\n        setTimeout(function(){div.innerHTML = ''},100);\r\n    }\r\n    else {\r\n        div.innerHTML = '';\r\n    }\r\n}\r\n\r\nfunction _somBuildApplet(options, extraParams) {\r\n    return '<applet archive=\"'+ options.jarHostPath+_somRunJar +'\" code=\"RunApplet.class\" width=\"1\" height=\"1\" MAYSCRIPT>\\n' +\r\n           \"    <param name=\\\"java_arguments\\\" value=\\\"-Xmx256m\\\">\\n\" +\r\n           \"    <param name=\\\"partnerId\\\" value=\\\"\"+options.partner.id+\"\\\"/>\\n\" +\r\n           \"    <param name=\\\"partnerSite\\\" value=\\\"\"+options.partner.site+\"\\\"/>\\n\" +\r\n           \"    <param name=\\\"partnerKey\\\" value=\\\"\"+options.partner.key+\"\\\"/>\\n\" +\r\n           \"    <param name=\\\"doIfCertDenied\\\" value=\\\"_somAppletCertDenied\\\"/>\\n\" +\r\n           ((options.macName==undefined || options.macName==\"\") ? \"\" : \"<param name=\\\"macName\\\" value=\\\"\" + options.macName + \"\\\"/>\\n\") +\r\n           ((options.partner.expires==undefined || options.partner.expires==\"\") ? \"\" : \"<param name=\\\"partnerExpires\\\" value=\\\"\" + options.partner.expires + \"\\\"/>\\n\") +\r\n           ((extraParams) ? extraParams : \"\") +\r\n           \"</applet>\";\r\n}\r\n\r\nfunction _somAppletWarningTimeout() {\r\n    if (_somUserCallBack) _somUserCallBack('timeout');\r\n}\r\n\r\nfunction _somAppletCertDenied() {\r\n    if (_somUserCallBack) _somUserCallBack('certdenied');\r\n}\r\n\r\nfunction _somCallBack(a1,a2,a3,a4,a5) {\r\n    _somInCallBack=true;\r\n    if (_somUserCallBack)\r\n        _somUserCallBack(a1,a2,a3,a4,a5);\r\n    _somInCallBack=false;\r\n}\r\n\r\nfunction _somCallBackListener(func,a1,a2,a3,a4,a5) {\r\n    _somInCallBack=true;\r\n    if (_somCallBackMap[func]) {\r\n        _somCallBackMap[func](a1,a2,a3,a4,a5);\r\n    }\r\n    else {\r\n        var windowFunc = window[func];\r\n        if (windowFunc)\r\n            windowFunc(a1,a2,a3,a4,a5)\r\n    }\r\n    _somInCallBack=false;\r\n}\r\n\r\nfunction _somOnSetupCallBack(java_vendor, java_version) {\r\n   _somOnLoadCallBack(java_vendor,java_version);\r\n}\r\n\r\nfunction _somDownloadCallBack(percent) {\r\n    _somOnDownloadCallBack(percent);\r\n}\r\n"
-
-/***/ },
-
-/***/ 37:
 /***/ function(module, exports, require) {
 
 	/* WEBPACK VAR INJECTION */(function(require, global) {/**
