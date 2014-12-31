@@ -50,7 +50,7 @@
 
 	/** @jsx React.DOM*/
 
-	var Blocks, Makona, MakonaEditor, MakonaEditorControls, MakonaEditorRow, MakonaPlusRow, MakonaPreviewList, MakonaPreviewerRow, MakonaRaw, MakonaRawPre, MakonaSortableItem, MakonaSortableList,
+	var Blocks, Channel, Makona, MakonaEditor, MakonaEditorControls, MakonaEditorRow, MakonaPlusRow, MakonaPreviewList, MakonaPreviewerRow, MakonaRaw, MakonaRawPre, MakonaSortableItem, MakonaSortableList,
 	  __slice = [].slice;
 
 	if (typeof jQuery === "undefined" || jQuery === null) {
@@ -67,7 +67,6 @@
 
 	Makona = (function() {
 	  function Makona(opts) {
-	    opts.channel = postal.channel("makona");
 	    opts.node_name = $("#" + opts.nodeId).attr("name");
 	    opts.html_node_name = $("#" + opts.nodeId).data("output-html");
 	    opts.blocks || (opts.blocks = JSON.parse($("#" + opts.nodeId).val()));
@@ -83,23 +82,25 @@
 
 	Blocks = require(1);
 
+	Channel = postal.channel("makona");
+
 	MakonaEditor = React.createClass({
 	  displayName: "MakonaEditor",
 	  componentDidMount: function() {
 	    var _this = this;
-	    this.props.opts.channel.subscribe("#", function(data, envelope) {
+	    Channel.subscribe("#", function(data, envelope) {
 	      return console.log(envelope);
 	    });
-	    this.props.opts.channel.subscribe("block.change", function(data) {
+	    Channel.subscribe("block.change", function(data) {
 	      return _this.handleChange(data.block, data.replaceFlag);
 	    });
-	    this.props.opts.channel.subscribe("block.delete", function(data) {
+	    Channel.subscribe("block.delete", function(data) {
 	      return _this.handleDelete(data.block);
 	    });
-	    this.props.opts.channel.subscribe("block.add", function(data) {
+	    Channel.subscribe("block.add", function(data) {
 	      return _this.handleAddRow(data.block, data.position);
 	    });
-	    return this.props.opts.channel.subscribe("block.reorder", function(data) {
+	    return Channel.subscribe("block.reorder", function(data) {
 	      return _this.handleReorder(data.blocks);
 	    });
 	  },
@@ -203,7 +204,7 @@
 	          theBlock.position = i;
 	          return sortedBlocks.push(theBlock);
 	        });
-	        return _this.props.opts.channel.publish("block.reorder", {
+	        return Channel.publish("block.reorder", {
 	          blocks: sortedBlocks
 	        });
 	      }
@@ -214,9 +215,7 @@
 	      React.DOM.ol( {ref:"sortable"}, 
 	        this.props.blocks.map(
 	          function(block){
-	            return this.transferPropsTo(
-	              MakonaSortableItem( {block:block}  )
-	            )
+	            return MakonaSortableItem({opts: this.props.opts, block: block})
 	          }.bind(this)
 	        )
 	      )
@@ -226,32 +225,28 @@
 
 	MakonaSortableItem = React.createClass({
 	  displayName: "SortableItem",
-	  handleKeyUp: function(id, e) {
+	  handleKeyUp: function(block, e) {
 	    if (e.keyCode === 27) {
-	      return this.handlePreview(id);
+	      return this.handlePreview(block);
 	    }
 	  },
-	  handleEdit: function(id, e) {
-	    var block,
-	      _this = this;
-	    block = Blocks.blockFromId(this.props.blocks, id);
+	  handleEdit: function(block, e) {
+	    var _this = this;
 	    block = $.extend(block, {
 	      mode: 'edit'
 	    });
-	    this.props.opts.channel.publish("block.change", {
+	    Channel.publish("block.change", {
 	      block: block
 	    });
 	    return setTimeout(function() {
 	      return $(_this.refs["editor" + id].getDOMNode()).find("textarea").focus().caretToEnd();
 	    }, 100);
 	  },
-	  handlePreview: function(id, e) {
-	    var block;
-	    block = Blocks.blockFromId(this.props.blocks, id);
+	  handlePreview: function(block, e) {
 	    block = $.extend(block, {
 	      mode: 'preview'
 	    });
-	    return this.props.opts.channel.publish("block.change", {
+	    return Channel.publish("block.change", {
 	      block: block
 	    });
 	  },
@@ -271,13 +266,13 @@
 	    return (
 	      React.DOM.li( {id:block.id, key:"ks"+block.id, 'data-position':block.position} , 
 	        React.DOM.div( {className:"mk-block mk-blocktype-"+block.type+" mk-mode-"+block.mode} , 
-	          React.DOM.div( {className:"mk-block-editor", style:this.editStyle(block), ref:"editor"+block.id, onKeyUp:_.partial(this.handleKeyUp, block.id)} , 
-	            MakonaEditorRow( {block:block, opts:this.props.opts} )
+	          React.DOM.div( {className:"mk-block-editor", style:this.editStyle(block), ref:"editor"+block.id, onKeyUp:_.partial(this.handleKeyUp, block)} , 
+	            MakonaEditorRow( {block:block} )
 	          ),
-	          React.DOM.div( {className:"mk-block-previewer", style:this.previewStyle(block), ref:"preview"+block.id, onClick:_.partial(this.handleEdit, block.id)}, 
-	            MakonaPreviewerRow( {block:block, opts:this.props.opts} )
+	          React.DOM.div( {className:"mk-block-previewer", style:this.previewStyle(block), ref:"preview"+block.id, onClick:_.partial(this.handleEdit, block)}, 
+	            MakonaPreviewerRow( {block:block} )
 	          ),
-	          MakonaEditorControls( {opts:this.props.opts, blocks:this.props.blocks, block:block, handleEdit:this.handleEdit, handlePreview:this.handlePreview} )
+	          MakonaEditorControls( {blocks:this.props.blocks, block:block, handleEdit:this.handleEdit, handlePreview:this.handlePreview} )
 	        ),
 	        MakonaPlusRow( {block:block, opts:this.props.opts} )
 	      )
@@ -297,7 +292,7 @@
 	      this.setState({
 	        confirming: false
 	      });
-	      return this.props.opts.channel.publish("block.delete", {
+	      return Channel.publish("block.delete", {
 	        block: this.props.block
 	      });
 	    } else {
@@ -371,7 +366,7 @@
 	  handleAddRow: function(type, e) {
 	    var newBlock;
 	    newBlock = Blocks.newBlock(type);
-	    this.props.opts.channel.publish("block.add", {
+	    Channel.publish("block.add", {
 	      block: newBlock,
 	      position: this.props.block.position
 	    });

@@ -41,7 +41,6 @@ require("script!postal.js/lib/postal.min.js")
 # Makona will be exposed on window, and be the main entry point to the editor from the outside
 class Makona
   constructor: (opts) ->
-    opts.channel = postal.channel("makona")
     # Delete the textarea node, save the name, and replace it with a div. The Raw component will
     # create a textarea with that name.
     opts.node_name = $("##{opts.nodeId}").attr("name")
@@ -51,16 +50,17 @@ class Makona
     React.renderComponent (MakonaEditor {opts: opts}), document.getElementById(opts.nodeId)
 
 Blocks = require("./blocks")
+Channel = postal.channel("makona")
 
 MakonaEditor = React.createClass
   displayName: "MakonaEditor"
   componentDidMount: () ->
     # Subscribe to events
-    this.props.opts.channel.subscribe "#", (data, envelope) -> console.log envelope
-    this.props.opts.channel.subscribe "block.change", (data) => @handleChange(data.block, data.replaceFlag)
-    this.props.opts.channel.subscribe "block.delete", (data) => @handleDelete(data.block)
-    this.props.opts.channel.subscribe "block.add",    (data) => @handleAddRow(data.block, data.position)
-    this.props.opts.channel.subscribe "block.reorder",(data) => @handleReorder(data.blocks)
+    Channel.subscribe "#", (data, envelope) -> console.log envelope
+    Channel.subscribe "block.change", (data) => @handleChange(data.block, data.replaceFlag)
+    Channel.subscribe "block.delete", (data) => @handleDelete(data.block)
+    Channel.subscribe "block.add",    (data) => @handleAddRow(data.block, data.position)
+    Channel.subscribe "block.reorder",(data) => @handleReorder(data.blocks)
 
   getInitialState: () ->
     blocks: _(this.props.opts.blocks)
@@ -125,16 +125,14 @@ MakonaSortableList = React.createClass
           theBlock = _.findWhere(this.props.blocks, {id: parseInt(el.id,10)})
           theBlock.position = i
           sortedBlocks.push(theBlock)
-        this.props.opts.channel.publish "block.reorder", {blocks: sortedBlocks}
+        Channel.publish "block.reorder", {blocks: sortedBlocks}
 
   render: ->
     `(
       <ol ref='sortable'>
         {this.props.blocks.map(
           function(block){
-            return this.transferPropsTo(
-              <MakonaSortableItem block={block}  />
-            )
+            return MakonaSortableItem({opts: this.props.opts, block: block})
           }.bind(this)
         )}
       </ol>
@@ -143,21 +141,19 @@ MakonaSortableList = React.createClass
 MakonaSortableItem = React.createClass
   displayName: "SortableItem"
   # escape key while editing will flip back to preview mode
-  handleKeyUp: (id, e) ->
-    @handlePreview(id) if e.keyCode is 27
-  handleEdit: (id, e) ->
-    block = Blocks.blockFromId(this.props.blocks, id)
+  handleKeyUp: (block, e) ->
+    @handlePreview(block) if e.keyCode is 27
+  handleEdit: (block, e) ->
     block = $.extend(block, {mode: 'edit'})
-    this.props.opts.channel.publish "block.change", {block: block}
+    Channel.publish "block.change", {block: block}
     # This isnt very React-y
     setTimeout =>
       $(this.refs["editor"+id].getDOMNode()).find("textarea").focus().caretToEnd()
     , 100
 
-  handlePreview: (id, e) ->
-    block = Blocks.blockFromId(this.props.blocks, id)
+  handlePreview: (block, e) ->
     block = $.extend(block, {mode: 'preview'})
-    this.props.opts.channel.publish "block.change", {block: block}
+    Channel.publish "block.change", {block: block}
   editStyle: (block) -> {display: if block.mode == 'edit' then 'block' else 'none'}
   previewStyle: (block) -> {display: if !block.mode? || (block.mode == 'preview') then 'block' else 'none'}
   render: ->
@@ -165,13 +161,13 @@ MakonaSortableItem = React.createClass
     `(
       <li id={block.id} key={"ks"+block.id} data-position={block.position} >
         <div className={"mk-block mk-blocktype-"+block.type+" mk-mode-"+block.mode} >
-          <div className="mk-block-editor" style={this.editStyle(block)} ref={"editor"+block.id} onKeyUp={_.partial(this.handleKeyUp, block.id)} >
-            <MakonaEditorRow block={block} opts={this.props.opts} />
+          <div className="mk-block-editor" style={this.editStyle(block)} ref={"editor"+block.id} onKeyUp={_.partial(this.handleKeyUp, block)} >
+            <MakonaEditorRow block={block} />
           </div>
-          <div className="mk-block-previewer" style={this.previewStyle(block)} ref={"preview"+block.id} onClick={_.partial(this.handleEdit, block.id)}>
-            <MakonaPreviewerRow block={block} opts={this.props.opts} />
+          <div className="mk-block-previewer" style={this.previewStyle(block)} ref={"preview"+block.id} onClick={_.partial(this.handleEdit, block)}>
+            <MakonaPreviewerRow block={block} />
           </div>
-          <MakonaEditorControls opts={this.props.opts} blocks={this.props.blocks} block={block} handleEdit={this.handleEdit} handlePreview={this.handlePreview} />
+          <MakonaEditorControls blocks={this.props.blocks} block={block} handleEdit={this.handleEdit} handlePreview={this.handlePreview} />
         </div>
         <MakonaPlusRow block={block} opts={this.props.opts} />
       </li>
@@ -185,7 +181,7 @@ MakonaEditorControls = React.createClass
   handleConfirmDelete: () ->
     if this.state.confirming
       this.setState({confirming: false})
-      this.props.opts.channel.publish "block.delete", {block: this.props.block}
+      Channel.publish "block.delete", {block: this.props.block}
     else
       this.setState({confirming: true})
 
@@ -237,7 +233,7 @@ MakonaPlusRow = React.createClass
 
   handleAddRow: (type, e) ->
     newBlock = Blocks.newBlock(type)
-    this.props.opts.channel.publish "block.add", {block: newBlock, position: this.props.block.position}
+    Channel.publish "block.add", {block: newBlock, position: this.props.block.position}
     this.setState {'hideLinks': true}
 
   handleClick: () ->
