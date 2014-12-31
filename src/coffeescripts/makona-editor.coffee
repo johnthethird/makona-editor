@@ -121,6 +121,24 @@ MakonaSortableList = React.createClass
           sortedBlocks.push(theBlock)
         this.props.handleReorder(sortedBlocks)
 
+  render: ->
+    `(
+      <ol ref='sortable'>
+        {this.props.blocks.map(
+          function(block){
+            return this.transferPropsTo(
+              <MakonaSortableItem block={block}  />
+            )
+          }.bind(this)
+        )}
+      </ol>
+    )`
+
+MakonaSortableItem = React.createClass
+  displayName: "SortableItem"
+  # escape key while editing will flip back to preview mode
+  handleKeyUp: (id, e) ->
+    @handlePreview(id) if e.keyCode is 27
   handleEdit: (id, e) ->
     block = Blocks.blockFromId(this.props.blocks, id)
     block = $.extend(block, {mode: 'edit'})
@@ -134,35 +152,23 @@ MakonaSortableList = React.createClass
     block = Blocks.blockFromId(this.props.blocks, id)
     block = $.extend(block, {mode: 'preview'})
     this.props.handleChange(block)
-
-  # escape key while editing will flip back to preview mode
-  handleKeyUp: (id, e) ->
-    @handlePreview(id) if e.keyCode is 27
-
   editStyle: (block) -> {display: if block.mode == 'edit' then 'block' else 'none'}
   previewStyle: (block) -> {display: if !block.mode? || (block.mode == 'preview') then 'block' else 'none'}
   render: ->
+    block = this.props.block
     `(
-      <ol ref='sortable'>
-        {this.props.blocks.map(
-          function(block){
-            return (
-              <li id={block.id} key={"ks"+block.id} data-position={block.position} >
-                <div className={"mk-block mk-blocktype-"+block.type+" mk-mode-"+block.mode} >
-                  <div className="mk-block-editor" style={this.editStyle(block)} ref={"editor"+block.id} onKeyUp={_.partial(this.handleKeyUp, block.id)} >
-                    <MakonaEditorRow block={block} opts={this.props.opts} handleChange={this.props.handleChange} />
-                  </div>
-                  <div className="mk-block-previewer" style={this.previewStyle(block)} ref={"preview"+block.id} onClick={_.partial(this.handleEdit, block.id)}>
-                    <MakonaPreviewerRow block={block} opts={this.props.opts} />
-                  </div>
-                  <MakonaEditorControls blocks={this.props.blocks} block={block} handleEdit={this.handleEdit} handlePreview={this.handlePreview} handleDelete={this.props.handleDelete} />
-                </div>
-                <MakonaPlusRow block={block} opts={this.props.opts} handleAddRow={this.props.handleAddRow} />
-              </li>
-            )
-          }.bind(this)
-        )}
-      </ol>
+      <li id={block.id} key={"ks"+block.id} data-position={block.position} >
+        <div className={"mk-block mk-blocktype-"+block.type+" mk-mode-"+block.mode} >
+          <div className="mk-block-editor" style={this.editStyle(block)} ref={"editor"+block.id} onKeyUp={_.partial(this.handleKeyUp, block.id)} >
+            <MakonaEditorRow block={block} opts={this.props.opts} handleChange={this.props.handleChange} />
+          </div>
+          <div className="mk-block-previewer" style={this.previewStyle(block)} ref={"preview"+block.id} onClick={_.partial(this.handleEdit, block.id)}>
+            <MakonaPreviewerRow block={block} opts={this.props.opts} />
+          </div>
+          <MakonaEditorControls blocks={this.props.blocks} block={block} handleEdit={this.handleEdit} handlePreview={this.handlePreview} handleDelete={this.props.handleDelete} />
+        </div>
+        <MakonaPlusRow block={block} opts={this.props.opts} handleAddRow={this.props.handleAddRow} />
+      </li>
     )`
 
 MakonaEditorControls = React.createClass

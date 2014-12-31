@@ -50,18 +50,18 @@
 
 	/** @jsx React.DOM*/
 
-	var Blocks, Makona, MakonaEditor, MakonaEditorControls, MakonaEditorRow, MakonaPlusRow, MakonaPreviewList, MakonaPreviewerRow, MakonaRaw, MakonaRawPre, MakonaSortableList,
+	var Blocks, Makona, MakonaEditor, MakonaEditorControls, MakonaEditorRow, MakonaPlusRow, MakonaPreviewList, MakonaPreviewerRow, MakonaRaw, MakonaRawPre, MakonaSortableItem, MakonaSortableList,
 	  __slice = [].slice;
 
 	if (typeof jQuery === "undefined" || jQuery === null) {
 	  throw new Error("Makona requires jQuery");
 	}
 
-	require(21);
+	require(2);
 
-	require(22);
+	require(3);
 
-	require(23);
+	require(4);
 
 	Makona = (function() {
 	  function Makona(opts) {
@@ -190,6 +190,28 @@
 	      }
 	    });
 	  },
+	  render: function() {
+	    return (
+	      React.DOM.ol( {ref:"sortable"}, 
+	        this.props.blocks.map(
+	          function(block){
+	            return this.transferPropsTo(
+	              MakonaSortableItem( {block:block}  )
+	            )
+	          }.bind(this)
+	        )
+	      )
+	    );
+	  }
+	});
+
+	MakonaSortableItem = React.createClass({
+	  displayName: "SortableItem",
+	  handleKeyUp: function(id, e) {
+	    if (e.keyCode === 27) {
+	      return this.handlePreview(id);
+	    }
+	  },
 	  handleEdit: function(id, e) {
 	    var block,
 	      _this = this;
@@ -210,11 +232,6 @@
 	    });
 	    return this.props.handleChange(block);
 	  },
-	  handleKeyUp: function(id, e) {
-	    if (e.keyCode === 27) {
-	      return this.handlePreview(id);
-	    }
-	  },
 	  editStyle: function(block) {
 	    return {
 	      display: block.mode === 'edit' ? 'block' : 'none'
@@ -226,26 +243,20 @@
 	    };
 	  },
 	  render: function() {
+	    var block;
+	    block = this.props.block;
 	    return (
-	      React.DOM.ol( {ref:"sortable"}, 
-	        this.props.blocks.map(
-	          function(block){
-	            return (
-	              React.DOM.li( {id:block.id, key:"ks"+block.id, 'data-position':block.position} , 
-	                React.DOM.div( {className:"mk-block mk-blocktype-"+block.type+" mk-mode-"+block.mode} , 
-	                  React.DOM.div( {className:"mk-block-editor", style:this.editStyle(block), ref:"editor"+block.id, onKeyUp:_.partial(this.handleKeyUp, block.id)} , 
-	                    MakonaEditorRow( {block:block, opts:this.props.opts, handleChange:this.props.handleChange} )
-	                  ),
-	                  React.DOM.div( {className:"mk-block-previewer", style:this.previewStyle(block), ref:"preview"+block.id, onClick:_.partial(this.handleEdit, block.id)}, 
-	                    MakonaPreviewerRow( {block:block, opts:this.props.opts} )
-	                  ),
-	                  MakonaEditorControls( {blocks:this.props.blocks, block:block, handleEdit:this.handleEdit, handlePreview:this.handlePreview, handleDelete:this.props.handleDelete} )
-	                ),
-	                MakonaPlusRow( {block:block, opts:this.props.opts, handleAddRow:this.props.handleAddRow} )
-	              )
-	            )
-	          }.bind(this)
-	        )
+	      React.DOM.li( {id:block.id, key:"ks"+block.id, 'data-position':block.position} , 
+	        React.DOM.div( {className:"mk-block mk-blocktype-"+block.type+" mk-mode-"+block.mode} , 
+	          React.DOM.div( {className:"mk-block-editor", style:this.editStyle(block), ref:"editor"+block.id, onKeyUp:_.partial(this.handleKeyUp, block.id)} , 
+	            MakonaEditorRow( {block:block, opts:this.props.opts, handleChange:this.props.handleChange} )
+	          ),
+	          React.DOM.div( {className:"mk-block-previewer", style:this.previewStyle(block), ref:"preview"+block.id, onClick:_.partial(this.handleEdit, block.id)}, 
+	            MakonaPreviewerRow( {block:block, opts:this.props.opts} )
+	          ),
+	          MakonaEditorControls( {blocks:this.props.blocks, block:block, handleEdit:this.handleEdit, handlePreview:this.handlePreview, handleDelete:this.props.handleDelete} )
+	        ),
+	        MakonaPlusRow( {block:block, opts:this.props.opts, handleAddRow:this.props.handleAddRow} )
 	      )
 	    );
 	  }
@@ -448,7 +459,7 @@
 	BLOCK_REGISTRY = [
 	  {
 	    type: "unknown",
-	    previewClass: require(2),
+	    previewClass: require(5),
 	    editable: false,
 	    createable: false,
 	    data: {}
@@ -456,8 +467,8 @@
 	    type: "text",
 	    displayName: "Text",
 	    icon: '\x62',
-	    editorClass: require(3),
-	    previewClass: require(4),
+	    editorClass: require(6),
+	    previewClass: require(7),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -467,8 +478,8 @@
 	    type: "html",
 	    displayName: "HTML",
 	    icon: '\ue036',
-	    editorClass: require(5),
-	    previewClass: require(6),
+	    editorClass: require(8),
+	    previewClass: require(9),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -478,8 +489,8 @@
 	    type: "javascript",
 	    displayName: "JavaScript",
 	    icon: '\ue036',
-	    editorClass: require(7),
-	    previewClass: require(8),
+	    editorClass: require(10),
+	    previewClass: require(11),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -489,8 +500,8 @@
 	    type: "markdown",
 	    displayName: 'Text',
 	    icon: '\x68',
-	    editorClass: require(9),
-	    previewClass: require(10),
+	    editorClass: require(12),
+	    previewClass: require(13),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -500,8 +511,8 @@
 	    type: "quote",
 	    displayName: 'Quote',
 	    icon: '\x7b',
-	    editorClass: require(11),
-	    previewClass: require(12),
+	    editorClass: require(14),
+	    previewClass: require(15),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -512,8 +523,8 @@
 	    type: "code",
 	    displayName: "Code",
 	    icon: '\ue038',
-	    editorClass: require(13),
-	    previewClass: require(14),
+	    editorClass: require(16),
+	    previewClass: require(17),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -523,8 +534,8 @@
 	    type: "image",
 	    displayName: "Image",
 	    icon: '\ue005',
-	    editorClass: require(15),
-	    previewClass: require(16),
+	    editorClass: require(18),
+	    previewClass: require(19),
 	    editable: false,
 	    createable: true,
 	    data: {
@@ -534,8 +545,8 @@
 	    type: "document",
 	    displayName: "Document",
 	    icon: '\x69',
-	    editorClass: require(17),
-	    previewClass: require(18),
+	    editorClass: require(20),
+	    previewClass: require(21),
 	    editable: false,
 	    createable: true,
 	    data: {
@@ -545,8 +556,8 @@
 	    type: "screencast",
 	    displayName: "Screencast",
 	    icon: '\ue00e',
-	    editorClass: require(19),
-	    previewClass: require(20),
+	    editorClass: require(22),
+	    previewClass: require(23),
 	    editable: false,
 	    createable: true,
 	    data: {
@@ -607,6 +618,27 @@
 /***/ 2:
 /***/ function(module, exports, require) {
 
+	require(24)(require(25))
+
+/***/ },
+
+/***/ 3:
+/***/ function(module, exports, require) {
+
+	require(24)(require(26))
+
+/***/ },
+
+/***/ 4:
+/***/ function(module, exports, require) {
+
+	require(24)(require(27))
+
+/***/ },
+
+/***/ 5:
+/***/ function(module, exports, require) {
+
 	/** @jsx React.DOM*/
 
 	var UnknownPreviewer;
@@ -623,7 +655,7 @@
 
 /***/ },
 
-/***/ 3:
+/***/ 6:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -644,7 +676,7 @@
 
 /***/ },
 
-/***/ 4:
+/***/ 7:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -663,7 +695,7 @@
 
 /***/ },
 
-/***/ 5:
+/***/ 8:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -687,7 +719,7 @@
 
 /***/ },
 
-/***/ 6:
+/***/ 9:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -708,7 +740,7 @@
 
 /***/ },
 
-/***/ 7:
+/***/ 10:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -729,7 +761,7 @@
 
 /***/ },
 
-/***/ 8:
+/***/ 11:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -750,7 +782,7 @@
 
 /***/ },
 
-/***/ 9:
+/***/ 12:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -851,7 +883,7 @@
 
 /***/ },
 
-/***/ 10:
+/***/ 13:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -884,7 +916,7 @@
 
 /***/ },
 
-/***/ 11:
+/***/ 14:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -921,7 +953,7 @@
 
 /***/ },
 
-/***/ 12:
+/***/ 15:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -945,7 +977,7 @@
 
 /***/ },
 
-/***/ 13:
+/***/ 16:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -982,7 +1014,7 @@
 
 /***/ },
 
-/***/ 14:
+/***/ 17:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -1010,7 +1042,7 @@
 
 /***/ },
 
-/***/ 15:
+/***/ 18:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -1019,7 +1051,7 @@
 
 	require(31);
 
-	ImagePreviewer = require(16);
+	ImagePreviewer = require(19);
 
 	qqTemplate = "<script type=\"text/template\" id=\"qq-template-image\">\n    <div class=\"qq-uploader-selector qq-uploader\">\n        <div class=\"qq-upload-drop-area-selector qq-upload-drop-area\" qq-hide-dropzone>\n            <span>Drop files here to upload</span>\n        </div>\n        <div class=\"qq-upload-button-selector qq-upload-button\">\n            <div>or choose file</div>\n        </div>\n        <span class=\"qq-drop-processing-selector qq-drop-processing\">\n            <span>Processing dropped files...</span>\n            <span class=\"qq-drop-processing-spinner-selector qq-drop-processing-spinner\"></span>\n        </span>\n        <ul class=\"qq-upload-list-selector qq-upload-list\">\n            <li>\n                <div class=\"qq-progress-bar-container-selector\">\n                    <div class=\"qq-progress-bar-selector qq-progress-bar\"></div>\n                </div>\n                <span class=\"qq-upload-spinner-selector qq-upload-spinner\"></span>\n                <img class=\"qq-thumbnail-selector\" qq-max-size=\"100\" qq-server-scale>\n                <span class=\"qq-edit-filename-icon-selector qq-edit-filename-icon\"></span>\n                <span class=\"qq-upload-file-selector qq-upload-file\"></span>\n                <input class=\"qq-edit-filename-selector qq-edit-filename\" tabindex=\"0\" type=\"text\">\n                <span class=\"qq-upload-size-selector qq-upload-size\"></span>\n                <a class=\"qq-upload-cancel-selector qq-upload-cancel\" href=\"#\">Cancel</a>\n                <a class=\"qq-upload-retry-selector qq-upload-retry\" href=\"#\">Retry</a>\n                <a class=\"qq-upload-delete-selector qq-upload-delete\" href=\"#\">Delete</a>\n                <span class=\"qq-upload-status-text-selector qq-upload-status-text\"></span>\n            </li>\n        </ul>\n    </div>\n</script>";
 
@@ -1104,7 +1136,7 @@
 
 /***/ },
 
-/***/ 16:
+/***/ 19:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -1127,7 +1159,7 @@
 
 /***/ },
 
-/***/ 17:
+/***/ 20:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -1136,7 +1168,7 @@
 
 	require(31);
 
-	DocumentPreviewer = require(18);
+	DocumentPreviewer = require(21);
 
 	qqTemplate = "<script type=\"text/template\" id=\"qq-template-document\">\n    <div class=\"qq-uploader-selector qq-uploader\">\n        <div class=\"qq-upload-drop-area-selector qq-upload-drop-area\" qq-hide-dropzone>\n            <span>Drop files here to upload</span>\n        </div>\n        <div class=\"qq-upload-button-selector qq-upload-button\">\n            <div>or choose file</div>\n        </div>\n        <span class=\"qq-drop-processing-selector qq-drop-processing\">\n            <span>Processing dropped files...</span>\n            <span class=\"qq-drop-processing-spinner-selector qq-drop-processing-spinner\"></span>\n        </span>\n        <ul class=\"qq-upload-list-selector qq-upload-list\">\n            <li>\n                <div class=\"qq-progress-bar-container-selector\">\n                    <div class=\"qq-progress-bar-selector qq-progress-bar\"></div>\n                </div>\n                <span class=\"qq-upload-spinner-selector qq-upload-spinner\"></span>\n                <img class=\"qq-thumbnail-selector\" qq-max-size=\"100\" qq-server-scale>\n                <span class=\"qq-edit-filename-icon-selector qq-edit-filename-icon\"></span>\n                <span class=\"qq-upload-file-selector qq-upload-file\"></span>\n                <input class=\"qq-edit-filename-selector qq-edit-filename\" tabindex=\"0\" type=\"text\">\n                <span class=\"qq-upload-size-selector qq-upload-size\"></span>\n                <a class=\"qq-upload-cancel-selector qq-upload-cancel\" href=\"#\">Cancel</a>\n                <a class=\"qq-upload-retry-selector qq-upload-retry\" href=\"#\">Retry</a>\n                <a class=\"qq-upload-delete-selector qq-upload-delete\" href=\"#\">Delete</a>\n                <span class=\"qq-upload-status-text-selector qq-upload-status-text\"></span>\n            </li>\n        </ul>\n    </div>\n</script>";
 
@@ -1223,7 +1255,7 @@
 
 /***/ },
 
-/***/ 18:
+/***/ 21:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -1248,7 +1280,7 @@
 
 /***/ },
 
-/***/ 19:
+/***/ 22:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -1271,7 +1303,7 @@
 
 /***/ },
 
-/***/ 20:
+/***/ 23:
 /***/ function(module, exports, require) {
 
 	/** @jsx React.DOM*/
@@ -1291,27 +1323,6 @@
 
 	module.exports = ScreencastPreviewer;
 
-
-/***/ },
-
-/***/ 21:
-/***/ function(module, exports, require) {
-
-	require(24)(require(25))
-
-/***/ },
-
-/***/ 22:
-/***/ function(module, exports, require) {
-
-	require(24)(require(26))
-
-/***/ },
-
-/***/ 23:
-/***/ function(module, exports, require) {
-
-	require(24)(require(27))
 
 /***/ },
 
