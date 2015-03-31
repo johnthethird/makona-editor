@@ -27,7 +27,7 @@
     "jquery-ui": "~1.10.3",
     "jquery": "1.9.1",
     "lodash": "~2.3.0",
-    "react": "~0.12.2",
+    "react": "~0.13.1",
     "postal.js": "0.12.3"
   },
   "resolutions": {
