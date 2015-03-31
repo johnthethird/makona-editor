@@ -37,7 +37,7 @@ BLOCK_REGISTRY = [
     text: "console.log('JS tag');"
 ,
   type: "markdown"
-  displayName: 'Text'
+  displayName: 'Markdown'
   icon: '\x68'
   editorClass: require("./blocks/MarkdownEditor")
   previewClass: require("./blocks/MarkdownPreviewer")
@@ -127,4 +127,3 @@ Blocks =
 
 
 module.exports = Blocks
-

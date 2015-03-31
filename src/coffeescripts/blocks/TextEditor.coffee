@@ -4,6 +4,6 @@ ExpandingTextarea = require("../tags/ExpandingTextarea")
 
 TextEditor = React.createClass
   displayName: "TextEditor"
-  render: -> `this.transferPropsTo(<ExpandingTextarea></ExpandingTextarea>)`
+  render: -> `<ExpandingTextarea {...this.props} />`
 
 module.exports = TextEditor

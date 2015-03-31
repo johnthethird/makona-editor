@@ -10,7 +10,7 @@ CodeEditor = React.createClass
   render: ->
     `(
       <div className="mk-block-content" >
-        {this.transferPropsTo(<ExpandingTextarea></ExpandingTextarea>)}
+        <ExpandingTextarea {...this.props} />
         <br />
         <label>Language: </label><input value={this.props.block.data.lang} ref="lang" onChange={this.handleChange} />
       </div>

@@ -10,7 +10,7 @@ QuoteEditor = React.createClass
   render: ->
     `(
       <div className="mk-block-content" >
-        {this.transferPropsTo(<ExpandingTextarea></ExpandingTextarea>)}
+        <ExpandingTextarea {...this.props} />
         <br />
         <input value={this.props.block.data.cite} ref="cite" onChange={this.handleChange} />
       </div>

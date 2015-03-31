@@ -6,7 +6,7 @@ HtmlEditor = React.createClass
   displayName: "HtmlEditor"
   render: ->
           `(<div className="mk-block-content">
-             this.transferPropsTo(<ExpandingTextarea></ExpandingTextarea>)
+             <ExpandingTextarea {...this.props} />
            </div>
           )`
 

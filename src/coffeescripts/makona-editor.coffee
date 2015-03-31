@@ -37,7 +37,6 @@ require("script!postal.js/lib/postal.min.js")
 # Bring in React as a Bower component, not an npm module (so we dont have to build it from scratch)
 #require("script!react/react-with-addons.js")
 
-
 # Makona will be exposed on window, and be the main entry point to the editor from the outside
 class Makona
   constructor: (opts) ->
@@ -47,7 +46,7 @@ class Makona
     opts.html_node_name = $("##{opts.nodeId}").data("output-html")
     opts.blocks ||= JSON.parse($("##{opts.nodeId}").val())
     $("##{opts.nodeId}").replaceWith("<div id='#{opts.nodeId}' class='makona-editor'></div>")
-    React.renderComponent (MakonaEditor {opts: opts}), document.getElementById(opts.nodeId)
+    React.render `<MakonaEditor opts={opts}/>`, document.getElementById(opts.nodeId)
 
 Blocks = require("./blocks")
 Channel = postal.channel("makona")
@@ -63,10 +62,7 @@ MakonaEditor = React.createClass
     Channel.subscribe "block.reorder",(data) => @handleReorder(data.blocks)
 
   getInitialState: () ->
-    blocks: _(this.props.opts.blocks)
-            .map((block) -> $.extend({}, {mode: 'preview'}, block))
-            .sortBy("position")
-            .value()
+    blocks: _(this.props.opts.blocks).map((block) -> $.extend({}, {mode: 'preview'}, block)).sortBy("position").value()
 
   handleAddRow: (addedBlock, position) ->
     addedBlock.id = _.max(this.state.blocks, "id").id + 1
@@ -132,7 +128,7 @@ MakonaSortableList = React.createClass
       <ol ref='sortable'>
         {this.props.blocks.map(
           function(block){
-            return MakonaSortableItem({opts: this.props.opts, block: block})
+            return <MakonaSortableItem key={block.id} opts={this.props.opts} block={block} />
           }.bind(this)
         )}
       </ol>
@@ -148,7 +144,7 @@ MakonaSortableItem = React.createClass
     Channel.publish "block.change", {block: block}
     # This isnt very React-y
     setTimeout =>
-      $(this.refs["editor"+id].getDOMNode()).find("textarea").focus().caretToEnd()
+      $(this.refs["editor"+block.id].getDOMNode()).find("textarea").focus().caretToEnd()
     , 100
 
   handlePreview: (block, e) ->
@@ -205,9 +201,7 @@ MakonaEditorControls = React.createClass
       `(
         <div className="mk-block-controls">
           <div className="mk-edit-controls">
-            {(this.props.blocks.length > 1) ?
-              <a href="javascript:void(0);" onClick={this.handleConfirmDelete}><div data-icon="&#xe019;"></div></a> : ""
-            }
+            <a href="javascript:void(0);" onClick={this.handleConfirmDelete}><div data-icon="&#xe019;"></div></a>
             <a href="javascript:void(0);" style={editStyle} onClick={_.partial(this.props.handleEdit, block.id)}><div data-icon="&#x6b;"></div></a>
             <a href="javascript:void(0);" style={previewStyle} onClick={_.partial(this.props.handlePreview, block.id)}><div data-icon="&#x6c;"></div></a>
             <div className="mk-handle" data-behavior="handle" data-icon="&#x61;"></div>
@@ -219,12 +213,14 @@ MakonaEditorControls = React.createClass
 MakonaEditorRow = React.createClass
   displayName: "EditorRow"
   render: ->
-    React.DOM.div(null, this.transferPropsTo(Blocks.blockTypeFromRegistry(this.props.block.type).editorClass(null)))
+    comp = Blocks.blockTypeFromRegistry(this.props.block.type).editorClass
+    React.createElement("div", {}, React.createElement(comp, this.props))
 
 MakonaPreviewerRow = React.createClass
   displayName: "PreviewerRow"
   render: ->
-    React.DOM.div(null, this.transferPropsTo(Blocks.blockTypeFromRegistry(this.props.block.type).previewClass(null)))
+    comp = Blocks.blockTypeFromRegistry(this.props.block.type).previewClass
+    React.createElement("div", {}, React.createElement(comp, this.props))
 
 MakonaPlusRow = React.createClass
   displayName: "PlusRow"
@@ -266,7 +262,7 @@ MakonaRaw = React.createClass
   render: ->
     ary = [React.DOM.textarea( {className:"mk-raw", readOnly: true, name:this.props.opts.node_name, value:JSON.stringify(this.props.blocks, null, 2)})]
     if this.props.opts.html_node_name
-      html = React.renderComponentToString(MakonaPreviewList({blocks: this.props.blocks, opts: this.props.opts}))
+      html = React.renderToStaticMarkup(ReactCreateElement(MakonaPreviewList({blocks: this.props.blocks, opts: this.props.opts})))
       ary.push React.DOM.textarea( {className:"mk-raw", readOnly: true, name:this.props.opts.html_node_name, value:html} )
     React.DOM.div(null, ary...)
 
@@ -296,4 +292,5 @@ MakonaPreviewList = React.createClass
         )}
       </ol>`
 
+# This isnt the right JS module incantation, but whatevs
 module.exports = window.Makona = Makona

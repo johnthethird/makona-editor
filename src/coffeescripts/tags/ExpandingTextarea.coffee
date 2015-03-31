@@ -3,6 +3,11 @@
 # Generic tag that creates an autoexpanding textarea
 # Depends on jQuery
 ExpandingTextarea = React.createClass
+  propTypes:
+    block: React.PropTypes.object.isRequired
+    handleSelect: React.PropTypes.func
+    handleChange: React.PropTypes.func
+
   displayName: "ExpandingTextarea"
   cloneCSSProperties: [
     'lineHeight', 'textDecoration', 'letterSpacing',
@@ -36,6 +41,10 @@ ExpandingTextarea = React.createClass
     whiteSpace: "pre-wrap"
 
   originalTextareaStyles: {}
+
+  getDefaultProps: ->
+    handleChange: ->
+    handleSelect: ->
 
   componentDidMount: ->
     $textarea = $(this.refs.text.getDOMNode())

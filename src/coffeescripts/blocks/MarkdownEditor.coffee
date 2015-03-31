@@ -17,7 +17,7 @@ MarkdownEditor = React.createClass
           <button onClick={this.insertAtStartOfLine.bind(this, "# ")}>H1</button>
           <button onClick={this.insertAtStartOfLine.bind(this, "## ")}>H2</button>
         </div>
-        {this.transferPropsTo(<ExpandingTextarea handleSelect={this.handleSelect} ref="eta"></ExpandingTextarea>)}
+        <ExpandingTextarea {...this.props} handleSelect={this.handleSelect} ref="eta" />
       </div>
     )`
 
