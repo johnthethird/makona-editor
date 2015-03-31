@@ -32,6 +32,7 @@ require("script!jquery-caret.min.js")
 
 # Mainly for some quick prototyping. Once we get where we are going we can probably get rid of this dependency
 require("script!lodash/dist/lodash.compat.min.js")
+require("script!postal.js/lib/postal.min.js")
 
 # Bring in React as a Bower component, not an npm module (so we dont have to build it from scratch)
 #require("script!react/react-with-addons.js")
@@ -49,19 +50,28 @@ class Makona
     React.renderComponent (MakonaEditor {opts: opts}), document.getElementById(opts.nodeId)
 
 Blocks = require("./blocks")
+Channel = postal.channel("makona")
 
 MakonaEditor = React.createClass
   displayName: "MakonaEditor"
+  componentDidMount: () ->
+    # Subscribe to events
+    Channel.subscribe "#", (data, envelope) -> console.log envelope
+    Channel.subscribe "block.change", (data) => @handleChange(data.block, data.replaceFlag)
+    Channel.subscribe "block.delete", (data) => @handleDelete(data.block)
+    Channel.subscribe "block.add",    (data) => @handleAddRow(data.block, data.position)
+    Channel.subscribe "block.reorder",(data) => @handleReorder(data.blocks)
+
   getInitialState: () ->
     blocks: _(this.props.opts.blocks)
             .map((block) -> $.extend({}, {mode: 'preview'}, block))
             .sortBy("position")
             .value()
 
-  handleAddRow: (position, block) ->
-    block.id = _.max(this.state.blocks, "id").id + 1
-    block.position = position + 0.5
-    newBlocks = this.resortBlocks(this.state.blocks.concat(block))
+  handleAddRow: (addedBlock, position) ->
+    addedBlock.id = _.max(this.state.blocks, "id").id + 1
+    addedBlock.position = position + 0.5
+    newBlocks = this.resortBlocks(this.state.blocks.concat(addedBlock))
     this.setState({blocks: newBlocks})
 
   handleChange: (changedBlock, replaceFlag) ->
@@ -76,8 +86,8 @@ MakonaEditor = React.createClass
     else
       this.setState({blocks: newBlocks})
 
-  handleDelete: (id) ->
-    newBlocks = _.reject this.state.blocks, (block) -> block.id is id
+  handleDelete: (deletedBlock) ->
+    newBlocks = _.reject this.state.blocks, (block) -> block.id is deletedBlock.id
     this.replaceState({blocks: newBlocks})
 
   handleReorder: (sortedBlocks) ->
@@ -97,10 +107,6 @@ MakonaEditor = React.createClass
         <MakonaSortableList
           blocks={this.state.blocks}
           opts={this.props.opts}
-          handleReorder={this.handleReorder}
-          handleChange={this.handleChange}
-          handleDelete={this.handleDelete}
-          handleAddRow={this.handleAddRow}
         />
         <MakonaRaw blocks={this.state.blocks} opts={this.props.opts}/>
       </div>
@@ -119,50 +125,52 @@ MakonaSortableList = React.createClass
           theBlock = _.findWhere(this.props.blocks, {id: parseInt(el.id,10)})
           theBlock.position = i
           sortedBlocks.push(theBlock)
-        this.props.handleReorder(sortedBlocks)
+        Channel.publish "block.reorder", {blocks: sortedBlocks}
 
-  handleEdit: (id, e) ->
-    block = Blocks.blockFromId(this.props.blocks, id)
-    block = $.extend(block, {mode: 'edit'})
-    this.props.handleChange(block)
-    # This isnt very React-y
-    setTimeout =>
-      $(this.refs["editor"+id].getDOMNode()).find("textarea").focus().caretToEnd()
-    , 100
-
-  handlePreview: (id, e) ->
-    block = Blocks.blockFromId(this.props.blocks, id)
-    block = $.extend(block, {mode: 'preview'})
-    this.props.handleChange(block)
-
-  # escape key while editing will flip back to preview mode
-  handleKeyUp: (id, e) ->
-    @handlePreview(id) if e.keyCode is 27
-
-  editStyle: (block) -> {display: if block.mode == 'edit' then 'block' else 'none'}
-  previewStyle: (block) -> {display: if !block.mode? || (block.mode == 'preview') then 'block' else 'none'}
   render: ->
     `(
       <ol ref='sortable'>
         {this.props.blocks.map(
           function(block){
-            return (
-              <li id={block.id} key={"ks"+block.id} data-position={block.position} >
-                <div className={"mk-block mk-blocktype-"+block.type+" mk-mode-"+block.mode} >
-                  <div className="mk-block-editor" style={this.editStyle(block)} ref={"editor"+block.id} onKeyUp={_.partial(this.handleKeyUp, block.id)} >
-                    <MakonaEditorRow block={block} opts={this.props.opts} handleChange={this.props.handleChange} />
-                  </div>
-                  <div className="mk-block-previewer" style={this.previewStyle(block)} ref={"preview"+block.id} onClick={_.partial(this.handleEdit, block.id)}>
-                    <MakonaPreviewerRow block={block} opts={this.props.opts} />
-                  </div>
-                  <MakonaEditorControls blocks={this.props.blocks} block={block} handleEdit={this.handleEdit} handlePreview={this.handlePreview} handleDelete={this.props.handleDelete} />
-                </div>
-                <MakonaPlusRow block={block} opts={this.props.opts} handleAddRow={this.props.handleAddRow} />
-              </li>
-            )
+            return MakonaSortableItem({opts: this.props.opts, block: block})
           }.bind(this)
         )}
       </ol>
+    )`
+
+MakonaSortableItem = React.createClass
+  displayName: "SortableItem"
+  # escape key while editing will flip back to preview mode
+  handleKeyUp: (block, e) ->
+    @handlePreview(block) if e.keyCode is 27
+  handleEdit: (block, e) ->
+    block = $.extend(block, {mode: 'edit'})
+    Channel.publish "block.change", {block: block}
+    # This isnt very React-y
+    setTimeout =>
+      $(this.refs["editor"+id].getDOMNode()).find("textarea").focus().caretToEnd()
+    , 100
+
+  handlePreview: (block, e) ->
+    block = $.extend(block, {mode: 'preview'})
+    Channel.publish "block.change", {block: block}
+  editStyle: (block) -> {display: if block.mode == 'edit' then 'block' else 'none'}
+  previewStyle: (block) -> {display: if !block.mode? || (block.mode == 'preview') then 'block' else 'none'}
+  render: ->
+    block = this.props.block
+    `(
+      <li id={block.id} key={"ks"+block.id} data-position={block.position} >
+        <div className={"mk-block mk-blocktype-"+block.type+" mk-mode-"+block.mode} >
+          <div className="mk-block-editor" style={this.editStyle(block)} ref={"editor"+block.id} onKeyUp={_.partial(this.handleKeyUp, block)} >
+            <MakonaEditorRow block={block} />
+          </div>
+          <div className="mk-block-previewer" style={this.previewStyle(block)} ref={"preview"+block.id} onClick={_.partial(this.handleEdit, block)}>
+            <MakonaPreviewerRow block={block} />
+          </div>
+          <MakonaEditorControls blocks={this.props.blocks} block={block} handleEdit={this.handleEdit} handlePreview={this.handlePreview} />
+        </div>
+        <MakonaPlusRow block={block} opts={this.props.opts} />
+      </li>
     )`
 
 MakonaEditorControls = React.createClass
@@ -173,7 +181,7 @@ MakonaEditorControls = React.createClass
   handleConfirmDelete: () ->
     if this.state.confirming
       this.setState({confirming: false})
-      this.props.handleDelete(this.props.block.id)
+      Channel.publish "block.delete", {block: this.props.block}
     else
       this.setState({confirming: true})
 
@@ -225,7 +233,7 @@ MakonaPlusRow = React.createClass
 
   handleAddRow: (type, e) ->
     newBlock = Blocks.newBlock(type)
-    this.props.handleAddRow this.props.block.position, newBlock
+    Channel.publish "block.add", {block: newBlock, position: this.props.block.position}
     this.setState {'hideLinks': true}
 
   handleClick: () ->
