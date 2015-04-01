@@ -1579,8 +1579,9 @@ text-shadow: none;
         background: #555;
         cursor: auto; }
   .makona-editor .mk-raw {
-    display: none;
+    margin-top: 100px;
+    border: #aaa 5px solid;
     width: 700px;
-    height: 200px; }
+    height: 500px; }
 
 /*# sourceMappingURL=makona-editor.css.map */

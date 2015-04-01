@@ -63,10 +63,12 @@
 
 	Makona = (function() {
 	  function Makona(opts) {
-	    opts.node_name = $("#" + opts.nodeId).attr("name");
-	    opts.html_node_name = $("#" + opts.nodeId).data("output-html");
-	    opts.blocks || (opts.blocks = JSON.parse($("#" + opts.nodeId).val()));
-	    $("#" + opts.nodeId).replaceWith("<div id='" + opts.nodeId + "' class='makona-editor'></div>");
+	    var $node;
+	    $node = $("#" + opts.nodeId);
+	    opts.node_name || (opts.node_name = $node.attr("name"));
+	    opts.html_node_name || (opts.html_node_name = $node.data("rendered-output-name"));
+	    opts.blocks || (opts.blocks = JSON.parse($node.val()));
+	    $node.replaceWith("<div id='" + opts.nodeId + "' class='makona-editor'></div>");
 	    React.render(React.createElement(MakonaEditor, {opts: opts}), document.getElementById(opts.nodeId));
 	  }
 
@@ -439,7 +441,7 @@
 	    opts: React.PropTypes.object.isRequired
 	  },
 	  render: function() {
-	    var ary, html, ref;
+	    var ary, comp, html, ref;
 	    ary = [
 	      React.DOM.textarea({
 	        className: "mk-raw",
@@ -448,11 +450,13 @@
 	        value: JSON.stringify(this.props.blocks, null, 2)
 	      })
 	    ];
+	    comp = React.createElement(MakonaPreviewList, {
+	      blocks: this.props.blocks,
+	      opts: this.props.opts
+	    });
+	    ary.push(comp);
 	    if (this.props.opts.html_node_name) {
-	      html = React.renderToStaticMarkup(ReactCreateElement(MakonaPreviewList({
-	        blocks: this.props.blocks,
-	        opts: this.props.opts
-	      })));
+	      html = React.renderToStaticMarkup(comp);
 	      ary.push(React.DOM.textarea({
 	        className: "mk-raw",
 	        readOnly: true,

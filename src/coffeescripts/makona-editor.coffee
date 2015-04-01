@@ -42,10 +42,13 @@ class Makona
   constructor: (opts) ->
     # Delete the textarea node, save the name, and replace it with a div. The Raw component will
     # create a textarea with that name.
-    opts.node_name = $("##{opts.nodeId}").attr("name")
-    opts.html_node_name = $("##{opts.nodeId}").data("output-html")
-    opts.blocks ||= JSON.parse($("##{opts.nodeId}").val())
-    $("##{opts.nodeId}").replaceWith("<div id='#{opts.nodeId}' class='makona-editor'></div>")
+    $node = $("##{opts.nodeId}")
+    # name of the form textarea that will be submitted that contains the JSON data
+    opts.node_name ||= $node.attr("name")
+    # name of the form textarea that will be submitted that contains the rendered HTML data
+    opts.html_node_name ||= $node.data("rendered-output-name")
+    opts.blocks ||= JSON.parse($node.val())
+    $node.replaceWith("<div id='#{opts.nodeId}' class='makona-editor'></div>")
     React.render `<MakonaEditor opts={opts}/>`, document.getElementById(opts.nodeId)
 
 Blocks = require("./blocks")
@@ -280,8 +283,10 @@ MakonaRaw = React.createClass
     opts: React.PropTypes.object.isRequired
   render: ->
     ary = [React.DOM.textarea( {className:"mk-raw", readOnly: true, name:this.props.opts.node_name, value:JSON.stringify(this.props.blocks, null, 2)})]
+    comp = React.createElement(MakonaPreviewList, {blocks: this.props.blocks, opts: this.props.opts})
+    ary.push comp
     if this.props.opts.html_node_name
-      html = React.renderToStaticMarkup(ReactCreateElement(MakonaPreviewList({blocks: this.props.blocks, opts: this.props.opts})))
+      html = React.renderToStaticMarkup(comp)
       ary.push React.DOM.textarea( {className:"mk-raw", readOnly: true, name:this.props.opts.html_node_name, value:html} )
     React.DOM.div(null, ary...)
 

@@ -299,9 +299,11 @@ $white: #FFFFFF;
 
 
   .mk-raw {
-    display: none;
+    margin-top: 100px;
+    border: #aaa 5px solid;
+    //display: none;
     width: 700px;
-    height: 200px;
+    height: 500px;
   }
 
 } //.makona-editor
