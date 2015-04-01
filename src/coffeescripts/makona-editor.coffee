@@ -90,10 +90,7 @@ MakonaEditor = React.createClass
     this.replaceState({blocks: newBlocks})
 
   handleReorder: (sortedBlocks) ->
-    this.replaceState({blocks: []})
-    setTimeout () =>
-      this.replaceState({blocks: sortedBlocks})
-    ,25
+    this.setState({blocks: sortedBlocks})
 
   # To add a block we add at position x+0.5, then sort by position, and loop through and reset the position counter
   resortBlocks: (blocks) ->
@@ -121,12 +118,15 @@ MakonaSortableList = React.createClass
     $(this.refs.sortable.getDOMNode()).sortable
       containment: "parent"
       handle: "[data-behavior='handle']"
-      update: (event, ui) =>
-        sortedBlocks = []
-        $(this.refs.sortable.getDOMNode()).find(">li").map (i, el) =>
-          theBlock = _.findWhere(this.props.blocks, {id: parseInt(el.id,10)})
-          theBlock.position = i
-          sortedBlocks.push(theBlock)
+      stop: (event, ui) =>
+        $el = $(this.refs.sortable.getDOMNode())
+        # Get the new order from the sortable component, which gives us the dom ids "mk-sortable-2", and we turn those into integers
+        newOrder = _.map($el.sortable("toArray"), (name) -> +name.match(/\d+$/)[0])
+        # Prevent sortable from changing the DOM
+        $el.sortable("cancel")
+        sortedBlocks = this.props.blocks.sort (a,b) -> newOrder.indexOf(a.id) - newOrder.indexOf(b.id)
+        # Reset the position prop based on the new order
+        _.each(sortedBlocks, (b,i) -> b.position = i)
         Channel.publish "block.reorder", {blocks: sortedBlocks}
 
   render: ->
@@ -167,7 +167,7 @@ MakonaSortableItem = React.createClass
     editStyle = {display: if block.mode is 'edit' then 'block' else 'none'}
     previewStyle = {display: if block.mode is 'preview' then 'block' else 'none'}
     `(
-      <li id={block.id} key={"ks"+block.id} data-position={block.position} >
+      <li id={"mk-sortable-"+block.id} key={block.id} data-position={block.position}>
         <div className={"mk-block mk-blocktype-"+block.type+" mk-mode-"+block.mode} >
           <div className="mk-block-editor" style={editStyle} ref={"editor"+block.id} onKeyUp={this.handleKeyUp} >
             <MakonaEditorRow block={block} />

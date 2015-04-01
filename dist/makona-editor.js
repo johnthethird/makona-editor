@@ -158,16 +158,9 @@
 	    });
 	  },
 	  handleReorder: function(sortedBlocks) {
-	    this.replaceState({
-	      blocks: []
+	    return this.setState({
+	      blocks: sortedBlocks
 	    });
-	    return setTimeout((function(_this) {
-	      return function() {
-	        return _this.replaceState({
-	          blocks: sortedBlocks
-	        });
-	      };
-	    })(this), 25);
 	  },
 	  resortBlocks: function(blocks) {
 	    var i;
@@ -199,17 +192,19 @@
 	    return $(this.refs.sortable.getDOMNode()).sortable({
 	      containment: "parent",
 	      handle: "[data-behavior='handle']",
-	      update: (function(_this) {
+	      stop: (function(_this) {
 	        return function(event, ui) {
-	          var sortedBlocks;
-	          sortedBlocks = [];
-	          $(_this.refs.sortable.getDOMNode()).find(">li").map(function(i, el) {
-	            var theBlock;
-	            theBlock = _.findWhere(_this.props.blocks, {
-	              id: parseInt(el.id, 10)
-	            });
-	            theBlock.position = i;
-	            return sortedBlocks.push(theBlock);
+	          var $el, newOrder, sortedBlocks;
+	          $el = $(_this.refs.sortable.getDOMNode());
+	          newOrder = _.map($el.sortable("toArray"), function(name) {
+	            return +name.match(/\d+$/)[0];
+	          });
+	          $el.sortable("cancel");
+	          sortedBlocks = _this.props.blocks.sort(function(a, b) {
+	            return newOrder.indexOf(a.id) - newOrder.indexOf(b.id);
+	          });
+	          _.each(sortedBlocks, function(b, i) {
+	            return b.position = i;
 	          });
 	          return Channel.publish("block.reorder", {
 	            blocks: sortedBlocks
@@ -275,7 +270,7 @@
 	      display: block.mode === 'preview' ? 'block' : 'none'
 	    };
 	    return (
-	      React.createElement("li", {id: block.id, key: "ks"+block.id, "data-position": block.position}, 
+	      React.createElement("li", {id: "mk-sortable-"+block.id, key: block.id, "data-position": block.position}, 
 	        React.createElement("div", {className: "mk-block mk-blocktype-"+block.type+" mk-mode-"+block.mode}, 
 	          React.createElement("div", {className: "mk-block-editor", style: editStyle, ref: "editor"+block.id, onKeyUp: this.handleKeyUp}, 
 	            React.createElement(MakonaEditorRow, {block: block})
