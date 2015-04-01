@@ -1,10 +1,14 @@
 ###* @jsx React.DOM ###
+Channel = postal.channel("makona")
 
 ExpandingTextarea = require("../tags/ExpandingTextarea")
 
 MarkdownEditor = React.createClass
   displayName: "MarkdownEditor"
-  getInitialState: () ->
+  propTypes:
+    block: React.PropTypes.object.isRequired
+
+  getInitialState: ->
     selectionPresent: false
 
   render: ->
@@ -26,11 +30,16 @@ MarkdownEditor = React.createClass
     this.setState
       selectionPresent: if selected.length > 0 then true else false
 
+  publishChange: (text) ->
+    newBlock = _.cloneDeep(this.props.block)
+    newBlock.data.text = text
+    Channel.publish "block.change", {block: newBlock}
+
   insertAtCaret: (chars, e) ->
     e.preventDefault()
     {before, selected, after} = this.refs['eta'].getChunks()
     text = before + chars + selected + after
-    this.props.handleChange(id: this.props.block.id, data: {text: text})
+    this.publishChange(text)
     @setCursorPos before.length + chars.length
 
   insertAtStartOfLine: (chars, e) ->
@@ -48,7 +57,7 @@ MarkdownEditor = React.createClass
       text = combinedLines + chars + theLine + selected + after
       cursorPos = before.length + chars.length
 
-    this.props.handleChange(id: this.props.block.id, data: {text: text})
+    this.publishChange(text)
     @setCursorPos cursorPos
 
 
@@ -57,7 +66,7 @@ MarkdownEditor = React.createClass
     {before, selected, after} = this.refs['eta'].getChunks()
     if selected.length > 0 and selected[..chars.length-1] != chars
       text = before + chars + selected + chars + after
-      this.props.handleChange(id: this.props.block.id, data: {text: text})
+      this.publishChange(text)
       @setCursorPos before.length + chars.length + selected.length + chars.length
 
 

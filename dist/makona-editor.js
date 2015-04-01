@@ -129,7 +129,7 @@
 	      var newBlock;
 	      newBlock = _.cloneDeep(block);
 	      if (newBlock.id === changedBlock.id) {
-	        $.extend(newBlock.data, changedBlock.data);
+	        $.extend(newBlock, changedBlock);
 	      }
 	      return newBlock;
 	    });
@@ -190,6 +190,9 @@
 
 	MakonaSortableList = React.createClass({
 	  displayName: "SortableList",
+	  propTypes: {
+	    blocks: React.PropTypes.array.isRequired
+	  },
 	  componentDidMount: function() {
 	    return $(this.refs.sortable.getDOMNode()).sortable({
 	      containment: "parent",
@@ -228,55 +231,57 @@
 
 	MakonaSortableItem = React.createClass({
 	  displayName: "SortableItem",
-	  handleKeyUp: function(block, e) {
+	  propTypes: {
+	    block: React.PropTypes.object.isRequired,
+	    opts: React.PropTypes.object.isRequired
+	  },
+	  handleKeyUp: function(e) {
 	    if (e.keyCode === 27) {
-	      return this.handlePreview(block);
+	      return this.handlePreview(e);
 	    }
 	  },
-	  handleEdit: function(block, e) {
-	    block = $.extend(block, {
+	  handleEdit: function(e) {
+	    var newBlock;
+	    newBlock = _.extend({}, this.props.block, {
 	      mode: 'edit'
 	    });
 	    Channel.publish("block.change", {
-	      block: block
+	      block: newBlock
 	    });
 	    return setTimeout((function(_this) {
 	      return function() {
-	        return $(_this.refs["editor" + block.id].getDOMNode()).find("textarea").focus().caretToEnd();
+	        return $(_this.refs["editor" + _this.props.block.id].getDOMNode()).find("textarea").focus().caretToEnd();
 	      };
 	    })(this), 100);
 	  },
-	  handlePreview: function(block, e) {
-	    block = $.extend(block, {
+	  handlePreview: function(e) {
+	    var newBlock;
+	    newBlock = _.extend({}, this.props.block, {
 	      mode: 'preview'
 	    });
 	    return Channel.publish("block.change", {
-	      block: block
+	      block: newBlock
 	    });
 	  },
-	  editStyle: function(block) {
-	    return {
+	  render: function() {
+	    var block, editStyle, previewStyle;
+	    block = this.props.block;
+	    editStyle = {
 	      display: block.mode === 'edit' ? 'block' : 'none'
 	    };
-	  },
-	  previewStyle: function(block) {
-	    return {
-	      display: (block.mode == null) || (block.mode === 'preview') ? 'block' : 'none'
+	    previewStyle = {
+	      display: block.mode === 'preview' ? 'block' : 'none'
 	    };
-	  },
-	  render: function() {
-	    var block;
-	    block = this.props.block;
 	    return (
 	      React.createElement("li", {id: block.id, key: "ks"+block.id, "data-position": block.position}, 
 	        React.createElement("div", {className: "mk-block mk-blocktype-"+block.type+" mk-mode-"+block.mode}, 
-	          React.createElement("div", {className: "mk-block-editor", style: this.editStyle(block), ref: "editor"+block.id, onKeyUp: _.partial(this.handleKeyUp, block)}, 
+	          React.createElement("div", {className: "mk-block-editor", style: editStyle, ref: "editor"+block.id, onKeyUp: this.handleKeyUp}, 
 	            React.createElement(MakonaEditorRow, {block: block})
 	          ), 
-	          React.createElement("div", {className: "mk-block-previewer", style: this.previewStyle(block), ref: "preview"+block.id, onClick: _.partial(this.handleEdit, block)}, 
+	          React.createElement("div", {className: "mk-block-previewer", style: previewStyle, ref: "preview"+block.id, onClick: this.handleEdit}, 
 	            React.createElement(MakonaPreviewerRow, {block: block})
 	          ), 
-	          React.createElement(MakonaEditorControls, {blocks: this.props.blocks, block: block, handleEdit: this.handleEdit, handlePreview: this.handlePreview})
+	          React.createElement(MakonaEditorControls, {block: block, handleEdit: this.handleEdit, handlePreview: this.handlePreview})
 	        ), 
 	        React.createElement(MakonaPlusRow, {block: block, opts: this.props.opts})
 	      )
@@ -286,6 +291,9 @@
 
 	MakonaEditorControls = React.createClass({
 	  displayName: "EditorControls",
+	  propTypes: {
+	    block: React.PropTypes.object.isRequired
+	  },
 	  getInitialState: function() {
 	    return {
 	      confirming: false
@@ -334,8 +342,8 @@
 	        React.createElement("div", {className: "mk-block-controls"}, 
 	          React.createElement("div", {className: "mk-edit-controls"}, 
 	            React.createElement("a", {href: "javascript:void(0);", onClick: this.handleConfirmDelete}, React.createElement("div", {"data-icon": ""})), 
-	            React.createElement("a", {href: "javascript:void(0);", style: editStyle, onClick: _.partial(this.props.handleEdit, block.id)}, React.createElement("div", {"data-icon": "k"})), 
-	            React.createElement("a", {href: "javascript:void(0);", style: previewStyle, onClick: _.partial(this.props.handlePreview, block.id)}, React.createElement("div", {"data-icon": "l"})), 
+	            React.createElement("a", {href: "javascript:void(0);", style: editStyle, onClick: this.props.handleEdit}, React.createElement("div", {"data-icon": "k"})), 
+	            React.createElement("a", {href: "javascript:void(0);", style: previewStyle, onClick: this.props.handlePreview}, React.createElement("div", {"data-icon": "l"})), 
 	            React.createElement("div", {className: "mk-handle", "data-behavior": "handle", "data-icon": "a"})
 	          )
 	        )
@@ -364,6 +372,10 @@
 
 	MakonaPlusRow = React.createClass({
 	  displayName: "PlusRow",
+	  propTypes: {
+	    block: React.PropTypes.object.isRequired,
+	    opts: React.PropTypes.object.isRequired
+	  },
 	  getInitialState: function() {
 	    return {
 	      hideLinks: true
@@ -422,6 +434,10 @@
 
 	MakonaRaw = React.createClass({
 	  displayName: "MakonaRaw",
+	  propTypes: {
+	    blocks: React.PropTypes.array.isRequired,
+	    opts: React.PropTypes.object.isRequired
+	  },
 	  render: function() {
 	    var ary, html, ref;
 	    ary = [
@@ -450,6 +466,10 @@
 
 	MakonaRawPre = React.createClass({
 	  displayName: "MakonaRawPre",
+	  propTypes: {
+	    blocks: React.PropTypes.array.isRequired,
+	    opts: React.PropTypes.object.isRequired
+	  },
 	  render: function() {
 	    return React.createElement("pre", {name: this.props.opts.node_name}, JSON.stringify(this.props.blocks, null, 2));
 	  }
@@ -457,6 +477,10 @@
 
 	MakonaPreviewList = React.createClass({
 	  displayName: "MakonaPreviewList",
+	  propTypes: {
+	    blocks: React.PropTypes.array.isRequired,
+	    opts: React.PropTypes.object.isRequired
+	  },
 	  render: function() {
 	    return React.createElement("ol", {className: "mk-previewer-list"}, 
 	        this.props.blocks.map(
@@ -850,12 +874,17 @@
 
 	
 	/** @jsx React.DOM */
-	var ExpandingTextarea, MarkdownEditor;
+	var Channel, ExpandingTextarea, MarkdownEditor;
+
+	Channel = postal.channel("makona");
 
 	ExpandingTextarea = __webpack_require__(30);
 
 	MarkdownEditor = React.createClass({
 	  displayName: "MarkdownEditor",
+	  propTypes: {
+	    block: React.PropTypes.object.isRequired
+	  },
 	  getInitialState: function() {
 	    return {
 	      selectionPresent: false
@@ -882,17 +911,20 @@
 	      selectionPresent: selected.length > 0 ? true : false
 	    });
 	  },
+	  publishChange: function(text) {
+	    var newBlock;
+	    newBlock = _.cloneDeep(this.props.block);
+	    newBlock.data.text = text;
+	    return Channel.publish("block.change", {
+	      block: newBlock
+	    });
+	  },
 	  insertAtCaret: function(chars, e) {
 	    var after, before, ref, selected, text;
 	    e.preventDefault();
 	    ref = this.refs['eta'].getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
 	    text = before + chars + selected + after;
-	    this.props.handleChange({
-	      id: this.props.block.id,
-	      data: {
-	        text: text
-	      }
-	    });
+	    this.publishChange(text);
 	    return this.setCursorPos(before.length + chars.length);
 	  },
 	  insertAtStartOfLine: function(chars, e) {
@@ -910,12 +942,7 @@
 	      text = combinedLines + chars + theLine + selected + after;
 	      cursorPos = before.length + chars.length;
 	    }
-	    this.props.handleChange({
-	      id: this.props.block.id,
-	      data: {
-	        text: text
-	      }
-	    });
+	    this.publishChange(text);
 	    return this.setCursorPos(cursorPos);
 	  },
 	  wrapSelectedWith: function(chars, e) {
@@ -924,12 +951,7 @@
 	    ref = this.refs['eta'].getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
 	    if (selected.length > 0 && selected.slice(0, +(chars.length - 1) + 1 || 9e9) !== chars) {
 	      text = before + chars + selected + chars + after;
-	      this.props.handleChange({
-	        id: this.props.block.id,
-	        data: {
-	          text: text
-	        }
-	      });
+	      this.publishChange(text);
 	      return this.setCursorPos(before.length + chars.length + selected.length + chars.length);
 	    }
 	  },
@@ -1042,12 +1064,25 @@
 
 	
 	/** @jsx React.DOM */
-	var CodeEditor, ExpandingTextarea;
+	var Channel, CodeEditor, ExpandingTextarea;
+
+	Channel = postal.channel("makona");
 
 	ExpandingTextarea = __webpack_require__(30);
 
 	CodeEditor = React.createClass({
 	  displayName: "CodeEditor",
+	  propTypes: {
+	    block: React.PropTypes.object.isRequired
+	  },
+	  handleLangChange: function(e) {
+	    var newBlock;
+	    newBlock = _.cloneDeep(this.props.block);
+	    newBlock.data.lang = e.target.value;
+	    return Channel.publish("block.change", {
+	      block: newBlock
+	    });
+	  },
 	  handleChange: function() {
 	    var lang;
 	    lang = this.refs.lang.getDOMNode().value;
@@ -1063,7 +1098,7 @@
 	      React.createElement("div", {className: "mk-block-content"}, 
 	        React.createElement(ExpandingTextarea, React.__spread({},  this.props)), 
 	        React.createElement("br", null), 
-	        React.createElement("label", null, "Language: "), React.createElement("input", {value: this.props.block.data.lang, ref: "lang", onChange: this.handleChange})
+	        React.createElement("label", null, "Language: "), React.createElement("input", {value: this.props.block.data.lang, ref: "lang", onChange: this.handleLangChange})
 	      )
 	    );
 	  }
@@ -1385,7 +1420,9 @@
 
 	
 	/** @jsx React.DOM */
-	var ExpandingTextarea;
+	var Channel, ExpandingTextarea;
+
+	Channel = postal.channel("makona");
 
 	ExpandingTextarea = React.createClass({
 	  propTypes: {
@@ -1414,8 +1451,15 @@
 	  originalTextareaStyles: {},
 	  getDefaultProps: function() {
 	    return {
-	      handleChange: function() {},
-	      handleSelect: function() {}
+	      handleSelect: function() {},
+	      handleChange: function(e) {
+	        var newBlock;
+	        newBlock = _.cloneDeep(this.props.block);
+	        newBlock.data.text = e.target.value;
+	        return Channel.publish("block.change", {
+	          block: newBlock
+	        });
+	      }
 	    };
 	  },
 	  componentDidMount: function() {
@@ -1431,20 +1475,10 @@
 	      }
 	    });
 	  },
-	  handleChange: function() {
-	    var text;
-	    text = this.refs.text.getDOMNode().value;
-	    return this.props.handleChange({
-	      id: this.props.block.id,
-	      data: {
-	        text: text
-	      }
-	    });
-	  },
 	  render: function() {
 	    return (
 	      React.createElement("div", {style: this.containerStyle}, 
-	        React.createElement("textarea", {onSelect: this.props.handleSelect, style: this.textareaStyle, value: this.props.block.data.text, ref: "text", onChange: this.handleChange}), 
+	        React.createElement("textarea", {block: this.props.block, onChange: this.props.handleChange, onSelect: this.props.handleSelect, style: this.textareaStyle, value: this.props.block.data.text, ref: "text"}), 
 	        React.createElement("pre", {ref: "pre", style: this.preStyle}, React.createElement("div", null, this.props.block.data.text+" "))
 	      )
 	    );

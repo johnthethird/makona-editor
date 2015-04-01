@@ -74,7 +74,7 @@ MakonaEditor = React.createClass
     newBlocks = this.state.blocks.map (block) ->
       newBlock = _.cloneDeep(block)
       # Merge in the changed block to what we already have, so blocks dont have to send all properties
-      $.extend(newBlock.data, changedBlock.data) if newBlock.id is changedBlock.id
+      $.extend(newBlock, changedBlock) if newBlock.id is changedBlock.id
       newBlock
     if replaceFlag is true
       this.replaceState({blocks: []})
@@ -111,6 +111,9 @@ MakonaEditor = React.createClass
 
 MakonaSortableList = React.createClass
   displayName: "SortableList"
+  propTypes:
+    blocks: React.PropTypes.array.isRequired
+
   componentDidMount: () ->
     $(this.refs.sortable.getDOMNode()).sortable
       containment: "parent"
@@ -136,34 +139,40 @@ MakonaSortableList = React.createClass
 
 MakonaSortableItem = React.createClass
   displayName: "SortableItem"
+  propTypes:
+    block: React.PropTypes.object.isRequired
+    opts: React.PropTypes.object.isRequired
+
   # escape key while editing will flip back to preview mode
-  handleKeyUp: (block, e) ->
-    @handlePreview(block) if e.keyCode is 27
-  handleEdit: (block, e) ->
-    block = $.extend(block, {mode: 'edit'})
-    Channel.publish "block.change", {block: block}
+  handleKeyUp: (e) ->
+    @handlePreview(e) if e.keyCode is 27
+
+  handleEdit: (e) ->
+    newBlock = _.extend({}, this.props.block, {mode: 'edit'})
+    Channel.publish "block.change", {block: newBlock}
     # This isnt very React-y
     setTimeout =>
-      $(this.refs["editor"+block.id].getDOMNode()).find("textarea").focus().caretToEnd()
+      $(this.refs["editor"+this.props.block.id].getDOMNode()).find("textarea").focus().caretToEnd()
     , 100
 
-  handlePreview: (block, e) ->
-    block = $.extend(block, {mode: 'preview'})
-    Channel.publish "block.change", {block: block}
-  editStyle: (block) -> {display: if block.mode == 'edit' then 'block' else 'none'}
-  previewStyle: (block) -> {display: if !block.mode? || (block.mode == 'preview') then 'block' else 'none'}
+  handlePreview: (e) ->
+    newBlock = _.extend({}, this.props.block, {mode: 'preview'})
+    Channel.publish "block.change", {block: newBlock}
+
   render: ->
     block = this.props.block
+    editStyle = {display: if block.mode is 'edit' then 'block' else 'none'}
+    previewStyle = {display: if block.mode is 'preview' then 'block' else 'none'}
     `(
       <li id={block.id} key={"ks"+block.id} data-position={block.position} >
         <div className={"mk-block mk-blocktype-"+block.type+" mk-mode-"+block.mode} >
-          <div className="mk-block-editor" style={this.editStyle(block)} ref={"editor"+block.id} onKeyUp={_.partial(this.handleKeyUp, block)} >
+          <div className="mk-block-editor" style={editStyle} ref={"editor"+block.id} onKeyUp={this.handleKeyUp} >
             <MakonaEditorRow block={block} />
           </div>
-          <div className="mk-block-previewer" style={this.previewStyle(block)} ref={"preview"+block.id} onClick={_.partial(this.handleEdit, block)}>
+          <div className="mk-block-previewer" style={previewStyle} ref={"preview"+block.id} onClick={this.handleEdit}>
             <MakonaPreviewerRow block={block} />
           </div>
-          <MakonaEditorControls blocks={this.props.blocks} block={block} handleEdit={this.handleEdit} handlePreview={this.handlePreview} />
+          <MakonaEditorControls block={block} handleEdit={this.handleEdit} handlePreview={this.handlePreview} />
         </div>
         <MakonaPlusRow block={block} opts={this.props.opts} />
       </li>
@@ -171,6 +180,9 @@ MakonaSortableItem = React.createClass
 
 MakonaEditorControls = React.createClass
   displayName: "EditorControls"
+  propTypes:
+    block: React.PropTypes.object.isRequired
+
   getInitialState: () ->
     confirming: false
 
@@ -202,8 +214,8 @@ MakonaEditorControls = React.createClass
         <div className="mk-block-controls">
           <div className="mk-edit-controls">
             <a href="javascript:void(0);" onClick={this.handleConfirmDelete}><div data-icon="&#xe019;"></div></a>
-            <a href="javascript:void(0);" style={editStyle} onClick={_.partial(this.props.handleEdit, block.id)}><div data-icon="&#x6b;"></div></a>
-            <a href="javascript:void(0);" style={previewStyle} onClick={_.partial(this.props.handlePreview, block.id)}><div data-icon="&#x6c;"></div></a>
+            <a href="javascript:void(0);" style={editStyle} onClick={this.props.handleEdit}><div data-icon="&#x6b;"></div></a>
+            <a href="javascript:void(0);" style={previewStyle} onClick={this.props.handlePreview}><div data-icon="&#x6c;"></div></a>
             <div className="mk-handle" data-behavior="handle" data-icon="&#x61;"></div>
           </div>
         </div>
@@ -224,6 +236,10 @@ MakonaPreviewerRow = React.createClass
 
 MakonaPlusRow = React.createClass
   displayName: "PlusRow"
+  propTypes:
+    block: React.PropTypes.object.isRequired
+    opts: React.PropTypes.object.isRequired
+
   getInitialState: () ->
     hideLinks: true
 
@@ -259,6 +275,9 @@ MakonaPlusRow = React.createClass
 
 MakonaRaw = React.createClass
   displayName: "MakonaRaw"
+  propTypes:
+    blocks: React.PropTypes.array.isRequired
+    opts: React.PropTypes.object.isRequired
   render: ->
     ary = [React.DOM.textarea( {className:"mk-raw", readOnly: true, name:this.props.opts.node_name, value:JSON.stringify(this.props.blocks, null, 2)})]
     if this.props.opts.html_node_name
@@ -268,6 +287,9 @@ MakonaRaw = React.createClass
 
 MakonaRawPre = React.createClass
   displayName: "MakonaRawPre"
+  propTypes:
+    blocks: React.PropTypes.array.isRequired
+    opts: React.PropTypes.object.isRequired
   render: ->
     `<pre name={this.props.opts.node_name}>{JSON.stringify(this.props.blocks, null, 2)}</pre>`
 
@@ -275,6 +297,9 @@ MakonaRawPre = React.createClass
 # Not sure we need this
 MakonaPreviewList = React.createClass
   displayName: "MakonaPreviewList"
+  propTypes:
+    blocks: React.PropTypes.array.isRequired
+    opts: React.PropTypes.object.isRequired
   render: ->
     `<ol className="mk-previewer-list">
         {this.props.blocks.map(

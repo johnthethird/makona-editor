@@ -1,4 +1,5 @@
 ###* @jsx React.DOM ###
+Channel = postal.channel("makona")
 
 # Generic tag that creates an autoexpanding textarea
 # Depends on jQuery
@@ -43,8 +44,11 @@ ExpandingTextarea = React.createClass
   originalTextareaStyles: {}
 
   getDefaultProps: ->
-    handleChange: ->
     handleSelect: ->
+    handleChange: (e) ->
+      newBlock = _.cloneDeep(this.props.block)
+      newBlock.data.text = e.target.value
+      Channel.publish "block.change", {block: newBlock}
 
   componentDidMount: ->
     $textarea = $(this.refs.text.getDOMNode())
@@ -54,9 +58,6 @@ ExpandingTextarea = React.createClass
     _.forIn @originalTextareaStyles, (val, prop) ->
       $pre.css(prop, val) if $pre.css(prop) != val
 
-  handleChange: ->
-    text = this.refs.text.getDOMNode().value
-    this.props.handleChange({id: this.props.block.id, data: {text: text}})
 
   # The <pre> is hidden behind the textarea and mirrors the content. In this way the pre controls the size.
   # The +" " is a hack so the scrollbar doesnt show up
@@ -64,7 +65,7 @@ ExpandingTextarea = React.createClass
   render: ->
     `(
       <div style={this.containerStyle}>
-        <textarea onSelect={this.props.handleSelect} style={this.textareaStyle} value={this.props.block.data.text} ref="text" onChange={this.handleChange}></textarea>
+        <textarea block={this.props.block} onChange={this.props.handleChange} onSelect={this.props.handleSelect} style={this.textareaStyle} value={this.props.block.data.text} ref="text"></textarea>
         <pre ref="pre" style={this.preStyle}><div>{this.props.block.data.text+" "}</div></pre>
       </div>
     )`
