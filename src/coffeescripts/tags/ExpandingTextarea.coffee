@@ -45,6 +45,7 @@ ExpandingTextarea = React.createClass
 
   getDefaultProps: ->
     handleSelect: ->
+    handleKeyDown: (e) ->
     handleChange: (e) ->
       newBlock = _.cloneDeep(this.props.block)
       newBlock.data.text = e.target.value
@@ -65,7 +66,7 @@ ExpandingTextarea = React.createClass
   render: ->
     `(
       <div style={this.containerStyle}>
-        <textarea block={this.props.block} onChange={this.props.handleChange} onSelect={this.props.handleSelect} style={this.textareaStyle} value={this.props.block.data.text} ref="text"></textarea>
+        <textarea block={this.props.block} onKeyDown={this.props.handleKeyDown} onChange={this.props.handleChange} onSelect={this.props.handleSelect} style={this.textareaStyle} value={this.props.block.data.text} ref="text"></textarea>
         <pre ref="pre" style={this.preStyle}><div>{this.props.block.data.text+" "}</div></pre>
       </div>
     )`

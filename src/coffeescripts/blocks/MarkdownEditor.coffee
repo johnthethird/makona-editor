@@ -21,9 +21,14 @@ MarkdownEditor = React.createClass
           <button onClick={this.insertAtStartOfLine.bind(this, "# ")}>H1</button>
           <button onClick={this.insertAtStartOfLine.bind(this, "## ")}>H2</button>
         </div>
-        <ExpandingTextarea {...this.props} handleSelect={this.handleSelect} ref="eta" />
+        <ExpandingTextarea {...this.props} handleSelect={this.handleSelect} handleKeyDown={this.handleKeyDown} ref="eta" />
       </div>
     )`
+
+  handleKeyDown: (e) ->
+    if ((e.metaKey || e.ctrlKey) &&  e.keyCode == 13)
+      newBlock = _.extend({}, this.props.block, {mode: 'preview'})
+      Channel.publish "block.change", {block: newBlock} if (e.metaKey || e.ctrlKey) && e.keyCode == 13
 
   handleSelect: (e, id) ->
     {before, selected, after} = this.refs['eta'].getChunks()

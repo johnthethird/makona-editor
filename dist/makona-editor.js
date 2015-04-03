@@ -899,9 +899,22 @@
 	          React.createElement("button", {onClick: this.insertAtStartOfLine.bind(this, "# ")}, "H1"), 
 	          React.createElement("button", {onClick: this.insertAtStartOfLine.bind(this, "## ")}, "H2")
 	        ), 
-	        React.createElement(ExpandingTextarea, React.__spread({},  this.props, {handleSelect: this.handleSelect, ref: "eta"}))
+	        React.createElement(ExpandingTextarea, React.__spread({},  this.props, {handleSelect: this.handleSelect, handleKeyDown: this.handleKeyDown, ref: "eta"}))
 	      )
 	    );
+	  },
+	  handleKeyDown: function(e) {
+	    var newBlock;
+	    if ((e.metaKey || e.ctrlKey) && e.keyCode === 13) {
+	      newBlock = _.extend({}, this.props.block, {
+	        mode: 'preview'
+	      });
+	      if ((e.metaKey || e.ctrlKey) && e.keyCode === 13) {
+	        return Channel.publish("block.change", {
+	          block: newBlock
+	        });
+	      }
+	    }
 	  },
 	  handleSelect: function(e, id) {
 	    var after, before, ref, selected;
@@ -1451,6 +1464,11 @@
 	  getDefaultProps: function() {
 	    return {
 	      handleSelect: function() {},
+	      handleKeyDown: function(e) {
+	        if ((event.metaKey || event.ctrlKey) && event.keyCode === 13) {
+	          return alert("keypress" + e.keyCode);
+	        }
+	      },
 	      handleChange: function(e) {
 	        var newBlock;
 	        newBlock = _.cloneDeep(this.props.block);
@@ -1477,7 +1495,7 @@
 	  render: function() {
 	    return (
 	      React.createElement("div", {style: this.containerStyle}, 
-	        React.createElement("textarea", {block: this.props.block, onChange: this.props.handleChange, onSelect: this.props.handleSelect, style: this.textareaStyle, value: this.props.block.data.text, ref: "text"}), 
+	        React.createElement("textarea", {block: this.props.block, onKeyDown: this.props.handleKeyDown, onChange: this.props.handleChange, onSelect: this.props.handleSelect, style: this.textareaStyle, value: this.props.block.data.text, ref: "text"}), 
 	        React.createElement("pre", {ref: "pre", style: this.preStyle}, React.createElement("div", null, this.props.block.data.text+" "))
 	      )
 	    );

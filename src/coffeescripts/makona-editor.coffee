@@ -1,5 +1,5 @@
 ###* @jsx React.DOM ###
-
+  
 throw new Error("Makona requires jQuery") unless jQuery?
 # require("script!jquery/jquery.min.js")
 
