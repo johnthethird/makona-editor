@@ -1407,6 +1407,8 @@ text-shadow: none;
 */
 .makona-editor {
   max-width: 800px; }
+  .makona-editor .mk-focus {
+    border: 1px solid #555; }
   .makona-editor ul, .makona-editor ol {
     list-style: none;
     margin: 0;
