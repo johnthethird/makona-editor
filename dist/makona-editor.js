@@ -719,6 +719,16 @@
 	        return _this.focusNext();
 	      };
 	    })(this));
+	    Mousetrap.bind('shift+up', (function(_this) {
+	      return function(e) {
+	        return _this.movePrevious();
+	      };
+	    })(this));
+	    Mousetrap.bind('shift+down', (function(_this) {
+	      return function(e) {
+	        return _this.moveNext();
+	      };
+	    })(this));
 	    Mousetrap.bind('enter', (function(_this) {
 	      return function(e) {
 	        return _this.handleEnter();
@@ -764,6 +774,38 @@
 	      return block;
 	    });
 	    return Channel.publish("block.change", {
+	      blocks: newBlocks
+	    });
+	  },
+	  moveNext: function() {
+	    var curIndex, newBlocks, x;
+	    newBlocks = this.props.blocks.slice();
+	    curIndex = _.findIndex(newBlocks, {
+	      focus: true
+	    });
+	    if (curIndex >= newBlocks.length) {
+	      return;
+	    }
+	    x = newBlocks[curIndex];
+	    newBlocks[curIndex] = newBlocks[curIndex + 1];
+	    newBlocks[curIndex + 1] = x;
+	    return Channel.publish("block.reorder", {
+	      blocks: newBlocks
+	    });
+	  },
+	  movePrevious: function() {
+	    var curIndex, newBlocks, x;
+	    newBlocks = this.props.blocks.slice();
+	    curIndex = _.findIndex(newBlocks, {
+	      focus: true
+	    });
+	    if (curIndex < 1) {
+	      return;
+	    }
+	    x = newBlocks[curIndex];
+	    newBlocks[curIndex] = newBlocks[curIndex - 1];
+	    newBlocks[curIndex - 1] = x;
+	    return Channel.publish("block.reorder", {
 	      blocks: newBlocks
 	    });
 	  },
