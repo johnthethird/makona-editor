@@ -886,7 +886,9 @@
 	  },
 	  getInitialState: function() {
 	    return {
-	      selectionPresent: false
+	      selectionPresent: false,
+	      setPos: false,
+	      pos: 0
 	    };
 	  },
 	  render: function() {
@@ -903,6 +905,14 @@
 	      )
 	    );
 	  },
+	  componentDidUpdate: function() {
+	    if ((this.textArea() != null) && this.state.setPos) {
+	      this.textArea().setSelectionRange(this.state.pos, this.state.pos);
+	      return this.setState({
+	        setPos: false
+	      });
+	    }
+	  },
 	  handleKeyDown: function(e) {
 	    var newBlock;
 	    if ((e.metaKey || e.ctrlKey) && e.keyCode === 13) {
@@ -918,7 +928,7 @@
 	  },
 	  handleSelect: function(e, id) {
 	    var after, before, ref, selected;
-	    ref = this.refs['eta'].getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
+	    ref = this.textArea().getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
 	    return this.setState({
 	      selectionPresent: selected.length > 0 ? true : false
 	    });
@@ -932,17 +942,21 @@
 	    });
 	  },
 	  insertAtCaret: function(chars, e) {
-	    var after, before, ref, selected, text;
+	    var after, before, cursorPos, ref, selected, text;
 	    e.preventDefault();
-	    ref = this.refs['eta'].getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
+	    ref = this.textArea().getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
 	    text = before + chars + selected + after;
 	    this.publishChange(text);
-	    return this.setCursorPos(before.length + chars.length);
+	    cursorPos = before.length + chars.length;
+	    return this.setState({
+	      pos: cursorPos,
+	      setPos: true
+	    });
 	  },
 	  insertAtStartOfLine: function(chars, e) {
 	    var after, before, combinedLines, cursorPos, lines, ref, selected, text, theLine;
 	    e.preventDefault();
-	    ref = this.refs['eta'].getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
+	    ref = this.textArea().getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
 	    lines = before.split("\n");
 	    theLine = lines.pop();
 	    if (theLine.slice(0, +(chars.length - 1) + 1 || 9e9) === chars) {
@@ -955,24 +969,31 @@
 	      cursorPos = before.length + chars.length;
 	    }
 	    this.publishChange(text);
-	    return this.setCursorPos(cursorPos);
+	    return this.setState({
+	      pos: cursorPos,
+	      setPos: true
+	    });
 	  },
 	  wrapSelectedWith: function(chars, e) {
-	    var after, before, ref, selected, text;
+	    var after, before, cursorPos, ref, selected, text;
 	    e.preventDefault();
-	    ref = this.refs['eta'].getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
+	    ref = this.textArea().getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
 	    if (selected.length > 0 && selected.slice(0, +(chars.length - 1) + 1 || 9e9) !== chars) {
 	      text = before + chars + selected + chars + after;
 	      this.publishChange(text);
-	      return this.setCursorPos(before.length + chars.length + selected.length + chars.length);
+	      cursorPos = before.length + chars.length + selected.length + chars.length;
+	      return this.setState({
+	        pos: cursorPos,
+	        setPos: true
+	      });
 	    }
 	  },
-	  setCursorPos: function(pos) {
-	    return setTimeout((function(_this) {
-	      return function() {
-	        return _this.refs['eta'].setSelectionRange(pos, pos);
-	      };
-	    })(this), 100);
+	  textArea: function() {
+	    if (this.refs['eta'] != null) {
+	      return this.refs['eta'];
+	    } else {
+	      return false;
+	    }
 	  }
 	});
 
@@ -1464,11 +1485,7 @@
 	  getDefaultProps: function() {
 	    return {
 	      handleSelect: function() {},
-	      handleKeyDown: function(e) {
-	        if ((event.metaKey || event.ctrlKey) && event.keyCode === 13) {
-	          return alert("keypress" + e.keyCode);
-	        }
-	      },
+	      handleKeyDown: function(e) {},
 	      handleChange: function(e) {
 	        var newBlock;
 	        newBlock = _.cloneDeep(this.props.block);

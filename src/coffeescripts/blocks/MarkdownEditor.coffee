@@ -10,6 +10,8 @@ MarkdownEditor = React.createClass
 
   getInitialState: ->
     selectionPresent: false
+    setPos: false
+    pos: 0
 
   render: ->
     `(
@@ -25,33 +27,43 @@ MarkdownEditor = React.createClass
       </div>
     )`
 
+  componentDidUpdate: ->
+    if @textArea()? and @state.setPos
+      @textArea().setSelectionRange(@state.pos, @state.pos)
+      @setState { setPos: false }
+
   handleKeyDown: (e) ->
     if ((e.metaKey || e.ctrlKey) &&  e.keyCode == 13)
-      newBlock = _.extend({}, this.props.block, {mode: 'preview'})
+      newBlock = _.extend({}, @props.block, {mode: 'preview'})
       Channel.publish "block.change", {block: newBlock} if (e.metaKey || e.ctrlKey) && e.keyCode == 13
 
   handleSelect: (e, id) ->
-    {before, selected, after} = this.refs['eta'].getChunks()
-    this.setState
+    {before, selected, after} = @textArea().getChunks()
+    @setState
       selectionPresent: if selected.length > 0 then true else false
 
   publishChange: (text) ->
-    newBlock = _.cloneDeep(this.props.block)
+    newBlock = _.cloneDeep(@props.block)
     newBlock.data.text = text
     Channel.publish "block.change", {block: newBlock}
 
   insertAtCaret: (chars, e) ->
     e.preventDefault()
-    {before, selected, after} = this.refs['eta'].getChunks()
+    {before, selected, after} = @textArea().getChunks()
     text = before + chars + selected + after
-    this.publishChange(text)
-    @setCursorPos before.length + chars.length
+    @publishChange(text)
+    cursorPos = before.length + chars.length
+
+    @setState
+      pos: cursorPos
+      setPos: true
 
   insertAtStartOfLine: (chars, e) ->
     e.preventDefault()
-    {before, selected, after} = this.refs['eta'].getChunks()
+    {before, selected, after} = @textArea().getChunks()
     lines = before.split("\n")
     theLine = lines.pop()
+
     # Remove the chars if they already exist at start of line
     if theLine[..chars.length-1] == chars
       combinedLines = if lines.length is 0 then "" else (lines.join("\n") + "\n")
@@ -62,24 +74,28 @@ MarkdownEditor = React.createClass
       text = combinedLines + chars + theLine + selected + after
       cursorPos = before.length + chars.length
 
-    this.publishChange(text)
-    @setCursorPos cursorPos
+    @publishChange(text)
+
+    @setState
+      pos: cursorPos
+      setPos: true
 
 
   wrapSelectedWith: (chars, e) ->
     e.preventDefault()
-    {before, selected, after} = this.refs['eta'].getChunks()
+    {before, selected, after} = @textArea().getChunks()
     if selected.length > 0 and selected[..chars.length-1] != chars
       text = before + chars + selected + chars + after
-      this.publishChange(text)
-      @setCursorPos before.length + chars.length + selected.length + chars.length
+      @publishChange(text)
+      cursorPos = before.length + chars.length + selected.length + chars.length
 
+      @setState
+        pos: cursorPos
+        setPos: true
 
-  setCursorPos: (pos) ->
-    # We have to wait for React to re-render. Is there a more deterministic way to do this?
-    setTimeout () =>
-      this.refs['eta'].setSelectionRange(pos, pos)
-    , 100
+  # Shortcut to select the editor's text area by ref.
+  textArea: () ->
+    if @refs['eta']? then @refs['eta'] else false
 
 
 
