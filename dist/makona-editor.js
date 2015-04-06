@@ -128,9 +128,13 @@
 	    var newBlocks;
 	    addedBlock.id = _.max(this.state.blocks, "id").id + 1;
 	    addedBlock.position = position + 0.5;
+	    addedBlock.focus = true;
 	    newBlocks = this.resortBlocks(this.state.blocks.concat(addedBlock));
-	    return this.setState({
+	    this.setState({
 	      blocks: newBlocks
+	    });
+	    return Channel.publish("block.caret", {
+	      block: addedBlock
 	    });
 	  },
 	  handleChange: function(changedBlocks) {
@@ -168,9 +172,6 @@
 	    return this.setState({
 	      blocks: sortedBlocks
 	    });
-	  },
-	  handleCursor: function(block) {
-	    return $(this.refs["editor" + block.id].getDOMNode()).find("textarea").focus().caretToEnd();
 	  },
 	  resortBlocks: function(blocks) {
 	    var i;
@@ -694,9 +695,11 @@
 
 	
 	/** @jsx React.DOM */
-	var Channel, KeyboardShortcuts;
+	var Blocks, Channel, KeyboardShortcuts;
 
 	__webpack_require__(10);
+
+	Blocks = __webpack_require__(1);
 
 	Channel = postal.channel("makona");
 
@@ -716,9 +719,19 @@
 	        return _this.focusNext();
 	      };
 	    })(this));
-	    return Mousetrap.bind('enter', (function(_this) {
+	    Mousetrap.bind('enter', (function(_this) {
 	      return function(e) {
 	        return _this.handleEnter();
+	      };
+	    })(this));
+	    Mousetrap.bind('m', (function(_this) {
+	      return function(e) {
+	        return _this.addBlock('markdown');
+	      };
+	    })(this));
+	    return Mousetrap.bind('c', (function(_this) {
+	      return function(e) {
+	        return _this.addBlock('code');
 	      };
 	    })(this));
 	  },
@@ -752,6 +765,17 @@
 	    });
 	    return Channel.publish("block.change", {
 	      blocks: newBlocks
+	    });
+	  },
+	  addBlock: function(type) {
+	    var focusPosition, newBlock;
+	    newBlock = Blocks.newBlock(type);
+	    focusPosition = _.findWhere(this.props.blocks, {
+	      focus: true
+	    }).position;
+	    return Channel.publish("block.add", {
+	      block: newBlock,
+	      position: focusPosition
 	    });
 	  },
 	  handleEnter: function() {

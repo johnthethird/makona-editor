@@ -6,6 +6,7 @@
 # on the makona channel
 
 require("mousetrap")
+Blocks = require("../blocks")
 Channel = postal.channel("makona")
 
 KeyboardShortcuts = React.createClass
@@ -17,6 +18,8 @@ KeyboardShortcuts = React.createClass
     Mousetrap.bind 'up',    (e) => @focusPrevious()
     Mousetrap.bind 'down',  (e) => @focusNext()
     Mousetrap.bind 'enter', (e) => @handleEnter()
+    Mousetrap.bind 'm',     (e) => @addBlock('markdown')
+    Mousetrap.bind 'c',     (e) => @addBlock('code')
 
   focusNext: ->
     curSel = _.findIndex(@props.blocks, {focus: true})
@@ -31,6 +34,11 @@ KeyboardShortcuts = React.createClass
       block.focus = (i == curSel-1) ? true : false
       block
     Channel.publish "block.change", {blocks: newBlocks}
+
+  addBlock: (type) ->
+    newBlock = Blocks.newBlock(type)
+    focusPosition = _.findWhere(@props.blocks, {focus: true}).position
+    Channel.publish "block.add", {block: newBlock, position: (focusPosition)}
 
   handleEnter: ->
     newBlock = _.find(@props.blocks, {focus: true})

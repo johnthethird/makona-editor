@@ -79,8 +79,10 @@ MakonaEditor = React.createClass
   handleAddRow: (addedBlock, position) ->
     addedBlock.id = _.max(this.state.blocks, "id").id + 1
     addedBlock.position = position + 0.5
+    addedBlock.focus = true
     newBlocks = this.resortBlocks(this.state.blocks.concat(addedBlock))
-    this.setState({blocks: newBlocks})
+    this.setState {blocks: newBlocks}
+    Channel.publish "block.caret", {block: addedBlock}
 
   handleChange: (changedBlocks) ->
     changedBlocks = [].concat(changedBlocks) #ensure its always an array
@@ -100,9 +102,6 @@ MakonaEditor = React.createClass
     # Reset the position prop based on the new order
     _.each(sortedBlocks, (b,i) -> b.position = i)
     this.setState({blocks: sortedBlocks})
-
-  handleCursor: (block) ->
-    $(this.refs["editor"+block.id].getDOMNode()).find("textarea").focus().caretToEnd()
 
   # To add a block we add at position x+0.5, then sort by position, and loop through and reset the position counter
   resortBlocks: (blocks) ->
@@ -169,6 +168,7 @@ MakonaSortableItem = React.createClass
     Channel.publish "block.change", {block: newBlock}
     Channel.publish "block.caret", {block: newBlock}
 
+  # TODO When adding a new block, instead of caretToEnd, do select()
   handleCaret: (block) ->
     if ref = this.refs["editor"+block.id]
       # # This isnt very React-y
