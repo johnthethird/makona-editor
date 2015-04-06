@@ -1,5 +1,5 @@
 ###* @jsx React.DOM ###
-  
+
 throw new Error("Makona requires jQuery") unless jQuery?
 # require("script!jquery/jquery.min.js")
 
@@ -153,10 +153,10 @@ MakonaSortableItem = React.createClass
   handleEdit: (e) ->
     newBlock = _.extend({}, this.props.block, {mode: 'edit'})
     Channel.publish "block.change", {block: newBlock}
-    # This isnt very React-y
-    setTimeout =>
-      $(this.refs["editor"+this.props.block.id].getDOMNode()).find("textarea").focus().caretToEnd()
-    , 100
+
+  componentDidUpdate: () ->
+    if @props.block.type is 'markdown'
+      $(@).find('textarea').focus().caretToEnd()
 
   handlePreview: (e) ->
     newBlock = _.extend({}, this.props.block, {mode: 'preview'})

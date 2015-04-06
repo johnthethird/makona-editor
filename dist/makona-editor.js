@@ -242,14 +242,14 @@
 	    newBlock = _.extend({}, this.props.block, {
 	      mode: 'edit'
 	    });
-	    Channel.publish("block.change", {
+	    return Channel.publish("block.change", {
 	      block: newBlock
 	    });
-	    return setTimeout((function(_this) {
-	      return function() {
-	        return $(_this.refs["editor" + _this.props.block.id].getDOMNode()).find("textarea").focus().caretToEnd();
-	      };
-	    })(this), 100);
+	  },
+	  componentDidUpdate: function() {
+	    if (this.props.block.type === 'markdown') {
+	      return $(this).find('textarea').focus().caretToEnd();
+	    }
 	  },
 	  handlePreview: function(e) {
 	    var newBlock;
