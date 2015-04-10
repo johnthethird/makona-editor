@@ -157,20 +157,21 @@ MakonaSortableItem = React.createClass
     opts: React.PropTypes.object.isRequired
 
   componentDidMount: ->
-    Channel.subscribe "block.caret",  (data) => @handleCaret(data.block)
+    Channel.subscribe "block.caret",  (data) => @handleCaret()
 
-  # TODO When adding a new block, instead of caretToEnd, do select()
-  handleCaret: (block) ->
-    if ref = this.refs["editor"+block.id]
-      # # This isnt very React-y
-      setTimeout =>
-        $(ref.getDOMNode()).find("textarea").focus().caretToEnd()
-      , 200
+  componentDidUpdate: ->
+    Channel.publish "block.caret", @props.block
+
+  handleCaret: () ->
+    if @props.block.type is 'markdown' and @props.block.focus?
+      node = $(@getDOMNode()).find('textarea')
+      if !node.is(':focus')
+        node.focus().caretToEnd()
 
   handleEdit: (e) ->
     newBlock = _.extend({}, this.props.block, {mode: 'edit'})
     Channel.publish "block.change", {block: newBlock}
-    Channel.publish "block.caret", {block: newBlock}
+    Channel.publish "block.caret",  {block: newBlock}
 
   handlePreview: (e) ->
     newBlock = _.extend({}, this.props.block, {mode: 'preview'})
