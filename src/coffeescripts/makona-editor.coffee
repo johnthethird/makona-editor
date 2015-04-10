@@ -27,6 +27,8 @@ throw new Error("Makona requires jQuery") unless jQuery?
 # Makes sortable work on touch devices
 require("script!jquery-ui-touch-punch.min.js")
 
+require("mousetrap")
+
 # Used to put caret at the end of the textarea
 require("script!jquery-caret.min.js")
 
@@ -36,6 +38,11 @@ require("script!postal.js/lib/postal.min.js")
 
 # Bring in React as a Bower component, not an npm module (so we dont have to build it from scratch)
 #require("script!react/react-with-addons.js")
+
+Blocks = require("./blocks")
+Channel = postal.channel("makona")
+KeyboardShortcuts = require("./tags/KeyboardShortcuts")
+
 
 # Makona will be exposed on window, and be the main entry point to the editor from the outside
 class Makona
@@ -51,45 +58,49 @@ class Makona
     $node.replaceWith("<div id='#{opts.nodeId}' class='makona-editor'></div>")
     React.render `<MakonaEditor opts={opts}/>`, document.getElementById(opts.nodeId)
 
-Blocks = require("./blocks")
-Channel = postal.channel("makona")
-
 MakonaEditor = React.createClass
   displayName: "MakonaEditor"
   componentDidMount: () ->
     # Subscribe to events
     Channel.subscribe "#", (data, envelope) -> console.log envelope
-    Channel.subscribe "block.change", (data) => @handleChange(data.block, data.replaceFlag)
+    Channel.subscribe "block.change", (data) => @handleChange(data.block || data.blocks)
     Channel.subscribe "block.delete", (data) => @handleDelete(data.block)
     Channel.subscribe "block.add",    (data) => @handleAddRow(data.block, data.position)
     Channel.subscribe "block.reorder",(data) => @handleReorder(data.blocks)
 
   getInitialState: () ->
-    blocks: _(this.props.opts.blocks).map((block) -> $.extend({}, {mode: 'preview'}, block)).sortBy("position").value()
+    blocks = _(this.props.opts.blocks).
+      map((block) -> $.extend({}, {mode: 'preview', focus: false}, block)).
+      sortBy("position").
+      value()
+    blocks[0].focus = true
+    blocks: blocks
 
   handleAddRow: (addedBlock, position) ->
     addedBlock.id = _.max(this.state.blocks, "id").id + 1
     addedBlock.position = position + 0.5
+    addedBlock.focus = true
     newBlocks = this.resortBlocks(this.state.blocks.concat(addedBlock))
-    this.setState({blocks: newBlocks})
+    this.setState {blocks: newBlocks}
+    Channel.publish "block.caret", {block: addedBlock}
 
-  handleChange: (changedBlock, replaceFlag) ->
+  handleChange: (changedBlocks) ->
+    changedBlocks = [].concat(changedBlocks) #ensure its always an array
     newBlocks = this.state.blocks.map (block) ->
       newBlock = _.cloneDeep(block)
       # Merge in the changed block to what we already have, so blocks dont have to send all properties
-      $.extend(newBlock, changedBlock) if newBlock.id is changedBlock.id
+      if changedBlock = _.findWhere(changedBlocks, {id: newBlock.id})
+        $.extend(newBlock, changedBlock) if newBlock.id is changedBlock.id
       newBlock
-    if replaceFlag is true
-      this.replaceState({blocks: []})
-      this.replaceState({blocks: newBlocks})
-    else
-      this.setState({blocks: newBlocks})
+    this.setState({blocks: newBlocks})
 
   handleDelete: (deletedBlock) ->
     newBlocks = _.reject this.state.blocks, (block) -> block.id is deletedBlock.id
     this.replaceState({blocks: newBlocks})
 
   handleReorder: (sortedBlocks) ->
+    # Reset the position prop based on the new order
+    _.each(sortedBlocks, (b,i) -> b.position = i)
     this.setState({blocks: sortedBlocks})
 
   # To add a block we add at position x+0.5, then sort by position, and loop through and reset the position counter
@@ -100,6 +111,7 @@ MakonaEditor = React.createClass
   render: ->
     `(
       <div>
+        <KeyboardShortcuts blocks={this.state.blocks} />
         <MakonaSortableList
           blocks={this.state.blocks}
           opts={this.props.opts}
@@ -125,8 +137,6 @@ MakonaSortableList = React.createClass
         # Prevent sortable from changing the DOM
         $el.sortable("cancel")
         sortedBlocks = this.props.blocks.sort (a,b) -> newOrder.indexOf(a.id) - newOrder.indexOf(b.id)
-        # Reset the position prop based on the new order
-        _.each(sortedBlocks, (b,i) -> b.position = i)
         Channel.publish "block.reorder", {blocks: sortedBlocks}
 
   render: ->
@@ -146,17 +156,21 @@ MakonaSortableItem = React.createClass
     block: React.PropTypes.object.isRequired
     opts: React.PropTypes.object.isRequired
 
-  # escape key while editing will flip back to preview mode
-  handleKeyUp: (e) ->
-    @handlePreview(e) if e.keyCode is 27
+  componentDidMount: ->
+    Channel.subscribe "block.caret",  (data) => @handleCaret(data.block)
+
+  # TODO When adding a new block, instead of caretToEnd, do select()
+  handleCaret: (block) ->
+    if ref = this.refs["editor"+block.id]
+      # # This isnt very React-y
+      setTimeout =>
+        $(ref.getDOMNode()).find("textarea").focus().caretToEnd()
+      , 200
 
   handleEdit: (e) ->
     newBlock = _.extend({}, this.props.block, {mode: 'edit'})
     Channel.publish "block.change", {block: newBlock}
-
-  componentDidUpdate: () ->
-    if @props.block.type is 'markdown'
-      $(@).find('textarea').focus().caretToEnd()
+    Channel.publish "block.caret", {block: newBlock}
 
   handlePreview: (e) ->
     newBlock = _.extend({}, this.props.block, {mode: 'preview'})
@@ -167,7 +181,7 @@ MakonaSortableItem = React.createClass
     editStyle = {display: if block.mode is 'edit' then 'block' else 'none'}
     previewStyle = {display: if block.mode is 'preview' then 'block' else 'none'}
     `(
-      <li id={"mk-sortable-"+block.id} key={block.id} data-position={block.position}>
+      <li className={block.focus ? 'mk-focus' : ''} id={"mk-sortable-"+block.id} >
         <div className={"mk-block mk-blocktype-"+block.type+" mk-mode-"+block.mode} >
           <div className="mk-block-editor" style={editStyle} ref={"editor"+block.id} onKeyUp={this.handleKeyUp} >
             <MakonaEditorRow block={block} />
