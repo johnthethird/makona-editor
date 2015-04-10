@@ -2,7 +2,8 @@
   "name": "makona-editor",
   "version": "0.1.0",
   "dependencies": {
-    "marked": "~0.2.10"
+    "marked": "~0.2.10",
+    "mousetrap": "^1.5.2"
   },
   "devDependencies": {
     "css-loader": "latest",

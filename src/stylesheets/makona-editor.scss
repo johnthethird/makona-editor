@@ -15,6 +15,9 @@ $white: #FFFFFF;
 
 // Scope everything to .mk-editor
 .makona-editor {
+  .mk-focus {
+    border: 1px solid #555;
+  }
   //background-color: $page-bg-color;
   // Layout
   max-width: 800px;
