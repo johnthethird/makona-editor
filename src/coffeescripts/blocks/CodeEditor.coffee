@@ -8,21 +8,22 @@ CodeEditor = React.createClass
   propTypes:
     block: React.PropTypes.object.isRequired
 
-  handleLangChange: (e) ->
-    newBlock = _.cloneDeep(this.props.block)
-    newBlock.data.lang = e.target.value
-    Channel.publish "block.change", {block: newBlock}
-
-  handleChange: ->
-    lang = this.refs.lang.getDOMNode().value
-    this.props.handleChange({id: this.props.block.id, data: {lang: lang}})
   render: ->
     `(
       <div className="mk-block-content" >
-        <ExpandingTextarea {...this.props} />
+        <ExpandingTextarea {...this.props} ref="text" />
         <br />
         <label>Language: </label><input value={this.props.block.data.lang} ref="lang" onChange={this.handleLangChange} />
       </div>
     )`
+
+
+  handleLangChange: (e) ->
+    @refs.text.props.lang = @refs.lang.props.value
+    Channel.publish "block.change", {block: this.props.block}
+
+  handleChange: ->
+    lang = this.refs.lang.getDOMNode().value
+    this.props.handleChange({id: this.props.block.id, data: {lang: lang}})
 
 module.exports = CodeEditor
