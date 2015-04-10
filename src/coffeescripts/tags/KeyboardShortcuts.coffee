@@ -6,6 +6,7 @@
 # on the makona channel
 
 require("mousetrap")
+require("../mousetrap-bind-global")  # this isnt in npm darn it
 Blocks = require("../blocks")
 Channel = postal.channel("makona")
 
@@ -22,6 +23,13 @@ KeyboardShortcuts = React.createClass
     Mousetrap.bind 'enter', (e) => @handleEnter()
     Mousetrap.bind 'm',     (e) => @addBlock('markdown')
     Mousetrap.bind 'c',     (e) => @addBlock('code')
+    Mousetrap.bindGlobal 'esc',   (e) => @handleEscape()
+
+  handleEscape: ->
+    newBlocks = _.map @props.blocks, (block) ->
+      block.mode = 'preview'
+      block
+    Channel.publish "block.change", {blocks: newBlocks}
 
   focusNext: ->
     curSel = _.findIndex(@props.blocks, {focus: true})

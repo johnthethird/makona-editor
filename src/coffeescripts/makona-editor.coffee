@@ -159,19 +159,18 @@ MakonaSortableItem = React.createClass
   componentDidMount: ->
     Channel.subscribe "block.caret",  (data) => @handleCaret(data.block)
 
-  # escape key while editing will flip back to preview mode
-  handleKeyUp: (e) ->
-    @handlePreview(e) if e.keyCode is 27
+  # TODO When adding a new block, instead of caretToEnd, do select()
+  handleCaret: (block) ->
+    if ref = this.refs["editor"+block.id]
+      # # This isnt very React-y
+      setTimeout =>
+        $(ref.getDOMNode()).find("textarea").focus().caretToEnd()
+      , 200
 
   handleEdit: (e) ->
     newBlock = _.extend({}, this.props.block, {mode: 'edit'})
     Channel.publish "block.change", {block: newBlock}
     Channel.publish "block.caret", {block: newBlock}
-    # This isnt very React-y
-
-    setTimeout =>
-      $(this.refs["editor"+this.props.block.id].getDOMNode()).find("textarea").focus().caretToEnd()
-    , 100
 
   handlePreview: (e) ->
     newBlock = _.extend({}, this.props.block, {mode: 'preview'})
