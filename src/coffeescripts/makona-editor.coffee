@@ -1,43 +1,17 @@
 ###* @jsx React.DOM ###
 
+# Whatever we depend on existing externally, enumerate here
 throw new Error("Makona requires jQuery") unless jQuery?
-# require("script!jquery/jquery.min.js")
-
-# TODO Sortable
-# Either make a React-native drag-n-drop sortable solution, or swap jQuery UI out for
-# something else. Note that this is probably going to be challenging. A React-native
-# solution would also allow us to excise jQuery itself out of Makona, which would be nice.
-#
-# This one works fairly well but touch events dont seem to be working for mobile
-# http://johnny.github.io/jquery-sortable/
-# require("script!jquery-sortable.js")
-#
-# This one seems nice as well, but depends on jQuery
-# https://github.com/dbushell/Nestable
-
-# So, for now, stick with jQuery UI
-# require("script!jquery-ui/ui/minified/jquery.ui.core.min.js")
-# require("script!jquery-ui/ui/minified/jquery.ui.widget.min.js")
-# require("script!jquery-ui/ui/minified/jquery.ui.mouse.min.js")
-# require("script!jquery-ui/ui/minified/jquery.ui.position.min.js")
-# require("script!jquery-ui/ui/minified/jquery.ui.draggable.min.js")
-# require("script!jquery-ui/ui/minified/jquery.ui.droppable.min.js")
-# require("script!jquery-ui/ui/minified/jquery.ui.sortable.min.js")
+throw new Error("Makona requires jQuery UI") unless jQuery.fn.sortable?
 
 # Makes sortable work on touch devices
 require("script!jquery-ui-touch-punch.min.js")
 
-require("mousetrap")
-
 # Used to put caret at the end of the textarea
 require("script!jquery-caret.min.js")
 
-# Mainly for some quick prototyping. Once we get where we are going we can probably get rid of this dependency
 require("script!lodash/dist/lodash.compat.min.js")
 require("script!postal.js/lib/postal.min.js")
-
-# Bring in React as a Bower component, not an npm module (so we dont have to build it from scratch)
-#require("script!react/react-with-addons.js")
 
 Blocks = require("./blocks")
 Channel = postal.channel("makona")
