@@ -66,6 +66,7 @@ ExpandingTextarea = React.createClass
     handleChange: (e) ->
       newBlock = _.cloneDeep(this.props.block)
 
+      # Remove the default text if new text has been entered.
       if @props.block.data.default_text.length and @props.block.data.text.length
         newBlock.data.default_text = ''
 
@@ -106,6 +107,7 @@ ExpandingTextarea = React.createClass
       $pre.css(prop, val) if $pre.css(prop) != val
 
   componentDidUpdate: ->
+    # Highlight the default text
     if @props.block.data.default_text.length and !@props.block.data.text.length
       @refs.text.getDOMNode().setSelectionRange(0, @props.block.data.default_text.length)
 
