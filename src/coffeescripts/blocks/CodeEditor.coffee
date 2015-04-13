@@ -1,10 +1,11 @@
 ###* @jsx React.DOM ###
 
-######################
-### Includes       ###
-######################
+##############################
+### Includes and Constants ###
+##############################
 Channel           = postal.channel("makona")
 ExpandingTextarea = require("../tags/ExpandingTextarea")
+
 
 # Trigger re-render by sending new block up via the makona postal channel. Like so:
 # ...
@@ -14,17 +15,17 @@ ExpandingTextarea = require("../tags/ExpandingTextarea")
 
 CodeEditor = React.createClass
 
-  ######################
-  ### Construction   ###
-  ######################
+  ##############################
+  ### Construction           ###
+  ##############################
   displayName: "CodeEditor"
   propTypes:
     block: React.PropTypes.object.isRequired
 
 
-  ######################
-  ### Render         ###
-  ######################
+  ##############################
+  ### Render                 ###
+  ##############################
   render: ->
     `(
       <div className="mk-block-content" >
@@ -35,9 +36,9 @@ CodeEditor = React.createClass
     )`
 
 
-  ######################
-  ### Life Cycle     ###
-  ######################
+  ##############################
+  ### Life Cycle             ###
+  ##############################
   # componentWillMount
   # componentDidMount
   # componentWillReceiveProps
@@ -46,9 +47,10 @@ CodeEditor = React.createClass
   # componentDidUpdate
   # componentWillUnmount
 
-  ######################
-  ### Custom Methods ###
-  ######################
+
+  ##############################
+  ### Custom Methods         ###
+  ##############################
 
   handleLangChange: (e) ->
     @refs.text.props.lang = @refs.lang.props.value

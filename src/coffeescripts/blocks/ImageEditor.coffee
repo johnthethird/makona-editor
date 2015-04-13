@@ -1,9 +1,11 @@
 ###* @jsx React.DOM ###
 
+
+##############################
+### Includes and Constants ###
+##############################
 require("script!../../../vendor/jquery.fineuploader-4.0.3.js")
-
 ImagePreviewer = require("./ImagePreviewer")
-
 qqTemplate = """
   <script type="text/template" id="qq-template-image">
       <div class="qq-uploader-selector qq-uploader">
@@ -38,9 +40,41 @@ qqTemplate = """
   </script>
 """
 
-# TODO figure out best way to pass in config parameters, like upload endpoints, etc
+
+# Trigger re-render by sending new block up via the makona postal channel. Like so:
+# ...
+# newBlock = <block with changes>
+# Channel.publish "block.change", { block: newBlock }
+
+
 ImageEditor = React.createClass
+
+
+  ##############################
+  ### Construction           ###
+  ##############################
   displayName: "ImageEditor"
+
+
+  ##############################
+  ### Render                 ###
+  ##############################
+  render: ->
+    `(
+      <div>
+        { (this.props.block.data.src.length > 0) ? <ImagePreviewer block={this.props.block} /> : <div ref='fineuploader'></div>}
+      </div>
+    )`
+
+
+  ##############################
+  ### Life Cycle             ###
+  ##############################
+  # componentWillMount
+  # componentWillReceiveProps
+  # componentWillUpdate
+  # componentDidUpdate
+
   componentDidMount: () ->
     if $("#qq-template-image").length == 0
       $("body").append(qqTemplate)
@@ -78,6 +112,7 @@ ImageEditor = React.createClass
 
   # Dont ever update, as we dont need to. When the state is reset with uploaded image src, we just redraw
   shouldComponentUpdate: () -> false
+
   componentWillUnmount: () ->
     # Try our best to get rid of FineUploader
     this.uploader = null
@@ -85,11 +120,11 @@ ImageEditor = React.createClass
     while (container.lastChild)
       container.removeChild(container.lastChild)
 
-  render: ->
-    `(
-      <div>
-        { (this.props.block.data.src.length > 0) ? <ImagePreviewer block={this.props.block} /> : <div ref='fineuploader'></div>}
-      </div>
-    )`
 
+  ##############################
+  ### Custom Methods         ###
+  ##############################
+
+
+# Export to make available
 module.exports = ImageEditor

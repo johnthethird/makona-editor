@@ -1,9 +1,25 @@
 ###* @jsx React.DOM ###
-Channel = postal.channel("makona")
 
+
+##############################
+### Includes and Constants ###
+##############################
+Channel           = postal.channel("makona")
 ExpandingTextarea = require("../tags/ExpandingTextarea")
 
+
+# Trigger re-render by sending new block up via the makona postal channel. Like so:
+# ...
+# newBlock = <block with changes>
+# Channel.publish "block.change", { block: newBlock }
+
+
 MarkdownEditor = React.createClass
+
+
+  ##############################
+  ### Construction           ###
+  ##############################
   displayName: "MarkdownEditor"
   propTypes:
     block: React.PropTypes.object.isRequired
@@ -13,6 +29,10 @@ MarkdownEditor = React.createClass
     setPos: false
     pos: 0
 
+
+  ##############################
+  ### Render                 ###
+  ##############################
   render: ->
     `(
       <div className="mk-block-content">
@@ -27,11 +47,27 @@ MarkdownEditor = React.createClass
       </div>
     )`
 
+
+  ##############################
+  ### Life Cycle             ###
+  ##############################
+  # componentWillMount
+  # componentDidMount
+  # componentWillReceiveProps
+  # shouldComponentUpdate
+  # componentWillUpdate
+  # componentWillUnmount
+
   componentDidUpdate: ->
     # Only set the cursor position when the text area is already there and the component has been flagged to set the position.
     if @textArea()? and @state.setPos
       @textArea().setSelectionRange(@state.pos, @state.pos)
       @setState { setPos: false }
+
+
+  ##############################
+  ### Custom Methods         ###
+  ##############################
 
   handleKeyDown: (e) ->
     if ((e.metaKey || e.ctrlKey) &&  e.keyCode == 13)
@@ -81,7 +117,6 @@ MarkdownEditor = React.createClass
       pos: cursorPos
       setPos: true
 
-
   wrapSelectedWith: (chars, e) ->
     e.preventDefault()
     {before, selected, after} = @textArea().getChunks()
@@ -95,9 +130,9 @@ MarkdownEditor = React.createClass
         setPos: true
 
   # Shortcut to select the editor's text area by ref.
-  textArea: () ->
+  textArea: ->
     if @refs['eta']? then @refs['eta'] else false
 
 
-
+# Export to make available
 module.exports = MarkdownEditor

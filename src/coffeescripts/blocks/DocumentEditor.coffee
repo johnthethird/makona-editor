@@ -1,9 +1,10 @@
 ###* @jsx React.DOM ###
 
+##############################
+### Includes and Constants ###
+##############################
 require("script!../../../vendor/jquery.fineuploader-4.0.3.js")
-
 DocumentPreviewer = require("./DocumentPreviewer")
-
 qqTemplate = """
   <script type="text/template" id="qq-template-document">
       <div class="qq-uploader-selector qq-uploader">
@@ -38,12 +39,46 @@ qqTemplate = """
   </script>
 """
 
-# TODO figure out best way to pass in config parameters, like upload endpoints, etc
+
+# Trigger re-render by sending new block up via the makona postal channel. Like so:
+# ...
+# newBlock = <block with changes>
+# Channel.publish "block.change", { block: newBlock }
+
+
 DocumentEditor = React.createClass
+
+  ##############################
+  ### Construction           ###
+  ##############################
   displayName: "DocumentEditor"
+
+
+  ##############################
+  ### Render                 ###
+  ##############################
+  render: ->
+    `(
+      <div>
+        { (this.props.block.data.title.length > 0) ? <DocumentPreviewer block={this.props.block} /> : <div ref='fineuploader'></div>}
+      </div>
+    )`
+
+
+  ##############################
+  ### Life Cycle             ###
+  ##############################
+  # componentWillMount
+  # componentWillReceiveProps
+  # componentWillUpdate
+  # componentDidUpdate
+
   componentDidMount: () ->
+    # If the template is not on the page, append it to the body.
     if $("#qq-template-document").length == 0
       $("body").append(qqTemplate)
+
+    # Fineuploader settings
     if this.refs?.fineuploader?
       node = this.refs.fineuploader.getDOMNode()
 
@@ -78,6 +113,7 @@ DocumentEditor = React.createClass
 
   # Dont ever update, as we dont need to. When the state is reset with uploaded image src, we just redraw
   shouldComponentUpdate: () -> false
+
   componentWillUnmount: () ->
     # Try our best to get rid of FineUploader
     this.uploader = null
@@ -85,11 +121,11 @@ DocumentEditor = React.createClass
     while (container.lastChild)
       container.removeChild(container.lastChild)
 
-  render: ->
-    `(
-      <div>
-        { (this.props.block.data.title.length > 0) ? <DocumentPreviewer block={this.props.block} /> : <div ref='fineuploader'></div>}
-      </div>
-    )`
 
+  ##############################
+  ### Custom Methods         ###
+  ##############################
+
+
+# Export to make available
 module.exports = DocumentEditor

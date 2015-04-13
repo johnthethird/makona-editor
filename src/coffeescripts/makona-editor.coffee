@@ -24,6 +24,11 @@ throw new Error("Makona requires jQuery") unless jQuery?
 # require("script!jquery-ui/ui/minified/jquery.ui.droppable.min.js")
 # require("script!jquery-ui/ui/minified/jquery.ui.sortable.min.js")
 
+
+##############################
+### Includes and Constants ###
+##############################
+
 # Makes sortable work on touch devices
 require("script!jquery-ui-touch-punch.min.js")
 
@@ -39,8 +44,8 @@ require("script!postal.js/lib/postal.min.js")
 # Bring in React as a Bower component, not an npm module (so we dont have to build it from scratch)
 #require("script!react/react-with-addons.js")
 
-Blocks = require("./blocks")
-Channel = postal.channel("makona")
+Blocks            = require("./blocks")
+Channel           = postal.channel("makona")
 KeyboardShortcuts = require("./tags/KeyboardShortcuts")
 
 
@@ -58,15 +63,15 @@ class Makona
     $node.replaceWith("<div id='#{opts.nodeId}' class='makona-editor'></div>")
     React.render `<MakonaEditor opts={opts}/>`, document.getElementById(opts.nodeId)
 
+
+
 MakonaEditor = React.createClass
+
+
+  ##############################
+  ### Includes and Constants ###
+  ##############################
   displayName: "MakonaEditor"
-  componentDidMount: () ->
-    # Subscribe to events
-    Channel.subscribe "#", (data, envelope) -> console.log envelope
-    Channel.subscribe "block.change", (data) => @handleChange(data.block || data.blocks)
-    Channel.subscribe "block.delete", (data) => @handleDelete(data.block)
-    Channel.subscribe "block.add",    (data) => @handleAddRow(data.block, data.position)
-    Channel.subscribe "block.reorder",(data) => @handleReorder(data.blocks)
 
   getInitialState: () ->
     blocks = _(this.props.opts.blocks).
@@ -75,6 +80,46 @@ MakonaEditor = React.createClass
       value()
     blocks[0].focus = true
     blocks: blocks
+
+
+  ##############################
+  ### Render                 ###
+  ##############################
+  render: ->
+    `(
+      <div>
+        <KeyboardShortcuts blocks={this.state.blocks} />
+        <MakonaSortableList
+          blocks={this.state.blocks}
+          opts={this.props.opts}
+        />
+        <MakonaRaw blocks={this.state.blocks} opts={this.props.opts}/>
+      </div>
+    )`
+
+
+  ##############################
+  ### Life Cycle             ###
+  ##############################
+  # componentWillMount
+  # componentWillReceiveProps
+  # shouldComponentUpdate
+  # componentWillUpdate
+  # componentDidUpdate
+  # componentWillUnmount
+
+  componentDidMount: () ->
+    # Subscribe to events
+    Channel.subscribe "#", (data, envelope) -> console.log envelope
+    Channel.subscribe "block.change", (data) => @handleChange(data.block || data.blocks)
+    Channel.subscribe "block.delete", (data) => @handleDelete(data.block)
+    Channel.subscribe "block.add",    (data) => @handleAddRow(data.block, data.position)
+    Channel.subscribe "block.reorder",(data) => @handleReorder(data.blocks)
+
+
+  ##############################
+  ### Custom Methods         ###
+  ##############################
 
   handleAddRow: (addedBlock, position) ->
     addedBlock.id = _.max(this.state.blocks, "id").id + 1
@@ -108,18 +153,6 @@ MakonaEditor = React.createClass
     i = 0
     _.sortBy(blocks, "position").map (b, i) -> (b.position = i++; b)
 
-  render: ->
-    `(
-      <div>
-        <KeyboardShortcuts blocks={this.state.blocks} />
-        <MakonaSortableList
-          blocks={this.state.blocks}
-          opts={this.props.opts}
-        />
-        <MakonaRaw blocks={this.state.blocks} opts={this.props.opts}/>
-      </div>
-    )`
-
 
 MakonaSortableList = React.createClass
   displayName: "SortableList"
@@ -149,6 +182,8 @@ MakonaSortableList = React.createClass
         )}
       </ol>
     )`
+
+
 
 MakonaSortableItem = React.createClass
   displayName: "SortableItem"

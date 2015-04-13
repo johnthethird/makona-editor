@@ -1,9 +1,26 @@
 ###* @jsx React.DOM ###
+
+
+##############################
+### Includes and Constants ###
+##############################
 Channel = postal.channel("makona")
+
+
+# Trigger re-render by sending new block up via the makona postal channel. Like so:
+# ...
+# newBlock = <block with changes>
+# Channel.publish "block.change", { block: newBlock }
+
 
 # Generic tag that creates an autoexpanding textarea
 # Depends on jQuery
 ExpandingTextarea = React.createClass
+
+
+  ##############################
+  ### Construction           ###
+  ##############################
   propTypes:
     block: React.PropTypes.object.isRequired
     handleSelect: React.PropTypes.func
@@ -43,6 +60,31 @@ ExpandingTextarea = React.createClass
 
   originalTextareaStyles: {}
 
+
+  ##############################
+  ### Render                 ###
+  ##############################
+  # The <pre> is hidden behind the textarea and mirrors the content. In this way the pre controls the size.
+  # The +" " is a hack so the scrollbar doesnt show up
+  # if a props.handleSelect exists it is connected up to onSelect
+  render: ->
+    `(
+      <div style={this.containerStyle}>
+        <textarea block={this.props.block} onKeyDown={this.props.handleKeyDown} onChange={this.props.handleChange} onSelect={this.props.handleSelect} style={this.textareaStyle} value={this.content()} ref="text"></textarea>
+        <pre ref="pre" style={this.preStyle}><div>{this.props.block.data.text+" "}</div></pre>
+      </div>
+    )`
+
+
+  ##############################
+  ### Life Cycle             ###
+  ##############################
+  # componentWillMount
+  # componentWillReceiveProps
+  # shouldComponentUpdate
+  # componentDidUpdate
+  # componentWillUnmount
+
   getDefaultProps: ->
     handleSelect: ->
     handleKeyDown: (e) ->
@@ -64,17 +106,10 @@ ExpandingTextarea = React.createClass
     if @props.block.data.mode == 'edit'
       $textarea[0].setSelectionRange(0, @props.block.data.default_text.length)
 
-  # The <pre> is hidden behind the textarea and mirrors the content. In this way the pre controls the size.
-  # The +" " is a hack so the scrollbar doesnt show up
-  # if a props.handleSelect exists it is connected up to onSelect
-  render: ->
-    `(
-      <div style={this.containerStyle}>
-        <textarea block={this.props.block} onKeyDown={this.props.handleKeyDown} onChange={this.props.handleChange} onSelect={this.props.handleSelect} style={this.textareaStyle} value={this.content()} ref="text"></textarea>
-        <pre ref="pre" style={this.preStyle}><div>{this.props.block.data.text+" "}</div></pre>
-      </div>
-    )`
 
+  ##############################
+  ### Custom Methods         ###
+  ##############################
   content: () ->
     if @props.block.data.default_text?
       @props.block.data.default_text
@@ -141,4 +176,6 @@ ExpandingTextarea = React.createClass
       range.moveStart "character", selectionStart
       range.select()
 
+
+# Export to make available
 module.exports = ExpandingTextarea

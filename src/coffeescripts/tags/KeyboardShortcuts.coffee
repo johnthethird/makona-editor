@@ -5,25 +5,63 @@
 # All communication back to the editor should be through publishing
 # on the makona channel
 
+
+##############################
+### Includes and Constants ###
+##############################
 require("mousetrap")
 require("../mousetrap-bind-global")  # this isnt in npm darn it
-Blocks = require("../blocks")
+Blocks  = require("../blocks")
 Channel = postal.channel("makona")
 
+
+# Trigger re-render by sending new block up via the makona postal channel. Like so:
+# ...
+# newBlock = <block with changes>
+# Channel.publish "block.change", { block: newBlock }
+
+
 KeyboardShortcuts = React.createClass
+
+
+  ##############################
+  ### Construction           ###
+  ##############################
   displayName: "KeyboardShortcuts"
   propTypes:
     blocks: React.PropTypes.array.isRequired
 
+
+  ##############################
+  ### Render                 ###
+  ##############################
+  render: -> `<div></div>`
+
+
+  ##############################
+  ### Life Cycle             ###
+  ##############################
+  # componentWillMount
+  # componentWillReceiveProps
+  # shouldComponentUpdate
+  # componentWillUpdate
+  # componentDidUpdate
+  # componentWillUnmount
+
   componentDidMount: () ->
-    Mousetrap.bind 'up',    (e) => @focusPrevious()
-    Mousetrap.bind 'down',  (e) => @focusNext()
-    Mousetrap.bind 'shift+up',  (e) => @movePrevious()
+    Mousetrap.bind 'up',          (e) => @focusPrevious()
+    Mousetrap.bind 'down',        (e) => @focusNext()
+    Mousetrap.bind 'shift+up',    (e) => @movePrevious()
     Mousetrap.bind 'shift+down',  (e) => @moveNext()
-    Mousetrap.bind 'enter', (e) => @handleEnter()
-    Mousetrap.bind 'm',     (e) => @addBlock('markdown')
-    Mousetrap.bind 'c',     (e) => @addBlock('code')
+    Mousetrap.bind 'enter',       (e) => @handleEnter()
+    Mousetrap.bind 'm',           (e) => @addBlock('markdown')
+    Mousetrap.bind 'c',           (e) => @addBlock('code')
     Mousetrap.bindGlobal 'esc',   (e) => @handleEscape()
+
+
+  ##############################
+  ### Custom Methods         ###
+  ##############################
 
   handleEscape: ->
     newBlocks = _.map @props.blocks, (block) ->
@@ -75,6 +113,6 @@ KeyboardShortcuts = React.createClass
     Channel.publish "block.change", {block: newBlock}
     Channel.publish "block.caret", {block: newBlock}
 
-  render: -> `<div></div>`
 
+# Export to make available
 module.exports = KeyboardShortcuts
