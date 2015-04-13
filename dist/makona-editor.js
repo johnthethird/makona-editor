@@ -58,13 +58,13 @@
 
 	__webpack_require__(3);
 
-	__webpack_require__(12);
+	__webpack_require__(10);
 
 	__webpack_require__(4);
 
 	__webpack_require__(5);
 
-	__webpack_require__(10);
+	__webpack_require__(11);
 
 	Blocks = __webpack_require__(1);
 
@@ -543,7 +543,7 @@
 	BLOCK_REGISTRY = [
 	  {
 	    type: "unknown",
-	    previewClass: __webpack_require__(14),
+	    previewClass: __webpack_require__(13),
 	    editable: false,
 	    createable: false,
 	    data: {}
@@ -551,8 +551,8 @@
 	    type: "text",
 	    displayName: "Text",
 	    icon: '\x62',
-	    editorClass: __webpack_require__(15),
-	    previewClass: __webpack_require__(16),
+	    editorClass: __webpack_require__(14),
+	    previewClass: __webpack_require__(15),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -562,8 +562,8 @@
 	    type: "html",
 	    displayName: "HTML",
 	    icon: '\ue036',
-	    editorClass: __webpack_require__(17),
-	    previewClass: __webpack_require__(18),
+	    editorClass: __webpack_require__(16),
+	    previewClass: __webpack_require__(17),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -573,8 +573,8 @@
 	    type: "javascript",
 	    displayName: "JavaScript",
 	    icon: '\ue036',
-	    editorClass: __webpack_require__(19),
-	    previewClass: __webpack_require__(20),
+	    editorClass: __webpack_require__(18),
+	    previewClass: __webpack_require__(19),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -584,8 +584,8 @@
 	    type: "markdown",
 	    displayName: 'Markdown',
 	    icon: '\x68',
-	    editorClass: __webpack_require__(21),
-	    previewClass: __webpack_require__(22),
+	    editorClass: __webpack_require__(20),
+	    previewClass: __webpack_require__(21),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -595,8 +595,8 @@
 	    type: "quote",
 	    displayName: 'Quote',
 	    icon: '\x7b',
-	    editorClass: __webpack_require__(23),
-	    previewClass: __webpack_require__(24),
+	    editorClass: __webpack_require__(22),
+	    previewClass: __webpack_require__(23),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -607,8 +607,8 @@
 	    type: "code",
 	    displayName: "Code",
 	    icon: '\ue038',
-	    editorClass: __webpack_require__(25),
-	    previewClass: __webpack_require__(26),
+	    editorClass: __webpack_require__(24),
+	    previewClass: __webpack_require__(25),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -618,8 +618,8 @@
 	    type: "image",
 	    displayName: "Image",
 	    icon: '\ue005',
-	    editorClass: __webpack_require__(27),
-	    previewClass: __webpack_require__(28),
+	    editorClass: __webpack_require__(26),
+	    previewClass: __webpack_require__(27),
 	    editable: false,
 	    createable: true,
 	    data: {
@@ -629,8 +629,8 @@
 	    type: "document",
 	    displayName: "Document",
 	    icon: '\x69',
-	    editorClass: __webpack_require__(29),
-	    previewClass: __webpack_require__(30),
+	    editorClass: __webpack_require__(28),
+	    previewClass: __webpack_require__(29),
 	    editable: false,
 	    createable: true,
 	    data: {
@@ -640,8 +640,8 @@
 	    type: "screencast",
 	    displayName: "Screencast",
 	    icon: '\ue00e',
-	    editorClass: __webpack_require__(31),
-	    previewClass: __webpack_require__(32),
+	    editorClass: __webpack_require__(30),
+	    previewClass: __webpack_require__(31),
 	    editable: false,
 	    createable: true,
 	    data: {
@@ -707,9 +707,9 @@
 	/* Includes and Constants */
 	var Blocks, Channel, KeyboardShortcuts;
 
-	__webpack_require__(12);
+	__webpack_require__(10);
 
-	__webpack_require__(13);
+	__webpack_require__(32);
 
 	Blocks = __webpack_require__(1);
 
@@ -931,18 +931,6 @@
 
 /***/ },
 /* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(6)(__webpack_require__(11))
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "/**\n * postal - Pub/Sub library providing wildcard subscriptions, complex message handling, etc.  Works server and client-side.\n * Author: Jim Cowart (http://ifandelse.com)\n * Version: v0.12.3\n * Url: http://github.com/postaljs/postal.js\n * License(s): MIT\n */\n(function(e,t){\"function\"==typeof define&&define.amd?define([\"lodash\"],function(n){return t(n,e)}):\"object\"==typeof module&&module.exports?module.exports=t(require(\"lodash\"),this):e.postal=t(e._,e)})(this,function(e,t,n){function i(e,t){return function(){if(console.warn||console.log){var n=\"Warning, the \"+e+\" method has been deprecated. Please use \"+t+\" instead.\";console.warn?console.warn(n):console.log(n)}return b.prototype[t].apply(this,arguments)}}function r(){for(;E.length;)l.unsubscribe(E.shift())}function c(e,t,n){return function(i,r,c){i===e&&c.splice(r,1),0===c.length&&delete n[t]}}function s(e,t,n,i,r){var c=r&&r.headers||{};return function(r){p.resolver.compare(r.topic,e,c)&&(t.push(r),r.cacheKeys.push(n),i&&i(r))}}function o(e,t){return{channel:p.SYSTEM_CHANNEL,topic:\"subscription.\"+e,data:{event:\"subscription.\"+e,channel:t.channel,topic:t.topic}}}function a(t,n){return\"function\"==typeof t?t:t?function(i){var r=0,c=0;return e.each(t,function(e,s){r+=1,(\"topic\"===s&&n.compare(i.topic,t.topic,{resolverNoCache:!0})||\"context\"===s&&t.context===i._context||i[s]===t[s])&&(c+=1)}),r===c}:function(){return!0}}var u=t.postal,h={DEFAULT_CHANNEL:\"/\",SYSTEM_CHANNEL:\"postal\",enableSystemMessages:!0,cacheKeyDelimiter:\"|\",autoCompactResolver:!1},l={configuration:e.extend({},h)},p=l.configuration,f=function(e,t){this.bus=t,this.channel=e||p.DEFAULT_CHANNEL};f.prototype.subscribe=function(){return this.bus.subscribe({channel:this.channel,topic:1===arguments.length?arguments[0].topic:arguments[0],callback:1===arguments.length?arguments[0].callback:arguments[1]})},f.prototype.publish=function(){var e=1===arguments.length?\"[object String]\"===Object.prototype.toString.call(arguments[0])?{topic:arguments[0]}:arguments[0]:{topic:arguments[0],data:arguments[1]};e.channel=this.channel,this.bus.publish(e)};var b=function(e,t,i){if(3!==arguments.length)throw new Error(\"You must provide a channel, topic and callback when creating a SubscriptionDefinition instance.\");if(0===t.length)throw new Error(\"Topics cannot be empty\");this.channel=e,this.topic=t,this.callback=i,this.pipeline=[],this.cacheKeys=[],this._context=n},d=function(){var t;return function(n){var i=!1;return e.isString(n)?(i=n===t,t=n):(i=e.isEqual(n,t),t=e.clone(n)),!i}},m=function(){var t=[];return function(n){var i=!e.any(t,function(t){return e.isObject(n)||e.isArray(n)?e.isEqual(n,t):n===t});return i&&t.push(n),i}};b.prototype={\"catch\":function(e){var t=this.callback,n=function(){try{t.apply(this,arguments)}catch(n){e(n,arguments[0])}};return this.callback=n,this},defer:function(){return this.delay(0)},disposeAfter:function(t){if(!e.isNumber(t)||0>=t)throw new Error(\"The value provided to disposeAfter (maxCalls) must be a number greater than zero.\");var n=this,i=e.after(t,e.bind(function(){n.unsubscribe()}));return n.pipeline.push(function(e,t,n){n(e,t),i()}),n},distinct:function(){return this.constraint(new m)},distinctUntilChanged:function(){return this.constraint(new d)},invokeSubscriber:function(e,t){if(!this.inactive){var n=this,i=n.pipeline,r=i.length,c=n._context,s=-1;if(r){i=i.concat([n.callback]);var o=function a(e,t){s+=1,r>s?i[s].call(c,e,t,a):n.callback.call(c,e,t)};o(e,t,0)}else n.callback.call(c,e,t)}},logError:function(){if(console){var e;e=console.warn?console.warn:console.log,this[\"catch\"](e)}return this},once:function(){return this.disposeAfter(1)},subscribe:function(e){return this.callback=e,this},unsubscribe:function(){this.inactive||l.unsubscribe(this)},constraint:function(t){if(!e.isFunction(t))throw new Error(\"Predicate constraint must be a function\");return this.pipeline.push(function(e,n,i){t.call(this,e,n)&&i(e,n)}),this},constraints:function(t){var n=this;return e.isArray(t)&&e.each(t,function(e){n.constraint(e)}),n},context:function(e){return this._context=e,this},debounce:function(t,n){if(!e.isNumber(t))throw new Error(\"Milliseconds must be a number\");return this.pipeline.push(e.debounce(function(e,t,n){n(e,t)},t,!!n)),this},delay:function(t){if(!e.isNumber(t))throw new Error(\"Milliseconds must be a number\");var n=this;return n.pipeline.push(function(e,n,i){setTimeout(function(){i(e,n)},t)}),this},throttle:function(t){if(!e.isNumber(t))throw new Error(\"Milliseconds must be a number\");var n=function(e,t,n){n(e,t)};return this.pipeline.push(e.throttle(n,t)),this}};for(var g=[\"withConstraint\",\"withConstraints\",\"withContext\",\"withDebounce\",\"withDelay\",\"withThrottle\"],v=[\"constraint\",\"constraints\",\"context\",\"debounce\",\"delay\",\"throttle\"],y=0;6>y;y++){var w=g[y];b.prototype[w]=i(w,v[y])}var _=(p.resolver={cache:{},regex:{},enableCache:!0,compare:function(t,n,i){var r,c,s,o=n+p.cacheKeyDelimiter+t,a=this.cache[o],u=i||{},h=this.enableCache&&!u.resolverNoCache;return a===!0?a:-1===t.indexOf(\"#\")&&-1===t.indexOf(\"*\")?(a=n===t,h&&(this.cache[o]=a),a):((c=this.regex[t])||(r=\"^\"+e.map(t.split(\".\"),function(e){var t=\"\";return s&&(t=\"#\"!==s?\"\\\\.\\\\b\":\"\\\\b\"),t+=\"#\"===e?\"[\\\\s\\\\S]*\":\"*\"===e?\"[^.]+\":e,s=e,t}).join(\"\")+\"$\",c=this.regex[t]=new RegExp(r)),a=c.test(n),h&&(this.cache[o]=a),a)},reset:function(){this.cache={},this.regex={}},purge:function(t){var n=this,i=p.cacheKeyDelimiter,r=function(e,r){var c=r.split(i),s=c[0],o=c[1];\"undefined\"!=typeof t.topic&&t.topic!==s||\"undefined\"!=typeof t.binding&&t.binding!==o||delete n.cache[r]},c=function(e,t){var r=t.split(i);0===l.getSubscribersFor({topic:r[0]}).length&&delete n.cache[t]};if(\"undefined\"==typeof t)this.reset();else{var s=t.compact===!0?c:r;e.each(this.cache,s)}}},0),E=[],x=0,C=e.bind(o,this,\"created\"),S=e.bind(o,this,\"removed\");if(e.extend(l,{cache:{},subscriptions:{},wireTaps:[],ChannelDefinition:f,SubscriptionDefinition:b,channel:function(e){return new f(e,this)},addWireTap:function(e){var t=this;return t.wireTaps.push(e),function(){var n=t.wireTaps.indexOf(e);-1!==n&&t.wireTaps.splice(n,1)}},noConflict:function(){if(\"undefined\"==typeof window||\"undefined\"!=typeof window&&\"function\"==typeof define&&define.amd)throw new Error(\"noConflict can only be used in browser clients which aren't using AMD modules\");return t.postal=u,this},getSubscribersFor:function(t){var n=[],i=this;return e.each(i.subscriptions,function(i){e.each(i,function(i){n=n.concat(e.filter(i,a(t,p.resolver)))})}),n},publish:function(t){++_;var n=t.channel=t.channel||p.DEFAULT_CHANNEL,i=t.topic;t.timeStamp=new Date,this.wireTaps.length&&e.each(this.wireTaps,function(e){e(t.data,t,_)});var c=n+p.cacheKeyDelimiter+i,o=this.cache[c];if(o)e.each(o,function(e){e.invokeSubscriber(t.data,t)});else{o=this.cache[c]=[];var a=s(i,o,c,function(e){e.invokeSubscriber(t.data,t)},t);e.each(this.subscriptions[n],function(t){e.each(t,a)})}0===--_&&r()},reset:function(){this.unsubscribeFor(),p.resolver.reset(),this.subscriptions={}},subscribe:function(t){var n,i=this.subscriptions,r=new b(t.channel||p.DEFAULT_CHANNEL,t.topic,t.callback),c=i[r.channel],o=r.channel.length;return c||(c=i[r.channel]={}),n=i[r.channel][r.topic],n||(n=i[r.channel][r.topic]=[]),n.push(r),e.each(this.cache,function(e,t){t.substr(0,o)===r.channel&&s(t.split(p.cacheKeyDelimiter)[1],e,t)(r)}),p.enableSystemMessages&&this.publish(C(r)),r},unsubscribe:function(){for(var t,n,i,r,s=arguments.length,o=0;s>o;o++){if(t=arguments[o],t.inactive=!0,_)return E.push(t),void 0;if(n=this.subscriptions[t.channel],i=n&&n[t.topic]){var a=i.length;for(r=0;a>r;){if(i[r]===t){i.splice(r,1);break}r+=1}if(0===i.length&&(delete n[t.topic],e.isEmpty(n)&&delete this.subscriptions[t.channel]),t.cacheKeys&&t.cacheKeys.length)for(var u;u=t.cacheKeys.pop();)e.each(this.cache[u],c(t,u,this.cache));if(\"function\"==typeof p.resolver.purge){var h=p.autoCompactResolver===!0?0:\"number\"==typeof p.autoCompactResolver?p.autoCompactResolver-1:!1;h>=0&&x===h?(p.resolver.purge({compact:!0}),x=0):h>=0&&h>x&&(x+=1)}}p.enableSystemMessages&&this.publish(S(t))}},unsubscribeFor:function(e){var t=[];this.subscriptions&&(t=this.getSubscribersFor(e),this.unsubscribe.apply(this,t))}}),t&&Object.prototype.hasOwnProperty.call(t,\"__postalReady__\")&&e.isArray(t.__postalReady__))for(;t.__postalReady__.length;)t.__postalReady__.shift().onReady(l);return l});"
-
-/***/ },
-/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*global define:false */
@@ -1969,59 +1957,19 @@
 
 
 /***/ },
-/* 13 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
-	/**
-	 * adds a bindGlobal method to Mousetrap that allows you to
-	 * bind specific keyboard shortcuts that will still work
-	 * inside a text input field
-	 *
-	 * usage:
-	 * Mousetrap.bindGlobal('ctrl+s', _saveChanges);
-	 */
-	/* global Mousetrap:true */
-	(function(Mousetrap) {
-	    var _globalCallbacks = {};
-	    var _originalStopCallback = Mousetrap.prototype.stopCallback;
-
-	    Mousetrap.prototype.stopCallback = function(e, element, combo, sequence) {
-	        var self = this;
-
-	        if (self.paused) {
-	            return true;
-	        }
-
-	        if (_globalCallbacks[combo] || _globalCallbacks[sequence]) {
-	            return false;
-	        }
-
-	        return _originalStopCallback.call(self, e, element, combo);
-	    };
-
-	    Mousetrap.prototype.bindGlobal = function(keys, callback, action) {
-	        var self = this;
-	        self.bind(keys, callback, action);
-
-	        if (keys instanceof Array) {
-	            for (var i = 0; i < keys.length; i++) {
-	                _globalCallbacks[keys[i]] = true;
-	            }
-	            return;
-	        }
-
-	        _globalCallbacks[keys] = true;
-	    };
-
-	    Mousetrap.init();
-	}) (Mousetrap);
-	;
-
-
+	__webpack_require__(6)(__webpack_require__(12))
 
 /***/ },
-/* 14 */
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "/**\n * postal - Pub/Sub library providing wildcard subscriptions, complex message handling, etc.  Works server and client-side.\n * Author: Jim Cowart (http://ifandelse.com)\n * Version: v0.12.3\n * Url: http://github.com/postaljs/postal.js\n * License(s): MIT\n */\n(function(e,t){\"function\"==typeof define&&define.amd?define([\"lodash\"],function(n){return t(n,e)}):\"object\"==typeof module&&module.exports?module.exports=t(require(\"lodash\"),this):e.postal=t(e._,e)})(this,function(e,t,n){function i(e,t){return function(){if(console.warn||console.log){var n=\"Warning, the \"+e+\" method has been deprecated. Please use \"+t+\" instead.\";console.warn?console.warn(n):console.log(n)}return b.prototype[t].apply(this,arguments)}}function r(){for(;E.length;)l.unsubscribe(E.shift())}function c(e,t,n){return function(i,r,c){i===e&&c.splice(r,1),0===c.length&&delete n[t]}}function s(e,t,n,i,r){var c=r&&r.headers||{};return function(r){p.resolver.compare(r.topic,e,c)&&(t.push(r),r.cacheKeys.push(n),i&&i(r))}}function o(e,t){return{channel:p.SYSTEM_CHANNEL,topic:\"subscription.\"+e,data:{event:\"subscription.\"+e,channel:t.channel,topic:t.topic}}}function a(t,n){return\"function\"==typeof t?t:t?function(i){var r=0,c=0;return e.each(t,function(e,s){r+=1,(\"topic\"===s&&n.compare(i.topic,t.topic,{resolverNoCache:!0})||\"context\"===s&&t.context===i._context||i[s]===t[s])&&(c+=1)}),r===c}:function(){return!0}}var u=t.postal,h={DEFAULT_CHANNEL:\"/\",SYSTEM_CHANNEL:\"postal\",enableSystemMessages:!0,cacheKeyDelimiter:\"|\",autoCompactResolver:!1},l={configuration:e.extend({},h)},p=l.configuration,f=function(e,t){this.bus=t,this.channel=e||p.DEFAULT_CHANNEL};f.prototype.subscribe=function(){return this.bus.subscribe({channel:this.channel,topic:1===arguments.length?arguments[0].topic:arguments[0],callback:1===arguments.length?arguments[0].callback:arguments[1]})},f.prototype.publish=function(){var e=1===arguments.length?\"[object String]\"===Object.prototype.toString.call(arguments[0])?{topic:arguments[0]}:arguments[0]:{topic:arguments[0],data:arguments[1]};e.channel=this.channel,this.bus.publish(e)};var b=function(e,t,i){if(3!==arguments.length)throw new Error(\"You must provide a channel, topic and callback when creating a SubscriptionDefinition instance.\");if(0===t.length)throw new Error(\"Topics cannot be empty\");this.channel=e,this.topic=t,this.callback=i,this.pipeline=[],this.cacheKeys=[],this._context=n},d=function(){var t;return function(n){var i=!1;return e.isString(n)?(i=n===t,t=n):(i=e.isEqual(n,t),t=e.clone(n)),!i}},m=function(){var t=[];return function(n){var i=!e.any(t,function(t){return e.isObject(n)||e.isArray(n)?e.isEqual(n,t):n===t});return i&&t.push(n),i}};b.prototype={\"catch\":function(e){var t=this.callback,n=function(){try{t.apply(this,arguments)}catch(n){e(n,arguments[0])}};return this.callback=n,this},defer:function(){return this.delay(0)},disposeAfter:function(t){if(!e.isNumber(t)||0>=t)throw new Error(\"The value provided to disposeAfter (maxCalls) must be a number greater than zero.\");var n=this,i=e.after(t,e.bind(function(){n.unsubscribe()}));return n.pipeline.push(function(e,t,n){n(e,t),i()}),n},distinct:function(){return this.constraint(new m)},distinctUntilChanged:function(){return this.constraint(new d)},invokeSubscriber:function(e,t){if(!this.inactive){var n=this,i=n.pipeline,r=i.length,c=n._context,s=-1;if(r){i=i.concat([n.callback]);var o=function a(e,t){s+=1,r>s?i[s].call(c,e,t,a):n.callback.call(c,e,t)};o(e,t,0)}else n.callback.call(c,e,t)}},logError:function(){if(console){var e;e=console.warn?console.warn:console.log,this[\"catch\"](e)}return this},once:function(){return this.disposeAfter(1)},subscribe:function(e){return this.callback=e,this},unsubscribe:function(){this.inactive||l.unsubscribe(this)},constraint:function(t){if(!e.isFunction(t))throw new Error(\"Predicate constraint must be a function\");return this.pipeline.push(function(e,n,i){t.call(this,e,n)&&i(e,n)}),this},constraints:function(t){var n=this;return e.isArray(t)&&e.each(t,function(e){n.constraint(e)}),n},context:function(e){return this._context=e,this},debounce:function(t,n){if(!e.isNumber(t))throw new Error(\"Milliseconds must be a number\");return this.pipeline.push(e.debounce(function(e,t,n){n(e,t)},t,!!n)),this},delay:function(t){if(!e.isNumber(t))throw new Error(\"Milliseconds must be a number\");var n=this;return n.pipeline.push(function(e,n,i){setTimeout(function(){i(e,n)},t)}),this},throttle:function(t){if(!e.isNumber(t))throw new Error(\"Milliseconds must be a number\");var n=function(e,t,n){n(e,t)};return this.pipeline.push(e.throttle(n,t)),this}};for(var g=[\"withConstraint\",\"withConstraints\",\"withContext\",\"withDebounce\",\"withDelay\",\"withThrottle\"],v=[\"constraint\",\"constraints\",\"context\",\"debounce\",\"delay\",\"throttle\"],y=0;6>y;y++){var w=g[y];b.prototype[w]=i(w,v[y])}var _=(p.resolver={cache:{},regex:{},enableCache:!0,compare:function(t,n,i){var r,c,s,o=n+p.cacheKeyDelimiter+t,a=this.cache[o],u=i||{},h=this.enableCache&&!u.resolverNoCache;return a===!0?a:-1===t.indexOf(\"#\")&&-1===t.indexOf(\"*\")?(a=n===t,h&&(this.cache[o]=a),a):((c=this.regex[t])||(r=\"^\"+e.map(t.split(\".\"),function(e){var t=\"\";return s&&(t=\"#\"!==s?\"\\\\.\\\\b\":\"\\\\b\"),t+=\"#\"===e?\"[\\\\s\\\\S]*\":\"*\"===e?\"[^.]+\":e,s=e,t}).join(\"\")+\"$\",c=this.regex[t]=new RegExp(r)),a=c.test(n),h&&(this.cache[o]=a),a)},reset:function(){this.cache={},this.regex={}},purge:function(t){var n=this,i=p.cacheKeyDelimiter,r=function(e,r){var c=r.split(i),s=c[0],o=c[1];\"undefined\"!=typeof t.topic&&t.topic!==s||\"undefined\"!=typeof t.binding&&t.binding!==o||delete n.cache[r]},c=function(e,t){var r=t.split(i);0===l.getSubscribersFor({topic:r[0]}).length&&delete n.cache[t]};if(\"undefined\"==typeof t)this.reset();else{var s=t.compact===!0?c:r;e.each(this.cache,s)}}},0),E=[],x=0,C=e.bind(o,this,\"created\"),S=e.bind(o,this,\"removed\");if(e.extend(l,{cache:{},subscriptions:{},wireTaps:[],ChannelDefinition:f,SubscriptionDefinition:b,channel:function(e){return new f(e,this)},addWireTap:function(e){var t=this;return t.wireTaps.push(e),function(){var n=t.wireTaps.indexOf(e);-1!==n&&t.wireTaps.splice(n,1)}},noConflict:function(){if(\"undefined\"==typeof window||\"undefined\"!=typeof window&&\"function\"==typeof define&&define.amd)throw new Error(\"noConflict can only be used in browser clients which aren't using AMD modules\");return t.postal=u,this},getSubscribersFor:function(t){var n=[],i=this;return e.each(i.subscriptions,function(i){e.each(i,function(i){n=n.concat(e.filter(i,a(t,p.resolver)))})}),n},publish:function(t){++_;var n=t.channel=t.channel||p.DEFAULT_CHANNEL,i=t.topic;t.timeStamp=new Date,this.wireTaps.length&&e.each(this.wireTaps,function(e){e(t.data,t,_)});var c=n+p.cacheKeyDelimiter+i,o=this.cache[c];if(o)e.each(o,function(e){e.invokeSubscriber(t.data,t)});else{o=this.cache[c]=[];var a=s(i,o,c,function(e){e.invokeSubscriber(t.data,t)},t);e.each(this.subscriptions[n],function(t){e.each(t,a)})}0===--_&&r()},reset:function(){this.unsubscribeFor(),p.resolver.reset(),this.subscriptions={}},subscribe:function(t){var n,i=this.subscriptions,r=new b(t.channel||p.DEFAULT_CHANNEL,t.topic,t.callback),c=i[r.channel],o=r.channel.length;return c||(c=i[r.channel]={}),n=i[r.channel][r.topic],n||(n=i[r.channel][r.topic]=[]),n.push(r),e.each(this.cache,function(e,t){t.substr(0,o)===r.channel&&s(t.split(p.cacheKeyDelimiter)[1],e,t)(r)}),p.enableSystemMessages&&this.publish(C(r)),r},unsubscribe:function(){for(var t,n,i,r,s=arguments.length,o=0;s>o;o++){if(t=arguments[o],t.inactive=!0,_)return E.push(t),void 0;if(n=this.subscriptions[t.channel],i=n&&n[t.topic]){var a=i.length;for(r=0;a>r;){if(i[r]===t){i.splice(r,1);break}r+=1}if(0===i.length&&(delete n[t.topic],e.isEmpty(n)&&delete this.subscriptions[t.channel]),t.cacheKeys&&t.cacheKeys.length)for(var u;u=t.cacheKeys.pop();)e.each(this.cache[u],c(t,u,this.cache));if(\"function\"==typeof p.resolver.purge){var h=p.autoCompactResolver===!0?0:\"number\"==typeof p.autoCompactResolver?p.autoCompactResolver-1:!1;h>=0&&x===h?(p.resolver.purge({compact:!0}),x=0):h>=0&&h>x&&(x+=1)}}p.enableSystemMessages&&this.publish(S(t))}},unsubscribeFor:function(e){var t=[];this.subscriptions&&(t=this.getSubscribersFor(e),this.unsubscribe.apply(this,t))}}),t&&Object.prototype.hasOwnProperty.call(t,\"__postalReady__\")&&e.isArray(t.__postalReady__))for(;t.__postalReady__.length;)t.__postalReady__.shift().onReady(l);return l});"
+
+/***/ },
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2052,7 +2000,7 @@
 
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2085,7 +2033,7 @@
 
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2116,7 +2064,7 @@
 
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2149,7 +2097,7 @@
 
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2179,7 +2127,7 @@
 
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2209,7 +2157,7 @@
 
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2239,7 +2187,7 @@
 
 
 /***/ },
-/* 21 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2382,7 +2330,7 @@
 
 
 /***/ },
-/* 22 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2424,7 +2372,7 @@
 
 
 /***/ },
-/* 23 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2470,7 +2418,7 @@
 
 
 /***/ },
-/* 24 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2503,7 +2451,7 @@
 
 
 /***/ },
-/* 25 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2560,7 +2508,7 @@
 
 
 /***/ },
-/* 26 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2599,7 +2547,7 @@
 
 
 /***/ },
-/* 27 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2610,7 +2558,7 @@
 
 	__webpack_require__(36);
 
-	ImagePreviewer = __webpack_require__(28);
+	ImagePreviewer = __webpack_require__(27);
 
 	qqTemplate = "<script type=\"text/template\" id=\"qq-template-image\">\n    <div class=\"qq-uploader-selector qq-uploader\">\n        <div class=\"qq-upload-drop-area-selector qq-upload-drop-area\" qq-hide-dropzone>\n            <span>Drop files here to upload</span>\n        </div>\n        <div class=\"qq-upload-button-selector qq-upload-button\">\n            <div>or choose file</div>\n        </div>\n        <span class=\"qq-drop-processing-selector qq-drop-processing\">\n            <span>Processing dropped files...</span>\n            <span class=\"qq-drop-processing-spinner-selector qq-drop-processing-spinner\"></span>\n        </span>\n        <ul class=\"qq-upload-list-selector qq-upload-list\">\n            <li>\n                <div class=\"qq-progress-bar-container-selector\">\n                    <div class=\"qq-progress-bar-selector qq-progress-bar\"></div>\n                </div>\n                <span class=\"qq-upload-spinner-selector qq-upload-spinner\"></span>\n                <img class=\"qq-thumbnail-selector\" qq-max-size=\"100\" qq-server-scale>\n                <span class=\"qq-edit-filename-icon-selector qq-edit-filename-icon\"></span>\n                <span class=\"qq-upload-file-selector qq-upload-file\"></span>\n                <input class=\"qq-edit-filename-selector qq-edit-filename\" tabindex=\"0\" type=\"text\">\n                <span class=\"qq-upload-size-selector qq-upload-size\"></span>\n                <a class=\"qq-upload-cancel-selector qq-upload-cancel\" href=\"#\">Cancel</a>\n                <a class=\"qq-upload-retry-selector qq-upload-retry\" href=\"#\">Retry</a>\n                <a class=\"qq-upload-delete-selector qq-upload-delete\" href=\"#\">Delete</a>\n                <span class=\"qq-upload-status-text-selector qq-upload-status-text\"></span>\n            </li>\n        </ul>\n    </div>\n</script>";
 
@@ -2703,7 +2651,7 @@
 
 
 /***/ },
-/* 28 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2735,7 +2683,7 @@
 
 
 /***/ },
-/* 29 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2746,7 +2694,7 @@
 
 	__webpack_require__(36);
 
-	DocumentPreviewer = __webpack_require__(30);
+	DocumentPreviewer = __webpack_require__(29);
 
 	qqTemplate = "<script type=\"text/template\" id=\"qq-template-document\">\n    <div class=\"qq-uploader-selector qq-uploader\">\n        <div class=\"qq-upload-drop-area-selector qq-upload-drop-area\" qq-hide-dropzone>\n            <span>Drop files here to upload</span>\n        </div>\n        <div class=\"qq-upload-button-selector qq-upload-button\">\n            <div>or choose file</div>\n        </div>\n        <span class=\"qq-drop-processing-selector qq-drop-processing\">\n            <span>Processing dropped files...</span>\n            <span class=\"qq-drop-processing-spinner-selector qq-drop-processing-spinner\"></span>\n        </span>\n        <ul class=\"qq-upload-list-selector qq-upload-list\">\n            <li>\n                <div class=\"qq-progress-bar-container-selector\">\n                    <div class=\"qq-progress-bar-selector qq-progress-bar\"></div>\n                </div>\n                <span class=\"qq-upload-spinner-selector qq-upload-spinner\"></span>\n                <img class=\"qq-thumbnail-selector\" qq-max-size=\"100\" qq-server-scale>\n                <span class=\"qq-edit-filename-icon-selector qq-edit-filename-icon\"></span>\n                <span class=\"qq-upload-file-selector qq-upload-file\"></span>\n                <input class=\"qq-edit-filename-selector qq-edit-filename\" tabindex=\"0\" type=\"text\">\n                <span class=\"qq-upload-size-selector qq-upload-size\"></span>\n                <a class=\"qq-upload-cancel-selector qq-upload-cancel\" href=\"#\">Cancel</a>\n                <a class=\"qq-upload-retry-selector qq-upload-retry\" href=\"#\">Retry</a>\n                <a class=\"qq-upload-delete-selector qq-upload-delete\" href=\"#\">Delete</a>\n                <span class=\"qq-upload-status-text-selector qq-upload-status-text\"></span>\n            </li>\n        </ul>\n    </div>\n</script>";
 
@@ -2841,7 +2789,7 @@
 
 
 /***/ },
-/* 30 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2875,7 +2823,7 @@
 
 
 /***/ },
-/* 31 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2907,7 +2855,7 @@
 
 
 /***/ },
-/* 32 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -2936,6 +2884,58 @@
 	});
 
 	module.exports = ScreencastPreviewer;
+
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/**
+	 * adds a bindGlobal method to Mousetrap that allows you to
+	 * bind specific keyboard shortcuts that will still work
+	 * inside a text input field
+	 *
+	 * usage:
+	 * Mousetrap.bindGlobal('ctrl+s', _saveChanges);
+	 */
+	/* global Mousetrap:true */
+	(function(Mousetrap) {
+	    var _globalCallbacks = {};
+	    var _originalStopCallback = Mousetrap.prototype.stopCallback;
+
+	    Mousetrap.prototype.stopCallback = function(e, element, combo, sequence) {
+	        var self = this;
+
+	        if (self.paused) {
+	            return true;
+	        }
+
+	        if (_globalCallbacks[combo] || _globalCallbacks[sequence]) {
+	            return false;
+	        }
+
+	        return _originalStopCallback.call(self, e, element, combo);
+	    };
+
+	    Mousetrap.prototype.bindGlobal = function(keys, callback, action) {
+	        var self = this;
+	        self.bind(keys, callback, action);
+
+	        if (keys instanceof Array) {
+	            for (var i = 0; i < keys.length; i++) {
+	                _globalCallbacks[keys[i]] = true;
+	            }
+	            return;
+	        }
+
+	        _globalCallbacks[keys] = true;
+	    };
+
+	    Mousetrap.init();
+	}) (Mousetrap);
+	;
+
 
 
 /***/ },
@@ -2977,6 +2977,23 @@
 	    whiteSpace: "pre-wrap"
 	  },
 	  originalTextareaStyles: {},
+	  getDefaultProps: function() {
+	    return {
+	      handleSelect: function() {},
+	      handleKeyDown: function(e) {},
+	      handleChange: function(e) {
+	        var newBlock;
+	        newBlock = _.cloneDeep(this.props.block);
+	        if (this.props.block.data.default_text.length && this.props.block.data.text.length) {
+	          newBlock.data.default_text = '';
+	        }
+	        newBlock.data.text = e.target.value;
+	        return Channel.publish("block.change", {
+	          block: newBlock
+	        });
+	      }
+	    };
+	  },
 
 	  /* Render */
 	  render: function() {
@@ -2989,20 +3006,6 @@
 	  },
 
 	  /* Life Cycle */
-	  getDefaultProps: function() {
-	    return {
-	      handleSelect: function() {},
-	      handleKeyDown: function(e) {},
-	      handleChange: function(e) {
-	        var newBlock;
-	        newBlock = _.cloneDeep(this.props.block);
-	        newBlock.data.text = e.target.value;
-	        return Channel.publish("block.change", {
-	          block: newBlock
-	        });
-	      }
-	    };
-	  },
 	  componentDidMount: function() {
 	    var $pre, $textarea;
 	    $textarea = $(this.refs.text.getDOMNode());
@@ -3016,17 +3019,15 @@
 	      }
 	    });
 	  },
-	  componentWillUpdate: function() {
-	    var $textarea;
-	    $textarea = $(this.refs.text.getDOMNode());
-	    if (this.props.block.data.mode === 'edit') {
-	      return $textarea[0].setSelectionRange(0, this.props.block.data.default_text.length);
+	  componentDidUpdate: function() {
+	    if (this.props.block.data.default_text.length && !this.props.block.data.text.length) {
+	      return this.refs.text.getDOMNode().setSelectionRange(0, this.props.block.data.default_text.length);
 	    }
 	  },
 
 	  /* Custom Methods */
 	  content: function() {
-	    if (this.props.block.data.default_text != null) {
+	    if (this.props.block.data.default_text.length && !this.props.block.data.text.length) {
 	      return this.props.block.data.default_text;
 	    } else {
 	      return this.props.block.data.text;

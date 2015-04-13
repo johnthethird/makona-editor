@@ -60,6 +60,18 @@ ExpandingTextarea = React.createClass
 
   originalTextareaStyles: {}
 
+  getDefaultProps: ->
+    handleSelect: ->
+    handleKeyDown: (e) ->
+    handleChange: (e) ->
+      newBlock = _.cloneDeep(this.props.block)
+
+      if @props.block.data.default_text.length and @props.block.data.text.length
+        newBlock.data.default_text = ''
+
+      newBlock.data.text = e.target.value
+      Channel.publish "block.change", {block: newBlock}
+
 
   ##############################
   ### Render                 ###
@@ -81,17 +93,9 @@ ExpandingTextarea = React.createClass
   ##############################
   # componentWillMount
   # componentWillReceiveProps
+  # componentWillUpdate
   # shouldComponentUpdate
-  # componentDidUpdate
   # componentWillUnmount
-
-  getDefaultProps: ->
-    handleSelect: ->
-    handleKeyDown: (e) ->
-    handleChange: (e) ->
-      newBlock = _.cloneDeep(this.props.block)
-      newBlock.data.text = e.target.value
-      Channel.publish "block.change", {block: newBlock}
 
   componentDidMount: ->
     $textarea = $(this.refs.text.getDOMNode())
@@ -101,17 +105,17 @@ ExpandingTextarea = React.createClass
     _.forIn @originalTextareaStyles, (val, prop) ->
       $pre.css(prop, val) if $pre.css(prop) != val
 
-  componentWillUpdate: () ->
-    $textarea = $(this.refs.text.getDOMNode())
-    if @props.block.data.mode == 'edit'
-      $textarea[0].setSelectionRange(0, @props.block.data.default_text.length)
+  componentDidUpdate: ->
+    if @props.block.data.default_text.length and !@props.block.data.text.length
+      @refs.text.getDOMNode().setSelectionRange(0, @props.block.data.default_text.length)
 
 
   ##############################
   ### Custom Methods         ###
   ##############################
+
   content: () ->
-    if @props.block.data.default_text?
+    if @props.block.data.default_text.length and !@props.block.data.text.length
       @props.block.data.default_text
     else
       @props.block.data.text
