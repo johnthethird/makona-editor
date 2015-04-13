@@ -33,7 +33,7 @@ MarkdownEditor = React.createClass
   ##############################
   render: ->
     `(
-      <div className="mk-block-content">
+      <div className="mk-block-content" cursorPosition={0} positionCursor={false}>
         <div className="mk-toolbar">
           <button onClick={this.wrapSelectedWith.bind(this, "**")} disabled={!this.state.selectionPresent}>Bold</button>
           <button onClick={this.wrapSelectedWith.bind(this, "*")} disabled={!this.state.selectionPresent}>Italic</button>
@@ -41,7 +41,7 @@ MarkdownEditor = React.createClass
           <button onClick={this.insertAtStartOfLine.bind(this, "# ")}>H1</button>
           <button onClick={this.insertAtStartOfLine.bind(this, "## ")}>H2</button>
         </div>
-        <ExpandingTextarea {...this.props} cursorPosition={0} positionCursor={false} handleSelect={this.handleSelect} handleKeyDown={this.handleKeyDown} ref="eta" />
+        <ExpandingTextarea {...this.props} handleSelect={this.handleSelect} handleKeyDown={this.handleKeyDown} ref="eta" />
       </div>
     )`
 
@@ -58,8 +58,9 @@ MarkdownEditor = React.createClass
 
   componentDidUpdate: ->
     # Only set the cursor position when the text area is already there and the component has been flagged to set the position.
-    if @textArea()? and @props.positionCursor
-      @textArea().setSelectionRange(@props.cursorPosition, @props.cursorPosition)
+    if @textArea()? and @props.block.positionCursor? and @props.block.positionCursor
+      @textArea().setSelectionRange(@props.block.cursorPosition, @props.block.cursorPosition)
+      @props.block.positionCursor = false
 
 
   ##############################
@@ -77,7 +78,11 @@ MarkdownEditor = React.createClass
       selectionPresent: if selected.length > 0 then true else false
 
   publishChange: (text, cursorPosition) ->
-    newBlock = _.cloneDeep(@props.block)
+    if cursorPosition?
+      newBlock = _.extend({}, @props.block, {positionCursor: cursorPosition?, cursorPosition: cursorPosition})
+    else
+      newBlock = _.cloneDeep(@props.block)
+
     newBlock.data.text = text
     Channel.publish "block.change", {block: newBlock}
 
