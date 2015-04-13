@@ -26,8 +26,6 @@ MarkdownEditor = React.createClass
 
   getInitialState: ->
     selectionPresent: false
-    setPos: false
-    pos: 0
 
 
   ##############################
@@ -43,7 +41,7 @@ MarkdownEditor = React.createClass
           <button onClick={this.insertAtStartOfLine.bind(this, "# ")}>H1</button>
           <button onClick={this.insertAtStartOfLine.bind(this, "## ")}>H2</button>
         </div>
-        <ExpandingTextarea {...this.props} handleSelect={this.handleSelect} handleKeyDown={this.handleKeyDown} ref="eta" />
+        <ExpandingTextarea {...this.props} cursorPosition={0} positionCursor={false} handleSelect={this.handleSelect} handleKeyDown={this.handleKeyDown} ref="eta" />
       </div>
     )`
 
@@ -60,9 +58,8 @@ MarkdownEditor = React.createClass
 
   componentDidUpdate: ->
     # Only set the cursor position when the text area is already there and the component has been flagged to set the position.
-    if @textArea()? and @state.setPos
-      @textArea().setSelectionRange(@state.pos, @state.pos)
-      @setState { setPos: false }
+    if @textArea()? and @props.positionCursor
+      @textArea().setSelectionRange(@props.cursorPosition, @props.cursorPosition)
 
 
   ##############################
@@ -79,7 +76,7 @@ MarkdownEditor = React.createClass
     @setState
       selectionPresent: if selected.length > 0 then true else false
 
-  publishChange: (text) ->
+  publishChange: (text, cursorPosition) ->
     newBlock = _.cloneDeep(@props.block)
     newBlock.data.text = text
     Channel.publish "block.change", {block: newBlock}
@@ -88,12 +85,8 @@ MarkdownEditor = React.createClass
     e.preventDefault()
     {before, selected, after} = @textArea().getChunks()
     text = before + chars + selected + after
-    @publishChange(text)
     cursorPos = before.length + chars.length
-
-    @setState
-      pos: cursorPos
-      setPos: true
+    @publishChange(text, cursorPos)
 
   insertAtStartOfLine: (chars, e) ->
     e.preventDefault()
@@ -110,12 +103,7 @@ MarkdownEditor = React.createClass
       combinedLines = if lines.length is 0 then "" else (lines.join("\n") + "\n")
       text = combinedLines + chars + theLine + selected + after
       cursorPos = before.length + chars.length
-
-    @publishChange(text)
-
-    @setState
-      pos: cursorPos
-      setPos: true
+    @publishChange(text, cursorPos)
 
   wrapSelectedWith: (chars, e) ->
     e.preventDefault()
@@ -124,14 +112,11 @@ MarkdownEditor = React.createClass
       text = before + chars + selected + chars + after
       @publishChange(text)
       cursorPos = before.length + chars.length + selected.length + chars.length
-
-      @setState
-        pos: cursorPos
-        setPos: true
+    @publishChange(text, cursorPos)
 
   # Shortcut to select the editor's text area by ref.
   textArea: ->
-    if @refs['eta']? then @refs['eta'] else false
+    if @refs.eta? then @refs.eta else false
 
 
 # Export to make available

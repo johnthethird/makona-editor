@@ -2209,9 +2209,7 @@
 	  },
 	  getInitialState: function() {
 	    return {
-	      selectionPresent: false,
-	      setPos: false,
-	      pos: 0
+	      selectionPresent: false
 	    };
 	  },
 
@@ -2226,18 +2224,15 @@
 	          React.createElement("button", {onClick: this.insertAtStartOfLine.bind(this, "# ")}, "H1"), 
 	          React.createElement("button", {onClick: this.insertAtStartOfLine.bind(this, "## ")}, "H2")
 	        ), 
-	        React.createElement(ExpandingTextarea, React.__spread({},  this.props, {handleSelect: this.handleSelect, handleKeyDown: this.handleKeyDown, ref: "eta"}))
+	        React.createElement(ExpandingTextarea, React.__spread({},  this.props, {cursorPosition: 0, positionCursor: false, handleSelect: this.handleSelect, handleKeyDown: this.handleKeyDown, ref: "eta"}))
 	      )
 	    );
 	  },
 
 	  /* Life Cycle */
 	  componentDidUpdate: function() {
-	    if ((this.textArea() != null) && this.state.setPos) {
-	      this.textArea().setSelectionRange(this.state.pos, this.state.pos);
-	      return this.setState({
-	        setPos: false
-	      });
+	    if ((this.textArea() != null) && this.props.positionCursor) {
+	      return this.textArea().setSelectionRange(this.props.cursorPosition, this.props.cursorPosition);
 	    }
 	  },
 
@@ -2262,7 +2257,7 @@
 	      selectionPresent: selected.length > 0 ? true : false
 	    });
 	  },
-	  publishChange: function(text) {
+	  publishChange: function(text, cursorPosition) {
 	    var newBlock;
 	    newBlock = _.cloneDeep(this.props.block);
 	    newBlock.data.text = text;
@@ -2275,12 +2270,8 @@
 	    e.preventDefault();
 	    ref = this.textArea().getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
 	    text = before + chars + selected + after;
-	    this.publishChange(text);
 	    cursorPos = before.length + chars.length;
-	    return this.setState({
-	      pos: cursorPos,
-	      setPos: true
-	    });
+	    return this.publishChange(text, cursorPos);
 	  },
 	  insertAtStartOfLine: function(chars, e) {
 	    var after, before, combinedLines, cursorPos, lines, ref, selected, text, theLine;
@@ -2297,11 +2288,7 @@
 	      text = combinedLines + chars + theLine + selected + after;
 	      cursorPos = before.length + chars.length;
 	    }
-	    this.publishChange(text);
-	    return this.setState({
-	      pos: cursorPos,
-	      setPos: true
-	    });
+	    return this.publishChange(text, cursorPos);
 	  },
 	  wrapSelectedWith: function(chars, e) {
 	    var after, before, cursorPos, ref, selected, text;
@@ -2311,15 +2298,12 @@
 	      text = before + chars + selected + chars + after;
 	      this.publishChange(text);
 	      cursorPos = before.length + chars.length + selected.length + chars.length;
-	      return this.setState({
-	        pos: cursorPos,
-	        setPos: true
-	      });
 	    }
+	    return this.publishChange(text, cursorPos);
 	  },
 	  textArea: function() {
-	    if (this.refs['eta'] != null) {
-	      return this.refs['eta'];
+	    if (this.refs.eta != null) {
+	      return this.refs.eta;
 	    } else {
 	      return false;
 	    }
