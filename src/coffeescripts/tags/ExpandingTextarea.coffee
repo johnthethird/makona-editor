@@ -59,6 +59,10 @@ ExpandingTextarea = React.createClass
     _.forIn @originalTextareaStyles, (val, prop) ->
       $pre.css(prop, val) if $pre.css(prop) != val
 
+  componentWillUpdate: () ->
+    $textarea = $(this.refs.text.getDOMNode())
+    if @props.block.data.mode == 'edit'
+      $textarea[0].setSelectionRange(0, @props.block.data.default_text.length)
 
   # The <pre> is hidden behind the textarea and mirrors the content. In this way the pre controls the size.
   # The +" " is a hack so the scrollbar doesnt show up
@@ -66,10 +70,16 @@ ExpandingTextarea = React.createClass
   render: ->
     `(
       <div style={this.containerStyle}>
-        <textarea block={this.props.block} onKeyDown={this.props.handleKeyDown} onChange={this.props.handleChange} onSelect={this.props.handleSelect} style={this.textareaStyle} value={this.props.block.data.text} ref="text"></textarea>
+        <textarea block={this.props.block} onKeyDown={this.props.handleKeyDown} onChange={this.props.handleChange} onSelect={this.props.handleSelect} style={this.textareaStyle} value={this.content()} ref="text"></textarea>
         <pre ref="pre" style={this.preStyle}><div>{this.props.block.data.text+" "}</div></pre>
       </div>
     )`
+
+  content: () ->
+    if @props.block.data.default_text?
+      @props.block.data.default_text
+    else
+      @props.block.data.text
 
   # {before: "Ill", selected: "be", after: "back"}
   getChunks: () ->
