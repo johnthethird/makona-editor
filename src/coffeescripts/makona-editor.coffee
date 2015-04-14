@@ -198,10 +198,12 @@ MakonaSortableItem = React.createClass
     Channel.publish "block.caret", @props.block
 
   handleCaret: () ->
-    if @props.block.type is 'markdown' and @props.block.focus?
-      node = $(@getDOMNode()).find('textarea')
-      if !node.is(':focus')
-        node.focus().caretToEnd()
+    # console.log
+    # if @props.block.mode is 'edit'
+    #   node = $(@getDOMNode()).find('textarea')
+    #   console.log node.is(':focus')
+    #   # if !node.is(':focus')
+    #     # node.focus().caretToEnd()
 
   handleEdit: (e) ->
     newBlock = _.extend({}, this.props.block, {mode: 'edit'})

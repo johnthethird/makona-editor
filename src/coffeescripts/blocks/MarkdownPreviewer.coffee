@@ -34,7 +34,7 @@ MarkdownPreviewer = React.createClass
   ### Render                 ###
   ##############################
   render: ->
-    html = marked(this.props.block.data.text)
+    html = marked(@props.block.data.text)
     `<div className="mk-block-content" dangerouslySetInnerHTML={{__html: html}}></div>`
 
 

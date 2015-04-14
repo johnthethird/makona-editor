@@ -5,6 +5,7 @@
 ##############################
 Channel           = postal.channel("makona")
 ExpandingTextarea = require("../tags/ExpandingTextarea")
+require("script!../../../vendor/highlight.min.js")
 
 
 # Trigger re-render by sending new block up via the makona postal channel. Like so:
@@ -14,6 +15,7 @@ ExpandingTextarea = require("../tags/ExpandingTextarea")
 
 
 CodeEditor = React.createClass
+
 
   ##############################
   ### Construction           ###
@@ -29,9 +31,12 @@ CodeEditor = React.createClass
   render: ->
     `(
       <div className="mk-block-content" >
-        <ExpandingTextarea {...this.props} ref="text" />
+        <ExpandingTextarea {...this.props} ref="text" onChange={this.handleChange} />
         <br />
-        <label>Language: </label><input value={this.props.block.data.lang} ref="lang" onChange={this.handleLangChange} />
+        <label>Language: </label>
+        <select value={this.props.block.data.lang} ref="lang" onChange={this.handleLangChange}>
+          {this.options()}
+        </select>
       </div>
     )`
 
@@ -52,13 +57,18 @@ CodeEditor = React.createClass
   ### Custom Methods         ###
   ##############################
 
-  handleLangChange: (e) ->
-    @refs.text.props.lang = @refs.lang.props.value
-    Channel.publish "block.change", {block: this.props.block}
+  languages: ->
+    hljs.listLanguages()
 
-  handleChange: ->
-    lang = this.refs.lang.getDOMNode().value
-    this.props.handleChange({id: this.props.block.id, data: {lang: lang}})
+  options: ->
+    all_options = []
+    for language, i in @languages()
+      all_options.push `<option key={i} value={language}>{language}</option>`
+    all_options
+
+  handleLangChange: (e) ->
+    newBlock = _.extend {}, @props.block, { data: { lang: @refs.lang.getDOMNode().value, text: @props.block.data.text } }
+    Channel.publish "block.change", { block: newBlock }
 
 
 # Export to make available

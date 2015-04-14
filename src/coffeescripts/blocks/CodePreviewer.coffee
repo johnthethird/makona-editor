@@ -4,7 +4,7 @@
 ### Includes and Constants ###
 ##############################
 Channel = postal.channel("makona")
-require("script!../../../vendor/prettify.js")
+require("script!../../../vendor/highlight.min.js")
 
 
 # Trigger re-render by sending new block up via the makona postal channel. Like so:
@@ -25,11 +25,14 @@ CodePreviewer = React.createClass
   ### Render                 ###
   ##############################
   render: ->
-    html = prettyPrintOne(this.props.block.data.text, this.props.block.data.lang)
+    if @props.block.data.text?
+      highlighted_code = hljs.highlight(@props.block.data.lang, @props.block.data.text, true).value
+    else
+      highlighted_code = ''
     `(
       <div className="mk-block-content" >
         <div className="mk-block-label">{this.props.block.data.lang}</div>
-        <pre><code dangerouslySetInnerHTML={{__html: html}}></code></pre>
+        <pre><code dangerouslySetInnerHTML={{__html: highlighted_code}}></code></pre>
       </div>
     )`
 

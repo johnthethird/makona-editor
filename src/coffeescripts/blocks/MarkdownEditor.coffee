@@ -55,6 +55,7 @@ MarkdownEditor = React.createClass
   # shouldComponentUpdate
   # componentWillUpdate
   # componentWillUnmount
+  # componentDidUpdate
 
   componentDidUpdate: ->
     # Only set the cursor position when the text area is already there and the component has been flagged to set the position.

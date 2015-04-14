@@ -58,13 +58,13 @@
 
 	__webpack_require__(3);
 
-	__webpack_require__(30);
+	__webpack_require__(10);
 
 	__webpack_require__(4);
 
 	__webpack_require__(5);
 
-	__webpack_require__(31);
+	__webpack_require__(11);
 
 	Blocks = __webpack_require__(1);
 
@@ -262,15 +262,7 @@
 	  componentDidUpdate: function() {
 	    return Channel.publish("block.caret", this.props.block);
 	  },
-	  handleCaret: function() {
-	    var node;
-	    if (this.props.block.type === 'markdown' && (this.props.block.focus != null)) {
-	      node = $(this.getDOMNode()).find('textarea');
-	      if (!node.is(':focus')) {
-	        return node.focus().caretToEnd();
-	      }
-	    }
-	  },
+	  handleCaret: function() {},
 	  handleEdit: function(e) {
 	    var newBlock;
 	    newBlock = _.extend({}, this.props.block, {
@@ -543,7 +535,7 @@
 	BLOCK_REGISTRY = [
 	  {
 	    type: "unknown",
-	    previewClass: __webpack_require__(6),
+	    previewClass: __webpack_require__(13),
 	    editable: false,
 	    createable: false,
 	    data: {}
@@ -551,8 +543,8 @@
 	    type: "text",
 	    displayName: "Text",
 	    icon: '\x62',
-	    editorClass: __webpack_require__(7),
-	    previewClass: __webpack_require__(8),
+	    editorClass: __webpack_require__(14),
+	    previewClass: __webpack_require__(15),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -562,8 +554,8 @@
 	    type: "html",
 	    displayName: "HTML",
 	    icon: '\ue036',
-	    editorClass: __webpack_require__(9),
-	    previewClass: __webpack_require__(10),
+	    editorClass: __webpack_require__(16),
+	    previewClass: __webpack_require__(17),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -573,8 +565,8 @@
 	    type: "javascript",
 	    displayName: "JavaScript",
 	    icon: '\ue036',
-	    editorClass: __webpack_require__(11),
-	    previewClass: __webpack_require__(12),
+	    editorClass: __webpack_require__(18),
+	    previewClass: __webpack_require__(19),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -584,8 +576,8 @@
 	    type: "markdown",
 	    displayName: 'Markdown',
 	    icon: '\x68',
-	    editorClass: __webpack_require__(13),
-	    previewClass: __webpack_require__(14),
+	    editorClass: __webpack_require__(20),
+	    previewClass: __webpack_require__(21),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -595,8 +587,8 @@
 	    type: "quote",
 	    displayName: 'Quote',
 	    icon: '\x7b',
-	    editorClass: __webpack_require__(15),
-	    previewClass: __webpack_require__(16),
+	    editorClass: __webpack_require__(22),
+	    previewClass: __webpack_require__(23),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -607,8 +599,8 @@
 	    type: "code",
 	    displayName: "Code",
 	    icon: '\ue038',
-	    editorClass: __webpack_require__(17),
-	    previewClass: __webpack_require__(18),
+	    editorClass: __webpack_require__(24),
+	    previewClass: __webpack_require__(25),
 	    editable: true,
 	    createable: true,
 	    data: {
@@ -618,8 +610,8 @@
 	    type: "image",
 	    displayName: "Image",
 	    icon: '\ue005',
-	    editorClass: __webpack_require__(19),
-	    previewClass: __webpack_require__(20),
+	    editorClass: __webpack_require__(26),
+	    previewClass: __webpack_require__(27),
 	    editable: false,
 	    createable: true,
 	    data: {
@@ -629,8 +621,8 @@
 	    type: "document",
 	    displayName: "Document",
 	    icon: '\x69',
-	    editorClass: __webpack_require__(21),
-	    previewClass: __webpack_require__(22),
+	    editorClass: __webpack_require__(28),
+	    previewClass: __webpack_require__(29),
 	    editable: false,
 	    createable: true,
 	    data: {
@@ -640,8 +632,8 @@
 	    type: "screencast",
 	    displayName: "Screencast",
 	    icon: '\ue00e',
-	    editorClass: __webpack_require__(23),
-	    previewClass: __webpack_require__(24),
+	    editorClass: __webpack_require__(30),
+	    previewClass: __webpack_require__(31),
 	    editable: false,
 	    createable: true,
 	    data: {
@@ -707,9 +699,9 @@
 	/* Includes and Constants */
 	var Blocks, Channel, KeyboardShortcuts;
 
-	__webpack_require__(30);
+	__webpack_require__(10);
 
-	__webpack_require__(25);
+	__webpack_require__(32);
 
 	Blocks = __webpack_require__(1);
 
@@ -882,984 +874,22 @@
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(26)(__webpack_require__(27))
+	__webpack_require__(6)(__webpack_require__(7))
 
 /***/ },
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(26)(__webpack_require__(28))
+	__webpack_require__(6)(__webpack_require__(8))
 
 /***/ },
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(26)(__webpack_require__(29))
+	__webpack_require__(6)(__webpack_require__(9))
 
 /***/ },
 /* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var UnknownPreviewer;
-
-	UnknownPreviewer = React.createClass({
-
-	  /* Construction */
-	  displayName: "UnknownPreviewer",
-
-	  /* Render */
-	  render: function() {
-	    return React.createElement("div", {className: "mk-block-content"}, 
-	      React.createElement("h4", null, "Unknown Block Type: ", this.props.block.type), 
-	      React.createElement("pre", null, JSON.stringify(this.props.block.data, null, 2))
-	    );
-	  }
-
-	  /* Life Cycle */
-
-	  /* Custom Methods */
-	});
-
-	module.exports = UnknownPreviewer;
-
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var ExpandingTextarea, TextEditor;
-
-	ExpandingTextarea = __webpack_require__(33);
-
-	TextEditor = React.createClass({
-
-	  /* Construction */
-	  displayName: "TextEditor",
-	  propTypes: {
-	    block: React.PropTypes.object.isRequired
-	  },
-
-	  /* Render */
-	  render: function() {
-	    return React.createElement(ExpandingTextarea, React.__spread({},  this.props));
-	  }
-
-	  /* Life Cycle */
-
-	  /* Custom Methods */
-	});
-
-	module.exports = TextEditor;
-
-
-/***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var TextPreviewer;
-
-	TextPreviewer = React.createClass({
-
-	  /* Construction */
-	  displayName: "TextPreviewer",
-	  propTypes: {
-	    block: React.PropTypes.object.isRequired
-	  },
-
-	  /* Render */
-	  render: function() {
-	    return React.createElement("pre", null, this.props.block.data.text);
-	  }
-
-	  /* Life Cycle */
-
-	  /* Custom Methods */
-	});
-
-	module.exports = TextPreviewer;
-
-
-/***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var ExpandingTextarea, HtmlEditor;
-
-	ExpandingTextarea = __webpack_require__(33);
-
-	HtmlEditor = React.createClass({
-
-	  /* Construction */
-	  displayName: "HtmlEditor",
-
-	  /* Render */
-	  render: function() {
-	    return (React.createElement("div", {className: "mk-block-content"}, 
-	       React.createElement(ExpandingTextarea, React.__spread({},  this.props))
-	     )
-	    );
-	  }
-
-	  /* Life Cycle */
-
-	  /* Custom Methods */
-	});
-
-	module.exports = HtmlEditor;
-
-
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var HtmlPreviewer;
-
-	HtmlPreviewer = React.createClass({
-
-	  /* Construction */
-	  displayName: "HtmlPreviewer",
-
-	  /* Render */
-	  render: function() {
-	    var html;
-	    html = this.props.block.data.text;
-	    return React.createElement("div", {className: "mk-block-content", dangerouslySetInnerHTML: {__html: html}});
-	  }
-
-	  /* Life Cycle */
-
-	  /* Custom Methods */
-	});
-
-	module.exports = HtmlPreviewer;
-
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var ExpandingTextarea, JavascriptEditor;
-
-	ExpandingTextarea = __webpack_require__(33);
-
-	JavascriptEditor = React.createClass({
-
-	  /* Construction */
-	  displayName: "JavascriptEditor",
-
-	  /* Render */
-	  render: function() {
-	    return React.createElement(ExpandingTextarea, React.__spread({},  this.props));
-	  }
-
-	  /* Life Cycle */
-
-	  /* Custom Methods */
-	});
-
-	module.exports = JavascriptEditor;
-
-
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var JavascriptPreviewer;
-
-	JavascriptPreviewer = React.createClass({
-
-	  /* Construction */
-	  displayName: "JavascriptPreviewer",
-
-	  /* Render */
-	  render: function() {
-	    var js;
-	    js = this.props.block.data.text;
-	    return React.createElement("pre", {ref: "js"}, js);
-	  }
-
-	  /* Life Cycle */
-
-	  /* Custom Methods */
-	});
-
-	module.exports = JavascriptPreviewer;
-
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var Channel, ExpandingTextarea, MarkdownEditor;
-
-	Channel = postal.channel("makona");
-
-	ExpandingTextarea = __webpack_require__(33);
-
-	MarkdownEditor = React.createClass({
-
-	  /* Construction */
-	  displayName: "MarkdownEditor",
-	  propTypes: {
-	    block: React.PropTypes.object.isRequired
-	  },
-	  getInitialState: function() {
-	    return {
-	      selectionPresent: false
-	    };
-	  },
-
-	  /* Render */
-	  render: function() {
-	    return (
-	      React.createElement("div", {className: "mk-block-content", cursorPosition: 0, positionCursor: false}, 
-	        React.createElement("div", {className: "mk-toolbar"}, 
-	          React.createElement("button", {onClick: this.wrapSelectedWith.bind(this, "**"), disabled: !this.state.selectionPresent}, "Bold"), 
-	          React.createElement("button", {onClick: this.wrapSelectedWith.bind(this, "*"), disabled: !this.state.selectionPresent}, "Italic"), 
-	          React.createElement("button", {onClick: this.insertAtCaret.bind(this, "\n---\n")}, "HR"), 
-	          React.createElement("button", {onClick: this.insertAtStartOfLine.bind(this, "# ")}, "H1"), 
-	          React.createElement("button", {onClick: this.insertAtStartOfLine.bind(this, "## ")}, "H2")
-	        ), 
-	        React.createElement(ExpandingTextarea, React.__spread({},  this.props, {handleSelect: this.handleSelect, handleKeyDown: this.handleKeyDown, ref: "eta"}))
-	      )
-	    );
-	  },
-
-	  /* Life Cycle */
-	  componentDidUpdate: function() {
-	    if ((this.textArea() != null) && (this.props.block.positionCursor != null) && this.props.block.positionCursor) {
-	      this.textArea().setSelectionRange(this.props.block.cursorPosition, this.props.block.cursorPosition);
-	      return this.props.block.positionCursor = false;
-	    }
-	  },
-
-	  /* Custom Methods */
-	  handleKeyDown: function(e) {
-	    var newBlock;
-	    if ((e.metaKey || e.ctrlKey) && e.keyCode === 13) {
-	      newBlock = _.extend({}, this.props.block, {
-	        mode: 'preview'
-	      });
-	      if ((e.metaKey || e.ctrlKey) && e.keyCode === 13) {
-	        return Channel.publish("block.change", {
-	          block: newBlock
-	        });
-	      }
-	    }
-	  },
-	  handleSelect: function(e, id) {
-	    var after, before, ref, selected;
-	    ref = this.textArea().getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
-	    return this.setState({
-	      selectionPresent: selected.length > 0 ? true : false
-	    });
-	  },
-	  publishChange: function(text, cursorPosition) {
-	    var newBlock;
-	    if (cursorPosition != null) {
-	      newBlock = _.extend({}, this.props.block, {
-	        positionCursor: cursorPosition != null,
-	        cursorPosition: cursorPosition
-	      });
-	    } else {
-	      newBlock = _.cloneDeep(this.props.block);
-	    }
-	    newBlock.data.text = text;
-	    return Channel.publish("block.change", {
-	      block: newBlock
-	    });
-	  },
-	  insertAtCaret: function(chars, e) {
-	    var after, before, cursorPos, ref, selected, text;
-	    e.preventDefault();
-	    ref = this.textArea().getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
-	    text = before + chars + selected + after;
-	    cursorPos = before.length + chars.length;
-	    return this.publishChange(text, cursorPos);
-	  },
-	  insertAtStartOfLine: function(chars, e) {
-	    var after, before, combinedLines, cursorPos, lines, ref, selected, text, theLine;
-	    e.preventDefault();
-	    ref = this.textArea().getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
-	    lines = before.split("\n");
-	    theLine = lines.pop();
-	    if (theLine.slice(0, +(chars.length - 1) + 1 || 9e9) === chars) {
-	      combinedLines = lines.length === 0 ? "" : lines.join("\n") + "\n";
-	      text = combinedLines + theLine.slice(chars.length, +theLine.length + 1 || 9e9) + selected + after;
-	      cursorPos = before.length - chars.length;
-	    } else {
-	      combinedLines = lines.length === 0 ? "" : lines.join("\n") + "\n";
-	      text = combinedLines + chars + theLine + selected + after;
-	      cursorPos = before.length + chars.length;
-	    }
-	    return this.publishChange(text, cursorPos);
-	  },
-	  wrapSelectedWith: function(chars, e) {
-	    var after, before, cursorPos, ref, selected, text;
-	    e.preventDefault();
-	    ref = this.textArea().getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
-	    if (selected.length > 0 && selected.slice(0, +(chars.length - 1) + 1 || 9e9) !== chars) {
-	      text = before + chars + selected + chars + after;
-	      this.publishChange(text);
-	      cursorPos = before.length + chars.length + selected.length + chars.length;
-	    }
-	    return this.publishChange(text, cursorPos);
-	  },
-	  textArea: function() {
-	    if (this.refs.eta != null) {
-	      return this.refs.eta;
-	    } else {
-	      return false;
-	    }
-	  }
-	});
-
-	module.exports = MarkdownEditor;
-
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var MarkdownPreviewer, marked;
-
-	marked = __webpack_require__(38);
-
-	marked.setOptions({
-	  gfm: true,
-	  tables: true,
-	  breaks: true,
-	  pedantic: true,
-	  sanitize: true,
-	  smartLists: true,
-	  smartypants: false
-	});
-
-	MarkdownPreviewer = React.createClass({
-
-	  /* Construction */
-	  displayName: "MarkdownPreviewer",
-
-	  /* Render */
-	  render: function() {
-	    var html;
-	    html = marked(this.props.block.data.text);
-	    return React.createElement("div", {className: "mk-block-content", dangerouslySetInnerHTML: {__html: html}});
-	  }
-
-	  /* Life Cycle */
-
-	  /* Custom Methods */
-	});
-
-	module.exports = MarkdownPreviewer;
-
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var ExpandingTextarea, QuoteEditor;
-
-	ExpandingTextarea = __webpack_require__(33);
-
-	QuoteEditor = React.createClass({
-
-	  /* Construction */
-	  displayName: "QuoteEditor",
-
-	  /* Render */
-	  render: function() {
-	    return (
-	      React.createElement("div", {className: "mk-block-content"}, 
-	        React.createElement(ExpandingTextarea, React.__spread({},  this.props)), 
-	        React.createElement("br", null), 
-	        React.createElement("input", {value: this.props.block.data.cite, ref: "cite", onChange: this.handleChange})
-	      )
-	    );
-	  },
-
-	  /* Life Cycle */
-
-	  /* Custom Methods */
-	  handleChange: function() {
-	    var cite;
-	    cite = this.refs.cite.getDOMNode().value;
-	    return this.props.handleChange({
-	      id: this.props.block.id,
-	      data: {
-	        cite: cite
-	      }
-	    });
-	  }
-	});
-
-	module.exports = QuoteEditor;
-
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var QuotePreviewer;
-
-	QuotePreviewer = React.createClass({
-
-	  /* Construction */
-	  displayName: "QuotePreviewer",
-
-	  /* Render */
-	  render: function() {
-	    return (
-	      React.createElement("div", {className: "mk-block-content"}, 
-	        React.createElement("pre", null, this.props.block.data.text), 
-	        "By ", React.createElement("i", null, this.props.block.data.cite)
-	      )
-	    );
-	  }
-
-	  /* Life Cycle */
-
-	  /* Custom Methods */
-	});
-
-	module.exports = QuotePreviewer;
-
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var Channel, CodeEditor, ExpandingTextarea;
-
-	Channel = postal.channel("makona");
-
-	ExpandingTextarea = __webpack_require__(33);
-
-	CodeEditor = React.createClass({
-
-	  /* Construction */
-	  displayName: "CodeEditor",
-	  propTypes: {
-	    block: React.PropTypes.object.isRequired
-	  },
-
-	  /* Render */
-	  render: function() {
-	    return (
-	      React.createElement("div", {className: "mk-block-content"}, 
-	        React.createElement(ExpandingTextarea, React.__spread({},  this.props, {ref: "text"})), 
-	        React.createElement("br", null), 
-	        React.createElement("label", null, "Language: "), React.createElement("input", {value: this.props.block.data.lang, ref: "lang", onChange: this.handleLangChange})
-	      )
-	    );
-	  },
-
-	  /* Life Cycle */
-
-	  /* Custom Methods */
-	  handleLangChange: function(e) {
-	    this.refs.text.props.lang = this.refs.lang.props.value;
-	    return Channel.publish("block.change", {
-	      block: this.props.block
-	    });
-	  },
-	  handleChange: function() {
-	    var lang;
-	    lang = this.refs.lang.getDOMNode().value;
-	    return this.props.handleChange({
-	      id: this.props.block.id,
-	      data: {
-	        lang: lang
-	      }
-	    });
-	  }
-	});
-
-	module.exports = CodeEditor;
-
-
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var Channel, CodePreviewer;
-
-	Channel = postal.channel("makona");
-
-	__webpack_require__(34);
-
-	CodePreviewer = React.createClass({
-
-	  /* Construction */
-	  displayName: "CodePreviewer",
-
-	  /* Render */
-	  render: function() {
-	    var html;
-	    html = prettyPrintOne(this.props.block.data.text, this.props.block.data.lang);
-	    return (
-	      React.createElement("div", {className: "mk-block-content"}, 
-	        React.createElement("div", {className: "mk-block-label"}, this.props.block.data.lang), 
-	        React.createElement("pre", null, React.createElement("code", {dangerouslySetInnerHTML: {__html: html}}))
-	      )
-	    );
-	  }
-
-	  /* Life Cycle */
-
-	  /* Custom Methods */
-	});
-
-	module.exports = CodePreviewer;
-
-
-/***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var ImageEditor, ImagePreviewer, qqTemplate;
-
-	__webpack_require__(36);
-
-	ImagePreviewer = __webpack_require__(20);
-
-	qqTemplate = "<script type=\"text/template\" id=\"qq-template-image\">\n    <div class=\"qq-uploader-selector qq-uploader\">\n        <div class=\"qq-upload-drop-area-selector qq-upload-drop-area\" qq-hide-dropzone>\n            <span>Drop files here to upload</span>\n        </div>\n        <div class=\"qq-upload-button-selector qq-upload-button\">\n            <div>or choose file</div>\n        </div>\n        <span class=\"qq-drop-processing-selector qq-drop-processing\">\n            <span>Processing dropped files...</span>\n            <span class=\"qq-drop-processing-spinner-selector qq-drop-processing-spinner\"></span>\n        </span>\n        <ul class=\"qq-upload-list-selector qq-upload-list\">\n            <li>\n                <div class=\"qq-progress-bar-container-selector\">\n                    <div class=\"qq-progress-bar-selector qq-progress-bar\"></div>\n                </div>\n                <span class=\"qq-upload-spinner-selector qq-upload-spinner\"></span>\n                <img class=\"qq-thumbnail-selector\" qq-max-size=\"100\" qq-server-scale>\n                <span class=\"qq-edit-filename-icon-selector qq-edit-filename-icon\"></span>\n                <span class=\"qq-upload-file-selector qq-upload-file\"></span>\n                <input class=\"qq-edit-filename-selector qq-edit-filename\" tabindex=\"0\" type=\"text\">\n                <span class=\"qq-upload-size-selector qq-upload-size\"></span>\n                <a class=\"qq-upload-cancel-selector qq-upload-cancel\" href=\"#\">Cancel</a>\n                <a class=\"qq-upload-retry-selector qq-upload-retry\" href=\"#\">Retry</a>\n                <a class=\"qq-upload-delete-selector qq-upload-delete\" href=\"#\">Delete</a>\n                <span class=\"qq-upload-status-text-selector qq-upload-status-text\"></span>\n            </li>\n        </ul>\n    </div>\n</script>";
-
-	ImageEditor = React.createClass({
-
-	  /* Construction */
-	  displayName: "ImageEditor",
-
-	  /* Render */
-	  render: function() {
-	    return (
-	      React.createElement("div", null, 
-	         (this.props.block.data.src.length > 0) ? React.createElement(ImagePreviewer, {block: this.props.block}) : React.createElement("div", {ref: "fineuploader"})
-	      )
-	    );
-	  },
-
-	  /* Life Cycle */
-	  componentDidMount: function() {
-	    var defaults, node, opts, ref;
-	    if ($("#qq-template-image").length === 0) {
-	      $("body").append(qqTemplate);
-	    }
-	    if (((ref = this.refs) != null ? ref.fineuploader : void 0) != null) {
-	      node = this.refs.fineuploader.getDOMNode();
-	      defaults = {
-	        template: "qq-template-image",
-	        element: node,
-	        debug: false,
-	        request: {
-	          inputName: 'asset',
-	          endpoint: 'http://bsg.mil/upload_image',
-	          params: {}
-	        },
-	        validation: {
-	          acceptFiles: ["image/jpeg", "image/png", "image/gif"],
-	          allowedExtensions: ["gif", "jpg", "jpeg", "png"],
-	          sizeLimit: 5000000
-	        },
-	        deleteFile: {
-	          enabled: false,
-	          method: "DELETE",
-	          endpoint: "http://bsg.mil/delete_uploaded_image",
-	          params: {}
-	        },
-	        retry: {
-	          enableAuto: true
-	        },
-	        resume: {
-	          enabled: false
-	        },
-	        callbacks: {
-	          onComplete: (function(_this) {
-	            return function(id, name, response) {
-	              if (response.success) {
-	                return _this.props.handleChange({
-	                  id: _this.props.block.id,
-	                  data: {
-	                    src: response.url,
-	                    id: response.id
-	                  }
-	                }, true);
-	              }
-	            };
-	          })(this)
-	        }
-	      };
-	      opts = $.extend({}, defaults, this.props.opts.ImageEditor);
-	      return this.uploader = new qq.FineUploader(opts);
-	    }
-	  },
-	  shouldComponentUpdate: function() {
-	    return false;
-	  },
-	  componentWillUnmount: function() {
-	    var container, results;
-	    this.uploader = null;
-	    container = this.getDOMNode();
-	    results = [];
-	    while (container.lastChild) {
-	      results.push(container.removeChild(container.lastChild));
-	    }
-	    return results;
-	  }
-
-	  /* Custom Methods */
-	});
-
-	module.exports = ImageEditor;
-
-
-/***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var ImagePreviewer;
-
-	ImagePreviewer = React.createClass({
-
-	  /* Construction */
-	  displayName: "ImagePreviewer",
-
-	  /* Render */
-	  render: function() {
-	    return (
-	      React.createElement("div", {className: "mk-block-content"}, 
-	        React.createElement("img", {src: this.props.block.data.src})
-	      )
-	    );
-	  }
-
-	  /* Life Cycle */
-
-	  /* Custom Methods */
-	});
-
-	module.exports = ImagePreviewer;
-
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var DocumentEditor, DocumentPreviewer, qqTemplate;
-
-	__webpack_require__(36);
-
-	DocumentPreviewer = __webpack_require__(22);
-
-	qqTemplate = "<script type=\"text/template\" id=\"qq-template-document\">\n    <div class=\"qq-uploader-selector qq-uploader\">\n        <div class=\"qq-upload-drop-area-selector qq-upload-drop-area\" qq-hide-dropzone>\n            <span>Drop files here to upload</span>\n        </div>\n        <div class=\"qq-upload-button-selector qq-upload-button\">\n            <div>or choose file</div>\n        </div>\n        <span class=\"qq-drop-processing-selector qq-drop-processing\">\n            <span>Processing dropped files...</span>\n            <span class=\"qq-drop-processing-spinner-selector qq-drop-processing-spinner\"></span>\n        </span>\n        <ul class=\"qq-upload-list-selector qq-upload-list\">\n            <li>\n                <div class=\"qq-progress-bar-container-selector\">\n                    <div class=\"qq-progress-bar-selector qq-progress-bar\"></div>\n                </div>\n                <span class=\"qq-upload-spinner-selector qq-upload-spinner\"></span>\n                <img class=\"qq-thumbnail-selector\" qq-max-size=\"100\" qq-server-scale>\n                <span class=\"qq-edit-filename-icon-selector qq-edit-filename-icon\"></span>\n                <span class=\"qq-upload-file-selector qq-upload-file\"></span>\n                <input class=\"qq-edit-filename-selector qq-edit-filename\" tabindex=\"0\" type=\"text\">\n                <span class=\"qq-upload-size-selector qq-upload-size\"></span>\n                <a class=\"qq-upload-cancel-selector qq-upload-cancel\" href=\"#\">Cancel</a>\n                <a class=\"qq-upload-retry-selector qq-upload-retry\" href=\"#\">Retry</a>\n                <a class=\"qq-upload-delete-selector qq-upload-delete\" href=\"#\">Delete</a>\n                <span class=\"qq-upload-status-text-selector qq-upload-status-text\"></span>\n            </li>\n        </ul>\n    </div>\n</script>";
-
-	DocumentEditor = React.createClass({
-
-	  /* Construction */
-	  displayName: "DocumentEditor",
-
-	  /* Render */
-	  render: function() {
-	    return (
-	      React.createElement("div", null, 
-	         (this.props.block.data.title.length > 0) ? React.createElement(DocumentPreviewer, {block: this.props.block}) : React.createElement("div", {ref: "fineuploader"})
-	      )
-	    );
-	  },
-
-	  /* Life Cycle */
-	  componentDidMount: function() {
-	    var defaults, node, opts, ref;
-	    if ($("#qq-template-document").length === 0) {
-	      $("body").append(qqTemplate);
-	    }
-	    if (((ref = this.refs) != null ? ref.fineuploader : void 0) != null) {
-	      node = this.refs.fineuploader.getDOMNode();
-	      defaults = {
-	        element: node,
-	        template: "qq-template-document",
-	        debug: false,
-	        request: {
-	          inputName: 'asset',
-	          endpoint: 'http://bsg.mil/upload_document',
-	          params: {}
-	        },
-	        validation: {
-	          acceptFiles: [],
-	          allowedExtensions: [],
-	          sizeLimit: 5000000
-	        },
-	        deleteFile: {
-	          enabled: false,
-	          method: "DELETE",
-	          endpoint: "http://bsg.mil/delete_uploaded_document",
-	          params: {}
-	        },
-	        retry: {
-	          enableAuto: true
-	        },
-	        resume: {
-	          enabled: false
-	        },
-	        callbacks: {
-	          onComplete: (function(_this) {
-	            return function(id, name, response) {
-	              if (response.success) {
-	                return _this.props.handleChange({
-	                  id: _this.props.block.id,
-	                  data: {
-	                    src: response.url,
-	                    id: response.id,
-	                    icon_url: response.icon_url,
-	                    title: response.title
-	                  }
-	                }, true);
-	              }
-	            };
-	          })(this)
-	        }
-	      };
-	      opts = $.extend({}, defaults, this.props.opts.DocumentEditor);
-	      return this.uploader = new qq.FineUploader(opts);
-	    }
-	  },
-	  shouldComponentUpdate: function() {
-	    return false;
-	  },
-	  componentWillUnmount: function() {
-	    var container, results;
-	    this.uploader = null;
-	    container = this.getDOMNode();
-	    results = [];
-	    while (container.lastChild) {
-	      results.push(container.removeChild(container.lastChild));
-	    }
-	    return results;
-	  }
-
-	  /* Custom Methods */
-	});
-
-	module.exports = DocumentEditor;
-
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var DocumentPreviewer;
-
-	DocumentPreviewer = React.createClass({
-
-	  /* Construction */
-	  displayName: "DocumentPreviewer",
-
-	  /* Render */
-	  render: function() {
-	    return (
-	      React.createElement("div", {className: "mk-block-content"}, 
-	        React.createElement("a", {href: this.props.block.data.url, target: "_blank"}, 
-	          React.createElement("img", {src: "http://t1.development.kaleosoftware.com" + this.props.block.data.icon_url}), React.createElement("span", null, this.props.block.data.title)
-	        )
-	      )
-	    );
-	  }
-
-	  /* Life Cycle */
-
-	  /* Custom Methods */
-	});
-
-	module.exports = DocumentPreviewer;
-
-
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var ScreencastEditor;
-
-	ScreencastEditor = React.createClass({
-
-	  /* Construction */
-	  displayName: "ScreencastEditor",
-
-	  /* Render */
-	  render: function() {
-	    return (
-	      React.createElement("div", null, 
-	        "Screencast"
-	      )
-	    );
-	  }
-
-	  /* Life Cycle */
-
-	  /* Custom Methods */
-	});
-
-	module.exports = ScreencastEditor;
-
-
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/** @jsx React.DOM */
-
-	/* Includes and Constants */
-	var ScreencastPreviewer;
-
-	ScreencastPreviewer = React.createClass({
-
-	  /* Construction */
-	  displayName: "ScreencastPreviewer",
-
-	  /* Render */
-	  render: function() {
-	    return (
-	      React.createElement("div", null, 
-	        "Screencast"
-	      )
-	    );
-	  }
-
-	  /* Life Cycle */
-
-	  /* Custom Methods */
-	});
-
-	module.exports = ScreencastPreviewer;
-
-
-/***/ },
-/* 25 */
-/***/ function(module, exports, __webpack_require__) {
-
-	
-	/**
-	 * adds a bindGlobal method to Mousetrap that allows you to
-	 * bind specific keyboard shortcuts that will still work
-	 * inside a text input field
-	 *
-	 * usage:
-	 * Mousetrap.bindGlobal('ctrl+s', _saveChanges);
-	 */
-	/* global Mousetrap:true */
-	(function(Mousetrap) {
-	    var _globalCallbacks = {};
-	    var _originalStopCallback = Mousetrap.prototype.stopCallback;
-
-	    Mousetrap.prototype.stopCallback = function(e, element, combo, sequence) {
-	        var self = this;
-
-	        if (self.paused) {
-	            return true;
-	        }
-
-	        if (_globalCallbacks[combo] || _globalCallbacks[sequence]) {
-	            return false;
-	        }
-
-	        return _originalStopCallback.call(self, e, element, combo);
-	    };
-
-	    Mousetrap.prototype.bindGlobal = function(keys, callback, action) {
-	        var self = this;
-	        self.bind(keys, callback, action);
-
-	        if (keys instanceof Array) {
-	            for (var i = 0; i < keys.length; i++) {
-	                _globalCallbacks[keys[i]] = true;
-	            }
-	            return;
-	        }
-
-	        _globalCallbacks[keys] = true;
-	    };
-
-	    Mousetrap.init();
-	}) (Mousetrap);
-	;
-
-
-
-/***/ },
-/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -1874,25 +904,25 @@
 	}
 
 /***/ },
-/* 27 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "/*\n * jQuery UI Touch Punch 0.2.2\n *\n * Copyright 2011, Dave Furfero\n * Dual licensed under the MIT or GPL Version 2 licenses.\n *\n * Depends:\n *  jquery.ui.widget.js\n *  jquery.ui.mouse.js\n */\n(function(b){b.support.touch=\"ontouchend\" in document;if(!b.support.touch){return;}var c=b.ui.mouse.prototype,e=c._mouseInit,a;function d(g,h){if(g.originalEvent.touches.length>1){return;}g.preventDefault();var i=g.originalEvent.changedTouches[0],f=document.createEvent(\"MouseEvents\");f.initMouseEvent(h,true,true,window,1,i.screenX,i.screenY,i.clientX,i.clientY,false,false,false,false,0,null);g.target.dispatchEvent(f);}c._touchStart=function(g){var f=this;if(a||!f._mouseCapture(g.originalEvent.changedTouches[0])){return;}a=true;f._touchMoved=false;d(g,\"mouseover\");d(g,\"mousemove\");d(g,\"mousedown\");};c._touchMove=function(f){if(!a){return;}this._touchMoved=true;d(f,\"mousemove\");};c._touchEnd=function(f){if(!a){return;}d(f,\"mouseup\");d(f,\"mouseout\");if(!this._touchMoved){d(f,\"click\");}a=false;};c._mouseInit=function(){var f=this;f.element.bind(\"touchstart\",b.proxy(f,\"_touchStart\")).bind(\"touchmove\",b.proxy(f,\"_touchMove\")).bind(\"touchend\",b.proxy(f,\"_touchEnd\"));e.call(f);};})(jQuery);"
 
 /***/ },
-/* 28 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "(function(b){b.caretTo=function(a,b){if(a.createTextRange){var d=a.createTextRange();d.move(\"character\",b);d.select()}else null!=a.selectionStart&&(a.focus(),a.setSelectionRange(b,b))};b.caretPos=function(a){if(\"selection\"in document){a=a.createTextRange();try{a.setEndPoint(\"EndToStart\",document.selection.createRange())}catch(b){return 0}return a.text.length}if(null!=a.selectionStart)return a.selectionStart};b.fn.caret=function(a,e){return\"undefined\"===typeof a?b.caretPos(this.get(0)):this.queue(function(d){if(isNaN(a)){var c=\nb(this).val().indexOf(a);!0===e?c+=a.length:\"undefined\"!==typeof e&&(c+=e);b.caretTo(this,c)}else b.caretTo(this,a);d()})};b.fn.caretToStart=function(){return this.caret(0)};b.fn.caretToEnd=function(){return this.queue(function(a){b.caretTo(this,b(this).val().length);a()})}})(jQuery);"
 
 /***/ },
-/* 29 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "/**\n * @license\n * Lo-Dash 2.4.1 (Custom Build) lodash.com/license | Underscore.js 1.5.2 underscorejs.org/LICENSE\n * Build: `lodash -o ./dist/lodash.compat.js`\n */\n;(function(){function n(n,t,e){e=(e||0)-1;for(var r=n?n.length:0;++e<r;)if(n[e]===t)return e;return-1}function t(t,e){var r=typeof e;if(t=t.l,\"boolean\"==r||null==e)return t[e]?0:-1;\"number\"!=r&&\"string\"!=r&&(r=\"object\");var u=\"number\"==r?e:b+e;return t=(t=t[r])&&t[u],\"object\"==r?t&&-1<n(t,e)?0:-1:t?0:-1}function e(n){var t=this.l,e=typeof n;if(\"boolean\"==e||null==n)t[n]=true;else{\"number\"!=e&&\"string\"!=e&&(e=\"object\");var r=\"number\"==e?n:b+n,t=t[e]||(t[e]={});\"object\"==e?(t[r]||(t[r]=[])).push(n):t[r]=true\n}}function r(n){return n.charCodeAt(0)}function u(n,t){for(var e=n.m,r=t.m,u=-1,o=e.length;++u<o;){var a=e[u],i=r[u];if(a!==i){if(a>i||typeof a==\"undefined\")return 1;if(a<i||typeof i==\"undefined\")return-1}}return n.n-t.n}function o(n){var t=-1,r=n.length,u=n[0],o=n[r/2|0],a=n[r-1];if(u&&typeof u==\"object\"&&o&&typeof o==\"object\"&&a&&typeof a==\"object\")return false;for(u=l(),u[\"false\"]=u[\"null\"]=u[\"true\"]=u.undefined=false,o=l(),o.k=n,o.l=u,o.push=e;++t<r;)o.push(n[t]);return o}function a(n){return\"\\\\\"+Y[n]\n}function i(){return v.pop()||[]}function l(){return y.pop()||{k:null,l:null,m:null,\"false\":false,n:0,\"null\":false,number:null,object:null,push:null,string:null,\"true\":false,undefined:false,o:null}}function f(n){return typeof n.toString!=\"function\"&&typeof(n+\"\")==\"string\"}function c(n){n.length=0,v.length<w&&v.push(n)}function p(n){var t=n.l;t&&p(t),n.k=n.l=n.m=n.object=n.number=n.string=n.o=null,y.length<w&&y.push(n)}function s(n,t,e){t||(t=0),typeof e==\"undefined\"&&(e=n?n.length:0);var r=-1;e=e-t||0;for(var u=Array(0>e?0:e);++r<e;)u[r]=n[t+r];\nreturn u}function g(e){function v(n){return n&&typeof n==\"object\"&&!qe(n)&&we.call(n,\"__wrapped__\")?n:new y(n)}function y(n,t){this.__chain__=!!t,this.__wrapped__=n}function w(n){function t(){if(r){var n=s(r);je.apply(n,arguments)}if(this instanceof t){var o=nt(e.prototype),n=e.apply(o,n||arguments);return xt(n)?n:o}return e.apply(u,n||arguments)}var e=n[0],r=n[2],u=n[4];return ze(t,n),t}function Y(n,t,e,r,u){if(e){var o=e(n);if(typeof o!=\"undefined\")return o}if(!xt(n))return n;var a=he.call(n);if(!V[a]||!Le.nodeClass&&f(n))return n;\nvar l=Te[a];switch(a){case L:case z:return new l(+n);case W:case M:return new l(n);case J:return o=l(n.source,S.exec(n)),o.lastIndex=n.lastIndex,o}if(a=qe(n),t){var p=!r;r||(r=i()),u||(u=i());for(var g=r.length;g--;)if(r[g]==n)return u[g];o=a?l(n.length):{}}else o=a?s(n):Ye({},n);return a&&(we.call(n,\"index\")&&(o.index=n.index),we.call(n,\"input\")&&(o.input=n.input)),t?(r.push(n),u.push(o),(a?Xe:tr)(n,function(n,a){o[a]=Y(n,t,e,r,u)}),p&&(c(r),c(u)),o):o}function nt(n){return xt(n)?Se(n):{}}function tt(n,t,e){if(typeof n!=\"function\")return Ht;\nif(typeof t==\"undefined\"||!(\"prototype\"in n))return n;var r=n.__bindData__;if(typeof r==\"undefined\"&&(Le.funcNames&&(r=!n.name),r=r||!Le.funcDecomp,!r)){var u=be.call(n);Le.funcNames||(r=!A.test(u)),r||(r=B.test(u),ze(n,r))}if(false===r||true!==r&&1&r[1])return n;switch(e){case 1:return function(e){return n.call(t,e)};case 2:return function(e,r){return n.call(t,e,r)};case 3:return function(e,r,u){return n.call(t,e,r,u)};case 4:return function(e,r,u,o){return n.call(t,e,r,u,o)}}return Mt(n,t)}function et(n){function t(){var n=l?a:this;\nif(u){var h=s(u);je.apply(h,arguments)}return(o||c)&&(h||(h=s(arguments)),o&&je.apply(h,o),c&&h.length<i)?(r|=16,et([e,p?r:-4&r,h,null,a,i])):(h||(h=arguments),f&&(e=n[g]),this instanceof t?(n=nt(e.prototype),h=e.apply(n,h),xt(h)?h:n):e.apply(n,h))}var e=n[0],r=n[1],u=n[2],o=n[3],a=n[4],i=n[5],l=1&r,f=2&r,c=4&r,p=8&r,g=e;return ze(t,n),t}function rt(e,r){var u=-1,a=ht(),i=e?e.length:0,l=i>=_&&a===n,f=[];if(l){var c=o(r);c?(a=t,r=c):l=false}for(;++u<i;)c=e[u],0>a(r,c)&&f.push(c);return l&&p(r),f}function ot(n,t,e,r){r=(r||0)-1;\nfor(var u=n?n.length:0,o=[];++r<u;){var a=n[r];if(a&&typeof a==\"object\"&&typeof a.length==\"number\"&&(qe(a)||dt(a))){t||(a=ot(a,t,e));var i=-1,l=a.length,f=o.length;for(o.length+=l;++i<l;)o[f++]=a[i]}else e||o.push(a)}return o}function at(n,t,e,r,u,o){if(e){var a=e(n,t);if(typeof a!=\"undefined\")return!!a}if(n===t)return 0!==n||1/n==1/t;if(n===n&&!(n&&X[typeof n]||t&&X[typeof t]))return false;if(null==n||null==t)return n===t;var l=he.call(n),p=he.call(t);if(l==T&&(l=G),p==T&&(p=G),l!=p)return false;switch(l){case L:case z:return+n==+t;\ncase W:return n!=+n?t!=+t:0==n?1/n==1/t:n==+t;case J:case M:return n==ie(t)}if(p=l==$,!p){var s=we.call(n,\"__wrapped__\"),g=we.call(t,\"__wrapped__\");if(s||g)return at(s?n.__wrapped__:n,g?t.__wrapped__:t,e,r,u,o);if(l!=G||!Le.nodeClass&&(f(n)||f(t)))return false;if(l=!Le.argsObject&&dt(n)?oe:n.constructor,s=!Le.argsObject&&dt(t)?oe:t.constructor,l!=s&&!(jt(l)&&l instanceof l&&jt(s)&&s instanceof s)&&\"constructor\"in n&&\"constructor\"in t)return false}for(l=!u,u||(u=i()),o||(o=i()),s=u.length;s--;)if(u[s]==n)return o[s]==t;\nvar h=0,a=true;if(u.push(n),o.push(t),p){if(s=n.length,h=t.length,(a=h==s)||r)for(;h--;)if(p=s,g=t[h],r)for(;p--&&!(a=at(n[p],g,e,r,u,o)););else if(!(a=at(n[h],g,e,r,u,o)))break}else nr(t,function(t,i,l){return we.call(l,i)?(h++,a=we.call(n,i)&&at(n[i],t,e,r,u,o)):void 0}),a&&!r&&nr(n,function(n,t,e){return we.call(e,t)?a=-1<--h:void 0});return u.pop(),o.pop(),l&&(c(u),c(o)),a}function it(n,t,e,r,u){(qe(t)?Dt:tr)(t,function(t,o){var a,i,l=t,f=n[o];if(t&&((i=qe(t))||er(t))){for(l=r.length;l--;)if(a=r[l]==t){f=u[l];\nbreak}if(!a){var c;e&&(l=e(f,t),c=typeof l!=\"undefined\")&&(f=l),c||(f=i?qe(f)?f:[]:er(f)?f:{}),r.push(t),u.push(f),c||it(f,t,e,r,u)}}else e&&(l=e(f,t),typeof l==\"undefined\"&&(l=t)),typeof l!=\"undefined\"&&(f=l);n[o]=f})}function lt(n,t){return n+de(Fe()*(t-n+1))}function ft(e,r,u){var a=-1,l=ht(),f=e?e.length:0,s=[],g=!r&&f>=_&&l===n,h=u||g?i():s;for(g&&(h=o(h),l=t);++a<f;){var v=e[a],y=u?u(v,a,e):v;(r?!a||h[h.length-1]!==y:0>l(h,y))&&((u||g)&&h.push(y),s.push(v))}return g?(c(h.k),p(h)):u&&c(h),s}function ct(n){return function(t,e,r){var u={};\nif(e=v.createCallback(e,r,3),qe(t)){r=-1;for(var o=t.length;++r<o;){var a=t[r];n(u,a,e(a,r,t),t)}}else Xe(t,function(t,r,o){n(u,t,e(t,r,o),o)});return u}}function pt(n,t,e,r,u,o){var a=1&t,i=4&t,l=16&t,f=32&t;if(!(2&t||jt(n)))throw new le;l&&!e.length&&(t&=-17,l=e=false),f&&!r.length&&(t&=-33,f=r=false);var c=n&&n.__bindData__;return c&&true!==c?(c=s(c),c[2]&&(c[2]=s(c[2])),c[3]&&(c[3]=s(c[3])),!a||1&c[1]||(c[4]=u),!a&&1&c[1]&&(t|=8),!i||4&c[1]||(c[5]=o),l&&je.apply(c[2]||(c[2]=[]),e),f&&Ee.apply(c[3]||(c[3]=[]),r),c[1]|=t,pt.apply(null,c)):(1==t||17===t?w:et)([n,t,e,r,u,o])\n}function st(){Q.h=F,Q.b=Q.c=Q.g=Q.i=\"\",Q.e=\"t\",Q.j=true;for(var n,t=0;n=arguments[t];t++)for(var e in n)Q[e]=n[e];t=Q.a,Q.d=/^[^,]+/.exec(t)[0],n=ee,t=\"return function(\"+t+\"){\",e=Q;var r=\"var n,t=\"+e.d+\",E=\"+e.e+\";if(!t)return E;\"+e.i+\";\";e.b?(r+=\"var u=t.length;n=-1;if(\"+e.b+\"){\",Le.unindexedChars&&(r+=\"if(s(t)){t=t.split('')}\"),r+=\"while(++n<u){\"+e.g+\";}}else{\"):Le.nonEnumArgs&&(r+=\"var u=t.length;n=-1;if(u&&p(t)){while(++n<u){n+='';\"+e.g+\";}}else{\"),Le.enumPrototypes&&(r+=\"var G=typeof t=='function';\"),Le.enumErrorProps&&(r+=\"var F=t===k||t instanceof Error;\");\nvar u=[];if(Le.enumPrototypes&&u.push('!(G&&n==\"prototype\")'),Le.enumErrorProps&&u.push('!(F&&(n==\"message\"||n==\"name\"))'),e.j&&e.f)r+=\"var C=-1,D=B[typeof t]&&v(t),u=D?D.length:0;while(++C<u){n=D[C];\",u.length&&(r+=\"if(\"+u.join(\"&&\")+\"){\"),r+=e.g+\";\",u.length&&(r+=\"}\"),r+=\"}\";else if(r+=\"for(n in t){\",e.j&&u.push(\"m.call(t, n)\"),u.length&&(r+=\"if(\"+u.join(\"&&\")+\"){\"),r+=e.g+\";\",u.length&&(r+=\"}\"),r+=\"}\",Le.nonEnumShadows){for(r+=\"if(t!==A){var i=t.constructor,r=t===(i&&i.prototype),f=t===J?I:t===k?j:L.call(t),x=y[f];\",k=0;7>k;k++)r+=\"n='\"+e.h[k]+\"';if((!(r&&x[n])&&m.call(t,n))\",e.j||(r+=\"||(!x[n]&&t[n]!==A[n])\"),r+=\"){\"+e.g+\"}\";\nr+=\"}\"}return(e.b||Le.nonEnumArgs)&&(r+=\"}\"),r+=e.c+\";return E\",n(\"d,j,k,m,o,p,q,s,v,A,B,y,I,J,L\",t+r+\"}\")(tt,q,ce,we,d,dt,qe,kt,Q.f,pe,X,$e,M,se,he)}function gt(n){return Ve[n]}function ht(){var t=(t=v.indexOf)===zt?n:t;return t}function vt(n){return typeof n==\"function\"&&ve.test(n)}function yt(n){var t,e;return!n||he.call(n)!=G||(t=n.constructor,jt(t)&&!(t instanceof t))||!Le.argsClass&&dt(n)||!Le.nodeClass&&f(n)?false:Le.ownLast?(nr(n,function(n,t,r){return e=we.call(r,t),false}),false!==e):(nr(n,function(n,t){e=t\n}),typeof e==\"undefined\"||we.call(n,e))}function mt(n){return He[n]}function dt(n){return n&&typeof n==\"object\"&&typeof n.length==\"number\"&&he.call(n)==T||false}function bt(n,t,e){var r=We(n),u=r.length;for(t=tt(t,e,3);u--&&(e=r[u],false!==t(n[e],e,n)););return n}function _t(n){var t=[];return nr(n,function(n,e){jt(n)&&t.push(e)}),t.sort()}function wt(n){for(var t=-1,e=We(n),r=e.length,u={};++t<r;){var o=e[t];u[n[o]]=o}return u}function jt(n){return typeof n==\"function\"}function xt(n){return!(!n||!X[typeof n])\n}function Ct(n){return typeof n==\"number\"||n&&typeof n==\"object\"&&he.call(n)==W||false}function kt(n){return typeof n==\"string\"||n&&typeof n==\"object\"&&he.call(n)==M||false}function Et(n){for(var t=-1,e=We(n),r=e.length,u=Zt(r);++t<r;)u[t]=n[e[t]];return u}function Ot(n,t,e){var r=-1,u=ht(),o=n?n.length:0,a=false;return e=(0>e?Be(0,o+e):e)||0,qe(n)?a=-1<u(n,t,e):typeof o==\"number\"?a=-1<(kt(n)?n.indexOf(t,e):u(n,t,e)):Xe(n,function(n){return++r<e?void 0:!(a=n===t)}),a}function St(n,t,e){var r=true;if(t=v.createCallback(t,e,3),qe(n)){e=-1;\nfor(var u=n.length;++e<u&&(r=!!t(n[e],e,n)););}else Xe(n,function(n,e,u){return r=!!t(n,e,u)});return r}function At(n,t,e){var r=[];if(t=v.createCallback(t,e,3),qe(n)){e=-1;for(var u=n.length;++e<u;){var o=n[e];t(o,e,n)&&r.push(o)}}else Xe(n,function(n,e,u){t(n,e,u)&&r.push(n)});return r}function It(n,t,e){if(t=v.createCallback(t,e,3),!qe(n)){var r;return Xe(n,function(n,e,u){return t(n,e,u)?(r=n,false):void 0}),r}e=-1;for(var u=n.length;++e<u;){var o=n[e];if(t(o,e,n))return o}}function Dt(n,t,e){if(t&&typeof e==\"undefined\"&&qe(n)){e=-1;\nfor(var r=n.length;++e<r&&false!==t(n[e],e,n););}else Xe(n,t,e);return n}function Nt(n,t,e){var r=n,u=n?n.length:0;if(t=t&&typeof e==\"undefined\"?t:tt(t,e,3),qe(n))for(;u--&&false!==t(n[u],u,n););else{if(typeof u!=\"number\")var o=We(n),u=o.length;else Le.unindexedChars&&kt(n)&&(r=n.split(\"\"));Xe(n,function(n,e,a){return e=o?o[--u]:--u,t(r[e],e,a)})}return n}function Bt(n,t,e){var r=-1,u=n?n.length:0,o=Zt(typeof u==\"number\"?u:0);if(t=v.createCallback(t,e,3),qe(n))for(;++r<u;)o[r]=t(n[r],r,n);else Xe(n,function(n,e,u){o[++r]=t(n,e,u)\n});return o}function Pt(n,t,e){var u=-1/0,o=u;if(typeof t!=\"function\"&&e&&e[t]===n&&(t=null),null==t&&qe(n)){e=-1;for(var a=n.length;++e<a;){var i=n[e];i>o&&(o=i)}}else t=null==t&&kt(n)?r:v.createCallback(t,e,3),Xe(n,function(n,e,r){e=t(n,e,r),e>u&&(u=e,o=n)});return o}function Rt(n,t,e,r){var u=3>arguments.length;if(t=v.createCallback(t,r,4),qe(n)){var o=-1,a=n.length;for(u&&(e=n[++o]);++o<a;)e=t(e,n[o],o,n)}else Xe(n,function(n,r,o){e=u?(u=false,n):t(e,n,r,o)});return e}function Ft(n,t,e,r){var u=3>arguments.length;\nreturn t=v.createCallback(t,r,4),Nt(n,function(n,r,o){e=u?(u=false,n):t(e,n,r,o)}),e}function Tt(n){var t=-1,e=n?n.length:0,r=Zt(typeof e==\"number\"?e:0);return Dt(n,function(n){var e=lt(0,++t);r[t]=r[e],r[e]=n}),r}function $t(n,t,e){var r;if(t=v.createCallback(t,e,3),qe(n)){e=-1;for(var u=n.length;++e<u&&!(r=t(n[e],e,n)););}else Xe(n,function(n,e,u){return!(r=t(n,e,u))});return!!r}function Lt(n,t,e){var r=0,u=n?n.length:0;if(typeof t!=\"number\"&&null!=t){var o=-1;for(t=v.createCallback(t,e,3);++o<u&&t(n[o],o,n);)r++\n}else if(r=t,null==r||e)return n?n[0]:h;return s(n,0,Pe(Be(0,r),u))}function zt(t,e,r){if(typeof r==\"number\"){var u=t?t.length:0;r=0>r?Be(0,u+r):r||0}else if(r)return r=Kt(t,e),t[r]===e?r:-1;return n(t,e,r)}function qt(n,t,e){if(typeof t!=\"number\"&&null!=t){var r=0,u=-1,o=n?n.length:0;for(t=v.createCallback(t,e,3);++u<o&&t(n[u],u,n);)r++}else r=null==t||e?1:Be(0,t);return s(n,r)}function Kt(n,t,e,r){var u=0,o=n?n.length:u;for(e=e?v.createCallback(e,r,1):Ht,t=e(t);u<o;)r=u+o>>>1,e(n[r])<t?u=r+1:o=r;\nreturn u}function Wt(n,t,e,r){return typeof t!=\"boolean\"&&null!=t&&(r=e,e=typeof t!=\"function\"&&r&&r[t]===n?null:t,t=false),null!=e&&(e=v.createCallback(e,r,3)),ft(n,t,e)}function Gt(){for(var n=1<arguments.length?arguments:arguments[0],t=-1,e=n?Pt(ar(n,\"length\")):0,r=Zt(0>e?0:e);++t<e;)r[t]=ar(n,t);return r}function Jt(n,t){var e=-1,r=n?n.length:0,u={};for(t||!r||qe(n[0])||(t=[]);++e<r;){var o=n[e];t?u[o]=t[e]:o&&(u[o[0]]=o[1])}return u}function Mt(n,t){return 2<arguments.length?pt(n,17,s(arguments,2),null,t):pt(n,1,null,null,t)\n}function Vt(n,t,e){var r,u,o,a,i,l,f,c=0,p=false,s=true;if(!jt(n))throw new le;if(t=Be(0,t)||0,true===e)var g=true,s=false;else xt(e)&&(g=e.leading,p=\"maxWait\"in e&&(Be(t,e.maxWait)||0),s=\"trailing\"in e?e.trailing:s);var v=function(){var e=t-(ir()-a);0<e?l=Ce(v,e):(u&&me(u),e=f,u=l=f=h,e&&(c=ir(),o=n.apply(i,r),l||u||(r=i=null)))},y=function(){l&&me(l),u=l=f=h,(s||p!==t)&&(c=ir(),o=n.apply(i,r),l||u||(r=i=null))};return function(){if(r=arguments,a=ir(),i=this,f=s&&(l||!g),false===p)var e=g&&!l;else{u||g||(c=a);\nvar h=p-(a-c),m=0>=h;m?(u&&(u=me(u)),c=a,o=n.apply(i,r)):u||(u=Ce(y,h))}return m&&l?l=me(l):l||t===p||(l=Ce(v,t)),e&&(m=true,o=n.apply(i,r)),!m||l||u||(r=i=null),o}}function Ht(n){return n}function Ut(n,t,e){var r=true,u=t&&_t(t);t&&(e||u.length)||(null==e&&(e=t),o=y,t=n,n=v,u=_t(t)),false===e?r=false:xt(e)&&\"chain\"in e&&(r=e.chain);var o=n,a=jt(o);Dt(u,function(e){var u=n[e]=t[e];a&&(o.prototype[e]=function(){var t=this.__chain__,e=this.__wrapped__,a=[e];if(je.apply(a,arguments),a=u.apply(n,a),r||t){if(e===a&&xt(a))return this;\na=new o(a),a.__chain__=t}return a})})}function Qt(){}function Xt(n){return function(t){return t[n]}}function Yt(){return this.__wrapped__}e=e?ut.defaults(Z.Object(),e,ut.pick(Z,R)):Z;var Zt=e.Array,ne=e.Boolean,te=e.Date,ee=e.Function,re=e.Math,ue=e.Number,oe=e.Object,ae=e.RegExp,ie=e.String,le=e.TypeError,fe=[],ce=e.Error.prototype,pe=oe.prototype,se=ie.prototype,ge=e._,he=pe.toString,ve=ae(\"^\"+ie(he).replace(/[.*+?^${}()|[\\]\\\\]/g,\"\\\\$&\").replace(/toString| for [^\\]]+/g,\".*?\")+\"$\"),ye=re.ceil,me=e.clearTimeout,de=re.floor,be=ee.prototype.toString,_e=vt(_e=oe.getPrototypeOf)&&_e,we=pe.hasOwnProperty,je=fe.push,xe=pe.propertyIsEnumerable,Ce=e.setTimeout,ke=fe.splice,Ee=fe.unshift,Oe=function(){try{var n={},t=vt(t=oe.defineProperty)&&t,e=t(n,n,n)&&t\n}catch(r){}return e}(),Se=vt(Se=oe.create)&&Se,Ae=vt(Ae=Zt.isArray)&&Ae,Ie=e.isFinite,De=e.isNaN,Ne=vt(Ne=oe.keys)&&Ne,Be=re.max,Pe=re.min,Re=e.parseInt,Fe=re.random,Te={};Te[$]=Zt,Te[L]=ne,Te[z]=te,Te[K]=ee,Te[G]=oe,Te[W]=ue,Te[J]=ae,Te[M]=ie;var $e={};$e[$]=$e[z]=$e[W]={constructor:true,toLocaleString:true,toString:true,valueOf:true},$e[L]=$e[M]={constructor:true,toString:true,valueOf:true},$e[q]=$e[K]=$e[J]={constructor:true,toString:true},$e[G]={constructor:true},function(){for(var n=F.length;n--;){var t,e=F[n];\nfor(t in $e)we.call($e,t)&&!we.call($e[t],e)&&($e[t][e]=false)}}(),y.prototype=v.prototype;var Le=v.support={};!function(){var n=function(){this.x=1},t={0:1,length:1},r=[];n.prototype={valueOf:1,y:1};for(var u in new n)r.push(u);for(u in arguments);Le.argsClass=he.call(arguments)==T,Le.argsObject=arguments.constructor==oe&&!(arguments instanceof Zt),Le.enumErrorProps=xe.call(ce,\"message\")||xe.call(ce,\"name\"),Le.enumPrototypes=xe.call(n,\"prototype\"),Le.funcDecomp=!vt(e.WinRTError)&&B.test(g),Le.funcNames=typeof ee.name==\"string\",Le.nonEnumArgs=0!=u,Le.nonEnumShadows=!/valueOf/.test(r),Le.ownLast=\"x\"!=r[0],Le.spliceObjects=(fe.splice.call(t,0,1),!t[0]),Le.unindexedChars=\"xx\"!=\"x\"[0]+oe(\"x\")[0];\ntry{Le.nodeClass=!(he.call(document)==G&&!({toString:0}+\"\"))}catch(o){Le.nodeClass=true}}(1),v.templateSettings={escape:/<%-([\\s\\S]+?)%>/g,evaluate:/<%([\\s\\S]+?)%>/g,interpolate:I,variable:\"\",imports:{_:v}},Se||(nt=function(){function n(){}return function(t){if(xt(t)){n.prototype=t;var r=new n;n.prototype=null}return r||e.Object()}}());var ze=Oe?function(n,t){U.value=t,Oe(n,\"__bindData__\",U)}:Qt;Le.argsClass||(dt=function(n){return n&&typeof n==\"object\"&&typeof n.length==\"number\"&&we.call(n,\"callee\")&&!xe.call(n,\"callee\")||false\n});var qe=Ae||function(n){return n&&typeof n==\"object\"&&typeof n.length==\"number\"&&he.call(n)==$||false},Ke=st({a:\"z\",e:\"[]\",i:\"if(!(B[typeof z]))return E\",g:\"E.push(n)\"}),We=Ne?function(n){return xt(n)?Le.enumPrototypes&&typeof n==\"function\"||Le.nonEnumArgs&&n.length&&dt(n)?Ke(n):Ne(n):[]}:Ke,Ge={a:\"g,e,K\",i:\"e=e&&typeof K=='undefined'?e:d(e,K,3)\",b:\"typeof u=='number'\",v:We,g:\"if(e(t[n],n,g)===false)return E\"},Je={a:\"z,H,l\",i:\"var a=arguments,b=0,c=typeof l=='number'?2:a.length;while(++b<c){t=a[b];if(t&&B[typeof t]){\",v:We,g:\"if(typeof E[n]=='undefined')E[n]=t[n]\",c:\"}}\"},Me={i:\"if(!B[typeof t])return E;\"+Ge.i,b:false},Ve={\"&\":\"&amp;\",\"<\":\"&lt;\",\">\":\"&gt;\",'\"':\"&quot;\",\"'\":\"&#39;\"},He=wt(Ve),Ue=ae(\"(\"+We(He).join(\"|\")+\")\",\"g\"),Qe=ae(\"[\"+We(Ve).join(\"\")+\"]\",\"g\"),Xe=st(Ge),Ye=st(Je,{i:Je.i.replace(\";\",\";if(c>3&&typeof a[c-2]=='function'){var e=d(a[--c-1],a[c--],2)}else if(c>2&&typeof a[c-1]=='function'){e=a[--c]}\"),g:\"E[n]=e?e(E[n],t[n]):t[n]\"}),Ze=st(Je),nr=st(Ge,Me,{j:false}),tr=st(Ge,Me);\njt(/x/)&&(jt=function(n){return typeof n==\"function\"&&he.call(n)==K});var er=_e?function(n){if(!n||he.call(n)!=G||!Le.argsClass&&dt(n))return false;var t=n.valueOf,e=vt(t)&&(e=_e(t))&&_e(e);return e?n==e||_e(n)==e:yt(n)}:yt,rr=ct(function(n,t,e){we.call(n,e)?n[e]++:n[e]=1}),ur=ct(function(n,t,e){(we.call(n,e)?n[e]:n[e]=[]).push(t)}),or=ct(function(n,t,e){n[e]=t}),ar=Bt,ir=vt(ir=te.now)&&ir||function(){return(new te).getTime()},lr=8==Re(j+\"08\")?Re:function(n,t){return Re(kt(n)?n.replace(D,\"\"):n,t||0)};\nreturn v.after=function(n,t){if(!jt(t))throw new le;return function(){return 1>--n?t.apply(this,arguments):void 0}},v.assign=Ye,v.at=function(n){var t=arguments,e=-1,r=ot(t,true,false,1),t=t[2]&&t[2][t[1]]===n?1:r.length,u=Zt(t);for(Le.unindexedChars&&kt(n)&&(n=n.split(\"\"));++e<t;)u[e]=n[r[e]];return u},v.bind=Mt,v.bindAll=function(n){for(var t=1<arguments.length?ot(arguments,true,false,1):_t(n),e=-1,r=t.length;++e<r;){var u=t[e];n[u]=pt(n[u],1,null,null,n)}return n},v.bindKey=function(n,t){return 2<arguments.length?pt(t,19,s(arguments,2),null,n):pt(t,3,null,null,n)\n},v.chain=function(n){return n=new y(n),n.__chain__=true,n},v.compact=function(n){for(var t=-1,e=n?n.length:0,r=[];++t<e;){var u=n[t];u&&r.push(u)}return r},v.compose=function(){for(var n=arguments,t=n.length;t--;)if(!jt(n[t]))throw new le;return function(){for(var t=arguments,e=n.length;e--;)t=[n[e].apply(this,t)];return t[0]}},v.constant=function(n){return function(){return n}},v.countBy=rr,v.create=function(n,t){var e=nt(n);return t?Ye(e,t):e},v.createCallback=function(n,t,e){var r=typeof n;if(null==n||\"function\"==r)return tt(n,t,e);\nif(\"object\"!=r)return Xt(n);var u=We(n),o=u[0],a=n[o];return 1!=u.length||a!==a||xt(a)?function(t){for(var e=u.length,r=false;e--&&(r=at(t[u[e]],n[u[e]],null,true)););return r}:function(n){return n=n[o],a===n&&(0!==a||1/a==1/n)}},v.curry=function(n,t){return t=typeof t==\"number\"?t:+t||n.length,pt(n,4,null,null,null,t)},v.debounce=Vt,v.defaults=Ze,v.defer=function(n){if(!jt(n))throw new le;var t=s(arguments,1);return Ce(function(){n.apply(h,t)},1)},v.delay=function(n,t){if(!jt(n))throw new le;var e=s(arguments,2);\nreturn Ce(function(){n.apply(h,e)},t)},v.difference=function(n){return rt(n,ot(arguments,true,true,1))},v.filter=At,v.flatten=function(n,t,e,r){return typeof t!=\"boolean\"&&null!=t&&(r=e,e=typeof t!=\"function\"&&r&&r[t]===n?null:t,t=false),null!=e&&(n=Bt(n,e,r)),ot(n,t)},v.forEach=Dt,v.forEachRight=Nt,v.forIn=nr,v.forInRight=function(n,t,e){var r=[];nr(n,function(n,t){r.push(t,n)});var u=r.length;for(t=tt(t,e,3);u--&&false!==t(r[u--],r[u],n););return n},v.forOwn=tr,v.forOwnRight=bt,v.functions=_t,v.groupBy=ur,v.indexBy=or,v.initial=function(n,t,e){var r=0,u=n?n.length:0;\nif(typeof t!=\"number\"&&null!=t){var o=u;for(t=v.createCallback(t,e,3);o--&&t(n[o],o,n);)r++}else r=null==t||e?1:t||r;return s(n,0,Pe(Be(0,u-r),u))},v.intersection=function(){for(var e=[],r=-1,u=arguments.length,a=i(),l=ht(),f=l===n,s=i();++r<u;){var g=arguments[r];(qe(g)||dt(g))&&(e.push(g),a.push(f&&g.length>=_&&o(r?e[r]:s)))}var f=e[0],h=-1,v=f?f.length:0,y=[];n:for(;++h<v;){var m=a[0],g=f[h];if(0>(m?t(m,g):l(s,g))){for(r=u,(m||s).push(g);--r;)if(m=a[r],0>(m?t(m,g):l(e[r],g)))continue n;y.push(g)\n}}for(;u--;)(m=a[u])&&p(m);return c(a),c(s),y},v.invert=wt,v.invoke=function(n,t){var e=s(arguments,2),r=-1,u=typeof t==\"function\",o=n?n.length:0,a=Zt(typeof o==\"number\"?o:0);return Dt(n,function(n){a[++r]=(u?t:n[t]).apply(n,e)}),a},v.keys=We,v.map=Bt,v.mapValues=function(n,t,e){var r={};return t=v.createCallback(t,e,3),tr(n,function(n,e,u){r[e]=t(n,e,u)}),r},v.max=Pt,v.memoize=function(n,t){if(!jt(n))throw new le;var e=function(){var r=e.cache,u=t?t.apply(this,arguments):b+arguments[0];return we.call(r,u)?r[u]:r[u]=n.apply(this,arguments)\n};return e.cache={},e},v.merge=function(n){var t=arguments,e=2;if(!xt(n))return n;if(\"number\"!=typeof t[2]&&(e=t.length),3<e&&\"function\"==typeof t[e-2])var r=tt(t[--e-1],t[e--],2);else 2<e&&\"function\"==typeof t[e-1]&&(r=t[--e]);for(var t=s(arguments,1,e),u=-1,o=i(),a=i();++u<e;)it(n,t[u],r,o,a);return c(o),c(a),n},v.min=function(n,t,e){var u=1/0,o=u;if(typeof t!=\"function\"&&e&&e[t]===n&&(t=null),null==t&&qe(n)){e=-1;for(var a=n.length;++e<a;){var i=n[e];i<o&&(o=i)}}else t=null==t&&kt(n)?r:v.createCallback(t,e,3),Xe(n,function(n,e,r){e=t(n,e,r),e<u&&(u=e,o=n)\n});return o},v.omit=function(n,t,e){var r={};if(typeof t!=\"function\"){var u=[];nr(n,function(n,t){u.push(t)});for(var u=rt(u,ot(arguments,true,false,1)),o=-1,a=u.length;++o<a;){var i=u[o];r[i]=n[i]}}else t=v.createCallback(t,e,3),nr(n,function(n,e,u){t(n,e,u)||(r[e]=n)});return r},v.once=function(n){var t,e;if(!jt(n))throw new le;return function(){return t?e:(t=true,e=n.apply(this,arguments),n=null,e)}},v.pairs=function(n){for(var t=-1,e=We(n),r=e.length,u=Zt(r);++t<r;){var o=e[t];u[t]=[o,n[o]]}return u\n},v.partial=function(n){return pt(n,16,s(arguments,1))},v.partialRight=function(n){return pt(n,32,null,s(arguments,1))},v.pick=function(n,t,e){var r={};if(typeof t!=\"function\")for(var u=-1,o=ot(arguments,true,false,1),a=xt(n)?o.length:0;++u<a;){var i=o[u];i in n&&(r[i]=n[i])}else t=v.createCallback(t,e,3),nr(n,function(n,e,u){t(n,e,u)&&(r[e]=n)});return r},v.pluck=ar,v.property=Xt,v.pull=function(n){for(var t=arguments,e=0,r=t.length,u=n?n.length:0;++e<r;)for(var o=-1,a=t[e];++o<u;)n[o]===a&&(ke.call(n,o--,1),u--);\nreturn n},v.range=function(n,t,e){n=+n||0,e=typeof e==\"number\"?e:+e||1,null==t&&(t=n,n=0);var r=-1;t=Be(0,ye((t-n)/(e||1)));for(var u=Zt(t);++r<t;)u[r]=n,n+=e;return u},v.reject=function(n,t,e){return t=v.createCallback(t,e,3),At(n,function(n,e,r){return!t(n,e,r)})},v.remove=function(n,t,e){var r=-1,u=n?n.length:0,o=[];for(t=v.createCallback(t,e,3);++r<u;)e=n[r],t(e,r,n)&&(o.push(e),ke.call(n,r--,1),u--);return o},v.rest=qt,v.shuffle=Tt,v.sortBy=function(n,t,e){var r=-1,o=qe(t),a=n?n.length:0,f=Zt(typeof a==\"number\"?a:0);\nfor(o||(t=v.createCallback(t,e,3)),Dt(n,function(n,e,u){var a=f[++r]=l();o?a.m=Bt(t,function(t){return n[t]}):(a.m=i())[0]=t(n,e,u),a.n=r,a.o=n}),a=f.length,f.sort(u);a--;)n=f[a],f[a]=n.o,o||c(n.m),p(n);return f},v.tap=function(n,t){return t(n),n},v.throttle=function(n,t,e){var r=true,u=true;if(!jt(n))throw new le;return false===e?r=false:xt(e)&&(r=\"leading\"in e?e.leading:r,u=\"trailing\"in e?e.trailing:u),H.leading=r,H.maxWait=t,H.trailing=u,Vt(n,t,H)},v.times=function(n,t,e){n=-1<(n=+n)?n:0;var r=-1,u=Zt(n);\nfor(t=tt(t,e,1);++r<n;)u[r]=t(r);return u},v.toArray=function(n){return n&&typeof n.length==\"number\"?Le.unindexedChars&&kt(n)?n.split(\"\"):s(n):Et(n)},v.transform=function(n,t,e,r){var u=qe(n);if(null==e)if(u)e=[];else{var o=n&&n.constructor;e=nt(o&&o.prototype)}return t&&(t=v.createCallback(t,r,4),(u?Xe:tr)(n,function(n,r,u){return t(e,n,r,u)})),e},v.union=function(){return ft(ot(arguments,true,true))},v.uniq=Wt,v.values=Et,v.where=At,v.without=function(n){return rt(n,s(arguments,1))},v.wrap=function(n,t){return pt(t,16,[n])\n},v.xor=function(){for(var n=-1,t=arguments.length;++n<t;){var e=arguments[n];if(qe(e)||dt(e))var r=r?ft(rt(r,e).concat(rt(e,r))):e}return r||[]},v.zip=Gt,v.zipObject=Jt,v.collect=Bt,v.drop=qt,v.each=Dt,v.eachRight=Nt,v.extend=Ye,v.methods=_t,v.object=Jt,v.select=At,v.tail=qt,v.unique=Wt,v.unzip=Gt,Ut(v),v.clone=function(n,t,e,r){return typeof t!=\"boolean\"&&null!=t&&(r=e,e=t,t=false),Y(n,t,typeof e==\"function\"&&tt(e,r,1))},v.cloneDeep=function(n,t,e){return Y(n,true,typeof t==\"function\"&&tt(t,e,1))},v.contains=Ot,v.escape=function(n){return null==n?\"\":ie(n).replace(Qe,gt)\n},v.every=St,v.find=It,v.findIndex=function(n,t,e){var r=-1,u=n?n.length:0;for(t=v.createCallback(t,e,3);++r<u;)if(t(n[r],r,n))return r;return-1},v.findKey=function(n,t,e){var r;return t=v.createCallback(t,e,3),tr(n,function(n,e,u){return t(n,e,u)?(r=e,false):void 0}),r},v.findLast=function(n,t,e){var r;return t=v.createCallback(t,e,3),Nt(n,function(n,e,u){return t(n,e,u)?(r=n,false):void 0}),r},v.findLastIndex=function(n,t,e){var r=n?n.length:0;for(t=v.createCallback(t,e,3);r--;)if(t(n[r],r,n))return r;\nreturn-1},v.findLastKey=function(n,t,e){var r;return t=v.createCallback(t,e,3),bt(n,function(n,e,u){return t(n,e,u)?(r=e,false):void 0}),r},v.has=function(n,t){return n?we.call(n,t):false},v.identity=Ht,v.indexOf=zt,v.isArguments=dt,v.isArray=qe,v.isBoolean=function(n){return true===n||false===n||n&&typeof n==\"object\"&&he.call(n)==L||false},v.isDate=function(n){return n&&typeof n==\"object\"&&he.call(n)==z||false},v.isElement=function(n){return n&&1===n.nodeType||false},v.isEmpty=function(n){var t=true;if(!n)return t;var e=he.call(n),r=n.length;\nreturn e==$||e==M||(Le.argsClass?e==T:dt(n))||e==G&&typeof r==\"number\"&&jt(n.splice)?!r:(tr(n,function(){return t=false}),t)},v.isEqual=function(n,t,e,r){return at(n,t,typeof e==\"function\"&&tt(e,r,2))},v.isFinite=function(n){return Ie(n)&&!De(parseFloat(n))},v.isFunction=jt,v.isNaN=function(n){return Ct(n)&&n!=+n},v.isNull=function(n){return null===n},v.isNumber=Ct,v.isObject=xt,v.isPlainObject=er,v.isRegExp=function(n){return n&&X[typeof n]&&he.call(n)==J||false},v.isString=kt,v.isUndefined=function(n){return typeof n==\"undefined\"\n},v.lastIndexOf=function(n,t,e){var r=n?n.length:0;for(typeof e==\"number\"&&(r=(0>e?Be(0,r+e):Pe(e,r-1))+1);r--;)if(n[r]===t)return r;return-1},v.mixin=Ut,v.noConflict=function(){return e._=ge,this},v.noop=Qt,v.now=ir,v.parseInt=lr,v.random=function(n,t,e){var r=null==n,u=null==t;return null==e&&(typeof n==\"boolean\"&&u?(e=n,n=1):u||typeof t!=\"boolean\"||(e=t,u=true)),r&&u&&(t=1),n=+n||0,u?(t=n,n=0):t=+t||0,e||n%1||t%1?(e=Fe(),Pe(n+e*(t-n+parseFloat(\"1e-\"+((e+\"\").length-1))),t)):lt(n,t)},v.reduce=Rt,v.reduceRight=Ft,v.result=function(n,t){if(n){var e=n[t];\nreturn jt(e)?n[t]():e}},v.runInContext=g,v.size=function(n){var t=n?n.length:0;return typeof t==\"number\"?t:We(n).length},v.some=$t,v.sortedIndex=Kt,v.template=function(n,t,e){var r=v.templateSettings;n=ie(n||\"\"),e=Ze({},e,r);var u,o=Ze({},e.imports,r.imports),r=We(o),o=Et(o),i=0,l=e.interpolate||N,f=\"__p+='\",l=ae((e.escape||N).source+\"|\"+l.source+\"|\"+(l===I?O:N).source+\"|\"+(e.evaluate||N).source+\"|$\",\"g\");n.replace(l,function(t,e,r,o,l,c){return r||(r=o),f+=n.slice(i,c).replace(P,a),e&&(f+=\"'+__e(\"+e+\")+'\"),l&&(u=true,f+=\"';\"+l+\";\\n__p+='\"),r&&(f+=\"'+((__t=(\"+r+\"))==null?'':__t)+'\"),i=c+t.length,t\n}),f+=\"';\",l=e=e.variable,l||(e=\"obj\",f=\"with(\"+e+\"){\"+f+\"}\"),f=(u?f.replace(x,\"\"):f).replace(C,\"$1\").replace(E,\"$1;\"),f=\"function(\"+e+\"){\"+(l?\"\":e+\"||(\"+e+\"={});\")+\"var __t,__p='',__e=_.escape\"+(u?\",__j=Array.prototype.join;function print(){__p+=__j.call(arguments,'')}\":\";\")+f+\"return __p}\";try{var c=ee(r,\"return \"+f).apply(h,o)}catch(p){throw p.source=f,p}return t?c(t):(c.source=f,c)},v.unescape=function(n){return null==n?\"\":ie(n).replace(Ue,mt)},v.uniqueId=function(n){var t=++m;return ie(null==n?\"\":n)+t\n},v.all=St,v.any=$t,v.detect=It,v.findWhere=It,v.foldl=Rt,v.foldr=Ft,v.include=Ot,v.inject=Rt,Ut(function(){var n={};return tr(v,function(t,e){v.prototype[e]||(n[e]=t)}),n}(),false),v.first=Lt,v.last=function(n,t,e){var r=0,u=n?n.length:0;if(typeof t!=\"number\"&&null!=t){var o=u;for(t=v.createCallback(t,e,3);o--&&t(n[o],o,n);)r++}else if(r=t,null==r||e)return n?n[u-1]:h;return s(n,Be(0,u-r))},v.sample=function(n,t,e){return n&&typeof n.length!=\"number\"?n=Et(n):Le.unindexedChars&&kt(n)&&(n=n.split(\"\")),null==t||e?n?n[lt(0,n.length-1)]:h:(n=Tt(n),n.length=Pe(Be(0,t),n.length),n)\n},v.take=Lt,v.head=Lt,tr(v,function(n,t){var e=\"sample\"!==t;v.prototype[t]||(v.prototype[t]=function(t,r){var u=this.__chain__,o=n(this.__wrapped__,t,r);return u||null!=t&&(!r||e&&typeof t==\"function\")?new y(o,u):o})}),v.VERSION=\"2.4.1\",v.prototype.chain=function(){return this.__chain__=true,this},v.prototype.toString=function(){return ie(this.__wrapped__)},v.prototype.value=Yt,v.prototype.valueOf=Yt,Xe([\"join\",\"pop\",\"shift\"],function(n){var t=fe[n];v.prototype[n]=function(){var n=this.__chain__,e=t.apply(this.__wrapped__,arguments);\nreturn n?new y(e,n):e}}),Xe([\"push\",\"reverse\",\"sort\",\"unshift\"],function(n){var t=fe[n];v.prototype[n]=function(){return t.apply(this.__wrapped__,arguments),this}}),Xe([\"concat\",\"slice\",\"splice\"],function(n){var t=fe[n];v.prototype[n]=function(){return new y(t.apply(this.__wrapped__,arguments),this.__chain__)}}),Le.spliceObjects||Xe([\"pop\",\"shift\",\"splice\"],function(n){var t=fe[n],e=\"splice\"==n;v.prototype[n]=function(){var n=this.__chain__,r=this.__wrapped__,u=t.apply(r,arguments);return 0===r.length&&delete r[0],n||e?new y(u,n):u\n}}),v}var h,v=[],y=[],m=0,d={},b=+new Date+\"\",_=75,w=40,j=\" \\t\\x0B\\f\\xa0\\ufeff\\n\\r\\u2028\\u2029\\u1680\\u180e\\u2000\\u2001\\u2002\\u2003\\u2004\\u2005\\u2006\\u2007\\u2008\\u2009\\u200a\\u202f\\u205f\\u3000\",x=/\\b__p\\+='';/g,C=/\\b(__p\\+=)''\\+/g,E=/(__e\\(.*?\\)|\\b__t\\))\\+'';/g,O=/\\$\\{([^\\\\}]*(?:\\\\.[^\\\\}]*)*)\\}/g,S=/\\w*$/,A=/^\\s*function[ \\n\\r\\t]+\\w/,I=/<%=([\\s\\S]+?)%>/g,D=RegExp(\"^[\"+j+\"]*0+(?=.$)\"),N=/($^)/,B=/\\bthis\\b/,P=/['\\n\\r\\t\\u2028\\u2029\\\\]/g,R=\"Array Boolean Date Error Function Math Number Object RegExp String _ attachEvent clearTimeout isFinite isNaN parseInt setTimeout\".split(\" \"),F=\"constructor hasOwnProperty isPrototypeOf propertyIsEnumerable toLocaleString toString valueOf\".split(\" \"),T=\"[object Arguments]\",$=\"[object Array]\",L=\"[object Boolean]\",z=\"[object Date]\",q=\"[object Error]\",K=\"[object Function]\",W=\"[object Number]\",G=\"[object Object]\",J=\"[object RegExp]\",M=\"[object String]\",V={};\nV[K]=false,V[T]=V[$]=V[L]=V[z]=V[W]=V[G]=V[J]=V[M]=true;var H={leading:false,maxWait:0,trailing:false},U={configurable:false,enumerable:false,value:null,writable:false},Q={a:\"\",b:null,c:\"\",d:\"\",e:\"\",v:null,g:\"\",h:null,support:null,i:\"\",j:false},X={\"boolean\":false,\"function\":true,object:true,number:false,string:false,undefined:false},Y={\"\\\\\":\"\\\\\",\"'\":\"'\",\"\\n\":\"n\",\"\\r\":\"r\",\"\\t\":\"t\",\"\\u2028\":\"u2028\",\"\\u2029\":\"u2029\"},Z=X[typeof window]&&window||this,nt=X[typeof exports]&&exports&&!exports.nodeType&&exports,tt=X[typeof module]&&module&&!module.nodeType&&module,et=tt&&tt.exports===nt&&nt,rt=X[typeof global]&&global;\n!rt||rt.global!==rt&&rt.window!==rt||(Z=rt);var ut=g();typeof define==\"function\"&&typeof define.amd==\"object\"&&define.amd?(Z._=ut, define(function(){return ut})):nt&&tt?et?(tt.exports=ut)._=ut:nt._=ut:Z._=ut}).call(this);"
 
 /***/ },
-/* 30 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/*global define:false */
@@ -2919,16 +1949,996 @@
 
 
 /***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(6)(__webpack_require__(12))
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = "/**\n * postal - Pub/Sub library providing wildcard subscriptions, complex message handling, etc.  Works server and client-side.\n * Author: Jim Cowart (http://ifandelse.com)\n * Version: v0.12.3\n * Url: http://github.com/postaljs/postal.js\n * License(s): MIT\n */\n(function(e,t){\"function\"==typeof define&&define.amd?define([\"lodash\"],function(n){return t(n,e)}):\"object\"==typeof module&&module.exports?module.exports=t(require(\"lodash\"),this):e.postal=t(e._,e)})(this,function(e,t,n){function i(e,t){return function(){if(console.warn||console.log){var n=\"Warning, the \"+e+\" method has been deprecated. Please use \"+t+\" instead.\";console.warn?console.warn(n):console.log(n)}return b.prototype[t].apply(this,arguments)}}function r(){for(;E.length;)l.unsubscribe(E.shift())}function c(e,t,n){return function(i,r,c){i===e&&c.splice(r,1),0===c.length&&delete n[t]}}function s(e,t,n,i,r){var c=r&&r.headers||{};return function(r){p.resolver.compare(r.topic,e,c)&&(t.push(r),r.cacheKeys.push(n),i&&i(r))}}function o(e,t){return{channel:p.SYSTEM_CHANNEL,topic:\"subscription.\"+e,data:{event:\"subscription.\"+e,channel:t.channel,topic:t.topic}}}function a(t,n){return\"function\"==typeof t?t:t?function(i){var r=0,c=0;return e.each(t,function(e,s){r+=1,(\"topic\"===s&&n.compare(i.topic,t.topic,{resolverNoCache:!0})||\"context\"===s&&t.context===i._context||i[s]===t[s])&&(c+=1)}),r===c}:function(){return!0}}var u=t.postal,h={DEFAULT_CHANNEL:\"/\",SYSTEM_CHANNEL:\"postal\",enableSystemMessages:!0,cacheKeyDelimiter:\"|\",autoCompactResolver:!1},l={configuration:e.extend({},h)},p=l.configuration,f=function(e,t){this.bus=t,this.channel=e||p.DEFAULT_CHANNEL};f.prototype.subscribe=function(){return this.bus.subscribe({channel:this.channel,topic:1===arguments.length?arguments[0].topic:arguments[0],callback:1===arguments.length?arguments[0].callback:arguments[1]})},f.prototype.publish=function(){var e=1===arguments.length?\"[object String]\"===Object.prototype.toString.call(arguments[0])?{topic:arguments[0]}:arguments[0]:{topic:arguments[0],data:arguments[1]};e.channel=this.channel,this.bus.publish(e)};var b=function(e,t,i){if(3!==arguments.length)throw new Error(\"You must provide a channel, topic and callback when creating a SubscriptionDefinition instance.\");if(0===t.length)throw new Error(\"Topics cannot be empty\");this.channel=e,this.topic=t,this.callback=i,this.pipeline=[],this.cacheKeys=[],this._context=n},d=function(){var t;return function(n){var i=!1;return e.isString(n)?(i=n===t,t=n):(i=e.isEqual(n,t),t=e.clone(n)),!i}},m=function(){var t=[];return function(n){var i=!e.any(t,function(t){return e.isObject(n)||e.isArray(n)?e.isEqual(n,t):n===t});return i&&t.push(n),i}};b.prototype={\"catch\":function(e){var t=this.callback,n=function(){try{t.apply(this,arguments)}catch(n){e(n,arguments[0])}};return this.callback=n,this},defer:function(){return this.delay(0)},disposeAfter:function(t){if(!e.isNumber(t)||0>=t)throw new Error(\"The value provided to disposeAfter (maxCalls) must be a number greater than zero.\");var n=this,i=e.after(t,e.bind(function(){n.unsubscribe()}));return n.pipeline.push(function(e,t,n){n(e,t),i()}),n},distinct:function(){return this.constraint(new m)},distinctUntilChanged:function(){return this.constraint(new d)},invokeSubscriber:function(e,t){if(!this.inactive){var n=this,i=n.pipeline,r=i.length,c=n._context,s=-1;if(r){i=i.concat([n.callback]);var o=function a(e,t){s+=1,r>s?i[s].call(c,e,t,a):n.callback.call(c,e,t)};o(e,t,0)}else n.callback.call(c,e,t)}},logError:function(){if(console){var e;e=console.warn?console.warn:console.log,this[\"catch\"](e)}return this},once:function(){return this.disposeAfter(1)},subscribe:function(e){return this.callback=e,this},unsubscribe:function(){this.inactive||l.unsubscribe(this)},constraint:function(t){if(!e.isFunction(t))throw new Error(\"Predicate constraint must be a function\");return this.pipeline.push(function(e,n,i){t.call(this,e,n)&&i(e,n)}),this},constraints:function(t){var n=this;return e.isArray(t)&&e.each(t,function(e){n.constraint(e)}),n},context:function(e){return this._context=e,this},debounce:function(t,n){if(!e.isNumber(t))throw new Error(\"Milliseconds must be a number\");return this.pipeline.push(e.debounce(function(e,t,n){n(e,t)},t,!!n)),this},delay:function(t){if(!e.isNumber(t))throw new Error(\"Milliseconds must be a number\");var n=this;return n.pipeline.push(function(e,n,i){setTimeout(function(){i(e,n)},t)}),this},throttle:function(t){if(!e.isNumber(t))throw new Error(\"Milliseconds must be a number\");var n=function(e,t,n){n(e,t)};return this.pipeline.push(e.throttle(n,t)),this}};for(var g=[\"withConstraint\",\"withConstraints\",\"withContext\",\"withDebounce\",\"withDelay\",\"withThrottle\"],v=[\"constraint\",\"constraints\",\"context\",\"debounce\",\"delay\",\"throttle\"],y=0;6>y;y++){var w=g[y];b.prototype[w]=i(w,v[y])}var _=(p.resolver={cache:{},regex:{},enableCache:!0,compare:function(t,n,i){var r,c,s,o=n+p.cacheKeyDelimiter+t,a=this.cache[o],u=i||{},h=this.enableCache&&!u.resolverNoCache;return a===!0?a:-1===t.indexOf(\"#\")&&-1===t.indexOf(\"*\")?(a=n===t,h&&(this.cache[o]=a),a):((c=this.regex[t])||(r=\"^\"+e.map(t.split(\".\"),function(e){var t=\"\";return s&&(t=\"#\"!==s?\"\\\\.\\\\b\":\"\\\\b\"),t+=\"#\"===e?\"[\\\\s\\\\S]*\":\"*\"===e?\"[^.]+\":e,s=e,t}).join(\"\")+\"$\",c=this.regex[t]=new RegExp(r)),a=c.test(n),h&&(this.cache[o]=a),a)},reset:function(){this.cache={},this.regex={}},purge:function(t){var n=this,i=p.cacheKeyDelimiter,r=function(e,r){var c=r.split(i),s=c[0],o=c[1];\"undefined\"!=typeof t.topic&&t.topic!==s||\"undefined\"!=typeof t.binding&&t.binding!==o||delete n.cache[r]},c=function(e,t){var r=t.split(i);0===l.getSubscribersFor({topic:r[0]}).length&&delete n.cache[t]};if(\"undefined\"==typeof t)this.reset();else{var s=t.compact===!0?c:r;e.each(this.cache,s)}}},0),E=[],x=0,C=e.bind(o,this,\"created\"),S=e.bind(o,this,\"removed\");if(e.extend(l,{cache:{},subscriptions:{},wireTaps:[],ChannelDefinition:f,SubscriptionDefinition:b,channel:function(e){return new f(e,this)},addWireTap:function(e){var t=this;return t.wireTaps.push(e),function(){var n=t.wireTaps.indexOf(e);-1!==n&&t.wireTaps.splice(n,1)}},noConflict:function(){if(\"undefined\"==typeof window||\"undefined\"!=typeof window&&\"function\"==typeof define&&define.amd)throw new Error(\"noConflict can only be used in browser clients which aren't using AMD modules\");return t.postal=u,this},getSubscribersFor:function(t){var n=[],i=this;return e.each(i.subscriptions,function(i){e.each(i,function(i){n=n.concat(e.filter(i,a(t,p.resolver)))})}),n},publish:function(t){++_;var n=t.channel=t.channel||p.DEFAULT_CHANNEL,i=t.topic;t.timeStamp=new Date,this.wireTaps.length&&e.each(this.wireTaps,function(e){e(t.data,t,_)});var c=n+p.cacheKeyDelimiter+i,o=this.cache[c];if(o)e.each(o,function(e){e.invokeSubscriber(t.data,t)});else{o=this.cache[c]=[];var a=s(i,o,c,function(e){e.invokeSubscriber(t.data,t)},t);e.each(this.subscriptions[n],function(t){e.each(t,a)})}0===--_&&r()},reset:function(){this.unsubscribeFor(),p.resolver.reset(),this.subscriptions={}},subscribe:function(t){var n,i=this.subscriptions,r=new b(t.channel||p.DEFAULT_CHANNEL,t.topic,t.callback),c=i[r.channel],o=r.channel.length;return c||(c=i[r.channel]={}),n=i[r.channel][r.topic],n||(n=i[r.channel][r.topic]=[]),n.push(r),e.each(this.cache,function(e,t){t.substr(0,o)===r.channel&&s(t.split(p.cacheKeyDelimiter)[1],e,t)(r)}),p.enableSystemMessages&&this.publish(C(r)),r},unsubscribe:function(){for(var t,n,i,r,s=arguments.length,o=0;s>o;o++){if(t=arguments[o],t.inactive=!0,_)return E.push(t),void 0;if(n=this.subscriptions[t.channel],i=n&&n[t.topic]){var a=i.length;for(r=0;a>r;){if(i[r]===t){i.splice(r,1);break}r+=1}if(0===i.length&&(delete n[t.topic],e.isEmpty(n)&&delete this.subscriptions[t.channel]),t.cacheKeys&&t.cacheKeys.length)for(var u;u=t.cacheKeys.pop();)e.each(this.cache[u],c(t,u,this.cache));if(\"function\"==typeof p.resolver.purge){var h=p.autoCompactResolver===!0?0:\"number\"==typeof p.autoCompactResolver?p.autoCompactResolver-1:!1;h>=0&&x===h?(p.resolver.purge({compact:!0}),x=0):h>=0&&h>x&&(x+=1)}}p.enableSystemMessages&&this.publish(S(t))}},unsubscribeFor:function(e){var t=[];this.subscriptions&&(t=this.getSubscribersFor(e),this.unsubscribe.apply(this,t))}}),t&&Object.prototype.hasOwnProperty.call(t,\"__postalReady__\")&&e.isArray(t.__postalReady__))for(;t.__postalReady__.length;)t.__postalReady__.shift().onReady(l);return l});"
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var UnknownPreviewer;
+
+	UnknownPreviewer = React.createClass({
+
+	  /* Construction */
+	  displayName: "UnknownPreviewer",
+
+	  /* Render */
+	  render: function() {
+	    return React.createElement("div", {className: "mk-block-content"}, 
+	      React.createElement("h4", null, "Unknown Block Type: ", this.props.block.type), 
+	      React.createElement("pre", null, JSON.stringify(this.props.block.data, null, 2))
+	    );
+	  }
+
+	  /* Life Cycle */
+
+	  /* Custom Methods */
+	});
+
+	module.exports = UnknownPreviewer;
+
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var ExpandingTextarea, TextEditor;
+
+	ExpandingTextarea = __webpack_require__(33);
+
+	TextEditor = React.createClass({
+
+	  /* Construction */
+	  displayName: "TextEditor",
+	  propTypes: {
+	    block: React.PropTypes.object.isRequired
+	  },
+
+	  /* Render */
+	  render: function() {
+	    return React.createElement(ExpandingTextarea, React.__spread({},  this.props));
+	  }
+
+	  /* Life Cycle */
+
+	  /* Custom Methods */
+	});
+
+	module.exports = TextEditor;
+
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var TextPreviewer;
+
+	TextPreviewer = React.createClass({
+
+	  /* Construction */
+	  displayName: "TextPreviewer",
+	  propTypes: {
+	    block: React.PropTypes.object.isRequired
+	  },
+
+	  /* Render */
+	  render: function() {
+	    return React.createElement("pre", null, this.props.block.data.text);
+	  }
+
+	  /* Life Cycle */
+
+	  /* Custom Methods */
+	});
+
+	module.exports = TextPreviewer;
+
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var ExpandingTextarea, HtmlEditor;
+
+	ExpandingTextarea = __webpack_require__(33);
+
+	HtmlEditor = React.createClass({
+
+	  /* Construction */
+	  displayName: "HtmlEditor",
+
+	  /* Render */
+	  render: function() {
+	    return (React.createElement("div", {className: "mk-block-content"}, 
+	       React.createElement(ExpandingTextarea, React.__spread({},  this.props))
+	     )
+	    );
+	  }
+
+	  /* Life Cycle */
+
+	  /* Custom Methods */
+	});
+
+	module.exports = HtmlEditor;
+
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var HtmlPreviewer;
+
+	HtmlPreviewer = React.createClass({
+
+	  /* Construction */
+	  displayName: "HtmlPreviewer",
+
+	  /* Render */
+	  render: function() {
+	    var html;
+	    html = this.props.block.data.text;
+	    return React.createElement("div", {className: "mk-block-content", dangerouslySetInnerHTML: {__html: html}});
+	  }
+
+	  /* Life Cycle */
+
+	  /* Custom Methods */
+	});
+
+	module.exports = HtmlPreviewer;
+
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var ExpandingTextarea, JavascriptEditor;
+
+	ExpandingTextarea = __webpack_require__(33);
+
+	JavascriptEditor = React.createClass({
+
+	  /* Construction */
+	  displayName: "JavascriptEditor",
+
+	  /* Render */
+	  render: function() {
+	    return React.createElement(ExpandingTextarea, React.__spread({},  this.props));
+	  }
+
+	  /* Life Cycle */
+
+	  /* Custom Methods */
+	});
+
+	module.exports = JavascriptEditor;
+
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var JavascriptPreviewer;
+
+	JavascriptPreviewer = React.createClass({
+
+	  /* Construction */
+	  displayName: "JavascriptPreviewer",
+
+	  /* Render */
+	  render: function() {
+	    var js;
+	    js = this.props.block.data.text;
+	    return React.createElement("pre", {ref: "js"}, js);
+	  }
+
+	  /* Life Cycle */
+
+	  /* Custom Methods */
+	});
+
+	module.exports = JavascriptPreviewer;
+
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var Channel, ExpandingTextarea, MarkdownEditor;
+
+	Channel = postal.channel("makona");
+
+	ExpandingTextarea = __webpack_require__(33);
+
+	MarkdownEditor = React.createClass({
+
+	  /* Construction */
+	  displayName: "MarkdownEditor",
+	  propTypes: {
+	    block: React.PropTypes.object.isRequired
+	  },
+	  getInitialState: function() {
+	    return {
+	      selectionPresent: false
+	    };
+	  },
+
+	  /* Render */
+	  render: function() {
+	    return (
+	      React.createElement("div", {className: "mk-block-content", cursorPosition: 0, positionCursor: false}, 
+	        React.createElement("div", {className: "mk-toolbar"}, 
+	          React.createElement("button", {onClick: this.wrapSelectedWith.bind(this, "**"), disabled: !this.state.selectionPresent}, "Bold"), 
+	          React.createElement("button", {onClick: this.wrapSelectedWith.bind(this, "*"), disabled: !this.state.selectionPresent}, "Italic"), 
+	          React.createElement("button", {onClick: this.insertAtCaret.bind(this, "\n---\n")}, "HR"), 
+	          React.createElement("button", {onClick: this.insertAtStartOfLine.bind(this, "# ")}, "H1"), 
+	          React.createElement("button", {onClick: this.insertAtStartOfLine.bind(this, "## ")}, "H2")
+	        ), 
+	        React.createElement(ExpandingTextarea, React.__spread({},  this.props, {handleSelect: this.handleSelect, handleKeyDown: this.handleKeyDown, ref: "eta"}))
+	      )
+	    );
+	  },
+
+	  /* Life Cycle */
+	  componentDidUpdate: function() {
+	    if ((this.textArea() != null) && (this.props.block.positionCursor != null) && this.props.block.positionCursor) {
+	      this.textArea().setSelectionRange(this.props.block.cursorPosition, this.props.block.cursorPosition);
+	      return this.props.block.positionCursor = false;
+	    }
+	  },
+
+	  /* Custom Methods */
+	  handleKeyDown: function(e) {
+	    var newBlock;
+	    if ((e.metaKey || e.ctrlKey) && e.keyCode === 13) {
+	      newBlock = _.extend({}, this.props.block, {
+	        mode: 'preview'
+	      });
+	      if ((e.metaKey || e.ctrlKey) && e.keyCode === 13) {
+	        return Channel.publish("block.change", {
+	          block: newBlock
+	        });
+	      }
+	    }
+	  },
+	  handleSelect: function(e, id) {
+	    var after, before, ref, selected;
+	    ref = this.textArea().getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
+	    return this.setState({
+	      selectionPresent: selected.length > 0 ? true : false
+	    });
+	  },
+	  publishChange: function(text, cursorPosition) {
+	    var newBlock;
+	    if (cursorPosition != null) {
+	      newBlock = _.extend({}, this.props.block, {
+	        positionCursor: cursorPosition != null,
+	        cursorPosition: cursorPosition
+	      });
+	    } else {
+	      newBlock = _.cloneDeep(this.props.block);
+	    }
+	    newBlock.data.text = text;
+	    return Channel.publish("block.change", {
+	      block: newBlock
+	    });
+	  },
+	  insertAtCaret: function(chars, e) {
+	    var after, before, cursorPos, ref, selected, text;
+	    e.preventDefault();
+	    ref = this.textArea().getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
+	    text = before + chars + selected + after;
+	    cursorPos = before.length + chars.length;
+	    return this.publishChange(text, cursorPos);
+	  },
+	  insertAtStartOfLine: function(chars, e) {
+	    var after, before, combinedLines, cursorPos, lines, ref, selected, text, theLine;
+	    e.preventDefault();
+	    ref = this.textArea().getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
+	    lines = before.split("\n");
+	    theLine = lines.pop();
+	    if (theLine.slice(0, +(chars.length - 1) + 1 || 9e9) === chars) {
+	      combinedLines = lines.length === 0 ? "" : lines.join("\n") + "\n";
+	      text = combinedLines + theLine.slice(chars.length, +theLine.length + 1 || 9e9) + selected + after;
+	      cursorPos = before.length - chars.length;
+	    } else {
+	      combinedLines = lines.length === 0 ? "" : lines.join("\n") + "\n";
+	      text = combinedLines + chars + theLine + selected + after;
+	      cursorPos = before.length + chars.length;
+	    }
+	    return this.publishChange(text, cursorPos);
+	  },
+	  wrapSelectedWith: function(chars, e) {
+	    var after, before, cursorPos, ref, selected, text;
+	    e.preventDefault();
+	    ref = this.textArea().getChunks(), before = ref.before, selected = ref.selected, after = ref.after;
+	    if (selected.length > 0 && selected.slice(0, +(chars.length - 1) + 1 || 9e9) !== chars) {
+	      text = before + chars + selected + chars + after;
+	      this.publishChange(text);
+	      cursorPos = before.length + chars.length + selected.length + chars.length;
+	    }
+	    return this.publishChange(text, cursorPos);
+	  },
+	  textArea: function() {
+	    if (this.refs.eta != null) {
+	      return this.refs.eta;
+	    } else {
+	      return false;
+	    }
+	  }
+	});
+
+	module.exports = MarkdownEditor;
+
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var MarkdownPreviewer, marked;
+
+	marked = __webpack_require__(38);
+
+	marked.setOptions({
+	  gfm: true,
+	  tables: true,
+	  breaks: true,
+	  pedantic: true,
+	  sanitize: true,
+	  smartLists: true,
+	  smartypants: false
+	});
+
+	MarkdownPreviewer = React.createClass({
+
+	  /* Construction */
+	  displayName: "MarkdownPreviewer",
+
+	  /* Render */
+	  render: function() {
+	    var html;
+	    html = marked(this.props.block.data.text);
+	    return React.createElement("div", {className: "mk-block-content", dangerouslySetInnerHTML: {__html: html}});
+	  }
+
+	  /* Life Cycle */
+
+	  /* Custom Methods */
+	});
+
+	module.exports = MarkdownPreviewer;
+
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var ExpandingTextarea, QuoteEditor;
+
+	ExpandingTextarea = __webpack_require__(33);
+
+	QuoteEditor = React.createClass({
+
+	  /* Construction */
+	  displayName: "QuoteEditor",
+
+	  /* Render */
+	  render: function() {
+	    return (
+	      React.createElement("div", {className: "mk-block-content"}, 
+	        React.createElement(ExpandingTextarea, React.__spread({},  this.props)), 
+	        React.createElement("br", null), 
+	        React.createElement("input", {value: this.props.block.data.cite, ref: "cite", onChange: this.handleChange})
+	      )
+	    );
+	  },
+
+	  /* Life Cycle */
+
+	  /* Custom Methods */
+	  handleChange: function() {
+	    var cite;
+	    cite = this.refs.cite.getDOMNode().value;
+	    return this.props.handleChange({
+	      id: this.props.block.id,
+	      data: {
+	        cite: cite
+	      }
+	    });
+	  }
+	});
+
+	module.exports = QuoteEditor;
+
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var QuotePreviewer;
+
+	QuotePreviewer = React.createClass({
+
+	  /* Construction */
+	  displayName: "QuotePreviewer",
+
+	  /* Render */
+	  render: function() {
+	    return (
+	      React.createElement("div", {className: "mk-block-content"}, 
+	        React.createElement("pre", null, this.props.block.data.text), 
+	        "By ", React.createElement("i", null, this.props.block.data.cite)
+	      )
+	    );
+	  }
+
+	  /* Life Cycle */
+
+	  /* Custom Methods */
+	});
+
+	module.exports = QuotePreviewer;
+
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var Channel, CodeEditor, ExpandingTextarea;
+
+	Channel = postal.channel("makona");
+
+	ExpandingTextarea = __webpack_require__(33);
+
+	__webpack_require__(34);
+
+	CodeEditor = React.createClass({
+
+	  /* Construction */
+	  displayName: "CodeEditor",
+	  propTypes: {
+	    block: React.PropTypes.object.isRequired
+	  },
+
+	  /* Render */
+	  render: function() {
+	    return (
+	      React.createElement("div", {className: "mk-block-content"}, 
+	        React.createElement(ExpandingTextarea, React.__spread({},  this.props, {ref: "text", onChange: this.handleChange})), 
+	        React.createElement("br", null), 
+	        React.createElement("label", null, "Language: "), 
+	        React.createElement("select", {value: this.props.block.data.lang, ref: "lang", onChange: this.handleLangChange}, 
+	          this.options()
+	        )
+	      )
+	    );
+	  },
+
+	  /* Life Cycle */
+
+	  /* Custom Methods */
+	  languages: function() {
+	    return hljs.listLanguages();
+	  },
+	  options: function() {
+	    var all_options, i, j, language, len, ref;
+	    all_options = [];
+	    ref = this.languages();
+	    for (i = j = 0, len = ref.length; j < len; i = ++j) {
+	      language = ref[i];
+	      all_options.push(React.createElement("option", {key: i, value: language}, language));
+	    }
+	    return all_options;
+	  },
+	  handleLangChange: function(e) {
+	    var newBlock;
+	    newBlock = _.extend({}, this.props.block, {
+	      data: {
+	        lang: this.refs.lang.getDOMNode().value,
+	        text: this.props.block.data.text
+	      }
+	    });
+	    return Channel.publish("block.change", {
+	      block: newBlock
+	    });
+	  }
+	});
+
+	module.exports = CodeEditor;
+
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var Channel, CodePreviewer;
+
+	Channel = postal.channel("makona");
+
+	__webpack_require__(34);
+
+	CodePreviewer = React.createClass({
+
+	  /* Construction */
+	  displayName: "CodePreviewer",
+
+	  /* Render */
+	  render: function() {
+	    var highlighted_code;
+	    if (this.props.block.data.text != null) {
+	      highlighted_code = hljs.highlight(this.props.block.data.lang, this.props.block.data.text, true).value;
+	    } else {
+	      highlighted_code = '';
+	    }
+	    return (
+	      React.createElement("div", {className: "mk-block-content"}, 
+	        React.createElement("div", {className: "mk-block-label"}, this.props.block.data.lang), 
+	        React.createElement("pre", null, React.createElement("code", {dangerouslySetInnerHTML: {__html: highlighted_code}}))
+	      )
+	    );
+	  }
+
+	  /* Life Cycle */
+
+	  /* Custom Methods */
+	});
+
+	module.exports = CodePreviewer;
+
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var ImageEditor, ImagePreviewer, qqTemplate;
+
+	__webpack_require__(36);
+
+	ImagePreviewer = __webpack_require__(27);
+
+	qqTemplate = "<script type=\"text/template\" id=\"qq-template-image\">\n    <div class=\"qq-uploader-selector qq-uploader\">\n        <div class=\"qq-upload-drop-area-selector qq-upload-drop-area\" qq-hide-dropzone>\n            <span>Drop files here to upload</span>\n        </div>\n        <div class=\"qq-upload-button-selector qq-upload-button\">\n            <div>or choose file</div>\n        </div>\n        <span class=\"qq-drop-processing-selector qq-drop-processing\">\n            <span>Processing dropped files...</span>\n            <span class=\"qq-drop-processing-spinner-selector qq-drop-processing-spinner\"></span>\n        </span>\n        <ul class=\"qq-upload-list-selector qq-upload-list\">\n            <li>\n                <div class=\"qq-progress-bar-container-selector\">\n                    <div class=\"qq-progress-bar-selector qq-progress-bar\"></div>\n                </div>\n                <span class=\"qq-upload-spinner-selector qq-upload-spinner\"></span>\n                <img class=\"qq-thumbnail-selector\" qq-max-size=\"100\" qq-server-scale>\n                <span class=\"qq-edit-filename-icon-selector qq-edit-filename-icon\"></span>\n                <span class=\"qq-upload-file-selector qq-upload-file\"></span>\n                <input class=\"qq-edit-filename-selector qq-edit-filename\" tabindex=\"0\" type=\"text\">\n                <span class=\"qq-upload-size-selector qq-upload-size\"></span>\n                <a class=\"qq-upload-cancel-selector qq-upload-cancel\" href=\"#\">Cancel</a>\n                <a class=\"qq-upload-retry-selector qq-upload-retry\" href=\"#\">Retry</a>\n                <a class=\"qq-upload-delete-selector qq-upload-delete\" href=\"#\">Delete</a>\n                <span class=\"qq-upload-status-text-selector qq-upload-status-text\"></span>\n            </li>\n        </ul>\n    </div>\n</script>";
+
+	ImageEditor = React.createClass({
+
+	  /* Construction */
+	  displayName: "ImageEditor",
+
+	  /* Render */
+	  render: function() {
+	    return (
+	      React.createElement("div", null, 
+	         (this.props.block.data.src.length > 0) ? React.createElement(ImagePreviewer, {block: this.props.block}) : React.createElement("div", {ref: "fineuploader"})
+	      )
+	    );
+	  },
+
+	  /* Life Cycle */
+	  componentDidMount: function() {
+	    var defaults, node, opts, ref;
+	    if ($("#qq-template-image").length === 0) {
+	      $("body").append(qqTemplate);
+	    }
+	    if (((ref = this.refs) != null ? ref.fineuploader : void 0) != null) {
+	      node = this.refs.fineuploader.getDOMNode();
+	      defaults = {
+	        template: "qq-template-image",
+	        element: node,
+	        debug: false,
+	        request: {
+	          inputName: 'asset',
+	          endpoint: 'http://bsg.mil/upload_image',
+	          params: {}
+	        },
+	        validation: {
+	          acceptFiles: ["image/jpeg", "image/png", "image/gif"],
+	          allowedExtensions: ["gif", "jpg", "jpeg", "png"],
+	          sizeLimit: 5000000
+	        },
+	        deleteFile: {
+	          enabled: false,
+	          method: "DELETE",
+	          endpoint: "http://bsg.mil/delete_uploaded_image",
+	          params: {}
+	        },
+	        retry: {
+	          enableAuto: true
+	        },
+	        resume: {
+	          enabled: false
+	        },
+	        callbacks: {
+	          onComplete: (function(_this) {
+	            return function(id, name, response) {
+	              if (response.success) {
+	                return _this.props.handleChange({
+	                  id: _this.props.block.id,
+	                  data: {
+	                    src: response.url,
+	                    id: response.id
+	                  }
+	                }, true);
+	              }
+	            };
+	          })(this)
+	        }
+	      };
+	      opts = $.extend({}, defaults, this.props.opts.ImageEditor);
+	      return this.uploader = new qq.FineUploader(opts);
+	    }
+	  },
+	  shouldComponentUpdate: function() {
+	    return false;
+	  },
+	  componentWillUnmount: function() {
+	    var container, results;
+	    this.uploader = null;
+	    container = this.getDOMNode();
+	    results = [];
+	    while (container.lastChild) {
+	      results.push(container.removeChild(container.lastChild));
+	    }
+	    return results;
+	  }
+
+	  /* Custom Methods */
+	});
+
+	module.exports = ImageEditor;
+
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var ImagePreviewer;
+
+	ImagePreviewer = React.createClass({
+
+	  /* Construction */
+	  displayName: "ImagePreviewer",
+
+	  /* Render */
+	  render: function() {
+	    return (
+	      React.createElement("div", {className: "mk-block-content"}, 
+	        React.createElement("img", {src: this.props.block.data.src})
+	      )
+	    );
+	  }
+
+	  /* Life Cycle */
+
+	  /* Custom Methods */
+	});
+
+	module.exports = ImagePreviewer;
+
+
+/***/ },
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var DocumentEditor, DocumentPreviewer, qqTemplate;
+
+	__webpack_require__(36);
+
+	DocumentPreviewer = __webpack_require__(29);
+
+	qqTemplate = "<script type=\"text/template\" id=\"qq-template-document\">\n    <div class=\"qq-uploader-selector qq-uploader\">\n        <div class=\"qq-upload-drop-area-selector qq-upload-drop-area\" qq-hide-dropzone>\n            <span>Drop files here to upload</span>\n        </div>\n        <div class=\"qq-upload-button-selector qq-upload-button\">\n            <div>or choose file</div>\n        </div>\n        <span class=\"qq-drop-processing-selector qq-drop-processing\">\n            <span>Processing dropped files...</span>\n            <span class=\"qq-drop-processing-spinner-selector qq-drop-processing-spinner\"></span>\n        </span>\n        <ul class=\"qq-upload-list-selector qq-upload-list\">\n            <li>\n                <div class=\"qq-progress-bar-container-selector\">\n                    <div class=\"qq-progress-bar-selector qq-progress-bar\"></div>\n                </div>\n                <span class=\"qq-upload-spinner-selector qq-upload-spinner\"></span>\n                <img class=\"qq-thumbnail-selector\" qq-max-size=\"100\" qq-server-scale>\n                <span class=\"qq-edit-filename-icon-selector qq-edit-filename-icon\"></span>\n                <span class=\"qq-upload-file-selector qq-upload-file\"></span>\n                <input class=\"qq-edit-filename-selector qq-edit-filename\" tabindex=\"0\" type=\"text\">\n                <span class=\"qq-upload-size-selector qq-upload-size\"></span>\n                <a class=\"qq-upload-cancel-selector qq-upload-cancel\" href=\"#\">Cancel</a>\n                <a class=\"qq-upload-retry-selector qq-upload-retry\" href=\"#\">Retry</a>\n                <a class=\"qq-upload-delete-selector qq-upload-delete\" href=\"#\">Delete</a>\n                <span class=\"qq-upload-status-text-selector qq-upload-status-text\"></span>\n            </li>\n        </ul>\n    </div>\n</script>";
+
+	DocumentEditor = React.createClass({
+
+	  /* Construction */
+	  displayName: "DocumentEditor",
+
+	  /* Render */
+	  render: function() {
+	    return (
+	      React.createElement("div", null, 
+	         (this.props.block.data.title.length > 0) ? React.createElement(DocumentPreviewer, {block: this.props.block}) : React.createElement("div", {ref: "fineuploader"})
+	      )
+	    );
+	  },
+
+	  /* Life Cycle */
+	  componentDidMount: function() {
+	    var defaults, node, opts, ref;
+	    if ($("#qq-template-document").length === 0) {
+	      $("body").append(qqTemplate);
+	    }
+	    if (((ref = this.refs) != null ? ref.fineuploader : void 0) != null) {
+	      node = this.refs.fineuploader.getDOMNode();
+	      defaults = {
+	        element: node,
+	        template: "qq-template-document",
+	        debug: false,
+	        request: {
+	          inputName: 'asset',
+	          endpoint: 'http://bsg.mil/upload_document',
+	          params: {}
+	        },
+	        validation: {
+	          acceptFiles: [],
+	          allowedExtensions: [],
+	          sizeLimit: 5000000
+	        },
+	        deleteFile: {
+	          enabled: false,
+	          method: "DELETE",
+	          endpoint: "http://bsg.mil/delete_uploaded_document",
+	          params: {}
+	        },
+	        retry: {
+	          enableAuto: true
+	        },
+	        resume: {
+	          enabled: false
+	        },
+	        callbacks: {
+	          onComplete: (function(_this) {
+	            return function(id, name, response) {
+	              if (response.success) {
+	                return _this.props.handleChange({
+	                  id: _this.props.block.id,
+	                  data: {
+	                    src: response.url,
+	                    id: response.id,
+	                    icon_url: response.icon_url,
+	                    title: response.title
+	                  }
+	                }, true);
+	              }
+	            };
+	          })(this)
+	        }
+	      };
+	      opts = $.extend({}, defaults, this.props.opts.DocumentEditor);
+	      return this.uploader = new qq.FineUploader(opts);
+	    }
+	  },
+	  shouldComponentUpdate: function() {
+	    return false;
+	  },
+	  componentWillUnmount: function() {
+	    var container, results;
+	    this.uploader = null;
+	    container = this.getDOMNode();
+	    results = [];
+	    while (container.lastChild) {
+	      results.push(container.removeChild(container.lastChild));
+	    }
+	    return results;
+	  }
+
+	  /* Custom Methods */
+	});
+
+	module.exports = DocumentEditor;
+
+
+/***/ },
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var DocumentPreviewer;
+
+	DocumentPreviewer = React.createClass({
+
+	  /* Construction */
+	  displayName: "DocumentPreviewer",
+
+	  /* Render */
+	  render: function() {
+	    return (
+	      React.createElement("div", {className: "mk-block-content"}, 
+	        React.createElement("a", {href: this.props.block.data.url, target: "_blank"}, 
+	          React.createElement("img", {src: "http://t1.development.kaleosoftware.com" + this.props.block.data.icon_url}), React.createElement("span", null, this.props.block.data.title)
+	        )
+	      )
+	    );
+	  }
+
+	  /* Life Cycle */
+
+	  /* Custom Methods */
+	});
+
+	module.exports = DocumentPreviewer;
+
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var ScreencastEditor;
+
+	ScreencastEditor = React.createClass({
+
+	  /* Construction */
+	  displayName: "ScreencastEditor",
+
+	  /* Render */
+	  render: function() {
+	    return (
+	      React.createElement("div", null, 
+	        "Screencast"
+	      )
+	    );
+	  }
+
+	  /* Life Cycle */
+
+	  /* Custom Methods */
+	});
+
+	module.exports = ScreencastEditor;
+
+
+/***/ },
 /* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(26)(__webpack_require__(32))
+	
+	/** @jsx React.DOM */
+
+	/* Includes and Constants */
+	var ScreencastPreviewer;
+
+	ScreencastPreviewer = React.createClass({
+
+	  /* Construction */
+	  displayName: "ScreencastPreviewer",
+
+	  /* Render */
+	  render: function() {
+	    return (
+	      React.createElement("div", null, 
+	        "Screencast"
+	      )
+	    );
+	  }
+
+	  /* Life Cycle */
+
+	  /* Custom Methods */
+	});
+
+	module.exports = ScreencastPreviewer;
+
 
 /***/ },
 /* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "/**\n * postal - Pub/Sub library providing wildcard subscriptions, complex message handling, etc.  Works server and client-side.\n * Author: Jim Cowart (http://ifandelse.com)\n * Version: v0.12.3\n * Url: http://github.com/postaljs/postal.js\n * License(s): MIT\n */\n(function(e,t){\"function\"==typeof define&&define.amd?define([\"lodash\"],function(n){return t(n,e)}):\"object\"==typeof module&&module.exports?module.exports=t(require(\"lodash\"),this):e.postal=t(e._,e)})(this,function(e,t,n){function i(e,t){return function(){if(console.warn||console.log){var n=\"Warning, the \"+e+\" method has been deprecated. Please use \"+t+\" instead.\";console.warn?console.warn(n):console.log(n)}return b.prototype[t].apply(this,arguments)}}function r(){for(;E.length;)l.unsubscribe(E.shift())}function c(e,t,n){return function(i,r,c){i===e&&c.splice(r,1),0===c.length&&delete n[t]}}function s(e,t,n,i,r){var c=r&&r.headers||{};return function(r){p.resolver.compare(r.topic,e,c)&&(t.push(r),r.cacheKeys.push(n),i&&i(r))}}function o(e,t){return{channel:p.SYSTEM_CHANNEL,topic:\"subscription.\"+e,data:{event:\"subscription.\"+e,channel:t.channel,topic:t.topic}}}function a(t,n){return\"function\"==typeof t?t:t?function(i){var r=0,c=0;return e.each(t,function(e,s){r+=1,(\"topic\"===s&&n.compare(i.topic,t.topic,{resolverNoCache:!0})||\"context\"===s&&t.context===i._context||i[s]===t[s])&&(c+=1)}),r===c}:function(){return!0}}var u=t.postal,h={DEFAULT_CHANNEL:\"/\",SYSTEM_CHANNEL:\"postal\",enableSystemMessages:!0,cacheKeyDelimiter:\"|\",autoCompactResolver:!1},l={configuration:e.extend({},h)},p=l.configuration,f=function(e,t){this.bus=t,this.channel=e||p.DEFAULT_CHANNEL};f.prototype.subscribe=function(){return this.bus.subscribe({channel:this.channel,topic:1===arguments.length?arguments[0].topic:arguments[0],callback:1===arguments.length?arguments[0].callback:arguments[1]})},f.prototype.publish=function(){var e=1===arguments.length?\"[object String]\"===Object.prototype.toString.call(arguments[0])?{topic:arguments[0]}:arguments[0]:{topic:arguments[0],data:arguments[1]};e.channel=this.channel,this.bus.publish(e)};var b=function(e,t,i){if(3!==arguments.length)throw new Error(\"You must provide a channel, topic and callback when creating a SubscriptionDefinition instance.\");if(0===t.length)throw new Error(\"Topics cannot be empty\");this.channel=e,this.topic=t,this.callback=i,this.pipeline=[],this.cacheKeys=[],this._context=n},d=function(){var t;return function(n){var i=!1;return e.isString(n)?(i=n===t,t=n):(i=e.isEqual(n,t),t=e.clone(n)),!i}},m=function(){var t=[];return function(n){var i=!e.any(t,function(t){return e.isObject(n)||e.isArray(n)?e.isEqual(n,t):n===t});return i&&t.push(n),i}};b.prototype={\"catch\":function(e){var t=this.callback,n=function(){try{t.apply(this,arguments)}catch(n){e(n,arguments[0])}};return this.callback=n,this},defer:function(){return this.delay(0)},disposeAfter:function(t){if(!e.isNumber(t)||0>=t)throw new Error(\"The value provided to disposeAfter (maxCalls) must be a number greater than zero.\");var n=this,i=e.after(t,e.bind(function(){n.unsubscribe()}));return n.pipeline.push(function(e,t,n){n(e,t),i()}),n},distinct:function(){return this.constraint(new m)},distinctUntilChanged:function(){return this.constraint(new d)},invokeSubscriber:function(e,t){if(!this.inactive){var n=this,i=n.pipeline,r=i.length,c=n._context,s=-1;if(r){i=i.concat([n.callback]);var o=function a(e,t){s+=1,r>s?i[s].call(c,e,t,a):n.callback.call(c,e,t)};o(e,t,0)}else n.callback.call(c,e,t)}},logError:function(){if(console){var e;e=console.warn?console.warn:console.log,this[\"catch\"](e)}return this},once:function(){return this.disposeAfter(1)},subscribe:function(e){return this.callback=e,this},unsubscribe:function(){this.inactive||l.unsubscribe(this)},constraint:function(t){if(!e.isFunction(t))throw new Error(\"Predicate constraint must be a function\");return this.pipeline.push(function(e,n,i){t.call(this,e,n)&&i(e,n)}),this},constraints:function(t){var n=this;return e.isArray(t)&&e.each(t,function(e){n.constraint(e)}),n},context:function(e){return this._context=e,this},debounce:function(t,n){if(!e.isNumber(t))throw new Error(\"Milliseconds must be a number\");return this.pipeline.push(e.debounce(function(e,t,n){n(e,t)},t,!!n)),this},delay:function(t){if(!e.isNumber(t))throw new Error(\"Milliseconds must be a number\");var n=this;return n.pipeline.push(function(e,n,i){setTimeout(function(){i(e,n)},t)}),this},throttle:function(t){if(!e.isNumber(t))throw new Error(\"Milliseconds must be a number\");var n=function(e,t,n){n(e,t)};return this.pipeline.push(e.throttle(n,t)),this}};for(var g=[\"withConstraint\",\"withConstraints\",\"withContext\",\"withDebounce\",\"withDelay\",\"withThrottle\"],v=[\"constraint\",\"constraints\",\"context\",\"debounce\",\"delay\",\"throttle\"],y=0;6>y;y++){var w=g[y];b.prototype[w]=i(w,v[y])}var _=(p.resolver={cache:{},regex:{},enableCache:!0,compare:function(t,n,i){var r,c,s,o=n+p.cacheKeyDelimiter+t,a=this.cache[o],u=i||{},h=this.enableCache&&!u.resolverNoCache;return a===!0?a:-1===t.indexOf(\"#\")&&-1===t.indexOf(\"*\")?(a=n===t,h&&(this.cache[o]=a),a):((c=this.regex[t])||(r=\"^\"+e.map(t.split(\".\"),function(e){var t=\"\";return s&&(t=\"#\"!==s?\"\\\\.\\\\b\":\"\\\\b\"),t+=\"#\"===e?\"[\\\\s\\\\S]*\":\"*\"===e?\"[^.]+\":e,s=e,t}).join(\"\")+\"$\",c=this.regex[t]=new RegExp(r)),a=c.test(n),h&&(this.cache[o]=a),a)},reset:function(){this.cache={},this.regex={}},purge:function(t){var n=this,i=p.cacheKeyDelimiter,r=function(e,r){var c=r.split(i),s=c[0],o=c[1];\"undefined\"!=typeof t.topic&&t.topic!==s||\"undefined\"!=typeof t.binding&&t.binding!==o||delete n.cache[r]},c=function(e,t){var r=t.split(i);0===l.getSubscribersFor({topic:r[0]}).length&&delete n.cache[t]};if(\"undefined\"==typeof t)this.reset();else{var s=t.compact===!0?c:r;e.each(this.cache,s)}}},0),E=[],x=0,C=e.bind(o,this,\"created\"),S=e.bind(o,this,\"removed\");if(e.extend(l,{cache:{},subscriptions:{},wireTaps:[],ChannelDefinition:f,SubscriptionDefinition:b,channel:function(e){return new f(e,this)},addWireTap:function(e){var t=this;return t.wireTaps.push(e),function(){var n=t.wireTaps.indexOf(e);-1!==n&&t.wireTaps.splice(n,1)}},noConflict:function(){if(\"undefined\"==typeof window||\"undefined\"!=typeof window&&\"function\"==typeof define&&define.amd)throw new Error(\"noConflict can only be used in browser clients which aren't using AMD modules\");return t.postal=u,this},getSubscribersFor:function(t){var n=[],i=this;return e.each(i.subscriptions,function(i){e.each(i,function(i){n=n.concat(e.filter(i,a(t,p.resolver)))})}),n},publish:function(t){++_;var n=t.channel=t.channel||p.DEFAULT_CHANNEL,i=t.topic;t.timeStamp=new Date,this.wireTaps.length&&e.each(this.wireTaps,function(e){e(t.data,t,_)});var c=n+p.cacheKeyDelimiter+i,o=this.cache[c];if(o)e.each(o,function(e){e.invokeSubscriber(t.data,t)});else{o=this.cache[c]=[];var a=s(i,o,c,function(e){e.invokeSubscriber(t.data,t)},t);e.each(this.subscriptions[n],function(t){e.each(t,a)})}0===--_&&r()},reset:function(){this.unsubscribeFor(),p.resolver.reset(),this.subscriptions={}},subscribe:function(t){var n,i=this.subscriptions,r=new b(t.channel||p.DEFAULT_CHANNEL,t.topic,t.callback),c=i[r.channel],o=r.channel.length;return c||(c=i[r.channel]={}),n=i[r.channel][r.topic],n||(n=i[r.channel][r.topic]=[]),n.push(r),e.each(this.cache,function(e,t){t.substr(0,o)===r.channel&&s(t.split(p.cacheKeyDelimiter)[1],e,t)(r)}),p.enableSystemMessages&&this.publish(C(r)),r},unsubscribe:function(){for(var t,n,i,r,s=arguments.length,o=0;s>o;o++){if(t=arguments[o],t.inactive=!0,_)return E.push(t),void 0;if(n=this.subscriptions[t.channel],i=n&&n[t.topic]){var a=i.length;for(r=0;a>r;){if(i[r]===t){i.splice(r,1);break}r+=1}if(0===i.length&&(delete n[t.topic],e.isEmpty(n)&&delete this.subscriptions[t.channel]),t.cacheKeys&&t.cacheKeys.length)for(var u;u=t.cacheKeys.pop();)e.each(this.cache[u],c(t,u,this.cache));if(\"function\"==typeof p.resolver.purge){var h=p.autoCompactResolver===!0?0:\"number\"==typeof p.autoCompactResolver?p.autoCompactResolver-1:!1;h>=0&&x===h?(p.resolver.purge({compact:!0}),x=0):h>=0&&h>x&&(x+=1)}}p.enableSystemMessages&&this.publish(S(t))}},unsubscribeFor:function(e){var t=[];this.subscriptions&&(t=this.getSubscribersFor(e),this.unsubscribe.apply(this,t))}}),t&&Object.prototype.hasOwnProperty.call(t,\"__postalReady__\")&&e.isArray(t.__postalReady__))for(;t.__postalReady__.length;)t.__postalReady__.shift().onReady(l);return l});"
+	
+	/**
+	 * adds a bindGlobal method to Mousetrap that allows you to
+	 * bind specific keyboard shortcuts that will still work
+	 * inside a text input field
+	 *
+	 * usage:
+	 * Mousetrap.bindGlobal('ctrl+s', _saveChanges);
+	 */
+	/* global Mousetrap:true */
+	(function(Mousetrap) {
+	    var _globalCallbacks = {};
+	    var _originalStopCallback = Mousetrap.prototype.stopCallback;
+
+	    Mousetrap.prototype.stopCallback = function(e, element, combo, sequence) {
+	        var self = this;
+
+	        if (self.paused) {
+	            return true;
+	        }
+
+	        if (_globalCallbacks[combo] || _globalCallbacks[sequence]) {
+	            return false;
+	        }
+
+	        return _originalStopCallback.call(self, e, element, combo);
+	    };
+
+	    Mousetrap.prototype.bindGlobal = function(keys, callback, action) {
+	        var self = this;
+	        self.bind(keys, callback, action);
+
+	        if (keys instanceof Array) {
+	            for (var i = 0; i < keys.length; i++) {
+	                _globalCallbacks[keys[i]] = true;
+	            }
+	            return;
+	        }
+
+	        _globalCallbacks[keys] = true;
+	    };
+
+	    Mousetrap.init();
+	}) (Mousetrap);
+	;
+
+
 
 /***/ },
 /* 33 */
@@ -2974,9 +2984,10 @@
 	      handleSelect: function() {},
 	      handleKeyDown: function(e) {},
 	      handleChange: function(e) {
-	        var newBlock;
+	        var bd, newBlock;
 	        newBlock = _.cloneDeep(this.props.block);
-	        if (this.props.block.data.default_text.length && this.props.block.data.text.length) {
+	        bd = this.props.block.data;
+	        if (typeof bd.default_text === "function" ? bd.default_text(bd.default_text.length && bd.text.length) : void 0) {
 	          newBlock.data.default_text = '';
 	        }
 	        newBlock.data.text = e.target.value;
@@ -3012,17 +3023,21 @@
 	    });
 	  },
 	  componentDidUpdate: function() {
-	    if (this.props.block.data.default_text.length && !this.props.block.data.text.length) {
-	      return this.refs.text.getDOMNode().setSelectionRange(0, this.props.block.data.default_text.length);
+	    var bd;
+	    bd = this.props.block.data;
+	    if ((bd.default_text != null) && bd.default_text.length && !bd.text.length) {
+	      return this.refs.text.getDOMNode().setSelectionRange(0, bd.default_text.length);
 	    }
 	  },
 
 	  /* Custom Methods */
 	  content: function() {
-	    if (this.props.block.data.default_text.length && !this.props.block.data.text.length) {
-	      return this.props.block.data.default_text;
+	    var bd;
+	    bd = this.props.block.data;
+	    if ((bd.default_text != null) && bd.default_text.length && !bd.text.length) {
+	      return bd.default_text;
 	    } else {
-	      return this.props.block.data.text;
+	      return bd.text;
 	    }
 	  },
 	  getChunks: function() {
@@ -3095,19 +3110,19 @@
 /* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(26)(__webpack_require__(35))
+	__webpack_require__(6)(__webpack_require__(35))
 
 /***/ },
 /* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "// Copyright (C) 2006 Google Inc.\n//\n// Licensed under the Apache License, Version 2.0 (the \"License\");\n// you may not use this file except in compliance with the License.\n// You may obtain a copy of the License at\n//\n//      http://www.apache.org/licenses/LICENSE-2.0\n//\n// Unless required by applicable law or agreed to in writing, software\n// distributed under the License is distributed on an \"AS IS\" BASIS,\n// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n// See the License for the specific language governing permissions and\n// limitations under the License.\n\n\n/**\n * @fileoverview\n * some functions for browser-side pretty printing of code contained in html.\n *\n * <p>\n * For a fairly comprehensive set of languages see the\n * <a href=\"http://google-code-prettify.googlecode.com/svn/trunk/README.html#langs\">README</a>\n * file that came with this source.  At a minimum, the lexer should work on a\n * number of languages including C and friends, Java, Python, Bash, SQL, HTML,\n * XML, CSS, Javascript, and Makefiles.  It works passably on Ruby, PHP and Awk\n * and a subset of Perl, but, because of commenting conventions, doesn't work on\n * Smalltalk, Lisp-like, or CAML-like languages without an explicit lang class.\n * <p>\n * Usage: <ol>\n * <li> include this source file in an html page via\n *   {@code <script type=\"text/javascript\" src=\"/path/to/prettify.js\"></script>}\n * <li> define style rules.  See the example page for examples.\n * <li> mark the {@code <pre>} and {@code <code>} tags in your source with\n *    {@code class=prettyprint.}\n *    You can also use the (html deprecated) {@code <xmp>} tag, but the pretty\n *    printer needs to do more substantial DOM manipulations to support that, so\n *    some css styles may not be preserved.\n * </ol>\n * That's it.  I wanted to keep the API as simple as possible, so there's no\n * need to specify which language the code is in, but if you wish, you can add\n * another class to the {@code <pre>} or {@code <code>} element to specify the\n * language, as in {@code <pre class=\"prettyprint lang-java\">}.  Any class that\n * starts with \"lang-\" followed by a file extension, specifies the file type.\n * See the \"lang-*.js\" files in this directory for code that implements\n * per-language file handlers.\n * <p>\n * Change log:<br>\n * cbeust, 2006/08/22\n * <blockquote>\n *   Java annotations (start with \"@\") are now captured as literals (\"lit\")\n * </blockquote>\n * @requires console\n */\n\n// JSLint declarations\n/*global console, document, navigator, setTimeout, window, define */\n\n/**\n * Split {@code prettyPrint} into multiple timeouts so as not to interfere with\n * UI events.\n * If set to {@code false}, {@code prettyPrint()} is synchronous.\n */\nwindow['PR_SHOULD_USE_CONTINUATION'] = true;\n\n/**\n * Find all the {@code <pre>} and {@code <code>} tags in the DOM with\n * {@code class=prettyprint} and prettify them.\n *\n * @param {Function?} opt_whenDone if specified, called when the last entry\n *     has been finished.\n */\nvar prettyPrintOne;\n/**\n * Pretty print a chunk of code.\n *\n * @param {string} sourceCodeHtml code as html\n * @return {string} code as html, but prettier\n */\nvar prettyPrint;\n\n\n(function () {\n  var win = window;\n  // Keyword lists for various languages.\n  // We use things that coerce to strings to make them compact when minified\n  // and to defeat aggressive optimizers that fold large string constants.\n  var FLOW_CONTROL_KEYWORDS = [\"break,continue,do,else,for,if,return,while\"];\n  var C_KEYWORDS = [FLOW_CONTROL_KEYWORDS,\"auto,case,char,const,default,\" + \n      \"double,enum,extern,float,goto,int,long,register,short,signed,sizeof,\" +\n      \"static,struct,switch,typedef,union,unsigned,void,volatile\"];\n  var COMMON_KEYWORDS = [C_KEYWORDS,\"catch,class,delete,false,import,\" +\n      \"new,operator,private,protected,public,this,throw,true,try,typeof\"];\n  var CPP_KEYWORDS = [COMMON_KEYWORDS,\"alignof,align_union,asm,axiom,bool,\" +\n      \"concept,concept_map,const_cast,constexpr,decltype,\" +\n      \"dynamic_cast,explicit,export,friend,inline,late_check,\" +\n      \"mutable,namespace,nullptr,reinterpret_cast,static_assert,static_cast,\" +\n      \"template,typeid,typename,using,virtual,where\"];\n  var JAVA_KEYWORDS = [COMMON_KEYWORDS,\n      \"abstract,boolean,byte,extends,final,finally,implements,import,\" +\n      \"instanceof,null,native,package,strictfp,super,synchronized,throws,\" +\n      \"transient\"];\n  var CSHARP_KEYWORDS = [JAVA_KEYWORDS,\n      \"as,base,by,checked,decimal,delegate,descending,dynamic,event,\" +\n      \"fixed,foreach,from,group,implicit,in,interface,internal,into,is,let,\" +\n      \"lock,object,out,override,orderby,params,partial,readonly,ref,sbyte,\" +\n      \"sealed,stackalloc,string,select,uint,ulong,unchecked,unsafe,ushort,\" +\n      \"var,virtual,where\"];\n  var COFFEE_KEYWORDS = \"all,and,by,catch,class,else,extends,false,finally,\" +\n      \"for,if,in,is,isnt,loop,new,no,not,null,of,off,on,or,return,super,then,\" +\n      \"throw,true,try,unless,until,when,while,yes\";\n  var JSCRIPT_KEYWORDS = [COMMON_KEYWORDS,\n      \"debugger,eval,export,function,get,null,set,undefined,var,with,\" +\n      \"Infinity,NaN\"];\n  var PERL_KEYWORDS = \"caller,delete,die,do,dump,elsif,eval,exit,foreach,for,\" +\n      \"goto,if,import,last,local,my,next,no,our,print,package,redo,require,\" +\n      \"sub,undef,unless,until,use,wantarray,while,BEGIN,END\";\n  var PYTHON_KEYWORDS = [FLOW_CONTROL_KEYWORDS, \"and,as,assert,class,def,del,\" +\n      \"elif,except,exec,finally,from,global,import,in,is,lambda,\" +\n      \"nonlocal,not,or,pass,print,raise,try,with,yield,\" +\n      \"False,True,None\"];\n  var RUBY_KEYWORDS = [FLOW_CONTROL_KEYWORDS, \"alias,and,begin,case,class,\" +\n      \"def,defined,elsif,end,ensure,false,in,module,next,nil,not,or,redo,\" +\n      \"rescue,retry,self,super,then,true,undef,unless,until,when,yield,\" +\n      \"BEGIN,END\"];\n  var SH_KEYWORDS = [FLOW_CONTROL_KEYWORDS, \"case,done,elif,esac,eval,fi,\" +\n      \"function,in,local,set,then,until\"];\n  var ALL_KEYWORDS = [\n      CPP_KEYWORDS, CSHARP_KEYWORDS, JSCRIPT_KEYWORDS, PERL_KEYWORDS +\n      PYTHON_KEYWORDS, RUBY_KEYWORDS, SH_KEYWORDS];\n  var C_TYPES = /^(DIR|FILE|vector|(de|priority_)?queue|list|stack|(const_)?iterator|(multi)?(set|map)|bitset|u?(int|float)\\d*)\\b/;\n\n  // token style names.  correspond to css classes\n  /**\n   * token style for a string literal\n   * @const\n   */\n  var PR_STRING = 'str';\n  /**\n   * token style for a keyword\n   * @const\n   */\n  var PR_KEYWORD = 'kwd';\n  /**\n   * token style for a comment\n   * @const\n   */\n  var PR_COMMENT = 'com';\n  /**\n   * token style for a type\n   * @const\n   */\n  var PR_TYPE = 'typ';\n  /**\n   * token style for a literal value.  e.g. 1, null, true.\n   * @const\n   */\n  var PR_LITERAL = 'lit';\n  /**\n   * token style for a punctuation string.\n   * @const\n   */\n  var PR_PUNCTUATION = 'pun';\n  /**\n   * token style for plain text.\n   * @const\n   */\n  var PR_PLAIN = 'pln';\n\n  /**\n   * token style for an sgml tag.\n   * @const\n   */\n  var PR_TAG = 'tag';\n  /**\n   * token style for a markup declaration such as a DOCTYPE.\n   * @const\n   */\n  var PR_DECLARATION = 'dec';\n  /**\n   * token style for embedded source.\n   * @const\n   */\n  var PR_SOURCE = 'src';\n  /**\n   * token style for an sgml attribute name.\n   * @const\n   */\n  var PR_ATTRIB_NAME = 'atn';\n  /**\n   * token style for an sgml attribute value.\n   * @const\n   */\n  var PR_ATTRIB_VALUE = 'atv';\n\n  /**\n   * A class that indicates a section of markup that is not code, e.g. to allow\n   * embedding of line numbers within code listings.\n   * @const\n   */\n  var PR_NOCODE = 'nocode';\n\n\n\n/**\n * A set of tokens that can precede a regular expression literal in\n * javascript\n * http://web.archive.org/web/20070717142515/http://www.mozilla.org/js/language/js20/rationale/syntax.html\n * has the full list, but I've removed ones that might be problematic when\n * seen in languages that don't support regular expression literals.\n *\n * <p>Specifically, I've removed any keywords that can't precede a regexp\n * literal in a syntactically legal javascript program, and I've removed the\n * \"in\" keyword since it's not a keyword in many languages, and might be used\n * as a count of inches.\n *\n * <p>The link above does not accurately describe EcmaScript rules since\n * it fails to distinguish between (a=++/b/i) and (a++/b/i) but it works\n * very well in practice.\n *\n * @private\n * @const\n */\nvar REGEXP_PRECEDER_PATTERN = '(?:^^\\\\.?|[+-]|[!=]=?=?|\\\\#|%=?|&&?=?|\\\\(|\\\\*=?|[+\\\\-]=|->|\\\\/=?|::?|<<?=?|>>?>?=?|,|;|\\\\?|@|\\\\[|~|{|\\\\^\\\\^?=?|\\\\|\\\\|?=?|break|case|continue|delete|do|else|finally|instanceof|return|throw|try|typeof)\\\\s*';\n\n// CAVEAT: this does not properly handle the case where a regular\n// expression immediately follows another since a regular expression may\n// have flags for case-sensitivity and the like.  Having regexp tokens\n// adjacent is not valid in any language I'm aware of, so I'm punting.\n// TODO: maybe style special characters inside a regexp as punctuation.\n\n\n  /**\n   * Given a group of {@link RegExp}s, returns a {@code RegExp} that globally\n   * matches the union of the sets of strings matched by the input RegExp.\n   * Since it matches globally, if the input strings have a start-of-input\n   * anchor (/^.../), it is ignored for the purposes of unioning.\n   * @param {Array.<RegExp>} regexs non multiline, non-global regexs.\n   * @return {RegExp} a global regex.\n   */\n  function combinePrefixPatterns(regexs) {\n    var capturedGroupIndex = 0;\n  \n    var needToFoldCase = false;\n    var ignoreCase = false;\n    for (var i = 0, n = regexs.length; i < n; ++i) {\n      var regex = regexs[i];\n      if (regex.ignoreCase) {\n        ignoreCase = true;\n      } else if (/[a-z]/i.test(regex.source.replace(\n                     /\\\\u[0-9a-f]{4}|\\\\x[0-9a-f]{2}|\\\\[^ux]/gi, ''))) {\n        needToFoldCase = true;\n        ignoreCase = false;\n        break;\n      }\n    }\n  \n    var escapeCharToCodeUnit = {\n      'b': 8,\n      't': 9,\n      'n': 0xa,\n      'v': 0xb,\n      'f': 0xc,\n      'r': 0xd\n    };\n  \n    function decodeEscape(charsetPart) {\n      var cc0 = charsetPart.charCodeAt(0);\n      if (cc0 !== 92 /* \\\\ */) {\n        return cc0;\n      }\n      var c1 = charsetPart.charAt(1);\n      cc0 = escapeCharToCodeUnit[c1];\n      if (cc0) {\n        return cc0;\n      } else if ('0' <= c1 && c1 <= '7') {\n        return parseInt(charsetPart.substring(1), 8);\n      } else if (c1 === 'u' || c1 === 'x') {\n        return parseInt(charsetPart.substring(2), 16);\n      } else {\n        return charsetPart.charCodeAt(1);\n      }\n    }\n  \n    function encodeEscape(charCode) {\n      if (charCode < 0x20) {\n        return (charCode < 0x10 ? '\\\\x0' : '\\\\x') + charCode.toString(16);\n      }\n      var ch = String.fromCharCode(charCode);\n      return (ch === '\\\\' || ch === '-' || ch === ']' || ch === '^')\n          ? \"\\\\\" + ch : ch;\n    }\n  \n    function caseFoldCharset(charSet) {\n      var charsetParts = charSet.substring(1, charSet.length - 1).match(\n          new RegExp(\n              '\\\\\\\\u[0-9A-Fa-f]{4}'\n              + '|\\\\\\\\x[0-9A-Fa-f]{2}'\n              + '|\\\\\\\\[0-3][0-7]{0,2}'\n              + '|\\\\\\\\[0-7]{1,2}'\n              + '|\\\\\\\\[\\\\s\\\\S]'\n              + '|-'\n              + '|[^-\\\\\\\\]',\n              'g'));\n      var ranges = [];\n      var inverse = charsetParts[0] === '^';\n  \n      var out = ['['];\n      if (inverse) { out.push('^'); }\n  \n      for (var i = inverse ? 1 : 0, n = charsetParts.length; i < n; ++i) {\n        var p = charsetParts[i];\n        if (/\\\\[bdsw]/i.test(p)) {  // Don't muck with named groups.\n          out.push(p);\n        } else {\n          var start = decodeEscape(p);\n          var end;\n          if (i + 2 < n && '-' === charsetParts[i + 1]) {\n            end = decodeEscape(charsetParts[i + 2]);\n            i += 2;\n          } else {\n            end = start;\n          }\n          ranges.push([start, end]);\n          // If the range might intersect letters, then expand it.\n          // This case handling is too simplistic.\n          // It does not deal with non-latin case folding.\n          // It works for latin source code identifiers though.\n          if (!(end < 65 || start > 122)) {\n            if (!(end < 65 || start > 90)) {\n              ranges.push([Math.max(65, start) | 32, Math.min(end, 90) | 32]);\n            }\n            if (!(end < 97 || start > 122)) {\n              ranges.push([Math.max(97, start) & ~32, Math.min(end, 122) & ~32]);\n            }\n          }\n        }\n      }\n  \n      // [[1, 10], [3, 4], [8, 12], [14, 14], [16, 16], [17, 17]]\n      // -> [[1, 12], [14, 14], [16, 17]]\n      ranges.sort(function (a, b) { return (a[0] - b[0]) || (b[1]  - a[1]); });\n      var consolidatedRanges = [];\n      var lastRange = [];\n      for (var i = 0; i < ranges.length; ++i) {\n        var range = ranges[i];\n        if (range[0] <= lastRange[1] + 1) {\n          lastRange[1] = Math.max(lastRange[1], range[1]);\n        } else {\n          consolidatedRanges.push(lastRange = range);\n        }\n      }\n  \n      for (var i = 0; i < consolidatedRanges.length; ++i) {\n        var range = consolidatedRanges[i];\n        out.push(encodeEscape(range[0]));\n        if (range[1] > range[0]) {\n          if (range[1] + 1 > range[0]) { out.push('-'); }\n          out.push(encodeEscape(range[1]));\n        }\n      }\n      out.push(']');\n      return out.join('');\n    }\n  \n    function allowAnywhereFoldCaseAndRenumberGroups(regex) {\n      // Split into character sets, escape sequences, punctuation strings\n      // like ('(', '(?:', ')', '^'), and runs of characters that do not\n      // include any of the above.\n      var parts = regex.source.match(\n          new RegExp(\n              '(?:'\n              + '\\\\[(?:[^\\\\x5C\\\\x5D]|\\\\\\\\[\\\\s\\\\S])*\\\\]'  // a character set\n              + '|\\\\\\\\u[A-Fa-f0-9]{4}'  // a unicode escape\n              + '|\\\\\\\\x[A-Fa-f0-9]{2}'  // a hex escape\n              + '|\\\\\\\\[0-9]+'  // a back-reference or octal escape\n              + '|\\\\\\\\[^ux0-9]'  // other escape sequence\n              + '|\\\\(\\\\?[:!=]'  // start of a non-capturing group\n              + '|[\\\\(\\\\)\\\\^]'  // start/end of a group, or line start\n              + '|[^\\\\x5B\\\\x5C\\\\(\\\\)\\\\^]+'  // run of other characters\n              + ')',\n              'g'));\n      var n = parts.length;\n  \n      // Maps captured group numbers to the number they will occupy in\n      // the output or to -1 if that has not been determined, or to\n      // undefined if they need not be capturing in the output.\n      var capturedGroups = [];\n  \n      // Walk over and identify back references to build the capturedGroups\n      // mapping.\n      for (var i = 0, groupIndex = 0; i < n; ++i) {\n        var p = parts[i];\n        if (p === '(') {\n          // groups are 1-indexed, so max group index is count of '('\n          ++groupIndex;\n        } else if ('\\\\' === p.charAt(0)) {\n          var decimalValue = +p.substring(1);\n          if (decimalValue) {\n            if (decimalValue <= groupIndex) {\n              capturedGroups[decimalValue] = -1;\n            } else {\n              // Replace with an unambiguous escape sequence so that\n              // an octal escape sequence does not turn into a backreference\n              // to a capturing group from an earlier regex.\n              parts[i] = encodeEscape(decimalValue);\n            }\n          }\n        }\n      }\n  \n      // Renumber groups and reduce capturing groups to non-capturing groups\n      // where possible.\n      for (var i = 1; i < capturedGroups.length; ++i) {\n        if (-1 === capturedGroups[i]) {\n          capturedGroups[i] = ++capturedGroupIndex;\n        }\n      }\n      for (var i = 0, groupIndex = 0; i < n; ++i) {\n        var p = parts[i];\n        if (p === '(') {\n          ++groupIndex;\n          if (!capturedGroups[groupIndex]) {\n            parts[i] = '(?:';\n          }\n        } else if ('\\\\' === p.charAt(0)) {\n          var decimalValue = +p.substring(1);\n          if (decimalValue && decimalValue <= groupIndex) {\n            parts[i] = '\\\\' + capturedGroups[decimalValue];\n          }\n        }\n      }\n  \n      // Remove any prefix anchors so that the output will match anywhere.\n      // ^^ really does mean an anchored match though.\n      for (var i = 0; i < n; ++i) {\n        if ('^' === parts[i] && '^' !== parts[i + 1]) { parts[i] = ''; }\n      }\n  \n      // Expand letters to groups to handle mixing of case-sensitive and\n      // case-insensitive patterns if necessary.\n      if (regex.ignoreCase && needToFoldCase) {\n        for (var i = 0; i < n; ++i) {\n          var p = parts[i];\n          var ch0 = p.charAt(0);\n          if (p.length >= 2 && ch0 === '[') {\n            parts[i] = caseFoldCharset(p);\n          } else if (ch0 !== '\\\\') {\n            // TODO: handle letters in numeric escapes.\n            parts[i] = p.replace(\n                /[a-zA-Z]/g,\n                function (ch) {\n                  var cc = ch.charCodeAt(0);\n                  return '[' + String.fromCharCode(cc & ~32, cc | 32) + ']';\n                });\n          }\n        }\n      }\n  \n      return parts.join('');\n    }\n  \n    var rewritten = [];\n    for (var i = 0, n = regexs.length; i < n; ++i) {\n      var regex = regexs[i];\n      if (regex.global || regex.multiline) { throw new Error('' + regex); }\n      rewritten.push(\n          '(?:' + allowAnywhereFoldCaseAndRenumberGroups(regex) + ')');\n    }\n  \n    return new RegExp(rewritten.join('|'), ignoreCase ? 'gi' : 'g');\n  }\n\n\n  /**\n   * Split markup into a string of source code and an array mapping ranges in\n   * that string to the text nodes in which they appear.\n   *\n   * <p>\n   * The HTML DOM structure:</p>\n   * <pre>\n   * (Element   \"p\"\n   *   (Element \"b\"\n   *     (Text  \"print \"))       ; #1\n   *   (Text    \"'Hello '\")      ; #2\n   *   (Element \"br\")            ; #3\n   *   (Text    \"  + 'World';\")) ; #4\n   * </pre>\n   * <p>\n   * corresponds to the HTML\n   * {@code <p><b>print </b>'Hello '<br>  + 'World';</p>}.</p>\n   *\n   * <p>\n   * It will produce the output:</p>\n   * <pre>\n   * {\n   *   sourceCode: \"print 'Hello '\\n  + 'World';\",\n   *   //                     1          2\n   *   //           012345678901234 5678901234567\n   *   spans: [0, #1, 6, #2, 14, #3, 15, #4]\n   * }\n   * </pre>\n   * <p>\n   * where #1 is a reference to the {@code \"print \"} text node above, and so\n   * on for the other text nodes.\n   * </p>\n   *\n   * <p>\n   * The {@code} spans array is an array of pairs.  Even elements are the start\n   * indices of substrings, and odd elements are the text nodes (or BR elements)\n   * that contain the text for those substrings.\n   * Substrings continue until the next index or the end of the source.\n   * </p>\n   *\n   * @param {Node} node an HTML DOM subtree containing source-code.\n   * @param {boolean} isPreformatted true if white-space in text nodes should\n   *    be considered significant.\n   * @return {Object} source code and the text nodes in which they occur.\n   */\n  function extractSourceSpans(node, isPreformatted) {\n    var nocode = /(?:^|\\s)nocode(?:\\s|$)/;\n  \n    var chunks = [];\n    var length = 0;\n    var spans = [];\n    var k = 0;\n  \n    function walk(node) {\n      switch (node.nodeType) {\n        case 1:  // Element\n          if (nocode.test(node.className)) { return; }\n          for (var child = node.firstChild; child; child = child.nextSibling) {\n            walk(child);\n          }\n          var nodeName = node.nodeName.toLowerCase();\n          if ('br' === nodeName || 'li' === nodeName) {\n            chunks[k] = '\\n';\n            spans[k << 1] = length++;\n            spans[(k++ << 1) | 1] = node;\n          }\n          break;\n        case 3: case 4:  // Text\n          var text = node.nodeValue;\n          if (text.length) {\n            if (!isPreformatted) {\n              text = text.replace(/[ \\t\\r\\n]+/g, ' ');\n            } else {\n              text = text.replace(/\\r\\n?/g, '\\n');  // Normalize newlines.\n            }\n            // TODO: handle tabs here?\n            chunks[k] = text;\n            spans[k << 1] = length;\n            length += text.length;\n            spans[(k++ << 1) | 1] = node;\n          }\n          break;\n      }\n    }\n  \n    walk(node);\n  \n    return {\n      sourceCode: chunks.join('').replace(/\\n$/, ''),\n      spans: spans\n    };\n  }\n\n\n  /**\n   * Apply the given language handler to sourceCode and add the resulting\n   * decorations to out.\n   * @param {number} basePos the index of sourceCode within the chunk of source\n   *    whose decorations are already present on out.\n   */\n  function appendDecorations(basePos, sourceCode, langHandler, out) {\n    if (!sourceCode) { return; }\n    var job = {\n      sourceCode: sourceCode,\n      basePos: basePos\n    };\n    langHandler(job);\n    out.push.apply(out, job.decorations);\n  }\n\n  var notWs = /\\S/;\n\n  /**\n   * Given an element, if it contains only one child element and any text nodes\n   * it contains contain only space characters, return the sole child element.\n   * Otherwise returns undefined.\n   * <p>\n   * This is meant to return the CODE element in {@code <pre><code ...>} when\n   * there is a single child element that contains all the non-space textual\n   * content, but not to return anything where there are multiple child elements\n   * as in {@code <pre><code>...</code><code>...</code></pre>} or when there\n   * is textual content.\n   */\n  function childContentWrapper(element) {\n    var wrapper = undefined;\n    for (var c = element.firstChild; c; c = c.nextSibling) {\n      var type = c.nodeType;\n      wrapper = (type === 1)  // Element Node\n          ? (wrapper ? element : c)\n          : (type === 3)  // Text Node\n          ? (notWs.test(c.nodeValue) ? element : wrapper)\n          : wrapper;\n    }\n    return wrapper === element ? undefined : wrapper;\n  }\n\n  /** Given triples of [style, pattern, context] returns a lexing function,\n    * The lexing function interprets the patterns to find token boundaries and\n    * returns a decoration list of the form\n    * [index_0, style_0, index_1, style_1, ..., index_n, style_n]\n    * where index_n is an index into the sourceCode, and style_n is a style\n    * constant like PR_PLAIN.  index_n-1 <= index_n, and style_n-1 applies to\n    * all characters in sourceCode[index_n-1:index_n].\n    *\n    * The stylePatterns is a list whose elements have the form\n    * [style : string, pattern : RegExp, DEPRECATED, shortcut : string].\n    *\n    * Style is a style constant like PR_PLAIN, or can be a string of the\n    * form 'lang-FOO', where FOO is a language extension describing the\n    * language of the portion of the token in $1 after pattern executes.\n    * E.g., if style is 'lang-lisp', and group 1 contains the text\n    * '(hello (world))', then that portion of the token will be passed to the\n    * registered lisp handler for formatting.\n    * The text before and after group 1 will be restyled using this decorator\n    * so decorators should take care that this doesn't result in infinite\n    * recursion.  For example, the HTML lexer rule for SCRIPT elements looks\n    * something like ['lang-js', /<[s]cript>(.+?)<\\/script>/].  This may match\n    * '<script>foo()<\\/script>', which would cause the current decorator to\n    * be called with '<script>' which would not match the same rule since\n    * group 1 must not be empty, so it would be instead styled as PR_TAG by\n    * the generic tag rule.  The handler registered for the 'js' extension would\n    * then be called with 'foo()', and finally, the current decorator would\n    * be called with '<\\/script>' which would not match the original rule and\n    * so the generic tag rule would identify it as a tag.\n    *\n    * Pattern must only match prefixes, and if it matches a prefix, then that\n    * match is considered a token with the same style.\n    *\n    * Context is applied to the last non-whitespace, non-comment token\n    * recognized.\n    *\n    * Shortcut is an optional string of characters, any of which, if the first\n    * character, gurantee that this pattern and only this pattern matches.\n    *\n    * @param {Array} shortcutStylePatterns patterns that always start with\n    *   a known character.  Must have a shortcut string.\n    * @param {Array} fallthroughStylePatterns patterns that will be tried in\n    *   order if the shortcut ones fail.  May have shortcuts.\n    *\n    * @return {function (Object)} a\n    *   function that takes source code and returns a list of decorations.\n    */\n  function createSimpleLexer(shortcutStylePatterns, fallthroughStylePatterns) {\n    var shortcuts = {};\n    var tokenizer;\n    (function () {\n      var allPatterns = shortcutStylePatterns.concat(fallthroughStylePatterns);\n      var allRegexs = [];\n      var regexKeys = {};\n      for (var i = 0, n = allPatterns.length; i < n; ++i) {\n        var patternParts = allPatterns[i];\n        var shortcutChars = patternParts[3];\n        if (shortcutChars) {\n          for (var c = shortcutChars.length; --c >= 0;) {\n            shortcuts[shortcutChars.charAt(c)] = patternParts;\n          }\n        }\n        var regex = patternParts[1];\n        var k = '' + regex;\n        if (!regexKeys.hasOwnProperty(k)) {\n          allRegexs.push(regex);\n          regexKeys[k] = null;\n        }\n      }\n      allRegexs.push(/[\\0-\\uffff]/);\n      tokenizer = combinePrefixPatterns(allRegexs);\n    })();\n\n    var nPatterns = fallthroughStylePatterns.length;\n\n    /**\n     * Lexes job.sourceCode and produces an output array job.decorations of\n     * style classes preceded by the position at which they start in\n     * job.sourceCode in order.\n     *\n     * @param {Object} job an object like <pre>{\n     *    sourceCode: {string} sourceText plain text,\n     *    basePos: {int} position of job.sourceCode in the larger chunk of\n     *        sourceCode.\n     * }</pre>\n     */\n    var decorate = function (job) {\n      var sourceCode = job.sourceCode, basePos = job.basePos;\n      /** Even entries are positions in source in ascending order.  Odd enties\n        * are style markers (e.g., PR_COMMENT) that run from that position until\n        * the end.\n        * @type {Array.<number|string>}\n        */\n      var decorations = [basePos, PR_PLAIN];\n      var pos = 0;  // index into sourceCode\n      var tokens = sourceCode.match(tokenizer) || [];\n      var styleCache = {};\n\n      for (var ti = 0, nTokens = tokens.length; ti < nTokens; ++ti) {\n        var token = tokens[ti];\n        var style = styleCache[token];\n        var match = void 0;\n\n        var isEmbedded;\n        if (typeof style === 'string') {\n          isEmbedded = false;\n        } else {\n          var patternParts = shortcuts[token.charAt(0)];\n          if (patternParts) {\n            match = token.match(patternParts[1]);\n            style = patternParts[0];\n          } else {\n            for (var i = 0; i < nPatterns; ++i) {\n              patternParts = fallthroughStylePatterns[i];\n              match = token.match(patternParts[1]);\n              if (match) {\n                style = patternParts[0];\n                break;\n              }\n            }\n\n            if (!match) {  // make sure that we make progress\n              style = PR_PLAIN;\n            }\n          }\n\n          isEmbedded = style.length >= 5 && 'lang-' === style.substring(0, 5);\n          if (isEmbedded && !(match && typeof match[1] === 'string')) {\n            isEmbedded = false;\n            style = PR_SOURCE;\n          }\n\n          if (!isEmbedded) { styleCache[token] = style; }\n        }\n\n        var tokenStart = pos;\n        pos += token.length;\n\n        if (!isEmbedded) {\n          decorations.push(basePos + tokenStart, style);\n        } else {  // Treat group 1 as an embedded block of source code.\n          var embeddedSource = match[1];\n          var embeddedSourceStart = token.indexOf(embeddedSource);\n          var embeddedSourceEnd = embeddedSourceStart + embeddedSource.length;\n          if (match[2]) {\n            // If embeddedSource can be blank, then it would match at the\n            // beginning which would cause us to infinitely recurse on the\n            // entire token, so we catch the right context in match[2].\n            embeddedSourceEnd = token.length - match[2].length;\n            embeddedSourceStart = embeddedSourceEnd - embeddedSource.length;\n          }\n          var lang = style.substring(5);\n          // Decorate the left of the embedded source\n          appendDecorations(\n              basePos + tokenStart,\n              token.substring(0, embeddedSourceStart),\n              decorate, decorations);\n          // Decorate the embedded source\n          appendDecorations(\n              basePos + tokenStart + embeddedSourceStart,\n              embeddedSource,\n              langHandlerForExtension(lang, embeddedSource),\n              decorations);\n          // Decorate the right of the embedded section\n          appendDecorations(\n              basePos + tokenStart + embeddedSourceEnd,\n              token.substring(embeddedSourceEnd),\n              decorate, decorations);\n        }\n      }\n      job.decorations = decorations;\n    };\n    return decorate;\n  }\n\n  /** returns a function that produces a list of decorations from source text.\n    *\n    * This code treats \", ', and ` as string delimiters, and \\ as a string\n    * escape.  It does not recognize perl's qq() style strings.\n    * It has no special handling for double delimiter escapes as in basic, or\n    * the tripled delimiters used in python, but should work on those regardless\n    * although in those cases a single string literal may be broken up into\n    * multiple adjacent string literals.\n    *\n    * It recognizes C, C++, and shell style comments.\n    *\n    * @param {Object} options a set of optional parameters.\n    * @return {function (Object)} a function that examines the source code\n    *     in the input job and builds the decoration list.\n    */\n  function sourceDecorator(options) {\n    var shortcutStylePatterns = [], fallthroughStylePatterns = [];\n    if (options['tripleQuotedStrings']) {\n      // '''multi-line-string''', 'single-line-string', and double-quoted\n      shortcutStylePatterns.push(\n          [PR_STRING,  /^(?:\\'\\'\\'(?:[^\\'\\\\]|\\\\[\\s\\S]|\\'{1,2}(?=[^\\']))*(?:\\'\\'\\'|$)|\\\"\\\"\\\"(?:[^\\\"\\\\]|\\\\[\\s\\S]|\\\"{1,2}(?=[^\\\"]))*(?:\\\"\\\"\\\"|$)|\\'(?:[^\\\\\\']|\\\\[\\s\\S])*(?:\\'|$)|\\\"(?:[^\\\\\\\"]|\\\\[\\s\\S])*(?:\\\"|$))/,\n           null, '\\'\"']);\n    } else if (options['multiLineStrings']) {\n      // 'multi-line-string', \"multi-line-string\"\n      shortcutStylePatterns.push(\n          [PR_STRING,  /^(?:\\'(?:[^\\\\\\']|\\\\[\\s\\S])*(?:\\'|$)|\\\"(?:[^\\\\\\\"]|\\\\[\\s\\S])*(?:\\\"|$)|\\`(?:[^\\\\\\`]|\\\\[\\s\\S])*(?:\\`|$))/,\n           null, '\\'\"`']);\n    } else {\n      // 'single-line-string', \"single-line-string\"\n      shortcutStylePatterns.push(\n          [PR_STRING,\n           /^(?:\\'(?:[^\\\\\\'\\r\\n]|\\\\.)*(?:\\'|$)|\\\"(?:[^\\\\\\\"\\r\\n]|\\\\.)*(?:\\\"|$))/,\n           null, '\"\\'']);\n    }\n    if (options['verbatimStrings']) {\n      // verbatim-string-literal production from the C# grammar.  See issue 93.\n      fallthroughStylePatterns.push(\n          [PR_STRING, /^@\\\"(?:[^\\\"]|\\\"\\\")*(?:\\\"|$)/, null]);\n    }\n    var hc = options['hashComments'];\n    if (hc) {\n      if (options['cStyleComments']) {\n        if (hc > 1) {  // multiline hash comments\n          shortcutStylePatterns.push(\n              [PR_COMMENT, /^#(?:##(?:[^#]|#(?!##))*(?:###|$)|.*)/, null, '#']);\n        } else {\n          // Stop C preprocessor declarations at an unclosed open comment\n          shortcutStylePatterns.push(\n              [PR_COMMENT, /^#(?:(?:define|e(?:l|nd)if|else|error|ifn?def|include|line|pragma|undef|warning)\\b|[^\\r\\n]*)/,\n               null, '#']);\n        }\n        // #include <stdio.h>\n        fallthroughStylePatterns.push(\n            [PR_STRING,\n             /^<(?:(?:(?:\\.\\.\\/)*|\\/?)(?:[\\w-]+(?:\\/[\\w-]+)+)?[\\w-]+\\.h(?:h|pp|\\+\\+)?|[a-z]\\w*)>/,\n             null]);\n      } else {\n        shortcutStylePatterns.push([PR_COMMENT, /^#[^\\r\\n]*/, null, '#']);\n      }\n    }\n    if (options['cStyleComments']) {\n      fallthroughStylePatterns.push([PR_COMMENT, /^\\/\\/[^\\r\\n]*/, null]);\n      fallthroughStylePatterns.push(\n          [PR_COMMENT, /^\\/\\*[\\s\\S]*?(?:\\*\\/|$)/, null]);\n    }\n    if (options['regexLiterals']) {\n      /**\n       * @const\n       */\n      var REGEX_LITERAL = (\n          // A regular expression literal starts with a slash that is\n          // not followed by * or / so that it is not confused with\n          // comments.\n          '/(?=[^/*])'\n          // and then contains any number of raw characters,\n          + '(?:[^/\\\\x5B\\\\x5C]'\n          // escape sequences (\\x5C),\n          +    '|\\\\x5C[\\\\s\\\\S]'\n          // or non-nesting character sets (\\x5B\\x5D);\n          +    '|\\\\x5B(?:[^\\\\x5C\\\\x5D]|\\\\x5C[\\\\s\\\\S])*(?:\\\\x5D|$))+'\n          // finally closed by a /.\n          + '/');\n      fallthroughStylePatterns.push(\n          ['lang-regex',\n           new RegExp('^' + REGEXP_PRECEDER_PATTERN + '(' + REGEX_LITERAL + ')')\n           ]);\n    }\n\n    var types = options['types'];\n    if (types) {\n      fallthroughStylePatterns.push([PR_TYPE, types]);\n    }\n\n    var keywords = (\"\" + options['keywords']).replace(/^ | $/g, '');\n    if (keywords.length) {\n      fallthroughStylePatterns.push(\n          [PR_KEYWORD,\n           new RegExp('^(?:' + keywords.replace(/[\\s,]+/g, '|') + ')\\\\b'),\n           null]);\n    }\n\n    shortcutStylePatterns.push([PR_PLAIN,       /^\\s+/, null, ' \\r\\n\\t\\xA0']);\n\n    var punctuation =\n      // The Bash man page says\n\n      // A word is a sequence of characters considered as a single\n      // unit by GRUB. Words are separated by metacharacters,\n      // which are the following plus space, tab, and newline: { }\n      // | & $ ; < >\n      // ...\n      \n      // A word beginning with # causes that word and all remaining\n      // characters on that line to be ignored.\n\n      // which means that only a '#' after /(?:^|[{}|&$;<>\\s])/ starts a\n      // comment but empirically\n      // $ echo {#}\n      // {#}\n      // $ echo \\$#\n      // $#\n      // $ echo }#\n      // }#\n\n      // so /(?:^|[|&;<>\\s])/ is more appropriate.\n\n      // http://gcc.gnu.org/onlinedocs/gcc-2.95.3/cpp_1.html#SEC3\n      // suggests that this definition is compatible with a\n      // default mode that tries to use a single token definition\n      // to recognize both bash/python style comments and C\n      // preprocessor directives.\n\n      // This definition of punctuation does not include # in the list of\n      // follow-on exclusions, so # will not be broken before if preceeded\n      // by a punctuation character.  We could try to exclude # after\n      // [|&;<>] but that doesn't seem to cause many major problems.\n      // If that does turn out to be a problem, we should change the below\n      // when hc is truthy to include # in the run of punctuation characters\n      // only when not followint [|&;<>].\n      /^.[^\\s\\w\\.$@\\'\\\"\\`\\/\\\\]*/;\n\n    fallthroughStylePatterns.push(\n        // TODO(mikesamuel): recognize non-latin letters and numerals in idents\n        [PR_LITERAL,     /^@[a-z_$][a-z_$@0-9]*/i, null],\n        [PR_TYPE,        /^(?:[@_]?[A-Z]+[a-z][A-Za-z_$@0-9]*|\\w+_t\\b)/, null],\n        [PR_PLAIN,       /^[a-z_$][a-z_$@0-9]*/i, null],\n        [PR_LITERAL,\n         new RegExp(\n             '^(?:'\n             // A hex number\n             + '0x[a-f0-9]+'\n             // or an octal or decimal number,\n             + '|(?:\\\\d(?:_\\\\d+)*\\\\d*(?:\\\\.\\\\d*)?|\\\\.\\\\d\\\\+)'\n             // possibly in scientific notation\n             + '(?:e[+\\\\-]?\\\\d+)?'\n             + ')'\n             // with an optional modifier like UL for unsigned long\n             + '[a-z]*', 'i'),\n         null, '0123456789'],\n        // Don't treat escaped quotes in bash as starting strings.  See issue 144.\n        [PR_PLAIN,       /^\\\\[\\s\\S]?/, null],\n        [PR_PUNCTUATION, punctuation, null]);\n\n    return createSimpleLexer(shortcutStylePatterns, fallthroughStylePatterns);\n  }\n\n  var decorateSource = sourceDecorator({\n        'keywords': ALL_KEYWORDS,\n        'hashComments': true,\n        'cStyleComments': true,\n        'multiLineStrings': true,\n        'regexLiterals': true\n      });\n\n  /**\n   * Given a DOM subtree, wraps it in a list, and puts each line into its own\n   * list item.\n   *\n   * @param {Node} node modified in place.  Its content is pulled into an\n   *     HTMLOListElement, and each line is moved into a separate list item.\n   *     This requires cloning elements, so the input might not have unique\n   *     IDs after numbering.\n   * @param {boolean} isPreformatted true iff white-space in text nodes should\n   *     be treated as significant.\n   */\n  function numberLines(node, opt_startLineNum, isPreformatted) {\n    var nocode = /(?:^|\\s)nocode(?:\\s|$)/;\n    var lineBreak = /\\r\\n?|\\n/;\n  \n    var document = node.ownerDocument;\n  \n    var li = document.createElement('li');\n    while (node.firstChild) {\n      li.appendChild(node.firstChild);\n    }\n    // An array of lines.  We split below, so this is initialized to one\n    // un-split line.\n    var listItems = [li];\n  \n    function walk(node) {\n      switch (node.nodeType) {\n        case 1:  // Element\n          if (nocode.test(node.className)) { break; }\n          if ('br' === node.nodeName) {\n            breakAfter(node);\n            // Discard the <BR> since it is now flush against a </LI>.\n            if (node.parentNode) {\n              node.parentNode.removeChild(node);\n            }\n          } else {\n            for (var child = node.firstChild; child; child = child.nextSibling) {\n              walk(child);\n            }\n          }\n          break;\n        case 3: case 4:  // Text\n          if (isPreformatted) {\n            var text = node.nodeValue;\n            var match = text.match(lineBreak);\n            if (match) {\n              var firstLine = text.substring(0, match.index);\n              node.nodeValue = firstLine;\n              var tail = text.substring(match.index + match[0].length);\n              if (tail) {\n                var parent = node.parentNode;\n                parent.insertBefore(\n                    document.createTextNode(tail), node.nextSibling);\n              }\n              breakAfter(node);\n              if (!firstLine) {\n                // Don't leave blank text nodes in the DOM.\n                node.parentNode.removeChild(node);\n              }\n            }\n          }\n          break;\n      }\n    }\n  \n    // Split a line after the given node.\n    function breakAfter(lineEndNode) {\n      // If there's nothing to the right, then we can skip ending the line\n      // here, and move root-wards since splitting just before an end-tag\n      // would require us to create a bunch of empty copies.\n      while (!lineEndNode.nextSibling) {\n        lineEndNode = lineEndNode.parentNode;\n        if (!lineEndNode) { return; }\n      }\n  \n      function breakLeftOf(limit, copy) {\n        // Clone shallowly if this node needs to be on both sides of the break.\n        var rightSide = copy ? limit.cloneNode(false) : limit;\n        var parent = limit.parentNode;\n        if (parent) {\n          // We clone the parent chain.\n          // This helps us resurrect important styling elements that cross lines.\n          // E.g. in <i>Foo<br>Bar</i>\n          // should be rewritten to <li><i>Foo</i></li><li><i>Bar</i></li>.\n          var parentClone = breakLeftOf(parent, 1);\n          // Move the clone and everything to the right of the original\n          // onto the cloned parent.\n          var next = limit.nextSibling;\n          parentClone.appendChild(rightSide);\n          for (var sibling = next; sibling; sibling = next) {\n            next = sibling.nextSibling;\n            parentClone.appendChild(sibling);\n          }\n        }\n        return rightSide;\n      }\n  \n      var copiedListItem = breakLeftOf(lineEndNode.nextSibling, 0);\n  \n      // Walk the parent chain until we reach an unattached LI.\n      for (var parent;\n           // Check nodeType since IE invents document fragments.\n           (parent = copiedListItem.parentNode) && parent.nodeType === 1;) {\n        copiedListItem = parent;\n      }\n      // Put it on the list of lines for later processing.\n      listItems.push(copiedListItem);\n    }\n  \n    // Split lines while there are lines left to split.\n    for (var i = 0;  // Number of lines that have been split so far.\n         i < listItems.length;  // length updated by breakAfter calls.\n         ++i) {\n      walk(listItems[i]);\n    }\n  \n    // Make sure numeric indices show correctly.\n    if (opt_startLineNum === (opt_startLineNum|0)) {\n      listItems[0].setAttribute('value', opt_startLineNum);\n    }\n  \n    var ol = document.createElement('ol');\n    ol.className = 'linenums';\n    var offset = Math.max(0, ((opt_startLineNum - 1 /* zero index */)) | 0) || 0;\n    for (var i = 0, n = listItems.length; i < n; ++i) {\n      li = listItems[i];\n      // Stick a class on the LIs so that stylesheets can\n      // color odd/even rows, or any other row pattern that\n      // is co-prime with 10.\n      li.className = 'L' + ((i + offset) % 10);\n      if (!li.firstChild) {\n        li.appendChild(document.createTextNode('\\xA0'));\n      }\n      ol.appendChild(li);\n    }\n  \n    node.appendChild(ol);\n  }\n\n  /**\n   * Breaks {@code job.sourceCode} around style boundaries in\n   * {@code job.decorations} and modifies {@code job.sourceNode} in place.\n   * @param {Object} job like <pre>{\n   *    sourceCode: {string} source as plain text,\n   *    spans: {Array.<number|Node>} alternating span start indices into source\n   *       and the text node or element (e.g. {@code <BR>}) corresponding to that\n   *       span.\n   *    decorations: {Array.<number|string} an array of style classes preceded\n   *       by the position at which they start in job.sourceCode in order\n   * }</pre>\n   * @private\n   */\n  function recombineTagsAndDecorations(job) {\n    var isIE8OrEarlier = /\\bMSIE\\s(\\d+)/.exec(navigator.userAgent);\n    isIE8OrEarlier = isIE8OrEarlier && +isIE8OrEarlier[1] <= 8;\n    var newlineRe = /\\n/g;\n  \n    var source = job.sourceCode;\n    var sourceLength = source.length;\n    // Index into source after the last code-unit recombined.\n    var sourceIndex = 0;\n  \n    var spans = job.spans;\n    var nSpans = spans.length;\n    // Index into spans after the last span which ends at or before sourceIndex.\n    var spanIndex = 0;\n  \n    var decorations = job.decorations;\n    var nDecorations = decorations.length;\n    // Index into decorations after the last decoration which ends at or before\n    // sourceIndex.\n    var decorationIndex = 0;\n  \n    // Remove all zero-length decorations.\n    decorations[nDecorations] = sourceLength;\n    var decPos, i;\n    for (i = decPos = 0; i < nDecorations;) {\n      if (decorations[i] !== decorations[i + 2]) {\n        decorations[decPos++] = decorations[i++];\n        decorations[decPos++] = decorations[i++];\n      } else {\n        i += 2;\n      }\n    }\n    nDecorations = decPos;\n  \n    // Simplify decorations.\n    for (i = decPos = 0; i < nDecorations;) {\n      var startPos = decorations[i];\n      // Conflate all adjacent decorations that use the same style.\n      var startDec = decorations[i + 1];\n      var end = i + 2;\n      while (end + 2 <= nDecorations && decorations[end + 1] === startDec) {\n        end += 2;\n      }\n      decorations[decPos++] = startPos;\n      decorations[decPos++] = startDec;\n      i = end;\n    }\n  \n    nDecorations = decorations.length = decPos;\n  \n    var sourceNode = job.sourceNode;\n    var oldDisplay;\n    if (sourceNode) {\n      oldDisplay = sourceNode.style.display;\n      sourceNode.style.display = 'none';\n    }\n    try {\n      var decoration = null;\n      while (spanIndex < nSpans) {\n        var spanStart = spans[spanIndex];\n        var spanEnd = spans[spanIndex + 2] || sourceLength;\n  \n        var decEnd = decorations[decorationIndex + 2] || sourceLength;\n  \n        var end = Math.min(spanEnd, decEnd);\n  \n        var textNode = spans[spanIndex + 1];\n        var styledText;\n        if (textNode.nodeType !== 1  // Don't muck with <BR>s or <LI>s\n            // Don't introduce spans around empty text nodes.\n            && (styledText = source.substring(sourceIndex, end))) {\n          // This may seem bizarre, and it is.  Emitting LF on IE causes the\n          // code to display with spaces instead of line breaks.\n          // Emitting Windows standard issue linebreaks (CRLF) causes a blank\n          // space to appear at the beginning of every line but the first.\n          // Emitting an old Mac OS 9 line separator makes everything spiffy.\n          if (isIE8OrEarlier) {\n            styledText = styledText.replace(newlineRe, '\\r');\n          }\n          textNode.nodeValue = styledText;\n          var document = textNode.ownerDocument;\n          var span = document.createElement('span');\n          span.className = decorations[decorationIndex + 1];\n          var parentNode = textNode.parentNode;\n          parentNode.replaceChild(span, textNode);\n          span.appendChild(textNode);\n          if (sourceIndex < spanEnd) {  // Split off a text node.\n            spans[spanIndex + 1] = textNode\n                // TODO: Possibly optimize by using '' if there's no flicker.\n                = document.createTextNode(source.substring(end, spanEnd));\n            parentNode.insertBefore(textNode, span.nextSibling);\n          }\n        }\n  \n        sourceIndex = end;\n  \n        if (sourceIndex >= spanEnd) {\n          spanIndex += 2;\n        }\n        if (sourceIndex >= decEnd) {\n          decorationIndex += 2;\n        }\n      }\n    } finally {\n      if (sourceNode) {\n        sourceNode.style.display = oldDisplay;\n      }\n    }\n  }\n\n\n  /** Maps language-specific file extensions to handlers. */\n  var langHandlerRegistry = {};\n  /** Register a language handler for the given file extensions.\n    * @param {function (Object)} handler a function from source code to a list\n    *      of decorations.  Takes a single argument job which describes the\n    *      state of the computation.   The single parameter has the form\n    *      {@code {\n    *        sourceCode: {string} as plain text.\n    *        decorations: {Array.<number|string>} an array of style classes\n    *                     preceded by the position at which they start in\n    *                     job.sourceCode in order.\n    *                     The language handler should assigned this field.\n    *        basePos: {int} the position of source in the larger source chunk.\n    *                 All positions in the output decorations array are relative\n    *                 to the larger source chunk.\n    *      } }\n    * @param {Array.<string>} fileExtensions\n    */\n  function registerLangHandler(handler, fileExtensions) {\n    for (var i = fileExtensions.length; --i >= 0;) {\n      var ext = fileExtensions[i];\n      if (!langHandlerRegistry.hasOwnProperty(ext)) {\n        langHandlerRegistry[ext] = handler;\n      } else if (win['console']) {\n        console['warn']('cannot override language handler %s', ext);\n      }\n    }\n  }\n  function langHandlerForExtension(extension, source) {\n    if (!(extension && langHandlerRegistry.hasOwnProperty(extension))) {\n      // Treat it as markup if the first non whitespace character is a < and\n      // the last non-whitespace character is a >.\n      extension = /^\\s*</.test(source)\n          ? 'default-markup'\n          : 'default-code';\n    }\n    return langHandlerRegistry[extension];\n  }\n  registerLangHandler(decorateSource, ['default-code']);\n  registerLangHandler(\n      createSimpleLexer(\n          [],\n          [\n           [PR_PLAIN,       /^[^<?]+/],\n           [PR_DECLARATION, /^<!\\w[^>]*(?:>|$)/],\n           [PR_COMMENT,     /^<\\!--[\\s\\S]*?(?:-\\->|$)/],\n           // Unescaped content in an unknown language\n           ['lang-',        /^<\\?([\\s\\S]+?)(?:\\?>|$)/],\n           ['lang-',        /^<%([\\s\\S]+?)(?:%>|$)/],\n           [PR_PUNCTUATION, /^(?:<[%?]|[%?]>)/],\n           ['lang-',        /^<xmp\\b[^>]*>([\\s\\S]+?)<\\/xmp\\b[^>]*>/i],\n           // Unescaped content in javascript.  (Or possibly vbscript).\n           ['lang-js',      /^<script\\b[^>]*>([\\s\\S]*?)(<\\/script\\b[^>]*>)/i],\n           // Contains unescaped stylesheet content\n           ['lang-css',     /^<style\\b[^>]*>([\\s\\S]*?)(<\\/style\\b[^>]*>)/i],\n           ['lang-in.tag',  /^(<\\/?[a-z][^<>]*>)/i]\n          ]),\n      ['default-markup', 'htm', 'html', 'mxml', 'xhtml', 'xml', 'xsl']);\n  registerLangHandler(\n      createSimpleLexer(\n          [\n           [PR_PLAIN,        /^[\\s]+/, null, ' \\t\\r\\n'],\n           [PR_ATTRIB_VALUE, /^(?:\\\"[^\\\"]*\\\"?|\\'[^\\']*\\'?)/, null, '\\\"\\'']\n           ],\n          [\n           [PR_TAG,          /^^<\\/?[a-z](?:[\\w.:-]*\\w)?|\\/?>$/i],\n           [PR_ATTRIB_NAME,  /^(?!style[\\s=]|on)[a-z](?:[\\w:-]*\\w)?/i],\n           ['lang-uq.val',   /^=\\s*([^>\\'\\\"\\s]*(?:[^>\\'\\\"\\s\\/]|\\/(?=\\s)))/],\n           [PR_PUNCTUATION,  /^[=<>\\/]+/],\n           ['lang-js',       /^on\\w+\\s*=\\s*\\\"([^\\\"]+)\\\"/i],\n           ['lang-js',       /^on\\w+\\s*=\\s*\\'([^\\']+)\\'/i],\n           ['lang-js',       /^on\\w+\\s*=\\s*([^\\\"\\'>\\s]+)/i],\n           ['lang-css',      /^style\\s*=\\s*\\\"([^\\\"]+)\\\"/i],\n           ['lang-css',      /^style\\s*=\\s*\\'([^\\']+)\\'/i],\n           ['lang-css',      /^style\\s*=\\s*([^\\\"\\'>\\s]+)/i]\n           ]),\n      ['in.tag']);\n  registerLangHandler(\n      createSimpleLexer([], [[PR_ATTRIB_VALUE, /^[\\s\\S]+/]]), ['uq.val']);\n  registerLangHandler(sourceDecorator({\n          'keywords': CPP_KEYWORDS,\n          'hashComments': true,\n          'cStyleComments': true,\n          'types': C_TYPES\n        }), ['c', 'cc', 'cpp', 'cxx', 'cyc', 'm']);\n  registerLangHandler(sourceDecorator({\n          'keywords': 'null,true,false'\n        }), ['json']);\n  registerLangHandler(sourceDecorator({\n          'keywords': CSHARP_KEYWORDS,\n          'hashComments': true,\n          'cStyleComments': true,\n          'verbatimStrings': true,\n          'types': C_TYPES\n        }), ['cs']);\n  registerLangHandler(sourceDecorator({\n          'keywords': JAVA_KEYWORDS,\n          'cStyleComments': true\n        }), ['java']);\n  registerLangHandler(sourceDecorator({\n          'keywords': SH_KEYWORDS,\n          'hashComments': true,\n          'multiLineStrings': true\n        }), ['bsh', 'csh', 'sh']);\n  registerLangHandler(sourceDecorator({\n          'keywords': PYTHON_KEYWORDS,\n          'hashComments': true,\n          'multiLineStrings': true,\n          'tripleQuotedStrings': true\n        }), ['cv', 'py']);\n  registerLangHandler(sourceDecorator({\n          'keywords': PERL_KEYWORDS,\n          'hashComments': true,\n          'multiLineStrings': true,\n          'regexLiterals': true\n        }), ['perl', 'pl', 'pm']);\n  registerLangHandler(sourceDecorator({\n          'keywords': RUBY_KEYWORDS,\n          'hashComments': true,\n          'multiLineStrings': true,\n          'regexLiterals': true\n        }), ['rb']);\n  registerLangHandler(sourceDecorator({\n          'keywords': JSCRIPT_KEYWORDS,\n          'cStyleComments': true,\n          'regexLiterals': true\n        }), ['js']);\n  registerLangHandler(sourceDecorator({\n          'keywords': COFFEE_KEYWORDS,\n          'hashComments': 3,  // ### style block comments\n          'cStyleComments': true,\n          'multilineStrings': true,\n          'tripleQuotedStrings': true,\n          'regexLiterals': true\n        }), ['coffee']);\n  registerLangHandler(\n      createSimpleLexer([], [[PR_STRING, /^[\\s\\S]+/]]), ['regex']);\n\n  function applyDecorator(job) {\n    var opt_langExtension = job.langExtension;\n\n    try {\n      // Extract tags, and convert the source code to plain text.\n      var sourceAndSpans = extractSourceSpans(job.sourceNode, job.pre);\n      /** Plain text. @type {string} */\n      var source = sourceAndSpans.sourceCode;\n      job.sourceCode = source;\n      job.spans = sourceAndSpans.spans;\n      job.basePos = 0;\n\n      // Apply the appropriate language handler\n      langHandlerForExtension(opt_langExtension, source)(job);\n\n      // Integrate the decorations and tags back into the source code,\n      // modifying the sourceNode in place.\n      recombineTagsAndDecorations(job);\n    } catch (e) {\n      if (win['console']) {\n        console['log'](e && e['stack'] ? e['stack'] : e);\n      }\n    }\n  }\n\n  /**\n   * @param sourceCodeHtml {string} The HTML to pretty print.\n   * @param opt_langExtension {string} The language name to use.\n   *     Typically, a filename extension like 'cpp' or 'java'.\n   * @param opt_numberLines {number|boolean} True to number lines,\n   *     or the 1-indexed number of the first line in sourceCodeHtml.\n   */\n  function prettyPrintOne(sourceCodeHtml, opt_langExtension, opt_numberLines) {\n    var container = document.createElement('pre');\n    // This could cause images to load and onload listeners to fire.\n    // E.g. <img onerror=\"alert(1337)\" src=\"nosuchimage.png\">.\n    // We assume that the inner HTML is from a trusted source.\n    container.innerHTML = sourceCodeHtml;\n    if (opt_numberLines) {\n      numberLines(container, opt_numberLines, true);\n    }\n\n    var job = {\n      langExtension: opt_langExtension,\n      numberLines: opt_numberLines,\n      sourceNode: container,\n      pre: 1\n    };\n    applyDecorator(job);\n    return container.innerHTML;\n  }\n\n  function prettyPrint(opt_whenDone) {\n    function byTagName(tn) { return document.getElementsByTagName(tn); }\n    // fetch a list of nodes to rewrite\n    var codeSegments = [byTagName('pre'), byTagName('code'), byTagName('xmp')];\n    var elements = [];\n    for (var i = 0; i < codeSegments.length; ++i) {\n      for (var j = 0, n = codeSegments[i].length; j < n; ++j) {\n        elements.push(codeSegments[i][j]);\n      }\n    }\n    codeSegments = null;\n\n    var clock = Date;\n    if (!clock['now']) {\n      clock = { 'now': function () { return +(new Date); } };\n    }\n\n    // The loop is broken into a series of continuations to make sure that we\n    // don't make the browser unresponsive when rewriting a large page.\n    var k = 0;\n    var prettyPrintingJob;\n\n    var langExtensionRe = /\\blang(?:uage)?-([\\w.]+)(?!\\S)/;\n    var prettyPrintRe = /\\bprettyprint\\b/;\n    var prettyPrintedRe = /\\bprettyprinted\\b/;\n    var preformattedTagNameRe = /pre|xmp/i;\n    var codeRe = /^code$/i;\n    var preCodeXmpRe = /^(?:pre|code|xmp)$/i;\n\n    function doWork() {\n      var endTime = (win['PR_SHOULD_USE_CONTINUATION'] ?\n                     clock['now']() + 250 /* ms */ :\n                     Infinity);\n      for (; k < elements.length && clock['now']() < endTime; k++) {\n        var cs = elements[k];\n        var className = cs.className;\n        if (prettyPrintRe.test(className)\n            // Don't redo this if we've already done it.\n            // This allows recalling pretty print to just prettyprint elements\n            // that have been added to the page since last call.\n            && !prettyPrintedRe.test(className)) {\n\n          // make sure this is not nested in an already prettified element\n          var nested = false;\n          for (var p = cs.parentNode; p; p = p.parentNode) {\n            var tn = p.tagName;\n            if (preCodeXmpRe.test(tn)\n                && p.className && prettyPrintRe.test(p.className)) {\n              nested = true;\n              break;\n            }\n          }\n          if (!nested) {\n            // Mark done.  If we fail to prettyprint for whatever reason,\n            // we shouldn't try again.\n            cs.className += ' prettyprinted';\n\n            // If the classes includes a language extensions, use it.\n            // Language extensions can be specified like\n            //     <pre class=\"prettyprint lang-cpp\">\n            // the language extension \"cpp\" is used to find a language handler\n            // as passed to PR.registerLangHandler.\n            // HTML5 recommends that a language be specified using \"language-\"\n            // as the prefix instead.  Google Code Prettify supports both.\n            // http://dev.w3.org/html5/spec-author-view/the-code-element.html\n            var langExtension = className.match(langExtensionRe);\n            // Support <pre class=\"prettyprint\"><code class=\"language-c\">\n            var wrapper;\n            if (!langExtension && (wrapper = childContentWrapper(cs))\n                && codeRe.test(wrapper.tagName)) {\n              langExtension = wrapper.className.match(langExtensionRe);\n            }\n\n            if (langExtension) { langExtension = langExtension[1]; }\n\n            var preformatted;\n            if (preformattedTagNameRe.test(cs.tagName)) {\n              preformatted = 1;\n            } else {\n              var currentStyle = cs['currentStyle'];\n              var whitespace = (\n                  currentStyle\n                  ? currentStyle['whiteSpace']\n                  : (document.defaultView\n                     && document.defaultView.getComputedStyle)\n                  ? document.defaultView.getComputedStyle(cs, null)\n                  .getPropertyValue('white-space')\n                  : 0);\n              preformatted = whitespace\n                  && 'pre' === whitespace.substring(0, 3);\n            }\n\n            // Look for a class like linenums or linenums:<n> where <n> is the\n            // 1-indexed number of the first line.\n            var lineNums = cs.className.match(/\\blinenums\\b(?::(\\d+))?/);\n            lineNums = lineNums\n                ? lineNums[1] && lineNums[1].length ? +lineNums[1] : true\n                : false;\n            if (lineNums) { numberLines(cs, lineNums, preformatted); }\n\n            // do the pretty printing\n            prettyPrintingJob = {\n              langExtension: langExtension,\n              sourceNode: cs,\n              numberLines: lineNums,\n              pre: preformatted\n            };\n            applyDecorator(prettyPrintingJob);\n          }\n        }\n      }\n      if (k < elements.length) {\n        // finish up in a continuation\n        setTimeout(doWork, 250);\n      } else if (opt_whenDone) {\n        opt_whenDone();\n      }\n    }\n\n    doWork();\n  }\n\n  /**\n   * Contains functions for creating and registering new language handlers.\n   * @type {Object}\n   */\n  var PR = win['PR'] = {\n        'createSimpleLexer': createSimpleLexer,\n        'registerLangHandler': registerLangHandler,\n        'sourceDecorator': sourceDecorator,\n        'PR_ATTRIB_NAME': PR_ATTRIB_NAME,\n        'PR_ATTRIB_VALUE': PR_ATTRIB_VALUE,\n        'PR_COMMENT': PR_COMMENT,\n        'PR_DECLARATION': PR_DECLARATION,\n        'PR_KEYWORD': PR_KEYWORD,\n        'PR_LITERAL': PR_LITERAL,\n        'PR_NOCODE': PR_NOCODE,\n        'PR_PLAIN': PR_PLAIN,\n        'PR_PUNCTUATION': PR_PUNCTUATION,\n        'PR_SOURCE': PR_SOURCE,\n        'PR_STRING': PR_STRING,\n        'PR_TAG': PR_TAG,\n        'PR_TYPE': PR_TYPE,\n        'prettyPrintOne': win['prettyPrintOne'] = prettyPrintOne,\n        'prettyPrint': win['prettyPrint'] = prettyPrint\n      };\n\n  // Make PR available via the Asynchronous Module Definition (AMD) API.\n  // Per https://github.com/amdjs/amdjs-api/wiki/AMD:\n  // The Asynchronous Module Definition (AMD) API specifies a\n  // mechanism for defining modules such that the module and its\n  // dependencies can be asynchronously loaded.\n  // ...\n  // To allow a clear indicator that a global define function (as\n  // needed for script src browser loading) conforms to the AMD API,\n  // any global define function SHOULD have a property called \"amd\"\n  // whose value is an object. This helps avoid conflict with any\n  // other existing JavaScript code that could have defined a define()\n  // function that does not conform to the AMD API.\n  if (typeof define === \"function\" && define['amd']) {\n    define(function () {\n      return PR; \n    });\n  }\n})();\n"
+	module.exports = "!function(e){\"undefined\"!=typeof exports?e(exports):(window.hljs=e({}),\"function\"==typeof define&&define.amd&&define([],function(){return window.hljs}))}(function(e){function t(e){return e.replace(/&/gm,\"&amp;\").replace(/</gm,\"&lt;\").replace(/>/gm,\"&gt;\")}function r(e){return e.nodeName.toLowerCase()}function n(e,t){var r=e&&e.exec(t);return r&&0==r.index}function a(e){var t=(e.className+\" \"+(e.parentNode?e.parentNode.className:\"\")).split(/\\s+/);return t=t.map(function(e){return e.replace(/^lang(uage)?-/,\"\")}),t.filter(function(e){return v(e)||/no(-?)highlight|plain|text/.test(e)})[0]}function i(e,t){var r,n={};for(r in e)n[r]=e[r];if(t)for(r in t)n[r]=t[r];return n}function s(e){var t=[];return function n(e,a){for(var i=e.firstChild;i;i=i.nextSibling)3==i.nodeType?a+=i.nodeValue.length:1==i.nodeType&&(t.push({event:\"start\",offset:a,node:i}),a=n(i,a),r(i).match(/br|hr|img|input/)||t.push({event:\"stop\",offset:a,node:i}));return a}(e,0),t}function c(e,n,a){function i(){return e.length&&n.length?e[0].offset!=n[0].offset?e[0].offset<n[0].offset?e:n:\"start\"==n[0].event?e:n:e.length?e:n}function s(e){function n(e){return\" \"+e.nodeName+'=\"'+t(e.value)+'\"'}u+=\"<\"+r(e)+Array.prototype.map.call(e.attributes,n).join(\"\")+\">\"}function c(e){u+=\"</\"+r(e)+\">\"}function o(e){(\"start\"==e.event?s:c)(e.node)}for(var l=0,u=\"\",d=[];e.length||n.length;){var b=i();if(u+=t(a.substr(l,b[0].offset-l)),l=b[0].offset,b==e){d.reverse().forEach(c);do o(b.splice(0,1)[0]),b=i();while(b==e&&b.length&&b[0].offset==l);d.reverse().forEach(s)}else\"start\"==b[0].event?d.push(b[0].node):d.pop(),o(b.splice(0,1)[0])}return u+t(a.substr(l))}function o(e){function t(e){return e&&e.source||e}function r(r,n){return new RegExp(t(r),\"m\"+(e.cI?\"i\":\"\")+(n?\"g\":\"\"))}function n(a,s){if(!a.compiled){if(a.compiled=!0,a.k=a.k||a.bK,a.k){var c={},o=function(t,r){e.cI&&(r=r.toLowerCase()),r.split(\" \").forEach(function(e){var r=e.split(\"|\");c[r[0]]=[t,r[1]?Number(r[1]):1]})};\"string\"==typeof a.k?o(\"keyword\",a.k):Object.keys(a.k).forEach(function(e){o(e,a.k[e])}),a.k=c}a.lR=r(a.l||/\\b\\w+\\b/,!0),s&&(a.bK&&(a.b=\"\\\\b(\"+a.bK.split(\" \").join(\"|\")+\")\\\\b\"),a.b||(a.b=/\\B|\\b/),a.bR=r(a.b),a.e||a.eW||(a.e=/\\B|\\b/),a.e&&(a.eR=r(a.e)),a.tE=t(a.e)||\"\",a.eW&&s.tE&&(a.tE+=(a.e?\"|\":\"\")+s.tE)),a.i&&(a.iR=r(a.i)),void 0===a.r&&(a.r=1),a.c||(a.c=[]);var l=[];a.c.forEach(function(e){e.v?e.v.forEach(function(t){l.push(i(e,t))}):l.push(\"self\"==e?a:e)}),a.c=l,a.c.forEach(function(e){n(e,a)}),a.starts&&n(a.starts,s);var u=a.c.map(function(e){return e.bK?\"\\\\.?(\"+e.b+\")\\\\.?\":e.b}).concat([a.tE,a.i]).map(t).filter(Boolean);a.t=u.length?r(u.join(\"|\"),!0):{exec:function(){return null}}}}n(e)}function l(e,r,a,i){function s(e,t){for(var r=0;r<t.c.length;r++)if(n(t.c[r].bR,e))return t.c[r]}function c(e,t){if(n(e.eR,t)){for(;e.endsParent&&e.parent;)e=e.parent;return e}return e.eW?c(e.parent,t):void 0}function d(e,t){return!a&&n(t.iR,e)}function b(e,t){var r=y.cI?t[0].toLowerCase():t[0];return e.k.hasOwnProperty(r)&&e.k[r]}function p(e,t,r,n){var a=n?\"\":N.classPrefix,i='<span class=\"'+a,s=r?\"\":\"</span>\";return i+=e+'\">',i+t+s}function f(){if(!x.k)return t(E);var e=\"\",r=0;x.lR.lastIndex=0;for(var n=x.lR.exec(E);n;){e+=t(E.substr(r,n.index-r));var a=b(x,n);a?(B+=a[1],e+=p(a[0],t(n[0]))):e+=t(n[0]),r=x.lR.lastIndex,n=x.lR.exec(E)}return e+t(E.substr(r))}function m(){if(x.sL&&!w[x.sL])return t(E);var e=x.sL?l(x.sL,E,!0,C[x.sL]):u(E);return x.r>0&&(B+=e.r),\"continuous\"==x.subLanguageMode&&(C[x.sL]=e.top),p(e.language,e.value,!1,!0)}function g(){return void 0!==x.sL?m():f()}function _(e,r){var n=e.cN?p(e.cN,\"\",!0):\"\";e.rB?(M+=n,E=\"\"):e.eB?(M+=t(r)+n,E=\"\"):(M+=n,E=r),x=Object.create(e,{parent:{value:x}})}function h(e,r){if(E+=e,void 0===r)return M+=g(),0;var n=s(r,x);if(n)return M+=g(),_(n,r),n.rB?0:r.length;var a=c(x,r);if(a){var i=x;i.rE||i.eE||(E+=r),M+=g();do x.cN&&(M+=\"</span>\"),B+=x.r,x=x.parent;while(x!=a.parent);return i.eE&&(M+=t(r)),E=\"\",a.starts&&_(a.starts,\"\"),i.rE?0:r.length}if(d(r,x))throw new Error('Illegal lexeme \"'+r+'\" for mode \"'+(x.cN||\"<unnamed>\")+'\"');return E+=r,r.length||1}var y=v(e);if(!y)throw new Error('Unknown language: \"'+e+'\"');o(y);var k,x=i||y,C={},M=\"\";for(k=x;k!=y;k=k.parent)k.cN&&(M=p(k.cN,\"\",!0)+M);var E=\"\",B=0;try{for(var L,$,z=0;;){if(x.t.lastIndex=z,L=x.t.exec(r),!L)break;$=h(r.substr(z,L.index-z),L[0]),z=L.index+$}for(h(r.substr(z)),k=x;k.parent;k=k.parent)k.cN&&(M+=\"</span>\");return{r:B,value:M,language:e,top:x}}catch(R){if(-1!=R.message.indexOf(\"Illegal\"))return{r:0,value:t(r)};throw R}}function u(e,r){r=r||N.languages||Object.keys(w);var n={r:0,value:t(e)},a=n;return r.forEach(function(t){if(v(t)){var r=l(t,e,!1);r.language=t,r.r>a.r&&(a=r),r.r>n.r&&(a=n,n=r)}}),a.language&&(n.second_best=a),n}function d(e){return N.tabReplace&&(e=e.replace(/^((<[^>]+>|\\t)+)/gm,function(e,t){return t.replace(/\\t/g,N.tabReplace)})),N.useBR&&(e=e.replace(/\\n/g,\"<br>\")),e}function b(e,t,r){var n=t?y[t]:r,a=[e.trim()];return e.match(/\\bhljs\\b/)||a.push(\"hljs\"),-1===e.indexOf(n)&&a.push(n),a.join(\" \").trim()}function p(e){var t=a(e);if(!/no(-?)highlight|plain|text/.test(t)){var r;N.useBR?(r=document.createElementNS(\"http://www.w3.org/1999/xhtml\",\"div\"),r.innerHTML=e.innerHTML.replace(/\\n/g,\"\").replace(/<br[ \\/]*>/g,\"\\n\")):r=e;var n=r.textContent,i=t?l(t,n,!0):u(n),o=s(r);if(o.length){var p=document.createElementNS(\"http://www.w3.org/1999/xhtml\",\"div\");p.innerHTML=i.value,i.value=c(o,s(p),n)}i.value=d(i.value),e.innerHTML=i.value,e.className=b(e.className,t,i.language),e.result={language:i.language,re:i.r},i.second_best&&(e.second_best={language:i.second_best.language,re:i.second_best.r})}}function f(e){N=i(N,e)}function m(){if(!m.called){m.called=!0;var e=document.querySelectorAll(\"pre code\");Array.prototype.forEach.call(e,p)}}function g(){addEventListener(\"DOMContentLoaded\",m,!1),addEventListener(\"load\",m,!1)}function _(t,r){var n=w[t]=r(e);n.aliases&&n.aliases.forEach(function(e){y[e]=t})}function h(){return Object.keys(w)}function v(e){return w[e]||w[y[e]]}var N={classPrefix:\"hljs-\",tabReplace:null,useBR:!1,languages:void 0},w={},y={};return e.highlight=l,e.highlightAuto=u,e.fixMarkup=d,e.highlightBlock=p,e.configure=f,e.initHighlighting=m,e.initHighlightingOnLoad=g,e.registerLanguage=_,e.listLanguages=h,e.getLanguage=v,e.inherit=i,e.IR=\"[a-zA-Z]\\\\w*\",e.UIR=\"[a-zA-Z_]\\\\w*\",e.NR=\"\\\\b\\\\d+(\\\\.\\\\d+)?\",e.CNR=\"\\\\b(0[xX][a-fA-F0-9]+|(\\\\d+(\\\\.\\\\d*)?|\\\\.\\\\d+)([eE][-+]?\\\\d+)?)\",e.BNR=\"\\\\b(0b[01]+)\",e.RSR=\"!|!=|!==|%|%=|&|&&|&=|\\\\*|\\\\*=|\\\\+|\\\\+=|,|-|-=|/=|/|:|;|<<|<<=|<=|<|===|==|=|>>>=|>>=|>=|>>>|>>|>|\\\\?|\\\\[|\\\\{|\\\\(|\\\\^|\\\\^=|\\\\||\\\\|=|\\\\|\\\\||~\",e.BE={b:\"\\\\\\\\[\\\\s\\\\S]\",r:0},e.ASM={cN:\"string\",b:\"'\",e:\"'\",i:\"\\\\n\",c:[e.BE]},e.QSM={cN:\"string\",b:'\"',e:'\"',i:\"\\\\n\",c:[e.BE]},e.PWM={b:/\\b(a|an|the|are|I|I'm|isn't|don't|doesn't|won't|but|just|should|pretty|simply|enough|gonna|going|wtf|so|such)\\b/},e.C=function(t,r,n){var a=e.inherit({cN:\"comment\",b:t,e:r,c:[]},n||{});return a.c.push(e.PWM),a},e.CLCM=e.C(\"//\",\"$\"),e.CBCM=e.C(\"/\\\\*\",\"\\\\*/\"),e.HCM=e.C(\"#\",\"$\"),e.NM={cN:\"number\",b:e.NR,r:0},e.CNM={cN:\"number\",b:e.CNR,r:0},e.BNM={cN:\"number\",b:e.BNR,r:0},e.CSSNM={cN:\"number\",b:e.NR+\"(%|em|ex|ch|rem|vw|vh|vmin|vmax|cm|mm|in|pt|pc|px|deg|grad|rad|turn|s|ms|Hz|kHz|dpi|dpcm|dppx)?\",r:0},e.RM={cN:\"regexp\",b:/\\//,e:/\\/[gimuy]*/,i:/\\n/,c:[e.BE,{b:/\\[/,e:/\\]/,r:0,c:[e.BE]}]},e.TM={cN:\"title\",b:e.IR,r:0},e.UTM={cN:\"title\",b:e.UIR,r:0},e}),hljs.registerLanguage(\"apache\",function(e){var t={cN:\"number\",b:\"[\\\\$%]\\\\d+\"};return{aliases:[\"apacheconf\"],cI:!0,c:[e.HCM,{cN:\"tag\",b:\"</?\",e:\">\"},{cN:\"keyword\",b:/\\w+/,r:0,k:{common:\"order deny allow setenv rewriterule rewriteengine rewritecond documentroot sethandler errordocument loadmodule options header listen serverroot servername\"},starts:{e:/$/,r:0,k:{literal:\"on off all\"},c:[{cN:\"sqbracket\",b:\"\\\\s\\\\[\",e:\"\\\\]$\"},{cN:\"cbracket\",b:\"[\\\\$%]\\\\{\",e:\"\\\\}\",c:[\"self\",t]},t,e.QSM]}}],i:/\\S/}}),hljs.registerLanguage(\"bash\",function(e){var t={cN:\"variable\",v:[{b:/\\$[\\w\\d#@][\\w\\d_]*/},{b:/\\$\\{(.*?)}/}]},r={cN:\"string\",b:/\"/,e:/\"/,c:[e.BE,t,{cN:\"variable\",b:/\\$\\(/,e:/\\)/,c:[e.BE]}]},n={cN:\"string\",b:/'/,e:/'/};return{aliases:[\"sh\",\"zsh\"],l:/-?[a-z\\.]+/,k:{keyword:\"if then else elif fi for while in do done case esac function\",literal:\"true false\",built_in:\"break cd continue eval exec exit export getopts hash pwd readonly return shift test times trap umask unset alias bind builtin caller command declare echo enable help let local logout mapfile printf read readarray source type typeset ulimit unalias set shopt autoload bg bindkey bye cap chdir clone comparguments compcall compctl compdescribe compfiles compgroups compquote comptags comptry compvalues dirs disable disown echotc echoti emulate fc fg float functions getcap getln history integer jobs kill limit log noglob popd print pushd pushln rehash sched setcap setopt stat suspend ttyctl unfunction unhash unlimit unsetopt vared wait whence where which zcompile zformat zftp zle zmodload zparseopts zprof zpty zregexparse zsocket zstyle ztcp\",operator:\"-ne -eq -lt -gt -f -d -e -s -l -a\"},c:[{cN:\"shebang\",b:/^#![^\\n]+sh\\s*$/,r:10},{cN:\"function\",b:/\\w[\\w\\d_]*\\s*\\(\\s*\\)\\s*\\{/,rB:!0,c:[e.inherit(e.TM,{b:/\\w[\\w\\d_]*/})],r:0},e.HCM,e.NM,r,n,t]}}),hljs.registerLanguage(\"coffeescript\",function(e){var t={keyword:\"in if for while finally new do return else break catch instanceof throw try this switch continue typeof delete debugger super then unless until loop of by when and or is isnt not\",literal:\"true false null undefined yes no on off\",reserved:\"case default function var void with const let enum export import native __hasProp __extends __slice __bind __indexOf\",built_in:\"npm require console print module global window document\"},r=\"[A-Za-z$_][0-9A-Za-z$_]*\",n={cN:\"subst\",b:/#\\{/,e:/}/,k:t},a=[e.BNM,e.inherit(e.CNM,{starts:{e:\"(\\\\s*/)?\",r:0}}),{cN:\"string\",v:[{b:/'''/,e:/'''/,c:[e.BE]},{b:/'/,e:/'/,c:[e.BE]},{b:/\"\"\"/,e:/\"\"\"/,c:[e.BE,n]},{b:/\"/,e:/\"/,c:[e.BE,n]}]},{cN:\"regexp\",v:[{b:\"///\",e:\"///\",c:[n,e.HCM]},{b:\"//[gim]*\",r:0},{b:/\\/(?![ *])(\\\\\\/|.)*?\\/[gim]*(?=\\W|$)/}]},{cN:\"property\",b:\"@\"+r},{b:\"`\",e:\"`\",eB:!0,eE:!0,sL:\"javascript\"}];n.c=a;var i=e.inherit(e.TM,{b:r}),s=\"(\\\\(.*\\\\))?\\\\s*\\\\B[-=]>\",c={cN:\"params\",b:\"\\\\([^\\\\(]\",rB:!0,c:[{b:/\\(/,e:/\\)/,k:t,c:[\"self\"].concat(a)}]};return{aliases:[\"coffee\",\"cson\",\"iced\"],k:t,i:/\\/\\*/,c:a.concat([e.C(\"###\",\"###\"),e.HCM,{cN:\"function\",b:\"^\\\\s*\"+r+\"\\\\s*=\\\\s*\"+s,e:\"[-=]>\",rB:!0,c:[i,c]},{b:/[:\\(,=]\\s*/,r:0,c:[{cN:\"function\",b:s,e:\"[-=]>\",rB:!0,c:[c]}]},{cN:\"class\",bK:\"class\",e:\"$\",i:/[:=\"\\[\\]]/,c:[{bK:\"extends\",eW:!0,i:/[:=\"\\[\\]]/,c:[i]},i]},{cN:\"attribute\",b:r+\":\",e:\":\",rB:!0,rE:!0,r:0}])}}),hljs.registerLanguage(\"cpp\",function(e){var t={keyword:\"false int float while private char catch export virtual operator sizeof dynamic_cast|10 typedef const_cast|10 const struct for static_cast|10 union namespace unsigned long volatile static protected bool template mutable if public friend do goto auto void enum else break extern using true class asm case typeid short reinterpret_cast|10 default double register explicit signed typename try this switch continue wchar_t inline delete alignof char16_t char32_t constexpr decltype noexcept nullptr static_assert thread_local restrict _Bool complex _Complex _Imaginary intmax_t uintmax_t int8_t uint8_t int16_t uint16_t int32_t uint32_t  int64_t uint64_t int_least8_t uint_least8_t int_least16_t uint_least16_t int_least32_t uint_least32_t int_least64_t uint_least64_t int_fast8_t uint_fast8_t int_fast16_t uint_fast16_t int_fast32_t uint_fast32_t int_fast64_t uint_fast64_t intptr_t uintptr_t atomic_bool atomic_char atomic_schar atomic_uchar atomic_short atomic_ushort atomic_int atomic_uint atomic_long atomic_ulong atomic_llong atomic_ullong atomic_wchar_t atomic_char16_t atomic_char32_t atomic_intmax_t atomic_uintmax_t atomic_intptr_t atomic_uintptr_t atomic_size_t atomic_ptrdiff_t atomic_int_least8_t atomic_int_least16_t atomic_int_least32_t atomic_int_least64_t atomic_uint_least8_t atomic_uint_least16_t atomic_uint_least32_t atomic_uint_least64_t atomic_int_fast8_t atomic_int_fast16_t atomic_int_fast32_t atomic_int_fast64_t atomic_uint_fast8_t atomic_uint_fast16_t atomic_uint_fast32_t atomic_uint_fast64_t\",built_in:\"std string cin cout cerr clog stringstream istringstream ostringstream auto_ptr deque list queue stack vector map set bitset multiset multimap unordered_set unordered_map unordered_multiset unordered_multimap array shared_ptr abort abs acos asin atan2 atan calloc ceil cosh cos exit exp fabs floor fmod fprintf fputs free frexp fscanf isalnum isalpha iscntrl isdigit isgraph islower isprint ispunct isspace isupper isxdigit tolower toupper labs ldexp log10 log malloc memchr memcmp memcpy memset modf pow printf putchar puts scanf sinh sin snprintf sprintf sqrt sscanf strcat strchr strcmp strcpy strcspn strlen strncat strncmp strncpy strpbrk strrchr strspn strstr tanh tan vfprintf vprintf vsprintf\"};return{aliases:[\"c\",\"cc\",\"h\",\"c++\",\"h++\",\"hpp\"],k:t,i:\"</\",c:[e.CLCM,e.CBCM,e.QSM,{cN:\"string\",b:\"'\\\\\\\\?.\",e:\"'\",i:\".\"},{cN:\"number\",b:\"\\\\b(\\\\d+(\\\\.\\\\d*)?|\\\\.\\\\d+)(u|U|l|L|ul|UL|f|F)\"},e.CNM,{cN:\"preprocessor\",b:\"#\",e:\"$\",k:\"if else elif endif define undef warning error line pragma\",c:[{b:/\\\\\\n/,r:0},{b:'include\\\\s*[<\"]',e:'[>\"]',k:\"include\",i:\"\\\\n\"},e.CLCM]},{b:\"\\\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\\\s*<\",e:\">\",k:t,c:[\"self\"]},{b:e.IR+\"::\",k:t},{bK:\"new throw return else\",r:0},{cN:\"function\",b:\"(\"+e.IR+\"\\\\s+)+\"+e.IR+\"\\\\s*\\\\(\",rB:!0,e:/[{;=]/,eE:!0,k:t,c:[{b:e.IR+\"\\\\s*\\\\(\",rB:!0,c:[e.TM],r:0},{cN:\"params\",b:/\\(/,e:/\\)/,k:t,r:0,c:[e.CBCM]},e.CLCM,e.CBCM]}]}}),hljs.registerLanguage(\"cs\",function(e){var t=\"abstract as base bool break byte case catch char checked const continue decimal dynamic default delegate do double else enum event explicit extern false finally fixed float for foreach goto if implicit in int interface internal is lock long null when object operator out override params private protected public readonly ref sbyte sealed short sizeof stackalloc static string struct switch this true try typeof uint ulong unchecked unsafe ushort using virtual volatile void while async protected public private internal ascending descending from get group into join let orderby partial select set value var where yield\",r=e.IR+\"(<\"+e.IR+\">)?\";return{aliases:[\"csharp\"],k:t,i:/::/,c:[e.C(\"///\",\"$\",{rB:!0,c:[{cN:\"xmlDocTag\",v:[{b:\"///\",r:0},{b:\"<!--|-->\"},{b:\"</?\",e:\">\"}]}]}),e.CLCM,e.CBCM,{cN:\"preprocessor\",b:\"#\",e:\"$\",k:\"if else elif endif define undef warning error line region endregion pragma checksum\"},{cN:\"string\",b:'@\"',e:'\"',c:[{b:'\"\"'}]},e.ASM,e.QSM,e.CNM,{bK:\"class namespace interface\",e:/[{;=]/,i:/[^\\s:]/,c:[e.TM,e.CLCM,e.CBCM]},{bK:\"new return throw await\",r:0},{cN:\"function\",b:\"(\"+r+\"\\\\s+)+\"+e.IR+\"\\\\s*\\\\(\",rB:!0,e:/[{;=]/,eE:!0,k:t,c:[{b:e.IR+\"\\\\s*\\\\(\",rB:!0,c:[e.TM],r:0},{cN:\"params\",b:/\\(/,e:/\\)/,k:t,r:0,c:[e.ASM,e.QSM,e.CNM,e.CBCM]},e.CLCM,e.CBCM]}]}}),hljs.registerLanguage(\"css\",function(e){var t=\"[a-zA-Z-][a-zA-Z0-9_-]*\",r={cN:\"function\",b:t+\"\\\\(\",rB:!0,eE:!0,e:\"\\\\(\"},n={cN:\"rule\",b:/[A-Z\\_\\.\\-]+\\s*:/,rB:!0,e:\";\",eW:!0,c:[{cN:\"attribute\",b:/\\S/,e:\":\",eE:!0,starts:{cN:\"value\",eW:!0,eE:!0,c:[r,e.CSSNM,e.QSM,e.ASM,e.CBCM,{cN:\"hexcolor\",b:\"#[0-9A-Fa-f]+\"},{cN:\"important\",b:\"!important\"}]}}]};return{cI:!0,i:/[=\\/|']/,c:[e.CBCM,n,{cN:\"id\",b:/\\#[A-Za-z0-9_-]+/},{cN:\"class\",b:/\\.[A-Za-z0-9_-]+/,r:0},{cN:\"attr_selector\",b:/\\[/,e:/\\]/,i:\"$\"},{cN:\"pseudo\",b:/:(:)?[a-zA-Z0-9\\_\\-\\+\\(\\)\"']+/},{cN:\"at_rule\",b:\"@(font-face|page)\",l:\"[a-z-]+\",k:\"font-face page\"},{cN:\"at_rule\",b:\"@\",e:\"[{;]\",c:[{cN:\"keyword\",b:/\\S+/},{b:/\\s/,eW:!0,eE:!0,r:0,c:[r,e.ASM,e.QSM,e.CSSNM]}]},{cN:\"tag\",b:t,r:0},{cN:\"rules\",b:\"{\",e:\"}\",i:/\\S/,r:0,c:[e.CBCM,n]}]}}),hljs.registerLanguage(\"diff\",function(e){return{aliases:[\"patch\"],c:[{cN:\"chunk\",r:10,v:[{b:/^@@ +\\-\\d+,\\d+ +\\+\\d+,\\d+ +@@$/},{b:/^\\*\\*\\* +\\d+,\\d+ +\\*\\*\\*\\*$/},{b:/^\\-\\-\\- +\\d+,\\d+ +\\-\\-\\-\\-$/}]},{cN:\"header\",v:[{b:/Index: /,e:/$/},{b:/=====/,e:/=====$/},{b:/^\\-\\-\\-/,e:/$/},{b:/^\\*{3} /,e:/$/},{b:/^\\+\\+\\+/,e:/$/},{b:/\\*{5}/,e:/\\*{5}$/}]},{cN:\"addition\",b:\"^\\\\+\",e:\"$\"},{cN:\"deletion\",b:\"^\\\\-\",e:\"$\"},{cN:\"change\",b:\"^\\\\!\",e:\"$\"}]}}),hljs.registerLanguage(\"http\",function(e){return{aliases:[\"https\"],i:\"\\\\S\",c:[{cN:\"status\",b:\"^HTTP/[0-9\\\\.]+\",e:\"$\",c:[{cN:\"number\",b:\"\\\\b\\\\d{3}\\\\b\"}]},{cN:\"request\",b:\"^[A-Z]+ (.*?) HTTP/[0-9\\\\.]+$\",rB:!0,e:\"$\",c:[{cN:\"string\",b:\" \",e:\" \",eB:!0,eE:!0}]},{cN:\"attribute\",b:\"^\\\\w\",e:\": \",eE:!0,i:\"\\\\n|\\\\s|=\",starts:{cN:\"string\",e:\"$\"}},{b:\"\\\\n\\\\n\",starts:{sL:\"\",eW:!0}}]}}),hljs.registerLanguage(\"ini\",function(e){return{cI:!0,i:/\\S/,c:[e.C(\";\",\"$\"),{cN:\"title\",b:\"^\\\\[\",e:\"\\\\]\"},{cN:\"setting\",b:\"^[a-z0-9\\\\[\\\\]_-]+[ \\\\t]*=[ \\\\t]*\",e:\"$\",c:[{cN:\"value\",eW:!0,k:\"on off true false yes no\",c:[e.QSM,e.NM],r:0}]}]}}),hljs.registerLanguage(\"java\",function(e){var t=e.UIR+\"(<\"+e.UIR+\">)?\",r=\"false synchronized int abstract float private char boolean static null if const for true while long strictfp finally protected import native final void enum else break transient catch instanceof byte super volatile case assert short package default double public try this switch continue throws protected public private\",n=\"(\\\\b(0b[01_]+)|\\\\b0[xX][a-fA-F0-9_]+|(\\\\b[\\\\d_]+(\\\\.[\\\\d_]*)?|\\\\.[\\\\d_]+)([eE][-+]?\\\\d+)?)[lLfF]?\",a={cN:\"number\",b:n,r:0};return{aliases:[\"jsp\"],k:r,i:/<\\//,c:[{cN:\"javadoc\",b:\"/\\\\*\\\\*\",e:\"\\\\*/\",r:0,c:[{cN:\"javadoctag\",b:\"(^|\\\\s)@[A-Za-z]+\"}]},e.CLCM,e.CBCM,e.ASM,e.QSM,{cN:\"class\",bK:\"class interface\",e:/[{;=]/,eE:!0,k:\"class interface\",i:/[:\"\\[\\]]/,c:[{bK:\"extends implements\"},e.UTM]},{bK:\"new throw return\",r:0},{cN:\"function\",b:\"(\"+t+\"\\\\s+)+\"+e.UIR+\"\\\\s*\\\\(\",rB:!0,e:/[{;=]/,eE:!0,k:r,c:[{b:e.UIR+\"\\\\s*\\\\(\",rB:!0,r:0,c:[e.UTM]},{cN:\"params\",b:/\\(/,e:/\\)/,k:r,r:0,c:[e.ASM,e.QSM,e.CNM,e.CBCM]},e.CLCM,e.CBCM]},a,{cN:\"annotation\",b:\"@[A-Za-z]+\"}]}}),hljs.registerLanguage(\"javascript\",function(e){return{aliases:[\"js\"],k:{keyword:\"in of if for while finally var new function do return void else break catch instanceof with throw case default try this switch continue typeof delete let yield const export super debugger as await\",literal:\"true false null undefined NaN Infinity\",built_in:\"eval isFinite isNaN parseFloat parseInt decodeURI decodeURIComponent encodeURI encodeURIComponent escape unescape Object Function Boolean Error EvalError InternalError RangeError ReferenceError StopIteration SyntaxError TypeError URIError Number Math Date String RegExp Array Float32Array Float64Array Int16Array Int32Array Int8Array Uint16Array Uint32Array Uint8Array Uint8ClampedArray ArrayBuffer DataView JSON Intl arguments require module console window document Symbol Set Map WeakSet WeakMap Proxy Reflect Promise\"},c:[{cN:\"pi\",r:10,v:[{b:/^\\s*('|\")use strict('|\")/},{b:/^\\s*('|\")use asm('|\")/}]},e.ASM,e.QSM,{cN:\"string\",b:\"`\",e:\"`\",c:[e.BE,{cN:\"subst\",b:\"\\\\$\\\\{\",e:\"\\\\}\"}]},e.CLCM,e.CBCM,{cN:\"number\",b:\"\\\\b(0[xXbBoO][a-fA-F0-9]+|(\\\\d+(\\\\.\\\\d*)?|\\\\.\\\\d+)([eE][-+]?\\\\d+)?)\",r:0},{b:\"(\"+e.RSR+\"|\\\\b(case|return|throw)\\\\b)\\\\s*\",k:\"return throw case\",c:[e.CLCM,e.CBCM,e.RM,{b:/</,e:/>\\s*[);\\]]/,r:0,sL:\"xml\"}],r:0},{cN:\"function\",bK:\"function\",e:/\\{/,eE:!0,c:[e.inherit(e.TM,{b:/[A-Za-z$_][0-9A-Za-z$_]*/}),{cN:\"params\",b:/\\(/,e:/\\)/,c:[e.CLCM,e.CBCM],i:/[\"'\\(]/}],i:/\\[|%/},{b:/\\$[(.]/},{b:\"\\\\.\"+e.IR,r:0},{bK:\"import\",e:\"[;$]\",k:\"import from as\",c:[e.ASM,e.QSM]},{cN:\"class\",bK:\"class\",e:/[{;=]/,eE:!0,i:/[:\"\\[\\]]/,c:[{bK:\"extends\"},e.UTM]}]}}),hljs.registerLanguage(\"json\",function(e){var t={literal:\"true false null\"},r=[e.QSM,e.CNM],n={cN:\"value\",e:\",\",eW:!0,eE:!0,c:r,k:t},a={b:\"{\",e:\"}\",c:[{cN:\"attribute\",b:'\\\\s*\"',e:'\"\\\\s*:\\\\s*',eB:!0,eE:!0,c:[e.BE],i:\"\\\\n\",starts:n}],i:\"\\\\S\"},i={b:\"\\\\[\",e:\"\\\\]\",c:[e.inherit(n,{cN:null})],i:\"\\\\S\"};return r.splice(r.length,0,a,i),{c:r,k:t,i:\"\\\\S\"}}),hljs.registerLanguage(\"makefile\",function(e){var t={cN:\"variable\",b:/\\$\\(/,e:/\\)/,c:[e.BE]};return{aliases:[\"mk\",\"mak\"],c:[e.HCM,{b:/^\\w+\\s*\\W*=/,rB:!0,r:0,starts:{cN:\"constant\",e:/\\s*\\W*=/,eE:!0,starts:{e:/$/,r:0,c:[t]}}},{cN:\"title\",b:/^[\\w]+:\\s*$/},{cN:\"phony\",b:/^\\.PHONY:/,e:/$/,k:\".PHONY\",l:/[\\.\\w]+/},{b:/^\\t+/,e:/$/,r:0,c:[e.QSM,t]}]}}),hljs.registerLanguage(\"xml\",function(e){var t=\"[A-Za-z0-9\\\\._:-]+\",r={b:/<\\?(php)?(?!\\w)/,e:/\\?>/,sL:\"php\",subLanguageMode:\"continuous\"},n={eW:!0,i:/</,r:0,c:[r,{cN:\"attribute\",b:t,r:0},{b:\"=\",r:0,c:[{cN:\"value\",c:[r],v:[{b:/\"/,e:/\"/},{b:/'/,e:/'/},{b:/[^\\s\\/>]+/}]}]}]};return{aliases:[\"html\",\"xhtml\",\"rss\",\"atom\",\"xsl\",\"plist\"],cI:!0,c:[{cN:\"doctype\",b:\"<!DOCTYPE\",e:\">\",r:10,c:[{b:\"\\\\[\",e:\"\\\\]\"}]},e.C(\"<!--\",\"-->\",{r:10}),{cN:\"cdata\",b:\"<\\\\!\\\\[CDATA\\\\[\",e:\"\\\\]\\\\]>\",r:10},{cN:\"tag\",b:\"<style(?=\\\\s|>|$)\",e:\">\",k:{title:\"style\"},c:[n],starts:{e:\"</style>\",rE:!0,sL:\"css\"}},{cN:\"tag\",b:\"<script(?=\\\\s|>|$)\",e:\">\",k:{title:\"script\"},c:[n],starts:{e:\"</script>\",rE:!0,sL:\"\"}},r,{cN:\"pi\",b:/<\\?\\w+/,e:/\\?>/,r:10},{cN:\"tag\",b:\"</?\",e:\"/?>\",c:[{cN:\"title\",b:/[^ \\/><\\n\\t]+/,r:0},n]}]}}),hljs.registerLanguage(\"markdown\",function(e){return{aliases:[\"md\",\"mkdown\",\"mkd\"],c:[{cN:\"header\",v:[{b:\"^#{1,6}\",e:\"$\"},{b:\"^.+?\\\\n[=-]{2,}$\"}]},{b:\"<\",e:\">\",sL:\"xml\",r:0},{cN:\"bullet\",b:\"^([*+-]|(\\\\d+\\\\.))\\\\s+\"},{cN:\"strong\",b:\"[*_]{2}.+?[*_]{2}\"},{cN:\"emphasis\",v:[{b:\"\\\\*.+?\\\\*\"},{b:\"_.+?_\",r:0}]},{cN:\"blockquote\",b:\"^>\\\\s+\",e:\"$\"},{cN:\"code\",v:[{b:\"`.+?`\"},{b:\"^( {4}|\t)\",e:\"$\",r:0}]},{cN:\"horizontal_rule\",b:\"^[-\\\\*]{3,}\",e:\"$\"},{b:\"\\\\[.+?\\\\][\\\\(\\\\[].*?[\\\\)\\\\]]\",rB:!0,c:[{cN:\"link_label\",b:\"\\\\[\",e:\"\\\\]\",eB:!0,rE:!0,r:0},{cN:\"link_url\",b:\"\\\\]\\\\(\",e:\"\\\\)\",eB:!0,eE:!0},{cN:\"link_reference\",b:\"\\\\]\\\\[\",e:\"\\\\]\",eB:!0,eE:!0}],r:10},{b:\"^\\\\[.+\\\\]:\",rB:!0,c:[{cN:\"link_reference\",b:\"\\\\[\",e:\"\\\\]:\",eB:!0,eE:!0,starts:{cN:\"link_url\",e:\"$\"}}]}]}}),hljs.registerLanguage(\"nginx\",function(e){var t={cN:\"variable\",v:[{b:/\\$\\d+/},{b:/\\$\\{/,e:/}/},{b:\"[\\\\$\\\\@]\"+e.UIR}]},r={eW:!0,l:\"[a-z/_]+\",k:{built_in:\"on off yes no true false none blocked debug info notice warn error crit select break last permanent redirect kqueue rtsig epoll poll /dev/poll\"},r:0,i:\"=>\",c:[e.HCM,{cN:\"string\",c:[e.BE,t],v:[{b:/\"/,e:/\"/},{b:/'/,e:/'/}]},{cN:\"url\",b:\"([a-z]+):/\",e:\"\\\\s\",eW:!0,eE:!0,c:[t]},{cN:\"regexp\",c:[e.BE,t],v:[{b:\"\\\\s\\\\^\",e:\"\\\\s|{|;\",rE:!0},{b:\"~\\\\*?\\\\s+\",e:\"\\\\s|{|;\",rE:!0},{b:\"\\\\*(\\\\.[a-z\\\\-]+)+\"},{b:\"([a-z\\\\-]+\\\\.)+\\\\*\"}]},{cN:\"number\",b:\"\\\\b\\\\d{1,3}\\\\.\\\\d{1,3}\\\\.\\\\d{1,3}\\\\.\\\\d{1,3}(:\\\\d{1,5})?\\\\b\"},{cN:\"number\",b:\"\\\\b\\\\d+[kKmMgGdshdwy]*\\\\b\",r:0},t]};return{aliases:[\"nginxconf\"],c:[e.HCM,{b:e.UIR+\"\\\\s\",e:\";|{\",rB:!0,c:[{cN:\"title\",b:e.UIR,starts:r}],r:0}],i:\"[^\\\\s\\\\}]\"}}),hljs.registerLanguage(\"objectivec\",function(e){var t={cN:\"built_in\",b:\"(AV|CA|CF|CG|CI|MK|MP|NS|UI)\\\\w+\"},r={keyword:\"int float while char export sizeof typedef const struct for union unsigned long volatile static bool mutable if do return goto void enum else break extern asm case short default double register explicit signed typename this switch continue wchar_t inline readonly assign readwrite self @synchronized id typeof nonatomic super unichar IBOutlet IBAction strong weak copy in out inout bycopy byref oneway __strong __weak __block __autoreleasing @private @protected @public @try @property @end @throw @catch @finally @autoreleasepool @synthesize @dynamic @selector @optional @required\",literal:\"false true FALSE TRUE nil YES NO NULL\",built_in:\"BOOL dispatch_once_t dispatch_queue_t dispatch_sync dispatch_async dispatch_once\"},n=/[a-zA-Z@][a-zA-Z0-9_]*/,a=\"@interface @class @protocol @implementation\";return{aliases:[\"m\",\"mm\",\"objc\",\"obj-c\"],k:r,l:n,i:\"</\",c:[t,e.CLCM,e.CBCM,e.CNM,e.QSM,{cN:\"string\",v:[{b:'@\"',e:'\"',i:\"\\\\n\",c:[e.BE]},{b:\"'\",e:\"[^\\\\\\\\]'\",i:\"[^\\\\\\\\][^']\"}]},{cN:\"preprocessor\",b:\"#\",e:\"$\",c:[{cN:\"title\",v:[{b:'\"',e:'\"'},{b:\"<\",e:\">\"}]}]},{cN:\"class\",b:\"(\"+a.split(\" \").join(\"|\")+\")\\\\b\",e:\"({|$)\",eE:!0,k:a,l:n,c:[e.UTM]},{cN:\"variable\",b:\"\\\\.\"+e.UIR,r:0}]}}),hljs.registerLanguage(\"perl\",function(e){var t=\"getpwent getservent quotemeta msgrcv scalar kill dbmclose undef lc ma syswrite tr send umask sysopen shmwrite vec qx utime local oct semctl localtime readpipe do return format read sprintf dbmopen pop getpgrp not getpwnam rewinddir qqfileno qw endprotoent wait sethostent bless s|0 opendir continue each sleep endgrent shutdown dump chomp connect getsockname die socketpair close flock exists index shmgetsub for endpwent redo lstat msgctl setpgrp abs exit select print ref gethostbyaddr unshift fcntl syscall goto getnetbyaddr join gmtime symlink semget splice x|0 getpeername recv log setsockopt cos last reverse gethostbyname getgrnam study formline endhostent times chop length gethostent getnetent pack getprotoent getservbyname rand mkdir pos chmod y|0 substr endnetent printf next open msgsnd readdir use unlink getsockopt getpriority rindex wantarray hex system getservbyport endservent int chr untie rmdir prototype tell listen fork shmread ucfirst setprotoent else sysseek link getgrgid shmctl waitpid unpack getnetbyname reset chdir grep split require caller lcfirst until warn while values shift telldir getpwuid my getprotobynumber delete and sort uc defined srand accept package seekdir getprotobyname semop our rename seek if q|0 chroot sysread setpwent no crypt getc chown sqrt write setnetent setpriority foreach tie sin msgget map stat getlogin unless elsif truncate exec keys glob tied closedirioctl socket readlink eval xor readline binmode setservent eof ord bind alarm pipe atan2 getgrent exp time push setgrent gt lt or ne m|0 break given say state when\",r={cN:\"subst\",b:\"[$@]\\\\{\",e:\"\\\\}\",k:t},n={b:\"->{\",e:\"}\"},a={cN:\"variable\",v:[{b:/\\$\\d/},{b:/[\\$%@](\\^\\w\\b|#\\w+(::\\w+)*|{\\w+}|\\w+(::\\w*)*)/},{b:/[\\$%@][^\\s\\w{]/,r:0}]},i=e.C(\"^(__END__|__DATA__)\",\"\\\\n$\",{r:5}),s=[e.BE,r,a],c=[a,e.HCM,i,e.C(\"^\\\\=\\\\w\",\"\\\\=cut\",{eW:!0}),n,{cN:\"string\",c:s,v:[{b:\"q[qwxr]?\\\\s*\\\\(\",e:\"\\\\)\",r:5},{b:\"q[qwxr]?\\\\s*\\\\[\",e:\"\\\\]\",r:5},{b:\"q[qwxr]?\\\\s*\\\\{\",e:\"\\\\}\",r:5},{b:\"q[qwxr]?\\\\s*\\\\|\",e:\"\\\\|\",r:5},{b:\"q[qwxr]?\\\\s*\\\\<\",e:\"\\\\>\",r:5},{b:\"qw\\\\s+q\",e:\"q\",r:5},{b:\"'\",e:\"'\",c:[e.BE]},{b:'\"',e:'\"'},{b:\"`\",e:\"`\",c:[e.BE]},{b:\"{\\\\w+}\",c:[],r:0},{b:\"-?\\\\w+\\\\s*\\\\=\\\\>\",c:[],r:0}]},{cN:\"number\",b:\"(\\\\b0[0-7_]+)|(\\\\b0x[0-9a-fA-F_]+)|(\\\\b[1-9][0-9_]*(\\\\.[0-9_]+)?)|[0_]\\\\b\",r:0},{b:\"(\\\\/\\\\/|\"+e.RSR+\"|\\\\b(split|return|print|reverse|grep)\\\\b)\\\\s*\",k:\"split return print reverse grep\",r:0,c:[e.HCM,i,{cN:\"regexp\",b:\"(s|tr|y)/(\\\\\\\\.|[^/])*/(\\\\\\\\.|[^/])*/[a-z]*\",r:10},{cN:\"regexp\",b:\"(m|qr)?/\",e:\"/[a-z]*\",c:[e.BE],r:0}]},{cN:\"sub\",bK:\"sub\",e:\"(\\\\s*\\\\(.*?\\\\))?[;{]\",r:5},{cN:\"operator\",b:\"-\\\\w\\\\b\",r:0}];return r.c=c,n.c=c,{aliases:[\"pl\"],k:t,c:c}}),hljs.registerLanguage(\"php\",function(e){var t={cN:\"variable\",b:\"\\\\$+[a-zA-Z_-ÿ][a-zA-Z0-9_-ÿ]*\"},r={cN:\"preprocessor\",b:/<\\?(php)?|\\?>/},n={cN:\"string\",c:[e.BE,r],v:[{b:'b\"',e:'\"'},{b:\"b'\",e:\"'\"},e.inherit(e.ASM,{i:null}),e.inherit(e.QSM,{i:null})]},a={v:[e.BNM,e.CNM]};return{aliases:[\"php3\",\"php4\",\"php5\",\"php6\"],cI:!0,k:\"and include_once list abstract global private echo interface as static endswitch array null if endwhile or const for endforeach self var while isset public protected exit foreach throw elseif include __FILE__ empty require_once do xor return parent clone use __CLASS__ __LINE__ else break print eval new catch __METHOD__ case exception default die require __FUNCTION__ enddeclare final try switch continue endfor endif declare unset true false trait goto instanceof insteadof __DIR__ __NAMESPACE__ yield finally\",c:[e.CLCM,e.HCM,e.C(\"/\\\\*\",\"\\\\*/\",{c:[{cN:\"phpdoc\",b:\"\\\\s@[A-Za-z]+\"},r]}),e.C(\"__halt_compiler.+?;\",!1,{eW:!0,k:\"__halt_compiler\",l:e.UIR}),{cN:\"string\",b:\"<<<['\\\"]?\\\\w+['\\\"]?$\",e:\"^\\\\w+;\",c:[e.BE]},r,t,{b:/(::|->)+[a-zA-Z_\\x7f-\\xff][a-zA-Z0-9_\\x7f-\\xff]*/},{cN:\"function\",bK:\"function\",e:/[;{]/,eE:!0,i:\"\\\\$|\\\\[|%\",c:[e.UTM,{cN:\"params\",b:\"\\\\(\",e:\"\\\\)\",c:[\"self\",t,e.CBCM,n,a]}]},{cN:\"class\",bK:\"class interface\",e:\"{\",eE:!0,i:/[:\\(\\$\"]/,c:[{bK:\"extends implements\"},e.UTM]},{bK:\"namespace\",e:\";\",i:/[\\.']/,c:[e.UTM]},{bK:\"use\",e:\";\",c:[e.UTM]},{b:\"=>\"},n,a]}}),hljs.registerLanguage(\"python\",function(e){var t={cN:\"prompt\",b:/^(>>>|\\.\\.\\.) /},r={cN:\"string\",c:[e.BE],v:[{b:/(u|b)?r?'''/,e:/'''/,c:[t],r:10},{b:/(u|b)?r?\"\"\"/,e:/\"\"\"/,c:[t],r:10},{b:/(u|r|ur)'/,e:/'/,r:10},{b:/(u|r|ur)\"/,e:/\"/,r:10},{b:/(b|br)'/,e:/'/},{b:/(b|br)\"/,e:/\"/},e.ASM,e.QSM]},n={cN:\"number\",r:0,v:[{b:e.BNR+\"[lLjJ]?\"},{b:\"\\\\b(0o[0-7]+)[lLjJ]?\"},{b:e.CNR+\"[lLjJ]?\"}]},a={cN:\"params\",b:/\\(/,e:/\\)/,c:[\"self\",t,n,r]};return{aliases:[\"py\",\"gyp\"],k:{keyword:\"and elif is global as in if from raise for except finally print import pass return exec else break not with class assert yield try while continue del or def lambda nonlocal|10 None True False\",built_in:\"Ellipsis NotImplemented\"},i:/(<\\/|->|\\?)/,c:[t,n,r,e.HCM,{v:[{cN:\"function\",bK:\"def\",r:10},{cN:\"class\",bK:\"class\"}],e:/:/,i:/[${=;\\n,]/,c:[e.UTM,a]},{cN:\"decorator\",b:/@/,e:/$/},{b:/\\b(print|exec)\\(/}]}}),hljs.registerLanguage(\"ruby\",function(e){var t=\"[a-zA-Z_]\\\\w*[!?=]?|[-+~]\\\\@|<<|>>|=~|===?|<=>|[<>]=?|\\\\*\\\\*|[-/+%^&*~`|]|\\\\[\\\\]=?\",r=\"and false then defined module in return redo if BEGIN retry end for true self when next until do begin unless END rescue nil else break undef not super class case require yield alias while ensure elsif or include attr_reader attr_writer attr_accessor\",n={cN:\"yardoctag\",b:\"@[A-Za-z]+\"},a={cN:\"value\",b:\"#<\",e:\">\"},i=[e.C(\"#\",\"$\",{c:[n]}),e.C(\"^\\\\=begin\",\"^\\\\=end\",{c:[n],r:10}),e.C(\"^__END__\",\"\\\\n$\")],s={cN:\"subst\",b:\"#\\\\{\",e:\"}\",k:r},c={cN:\"string\",c:[e.BE,s],v:[{b:/'/,e:/'/},{b:/\"/,e:/\"/},{b:/`/,e:/`/},{b:\"%[qQwWx]?\\\\(\",e:\"\\\\)\"},{b:\"%[qQwWx]?\\\\[\",e:\"\\\\]\"},{b:\"%[qQwWx]?{\",e:\"}\"},{b:\"%[qQwWx]?<\",e:\">\"},{b:\"%[qQwWx]?/\",e:\"/\"},{b:\"%[qQwWx]?%\",e:\"%\"},{b:\"%[qQwWx]?-\",e:\"-\"},{b:\"%[qQwWx]?\\\\|\",e:\"\\\\|\"},{b:/\\B\\?(\\\\\\d{1,3}|\\\\x[A-Fa-f0-9]{1,2}|\\\\u[A-Fa-f0-9]{4}|\\\\?\\S)\\b/}]},o={cN:\"params\",b:\"\\\\(\",e:\"\\\\)\",k:r},l=[c,a,{cN:\"class\",bK:\"class module\",e:\"$|;\",i:/=/,c:[e.inherit(e.TM,{b:\"[A-Za-z_]\\\\w*(::\\\\w+)*(\\\\?|\\\\!)?\"}),{cN:\"inheritance\",b:\"<\\\\s*\",c:[{cN:\"parent\",b:\"(\"+e.IR+\"::)?\"+e.IR}]}].concat(i)},{cN:\"function\",bK:\"def\",e:\" |$|;\",r:0,c:[e.inherit(e.TM,{b:t}),o].concat(i)},{cN:\"constant\",b:\"(::)?(\\\\b[A-Z]\\\\w*(::)?)+\",r:0},{cN:\"symbol\",b:e.UIR+\"(\\\\!|\\\\?)?:\",r:0},{cN:\"symbol\",b:\":\",c:[c,{b:t}],r:0},{cN:\"number\",b:\"(\\\\b0[0-7_]+)|(\\\\b0x[0-9a-fA-F_]+)|(\\\\b[1-9][0-9_]*(\\\\.[0-9_]+)?)|[0_]\\\\b\",r:0},{cN:\"variable\",b:\"(\\\\$\\\\W)|((\\\\$|\\\\@\\\\@?)(\\\\w+))\"},{b:\"(\"+e.RSR+\")\\\\s*\",c:[a,{cN:\"regexp\",c:[e.BE,s],i:/\\n/,v:[{b:\"/\",e:\"/[a-z]*\"},{b:\"%r{\",e:\"}[a-z]*\"},{b:\"%r\\\\(\",e:\"\\\\)[a-z]*\"},{b:\"%r!\",e:\"![a-z]*\"},{b:\"%r\\\\[\",e:\"\\\\][a-z]*\"}]}].concat(i),r:0}].concat(i);s.c=l,o.c=l;var u=\"[>?]>\",d=\"[\\\\w#]+\\\\(\\\\w+\\\\):\\\\d+:\\\\d+>\",b=\"(\\\\w+-)?\\\\d+\\\\.\\\\d+\\\\.\\\\d(p\\\\d+)?[^>]+>\",p=[{b:/^\\s*=>/,cN:\"status\",starts:{e:\"$\",c:l}},{cN:\"prompt\",b:\"^(\"+u+\"|\"+d+\"|\"+b+\")\",starts:{e:\"$\",c:l}}];return{aliases:[\"rb\",\"gemspec\",\"podspec\",\"thor\",\"irb\"],k:r,c:i.concat(p).concat(l)}}),hljs.registerLanguage(\"sql\",function(e){var t=e.C(\"--\",\"$\");return{cI:!0,i:/[<>]/,c:[{cN:\"operator\",bK:\"begin end start commit rollback savepoint lock alter create drop rename call delete do handler insert load replace select truncate update set show pragma grant merge describe use explain help declare prepare execute deallocate savepoint release unlock purge reset change stop analyze cache flush optimize repair kill install uninstall checksum restore check backup revoke\",e:/;/,eW:!0,k:{keyword:\"abs absolute acos action add adddate addtime aes_decrypt aes_encrypt after aggregate all allocate alter analyze and any are as asc ascii asin assertion at atan atan2 atn2 authorization authors avg backup before begin benchmark between bin binlog bit_and bit_count bit_length bit_or bit_xor both by cache call cascade cascaded case cast catalog ceil ceiling chain change changed char_length character_length charindex charset check checksum checksum_agg choose close coalesce coercibility collate collation collationproperty column columns columns_updated commit compress concat concat_ws concurrent connect connection connection_id consistent constraint constraints continue contributors conv convert convert_tz corresponding cos cot count count_big crc32 create cross cume_dist curdate current current_date current_time current_timestamp current_user cursor curtime data database databases datalength date_add date_format date_sub dateadd datediff datefromparts datename datepart datetime2fromparts datetimeoffsetfromparts day dayname dayofmonth dayofweek dayofyear deallocate declare decode default deferrable deferred degrees delayed delete des_decrypt des_encrypt des_key_file desc describe descriptor diagnostics difference disconnect distinct distinctrow div do domain double drop dumpfile each else elt enclosed encode encrypt end end-exec engine engines eomonth errors escape escaped event eventdata events except exception exec execute exists exp explain export_set extended external extract fast fetch field fields find_in_set first first_value floor flush for force foreign format found found_rows from from_base64 from_days from_unixtime full function get get_format get_lock getdate getutcdate global go goto grant grants greatest group group_concat grouping grouping_id gtid_subset gtid_subtract handler having help hex high_priority hosts hour ident_current ident_incr ident_seed identified identity if ifnull ignore iif ilike immediate in index indicator inet6_aton inet6_ntoa inet_aton inet_ntoa infile initially inner innodb input insert install instr intersect into is is_free_lock is_ipv4 is_ipv4_compat is_ipv4_mapped is_not is_not_null is_used_lock isdate isnull isolation join key kill language last last_day last_insert_id last_value lcase lead leading least leaves left len lenght level like limit lines ln load load_file local localtime localtimestamp locate lock log log10 log2 logfile logs low_priority lower lpad ltrim make_set makedate maketime master master_pos_wait match matched max md5 medium merge microsecond mid min minute mod mode module month monthname mutex name_const names national natural nchar next no no_write_to_binlog not now nullif nvarchar oct octet_length of old_password on only open optimize option optionally or ord order outer outfile output pad parse partial partition password patindex percent_rank percentile_cont percentile_disc period_add period_diff pi plugin position pow power pragma precision prepare preserve primary prior privileges procedure procedure_analyze processlist profile profiles public publishingservername purge quarter query quick quote quotename radians rand read references regexp relative relaylog release release_lock rename repair repeat replace replicate reset restore restrict return returns reverse revoke right rlike rollback rollup round row row_count rows rpad rtrim savepoint schema scroll sec_to_time second section select serializable server session session_user set sha sha1 sha2 share show sign sin size slave sleep smalldatetimefromparts snapshot some soname soundex sounds_like space sql sql_big_result sql_buffer_result sql_cache sql_calc_found_rows sql_no_cache sql_small_result sql_variant_property sqlstate sqrt square start starting status std stddev stddev_pop stddev_samp stdev stdevp stop str str_to_date straight_join strcmp string stuff subdate substr substring subtime subtring_index sum switchoffset sysdate sysdatetime sysdatetimeoffset system_user sysutcdatetime table tables tablespace tan temporary terminated tertiary_weights then time time_format time_to_sec timediff timefromparts timestamp timestampadd timestampdiff timezone_hour timezone_minute to to_base64 to_days to_seconds todatetimeoffset trailing transaction translation trigger trigger_nestlevel triggers trim truncate try_cast try_convert try_parse ucase uncompress uncompressed_length unhex unicode uninstall union unique unix_timestamp unknown unlock update upgrade upped upper usage use user user_resources using utc_date utc_time utc_timestamp uuid uuid_short validate_password_strength value values var var_pop var_samp variables variance varp version view warnings week weekday weekofyear weight_string when whenever where with work write xml xor year yearweek zon\",\nliteral:\"true false null\",built_in:\"array bigint binary bit blob boolean char character date dec decimal float int integer interval number numeric real serial smallint varchar varying int8 serial8 text\"},c:[{cN:\"string\",b:\"'\",e:\"'\",c:[e.BE,{b:\"''\"}]},{cN:\"string\",b:'\"',e:'\"',c:[e.BE,{b:'\"\"'}]},{cN:\"string\",b:\"`\",e:\"`\",c:[e.BE]},e.CNM,e.CBCM,t]},e.CBCM,t]}});"
 
 /***/ },
 /* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(26)(__webpack_require__(37))
+	__webpack_require__(6)(__webpack_require__(37))
 
 /***/ },
 /* 37 */

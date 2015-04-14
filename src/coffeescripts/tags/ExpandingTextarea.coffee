@@ -67,7 +67,8 @@ ExpandingTextarea = React.createClass
       newBlock = _.cloneDeep(this.props.block)
 
       # Remove the default text if new text has been entered.
-      if @props.block.data.default_text.length and @props.block.data.text.length
+      bd = @props.block.data
+      if bd.default_text? bd.default_text.length and bd.text.length
         newBlock.data.default_text = ''
 
       newBlock.data.text = e.target.value
@@ -108,8 +109,9 @@ ExpandingTextarea = React.createClass
 
   componentDidUpdate: ->
     # Highlight the default text
-    if @props.block.data.default_text.length and !@props.block.data.text.length
-      @refs.text.getDOMNode().setSelectionRange(0, @props.block.data.default_text.length)
+    bd = @props.block.data
+    if bd.default_text? and bd.default_text.length and !bd.text.length
+      @refs.text.getDOMNode().setSelectionRange(0, bd.default_text.length)
 
 
   ##############################
@@ -117,10 +119,11 @@ ExpandingTextarea = React.createClass
   ##############################
 
   content: () ->
-    if @props.block.data.default_text.length and !@props.block.data.text.length
-      @props.block.data.default_text
+    bd = @props.block.data
+    if bd.default_text? and bd.default_text.length and !bd.text.length
+      bd.default_text
     else
-      @props.block.data.text
+      bd.text
 
   # {before: "Ill", selected: "be", after: "back"}
   getChunks: () ->

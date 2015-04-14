@@ -18,13 +18,13 @@
     "grunt-contrib-watch": "latest",
     "grunt-express": "latest",
     "grunt-notify": "latest",
-    "grunt-webpack": "latest",
     "grunt-react": "latest",
-    "webpack": "latest",
-    "webpack-dev-server": "latest",
+    "grunt-webpack": "latest",
     "jsx-loader": "ying22/jsx-loader",
-    "url-loader": "latest",
     "script-loader": "latest",
-    "style-loader": "latest"
+    "style-loader": "latest",
+    "url-loader": "latest",
+    "webpack": "latest",
+    "webpack-dev-server": "latest"
   }
 }
