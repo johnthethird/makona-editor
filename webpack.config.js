@@ -8,9 +8,6 @@ module.exports = {
       { test: /\.js$/, loader: "jsx-loader" },
       { test: /\.coffee$/, loader: "coffee" }
 
-    ],
-    noParse: /parse-latest.js/
+    ]
   }
 };
-
-

@@ -65,6 +65,7 @@ BLOCK_REGISTRY = [
   editable: true
   createable: true
   data:
+    lang: 'javascript'
     text: "function doSomething(x) {\n  doImportant();\n};"
 ,
   type: "image"

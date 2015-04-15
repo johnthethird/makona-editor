@@ -1,48 +1,23 @@
 ###* @jsx React.DOM ###
 
+# Makona expects to have React and jQuery/jQuery-UI Sortable already loaded on the page.
 throw new Error("Makona requires jQuery") unless jQuery?
-# require("script!jquery/jquery.min.js")
-
-# TODO Sortable
-# Either make a React-native drag-n-drop sortable solution, or swap jQuery UI out for
-# something else. Note that this is probably going to be challenging. A React-native
-# solution would also allow us to excise jQuery itself out of Makona, which would be nice.
-#
-# This one works fairly well but touch events dont seem to be working for mobile
-# http://johnny.github.io/jquery-sortable/
-# require("script!jquery-sortable.js")
-#
-# This one seems nice as well, but depends on jQuery
-# https://github.com/dbushell/Nestable
-
-# So, for now, stick with jQuery UI
-# require("script!jquery-ui/ui/minified/jquery.ui.core.min.js")
-# require("script!jquery-ui/ui/minified/jquery.ui.widget.min.js")
-# require("script!jquery-ui/ui/minified/jquery.ui.mouse.min.js")
-# require("script!jquery-ui/ui/minified/jquery.ui.position.min.js")
-# require("script!jquery-ui/ui/minified/jquery.ui.draggable.min.js")
-# require("script!jquery-ui/ui/minified/jquery.ui.droppable.min.js")
-# require("script!jquery-ui/ui/minified/jquery.ui.sortable.min.js")
+throw new Error("Makona requires jQuery UI Sortable") unless jQuery.ui? && jQuery.ui.sortable?
+throw new Error("Makona requires React") unless React?
 
 
 ##############################
 ### Includes and Constants ###
 ##############################
 
-# Makes sortable work on touch devices
-require("script!jquery-ui-touch-punch.min.js")
+# Global Requires
+require("script!jquery-ui-touch-punch.min.js") # Makes sortable work on touch devices
+require("script!jquery-caret.js") # Used to put caret at the end of the textarea
 
-require("mousetrap")
-
-# Used to put caret at the end of the textarea
-require("script!jquery-caret.min.js")
-
-# Mainly for some quick prototyping. Once we get where we are going we can probably get rid of this dependency
-require("script!lodash/dist/lodash.compat.min.js")
-require("script!postal.js/lib/postal.min.js")
-
-# Bring in React as a Bower component, not an npm module (so we dont have to build it from scratch)
-#require("script!react/react-with-addons.js")
+# TODO someday figure out if its worth it to load these as modules instead of globals.
+require("script!lodash")
+require("script!mousetrap")
+require("script!postal")
 
 Blocks            = require("./blocks")
 Channel           = postal.channel("makona")
@@ -58,11 +33,10 @@ class Makona
     # name of the form textarea that will be submitted that contains the JSON data
     opts.node_name ||= $node.attr("name")
     # name of the form textarea that will be submitted that contains the rendered HTML data
-    opts.html_node_name ||= $node.data("rendered-output-name")
+    opts.rendered_output_name ||= $node.data("rendered-output-name")
     opts.blocks ||= JSON.parse($node.val())
     $node.replaceWith("<div id='#{opts.nodeId}' class='makona-editor'></div>")
     React.render `<MakonaEditor opts={opts}/>`, document.getElementById(opts.nodeId)
-
 
 
 MakonaEditor = React.createClass
@@ -321,37 +295,33 @@ MakonaPlusRow = React.createClass
   render: ->
     links_style = {display: if this.state.hideLinks then 'none' else 'block'}
     plus_style = {display: if this.state.hideLinks then 'block' else 'none'}
-    `<div className="mk-plus" onClick={this.handleClick}>
+    `(
+      <div className="mk-plus" onClick={this.handleClick}>
         <a className="mk-plus-add" style={plus_style} href="javascript:void(0);" onClick={this.toggleLinks}>+</a>
         <div className="mk-plus-links" style={links_style}>
           {this.blockTypes()}
         </div>
-      </div>`
+      </div>
+    )`
 
+# Puts a textarea on the page with the rendered html ready to be submitted with the form.
+# (Only if props.opts.rendered_output_name is given)
 MakonaRaw = React.createClass
   displayName: "MakonaRaw"
   propTypes:
     blocks: React.PropTypes.array.isRequired
     opts: React.PropTypes.object.isRequired
+
   render: ->
     ary = [React.DOM.textarea( {className:"mk-raw", readOnly: true, name:this.props.opts.node_name, value:JSON.stringify(this.props.blocks, null, 2)})]
-    comp = React.createElement(MakonaPreviewList, {blocks: this.props.blocks, opts: this.props.opts})
-    ary.push comp
-    if this.props.opts.html_node_name
+    if this.props.opts.rendered_output_name?
+      comp = React.createElement(MakonaPreviewList, {blocks: this.props.blocks, opts: this.props.opts})
       html = React.renderToStaticMarkup(comp)
-      ary.push React.DOM.textarea( {className:"mk-raw", readOnly: true, name:this.props.opts.html_node_name, value:html} )
+      ary.push React.DOM.textarea( {className:"mk-raw", readOnly: true, name:this.props.opts.rendered_output_name, value:html} )
     React.DOM.div(null, ary...)
 
-MakonaRawPre = React.createClass
-  displayName: "MakonaRawPre"
-  propTypes:
-    blocks: React.PropTypes.array.isRequired
-    opts: React.PropTypes.object.isRequired
-  render: ->
-    `<pre name={this.props.opts.node_name}>{JSON.stringify(this.props.blocks, null, 2)}</pre>`
 
-
-# Not sure we need this
+# This renders the HTML of all the blocks.
 MakonaPreviewList = React.createClass
   displayName: "MakonaPreviewList"
   propTypes:

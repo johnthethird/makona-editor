@@ -68,10 +68,6 @@ module.exports = (grunt) ->
             cwd: './examples'
             src: ['**/*']
             dest: './dist'
-          },
-          {
-            './dist/es5-shim.js': './bower_components/es5-shim/es5-shim.js',
-            './dist/es5-sham.js': './bower_components/es5-shim/es5-sham.js'
           }
         ]
 
@@ -81,6 +77,14 @@ module.exports = (grunt) ->
           hostname: '0.0.0.0'
           port: 9292
           base: './dist'
+          middleware: (connect, options, middlewares) ->
+            middlewares.unshift (req, res, next) ->
+              res.setHeader('Access-Control-Allow-Origin', '*')
+              res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+              res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+              if ('OPTIONS' == req.method) then res.send(200, '') else next()
+
+            return middlewares
 
     react:
       build:
@@ -124,7 +128,7 @@ module.exports = (grunt) ->
           path: 'dist/'
           filename: '<%= pkg.name %>.js'
         resolve:
-          modulesDirectories: ['node_modules', 'bower_components', 'vendor']
+          modulesDirectories: ['node_modules', 'vendor']
         stats:
           colors: true
           modules: true

@@ -1,5 +1,4 @@
 /* Makona Styles */
-@import "uploader.scss";
 @import "highlight.scss";
 @import "eleganticons.scss";
 // @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
@@ -304,7 +303,7 @@ $white: #FFFFFF;
   .mk-raw {
     margin-top: 100px;
     border: #aaa 5px solid;
-    //display: none;
+    display: none;
     width: 700px;
     height: 500px;
   }
