@@ -77,6 +77,14 @@ module.exports = (grunt) ->
           hostname: '0.0.0.0'
           port: 9292
           base: './dist'
+          middleware: (connect, options, middlewares) ->
+            middlewares.unshift (req, res, next) ->
+              res.setHeader('Access-Control-Allow-Origin', '*')
+              res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+              res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+              if ('OPTIONS' == req.method) then res.send(200, '') else next()
+
+            return middlewares
 
     react:
       build:
