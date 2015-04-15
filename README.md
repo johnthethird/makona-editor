@@ -51,15 +51,10 @@ Once you have the repository cloned, building it is really easy...
 ```sh
 # grunt-cli is needed by grunt; you might have this installed already
 npm install -g grunt-cli
-npm install -g bower
 npm install
-bower install
 grunt server
 ```
 
 At this point, you should now have a `dist/` directory populated with all the necessary files, and an index.html to kick things off.
 
-Once your local server is running, [try it out!](http://localhost:9292/dist/index.html)
-
-## TODO
-See http://jsfiddle.net/johnthethird/dLc8pt64/ for better sortable technique.
+Once your local server is running, [try it out!](http://localhost:9292)
