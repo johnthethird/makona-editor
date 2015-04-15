@@ -25,10 +25,10 @@ CodePreviewer = React.createClass
   ### Render                 ###
   ##############################
   render: ->
-    if @props.block.data.text?
+    if @props.block.data.lang?
       highlighted_code = hljs.highlight(@props.block.data.lang, @props.block.data.text, true).value
     else
-      highlighted_code = ''
+      highlighted_code = @props.block.data.text
     `(
       <div className="mk-block-content" >
         <div className="mk-block-label">{this.props.block.data.lang}</div>

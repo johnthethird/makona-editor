@@ -68,10 +68,6 @@ module.exports = (grunt) ->
             cwd: './examples'
             src: ['**/*']
             dest: './dist'
-          },
-          {
-            './dist/es5-shim.js': './bower_components/es5-shim/es5-shim.js',
-            './dist/es5-sham.js': './bower_components/es5-shim/es5-sham.js'
           }
         ]
 
@@ -124,7 +120,7 @@ module.exports = (grunt) ->
           path: 'dist/'
           filename: '<%= pkg.name %>.js'
         resolve:
-          modulesDirectories: ['node_modules', 'bower_components', 'vendor']
+          modulesDirectories: ['node_modules', 'vendor']
         stats:
           colors: true
           modules: true
