@@ -46,8 +46,7 @@
 
 	
 	/** @jsx React.DOM */
-	var Blocks, Channel, KeyboardShortcuts, Makona, MakonaEditor, MakonaEditorControls, MakonaEditorRow, MakonaPlusRow, MakonaPreviewList, MakonaPreviewerRow, MakonaRaw, MakonaRawPre, MakonaSortableItem, MakonaSortableList,
-	  slice = [].slice;
+	var Blocks, Channel, KeyboardShortcuts, Makona, MakonaEditor, MakonaEditorControls, MakonaEditorRow, MakonaPlusRow, MakonaPreviewList, MakonaPreviewerRow, MakonaRaw, MakonaSortableItem, MakonaSortableList;
 
 	if (typeof jQuery === "undefined" || jQuery === null) {
 	  throw new Error("Makona requires jQuery");
@@ -85,7 +84,7 @@
 	    var $node;
 	    $node = $("#" + opts.nodeId);
 	    opts.node_name || (opts.node_name = $node.attr("name"));
-	    opts.html_node_name || (opts.html_node_name = $node.data("rendered-output-name"));
+	    opts.rendered_output_name || (opts.rendered_output_name = $node.data("rendered-output-name"));
 	    opts.blocks || (opts.blocks = JSON.parse($node.val()));
 	    $node.replaceWith("<div id='" + opts.nodeId + "' class='makona-editor'></div>");
 	    React.render(React.createElement(MakonaEditor, {opts: opts}), document.getElementById(opts.nodeId));
@@ -452,12 +451,14 @@
 	    plus_style = {
 	      display: this.state.hideLinks ? 'block' : 'none'
 	    };
-	    return React.createElement("div", {className: "mk-plus", onClick: this.handleClick}, 
+	    return (
+	      React.createElement("div", {className: "mk-plus", onClick: this.handleClick}, 
 	        React.createElement("a", {className: "mk-plus-add", style: plus_style, href: "javascript:void(0);", onClick: this.toggleLinks}, "+"), 
 	        React.createElement("div", {className: "mk-plus-links", style: links_style}, 
 	          this.blockTypes()
 	        )
-	      );
+	      )
+	    );
 	  }
 	});
 
@@ -468,41 +469,22 @@
 	    opts: React.PropTypes.object.isRequired
 	  },
 	  render: function() {
-	    var ary, comp, html, ref;
-	    ary = [
-	      React.DOM.textarea({
-	        className: "mk-raw",
-	        readOnly: true,
-	        name: this.props.opts.node_name,
-	        value: JSON.stringify(this.props.blocks, null, 2)
-	      })
-	    ];
-	    comp = React.createElement(MakonaPreviewList, {
-	      blocks: this.props.blocks,
-	      opts: this.props.opts
-	    });
-	    ary.push(comp);
-	    if (this.props.opts.html_node_name) {
+	    var comp, html;
+	    if (this.props.opts.rendered_output_name != null) {
+	      comp = React.createElement(MakonaPreviewList, {
+	        blocks: this.props.blocks,
+	        opts: this.props.opts
+	      });
 	      html = React.renderToStaticMarkup(comp);
-	      ary.push(React.DOM.textarea({
+	      return React.DOM.textarea({
 	        className: "mk-raw",
 	        readOnly: true,
-	        name: this.props.opts.html_node_name,
+	        name: this.props.opts.rendered_output_name,
 	        value: html
-	      }));
+	      });
+	    } else {
+	      return React.createElement("div", null);
 	    }
-	    return (ref = React.DOM).div.apply(ref, [null].concat(slice.call(ary)));
-	  }
-	});
-
-	MakonaRawPre = React.createClass({
-	  displayName: "MakonaRawPre",
-	  propTypes: {
-	    blocks: React.PropTypes.array.isRequired,
-	    opts: React.PropTypes.object.isRequired
-	  },
-	  render: function() {
-	    return React.createElement("pre", {name: this.props.opts.node_name}, JSON.stringify(this.props.blocks, null, 2));
 	  }
 	});
 

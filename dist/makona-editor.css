@@ -1367,6 +1367,7 @@ text-shadow: none;
   .makona-editor .mk-raw {
     margin-top: 100px;
     border: #aaa 5px solid;
+    display: none;
     width: 700px;
     height: 500px; }
 

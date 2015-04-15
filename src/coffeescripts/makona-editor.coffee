@@ -33,7 +33,7 @@ class Makona
     # name of the form textarea that will be submitted that contains the JSON data
     opts.node_name ||= $node.attr("name")
     # name of the form textarea that will be submitted that contains the rendered HTML data
-    opts.html_node_name ||= $node.data("rendered-output-name")
+    opts.rendered_output_name ||= $node.data("rendered-output-name")
     opts.blocks ||= JSON.parse($node.val())
     $node.replaceWith("<div id='#{opts.nodeId}' class='makona-editor'></div>")
     React.render `<MakonaEditor opts={opts}/>`, document.getElementById(opts.nodeId)
@@ -295,37 +295,32 @@ MakonaPlusRow = React.createClass
   render: ->
     links_style = {display: if this.state.hideLinks then 'none' else 'block'}
     plus_style = {display: if this.state.hideLinks then 'block' else 'none'}
-    `<div className="mk-plus" onClick={this.handleClick}>
+    `(
+      <div className="mk-plus" onClick={this.handleClick}>
         <a className="mk-plus-add" style={plus_style} href="javascript:void(0);" onClick={this.toggleLinks}>+</a>
         <div className="mk-plus-links" style={links_style}>
           {this.blockTypes()}
         </div>
-      </div>`
+      </div>
+    )`
 
+# Puts a textarea on the page with the rendered html ready to be submitted with the form.
+# (Only if props.opts.rendered_output_name is given)
 MakonaRaw = React.createClass
   displayName: "MakonaRaw"
   propTypes:
     blocks: React.PropTypes.array.isRequired
     opts: React.PropTypes.object.isRequired
+
   render: ->
-    ary = [React.DOM.textarea( {className:"mk-raw", readOnly: true, name:this.props.opts.node_name, value:JSON.stringify(this.props.blocks, null, 2)})]
-    comp = React.createElement(MakonaPreviewList, {blocks: this.props.blocks, opts: this.props.opts})
-    ary.push comp
-    if this.props.opts.html_node_name
+    if this.props.opts.rendered_output_name?
+      comp = React.createElement(MakonaPreviewList, {blocks: this.props.blocks, opts: this.props.opts})
       html = React.renderToStaticMarkup(comp)
-      ary.push React.DOM.textarea( {className:"mk-raw", readOnly: true, name:this.props.opts.html_node_name, value:html} )
-    React.DOM.div(null, ary...)
+      React.DOM.textarea( {className:"mk-raw", readOnly: true, name:this.props.opts.rendered_output_name, value:html} )
+    else
+      `<div></div>`
 
-MakonaRawPre = React.createClass
-  displayName: "MakonaRawPre"
-  propTypes:
-    blocks: React.PropTypes.array.isRequired
-    opts: React.PropTypes.object.isRequired
-  render: ->
-    `<pre name={this.props.opts.node_name}>{JSON.stringify(this.props.blocks, null, 2)}</pre>`
-
-
-# Not sure we need this
+# This renders the HTML of all the blocks.
 MakonaPreviewList = React.createClass
   displayName: "MakonaPreviewList"
   propTypes:
