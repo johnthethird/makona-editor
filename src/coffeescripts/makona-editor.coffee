@@ -313,12 +313,13 @@ MakonaRaw = React.createClass
     opts: React.PropTypes.object.isRequired
 
   render: ->
+    ary = [React.DOM.textarea( {className:"mk-raw", readOnly: true, name:this.props.opts.node_name, value:JSON.stringify(this.props.blocks, null, 2)})]
     if this.props.opts.rendered_output_name?
       comp = React.createElement(MakonaPreviewList, {blocks: this.props.blocks, opts: this.props.opts})
       html = React.renderToStaticMarkup(comp)
-      React.DOM.textarea( {className:"mk-raw", readOnly: true, name:this.props.opts.rendered_output_name, value:html} )
-    else
-      `<div></div>`
+      ary.push React.DOM.textarea( {className:"mk-raw", readOnly: true, name:this.props.opts.rendered_output_name, value:html} )
+    React.DOM.div(null, ary...)
+
 
 # This renders the HTML of all the blocks.
 MakonaPreviewList = React.createClass
